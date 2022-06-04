@@ -1,0 +1,6 @@
+rootProject.name = 'PTAssist'
+include 'Client'
+include 'Server'
+include 'DatabaseAssist'
+include 'FileNetAssist'
+
