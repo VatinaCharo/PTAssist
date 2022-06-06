@@ -10,9 +10,13 @@ repositories {
 }
 dependencies {
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
-    implementation 'org.apache.logging.log4j:log4j-api:2.17.2'
-    implementation 'org.apache.logging.log4j:log4j-core:2.17.2'
+//    日志
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+    implementation 'ch.qos.logback:logback-core:1.2.11'
+    implementation 'ch.qos.logback:logback-classic:1.2.11'
 
+//    poi的日志组件依赖
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.2'
     implementation "org.apache.poi:poi:5.2.2"
     implementation 'org.apache.poi:poi-ooxml:5.2.2'
 }
