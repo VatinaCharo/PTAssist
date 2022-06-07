@@ -19,9 +19,10 @@ class TeamData(
     var schoolId: Int
 )
 
-
+/**
+ * 一条比赛记录
+ */
 class RecordData(
-    // 用于一条比赛记录
     var teamId: Int,
     var playerId: Int,
     var roomId: Int,
@@ -35,7 +36,9 @@ class RecordData(
     var vFactor: Double
 )
 
-//一些配置信息
+/**
+ * 配置信息
+ */
 object ConfigData {
 
     private val logger = LoggerFactory.getLogger(ConfigData::class.java)
@@ -47,19 +50,20 @@ object ConfigData {
     val roomCount by lazy { configDataList[2] }
 
     private fun loadConfigFromExcel(): List<Int> {
+        logger.info("===================== loadConfigFromExcel =====================")
         var port: Int = R.DEFAULT_PORT
         var judgeCount: Int = 0
         var roomCount: Int = 0
         try {
-            //读取excel文件中的配置sheet
+            // 读取excel文件中的配置sheet
             val configSheet = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getSheet(R.CONFIG_SHEET_NAME)
             // 读取每行信息
             configSheet.rowIterator().asSequence().forEach { row ->
                 val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
-
+                logger.info("cellValues = $cellValues")
                 try {
                     when (cellValues[0]) {
-//                    Excel单元格默认采用浮点数记录，故读取出的字符串会包含"."，需要截去
+                        //  Excel单元格默认采用浮点数记录，故读取出的字符串会包含"."，需要用substringBefore截去
                         "端口号" -> {
                             port = cellValues[1].substringBefore(".").toInt()
                             logger.info("port = $port")
@@ -106,23 +110,30 @@ object ConfigData {
 }
 
 
-// 用于记录这次比赛的赛题信息
+/**
+ * 用于记录这次比赛的赛题信息
+ */
 object QuestionData {
     val questionMap by lazy { loadQuestionFromExcel() }
-
+    private val logger = LoggerFactory.getLogger(QuestionData::class.java)
     private fun loadQuestionFromExcel(): Map<Int, String> {
-        val qMap: MutableMap<Int, String> = mutableMapOf(0 to "0").apply { this.clear() }
-
+        logger.info("===================== loadQuestionFromExcel =====================")
+        // 创建题库Map
+        val qMap = mutableMapOf<Int, String>()
+        // 读取题库sheet
         val questionSheet = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getSheet(R.QUESTIONS_SHEET_NAME)
 
         questionSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
             //跳过第一行标题行
             if (rowIndex != 0) {
                 val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
-
+                logger.info("cellValues = $cellValues")
                 try {
                     qMap += (cellValues[0].substringBefore(".").toInt() to cellValues[1])
+                    logger.info("Question Map = $qMap")
                 } catch (e: Exception) {
+                    logger.error(e.message)
+                    logger.error(e.stackTraceToString())
                     throw Exception("赛题信息填写有误！")
                 }
             }
@@ -135,8 +146,10 @@ object QuestionData {
 //参赛学校信息
 object SchoolData {
     val schoolMap by lazy { loadSchoolFromExcel() }
+    private val logger = LoggerFactory.getLogger(SchoolData::class.java)
 
     private fun loadSchoolFromExcel(): Map<Int, String> {
+        logger.info("===================== loadSchoolFromExcel =====================")
         val schMap: MutableMap<Int, String> = mutableMapOf(0 to "0").apply { this.clear() }
 
         val schoolSheet = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getSheet(R.SCHOOL_SHEET_NAME)
@@ -145,10 +158,13 @@ object SchoolData {
             //跳过第一行标题行
             if (rowIndex != 0) {
                 val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
-
+                logger.info("cellValues = $cellValues")
                 try {
                     schMap += (cellValues[0].substringBefore(".").toInt() to cellValues[1])
+                    logger.info("School Map = $schMap")
                 } catch (e: Exception) {
+                    logger.error(e.message)
+                    logger.error(e.stackTraceToString())
                     throw Exception("学校信息填写有误！")
                 }
             }
