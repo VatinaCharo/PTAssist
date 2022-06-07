@@ -9,6 +9,7 @@ object R {
     val CONFIG_EXCEL_FILE = File("./$CONFIG_EXCEL_NAME")
     const val CONFIG_SHEET_NAME = "服务端配置"
     const val QUESTIONS_SHEET_NAME = "赛题信息"
+    const val TEAM_SHEET_NAME = "队伍信息"
     const val SCHOOL_SHEET_NAME = "学校信息"
 
     private const val DATA_EXCEL_NAME = "server_data.xlsx"
