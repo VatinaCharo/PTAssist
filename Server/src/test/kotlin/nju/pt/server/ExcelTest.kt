@@ -15,4 +15,9 @@ class ExcelTest {
     fun serverQuestionDataTest() {
         logger.info("questionMap = ${QuestionData.questionMap}")
     }
+
+    @Test
+    fun serverSchoolDataTest() {
+        logger.info("schoolMap = ${SchoolData.schoolMap}")
+    }
 }
