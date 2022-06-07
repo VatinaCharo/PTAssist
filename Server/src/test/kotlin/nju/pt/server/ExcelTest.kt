@@ -1,5 +1,9 @@
 package nju.pt.server
 
+import nju.pt.R
+import nju.pt.kotlin.ext.loadQuestionFromExcel
+import nju.pt.kotlin.ext.loadSchoolFromExcel
+import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
 
@@ -8,16 +12,14 @@ class ExcelTest {
 
     @Test
     fun serverConfigTest() {
-        logger.info("port = ${ConfigData.port}, judgeCount = ${ConfigData.judgeCount}, roomCount = ${ConfigData.roomCount}")
+        logger.info("port = ${Config.port}, judgeCount = ${Config.judgeCount}, roomCount = ${Config.roomCount}")
     }
 
     @Test
-    fun serverQuestionDataTest() {
-        logger.info("questionMap = ${QuestionData.questionMap}")
-    }
-
-    @Test
-    fun serverSchoolDataTest() {
-        logger.info("schoolMap = ${SchoolData.schoolMap}")
+    fun workbookExtTest() {
+        WorkbookFactory.create(R.CONFIG_EXCEL_FILE).apply {
+            logger.info("questionMap = ${loadQuestionFromExcel()}")
+            logger.info("schoolMap = ${loadSchoolFromExcel()}")
+        }
     }
 }
