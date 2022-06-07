@@ -5,7 +5,7 @@ import nju.pt.kotlin.ext.loadConfigFromExcel
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.slf4j.LoggerFactory
 
-class PlayerData(
+data class PlayerData(
     var id: Int,
     var name: String,
     var gender: String,
@@ -13,7 +13,7 @@ class PlayerData(
 )
 
 
-class TeamData(
+data class TeamData(
     var id: Int,
     var name: String,
     var schoolId: Int
@@ -22,7 +22,7 @@ class TeamData(
 /**
  * 一条比赛记录
  */
-class RecordData(
+data class RecordData(
     var teamId: Int,
     var playerId: Int,
     var roomId: Int,
