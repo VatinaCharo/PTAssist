@@ -12,6 +12,7 @@ object R {
     const val QUESTIONS_SHEET_NAME = "赛题信息"
     const val TEAM_SHEET_NAME = "队伍信息"
     const val SCHOOL_SHEET_NAME = "学校信息"
+    const val JUDGE_SHEET_NAME  = "裁判信息"
 
     private const val DATA_EXCEL_NAME = "server_data.xlsx"
     val DATA_EXCEL_FILE = File("./$DATA_EXCEL_NAME")

@@ -1,9 +1,6 @@
-package nju.pt.server
+package nju.pt.databaseassist
 
-import nju.pt.R
-import nju.pt.kotlin.ext.loadConfigFromExcel
-import org.apache.poi.ss.usermodel.WorkbookFactory
-import org.slf4j.LoggerFactory
+
 
 data class PlayerData(
     var id: Int,
@@ -17,7 +14,7 @@ data class TeamData(
     var name: String,
     var schoolId: Int,
     val playerDataList: MutableList<PlayerData>,
-    val recordDataList: MutableList<RecordData>
+    val recordDataList: MutableList<RecordData>?
 )
 
 /**
@@ -31,7 +28,7 @@ data class RecordData(
     var playerId: Int,
     var role: Int,
     var score: Double,
-    var weightArray: DoubleArray = R.DEFAULT_WEIGHT_ARRAY
+    var weightArray: DoubleArray
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -63,17 +60,5 @@ data class RecordData(
         return result
     }
 }
-
-/**
- * 配置信息
- */
-object Config {
-
-    private val logger = LoggerFactory.getLogger(Config::class.java)
-
-    private val configDataList by lazy { WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadConfigFromExcel() }
-
-    val port by lazy { configDataList[0] }
-    val judgeCount by lazy { configDataList[1] }
-    val roomCount by lazy { configDataList[2] }
-}
+@kotlinx.serialization.Serializable
+data class TeamDataList(var teamDataList:List<TeamData>, val questionMap:Map<Int,String>)

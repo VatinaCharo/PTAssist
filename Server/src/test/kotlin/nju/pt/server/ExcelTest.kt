@@ -1,6 +1,7 @@
 package nju.pt.server
 
 import nju.pt.R
+import nju.pt.kotlin.ext.loadJudgeFromExcel
 import nju.pt.kotlin.ext.loadQuestionFromExcel
 import nju.pt.kotlin.ext.loadSchoolFromExcel
 import org.apache.poi.ss.usermodel.WorkbookFactory
@@ -20,6 +21,7 @@ class ExcelTest {
         WorkbookFactory.create(R.CONFIG_EXCEL_FILE).apply {
             logger.info("questionMap = ${loadQuestionFromExcel()}")
             logger.info("schoolMap = ${loadSchoolFromExcel()}")
+            logger.info("judgerMap = ${loadJudgeFromExcel()}")
         }
     }
 }
