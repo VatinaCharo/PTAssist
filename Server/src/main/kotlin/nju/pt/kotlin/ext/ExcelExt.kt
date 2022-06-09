@@ -1,18 +1,25 @@
 package nju.pt.kotlin.ext
 
 import nju.pt.R
+import nju.pt.databaseassist.JsonInterface
+import nju.pt.databaseassist.PlayerData
+import nju.pt.databaseassist.TeamData
+import nju.pt.databaseassist.TeamDataList
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
-import kotlin.math.log
 
-fun Workbook.loadConfigFromExcel() = mutableListOf<Int>().apply {
+
+fun Workbook.loadConfigFromExcel() = mutableListOf<Any>().apply {
     val logger = LoggerFactory.getLogger("Config Loader")
     logger.info("===================== loadConfigFromExcel =====================")
     var port: Int
-    var judgeCount: Int = 0
-    var roomCount: Int = 0
+    var judgeCount = 0
+    var roomCount = 0
+    var rWeight: Double
+    var oWeight: Double
+    var vWeight: Double
     try {
         // 读取excel文件中的配置sheet
         val configSheet = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getSheet(R.CONFIG_SHEET_NAME)
@@ -38,6 +45,21 @@ fun Workbook.loadConfigFromExcel() = mutableListOf<Int>().apply {
                         roomCount = cellValues[1].substringBefore(".").toInt()
                         this.add(2, roomCount)
                         logger.info("roomCount = $roomCount")
+                    }
+                    "正方分数权重" -> {
+                        rWeight = cellValues[1].toDouble()
+                        this.add(3, rWeight)
+                        logger.info("roomCount = $rWeight")
+                    }
+                    "反方分数权重" -> {
+                        oWeight = cellValues[1].toDouble()
+                        this.add(4, oWeight)
+                        logger.info("roomCount = $oWeight")
+                    }
+                    "评方分数权重" -> {
+                        vWeight = cellValues[1].toDouble()
+                        this.add(5, vWeight)
+                        logger.info("roomCount = $vWeight")
                     }
                     else -> {
                         logger.error("无法识别，请检查服务端配置信息")
@@ -131,3 +153,105 @@ fun Workbook.loadSchoolFromExcel() = mutableMapOf<Int, String>().apply {
     }
 
 }.toMap()
+
+fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
+    val logger = LoggerFactory.getLogger("Judge Data Loader")
+    logger.info("===================== loadJudgeFromExcel =====================")
+
+    try {
+        val judgeSheet = this@loadJudgeFromExcel.getSheet(R.JUDGE_SHEET_NAME)
+
+        // 读取sheet内容
+        judgeSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
+            //跳过第一行标题行
+            if (rowIndex != 0) {
+                val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
+                if (cellValues.size > 1) {
+                    logger.info("cellValues = $cellValues")
+                    this += (cellValues[0] to cellValues.subList(1, cellValues.size))
+                    logger.info("School Map = $this")
+                }
+            }
+        }
+    } catch (e: NullPointerException) {
+        logger.error("未找到sheet：" + e.message)
+        throw Exception("未找到sheet，请检查sheet名称")
+    } catch (e: Exception) {
+        logger.error(e.message)
+        logger.error(e.stackTraceToString())
+        throw Exception("裁判信息填写有误！")
+    }
+
+}.toMap()
+
+
+fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
+    val logger = LoggerFactory.getLogger("Team Data Loader")
+
+
+    try {
+        val teamSheet = this@loadTeamFromExcel.getSheet(R.TEAM_SHEET_NAME)
+        val reversedSchoolMap = this@loadTeamFromExcel.loadSchoolFromExcel().entries.associate { (k, v) -> v to k }
+        logger.info("===================== loadTeamFromExcel =====================")
+        // 读取sheet内容
+        teamSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
+            //跳过第一行标题行
+            if (rowIndex != 0) {
+                val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
+                if (cellValues.size > 1) {
+                    logger.info("cellValues = $cellValues")
+                    if ((cellValues.size - 3) % 2 != 0) {
+                        logger.error("队员信息不全！")
+                        throw Exception("队员信息不全！")
+                    }
+
+
+                    this += TeamData(
+                        id = cellValues[2].substringBefore(".").toInt(),
+                        name = cellValues[1],
+                        schoolId = reversedSchoolMap[cellValues[0]]!!,
+                        playerDataList = mutableListOf<PlayerData>().apply {
+                            val subCellValues = cellValues.subList(3, cellValues.size)
+                            for (index in subCellValues.indices step 2) {
+                                this.add(
+                                    PlayerData(
+                                        id = reversedSchoolMap[cellValues[0]]!! * 100 + index,
+                                        name = subCellValues[index],
+                                        gender = subCellValues[index + 1]
+                                    )
+                                )
+                            }
+                        },
+                        recordDataList = null
+                    )
+
+                }
+            }
+        }
+    } catch (e: NullPointerException) {
+        logger.error("未找到sheet：" + e.message)
+        throw Exception("未找到sheet，请检查sheet名称")
+    } catch (e: Exception) {
+        logger.error(e.message)
+        logger.error(e.stackTraceToString())
+        throw Exception("队伍信息填写有误！")
+    } catch (e: NumberFormatException) {
+        logger.error(e.message)
+        logger.error(e.stackTraceToString())
+        throw Exception("抽签号必须是整数！")
+    }
+
+}.toList()
+
+
+fun Workbook.initializeJson() {
+    JsonInterface.toJson(
+        TeamDataList(
+            this.loadTeamFromExcel(),
+            this.loadQuestionFromExcel()
+        ),
+        R.TO_JSON_PATH
+    )
+
+
+}
