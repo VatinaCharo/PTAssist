@@ -22,7 +22,7 @@ object JsonInterface {
         logger.info("===================== ReadingJsonFile =====================")
         try {
             val teamDataList =  Json.decodeFromString<TeamDataList>(File(readPath).readText())
-            logger.info("===================== JsonFileReadSuccessfully =====================")
+            logger.info("JsonFileReadSuccessfully!")
             return  teamDataList
         }catch (e: FileNotFoundException) {
             logger.error("未找到文件: ${e.message}")

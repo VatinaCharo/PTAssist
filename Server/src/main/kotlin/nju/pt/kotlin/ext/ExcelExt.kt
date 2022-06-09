@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
 
+//TODO: 检查输入中有关序号的是否有重复，以及排序，是否以1为开始
 
 fun Workbook.loadConfigFromExcel() = mutableListOf<Any>().apply {
     val logger = LoggerFactory.getLogger("Config Loader")
@@ -251,9 +252,14 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
 fun Workbook.initializeJson() {
     JsonInterface.toJson(
         TeamDataList(
-            this.loadTeamFromExcel(),
-            this.loadQuestionFromExcel()
+            teamDataList = this.loadTeamFromExcel(),
+            questionMap = this.loadQuestionFromExcel(),
+            schoolMap = this.loadSchoolFromExcel()
         ),
-        R.TO_JSON_PATH
+        savePath = R.TO_JSON_PATH
     )
 }
+
+
+
+
