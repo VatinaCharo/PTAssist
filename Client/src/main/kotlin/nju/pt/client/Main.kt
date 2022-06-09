@@ -1,8 +1,8 @@
 package nju.pt.client
 
 import javafx.application.Application
-import javafx.scene.Group
 import javafx.scene.Scene
+import javafx.scene.image.Image
 import javafx.stage.Stage
 
 fun main() {
@@ -12,10 +12,11 @@ fun main() {
 class App : Application() {
     override fun start(primaryStage: Stage) {
         primaryStage.apply {
-            scene = Scene(Group())
+            scene = Scene(UIContainer.init().layout().render().build()).apply {
+                stylesheets.add(R.DEFAULT_CSS_PATH)
+            }
+            icons.add(Image(R.LOGO_PATH))
             title = "PTAssist"
-            width = 800.0
-            height = 600.0
         }.show()
     }
 
