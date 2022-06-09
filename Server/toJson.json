@@ -1,0 +1,44 @@
+{
+    "teamDataList": [
+        {
+            "id": 1,
+            "name": "德玛西亚",
+            "schoolId": 1,
+            "playerDataList": [
+                {
+                    "id": 100,
+                    "name": "张三",
+                    "gender": "男"
+                },
+                {
+                    "id": 102,
+                    "name": "李四",
+                    "gender": "女"
+                }
+            ],
+            "recordDataList": null
+        },
+        {
+            "id": 1,
+            "name": "啦啦啦",
+            "schoolId": 1,
+            "playerDataList": [
+                {
+                    "id": 100,
+                    "name": "阿三",
+                    "gender": "男"
+                },
+                {
+                    "id": 102,
+                    "name": "阿四",
+                    "gender": "女"
+                }
+            ],
+            "recordDataList": null
+        }
+    ],
+    "questionMap": {
+        "1": "你来发明",
+        "2": "牛顿摆"
+    }
+}

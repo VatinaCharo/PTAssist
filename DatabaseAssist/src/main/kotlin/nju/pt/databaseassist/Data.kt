@@ -1,14 +1,14 @@
 package nju.pt.databaseassist
 
 
-
+@kotlinx.serialization.Serializable
 data class PlayerData(
     var id: Int,
     var name: String,
     var gender: String
 )
 
-
+@kotlinx.serialization.Serializable
 data class TeamData(
     var id: Int,
     var name: String,
@@ -19,7 +19,8 @@ data class TeamData(
 
 /**
  * 一条比赛记录
- */
+ *  */
+@kotlinx.serialization.Serializable
 data class RecordData(
     var roomId: Int,
     var round: Int,

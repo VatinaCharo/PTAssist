@@ -1,6 +1,7 @@
 package nju.pt.kotlin.ext
 
 import nju.pt.R
+import nju.pt.databaseassist.JsonInterface
 import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.TeamData
 import nju.pt.databaseassist.TeamDataList
@@ -8,17 +9,17 @@ import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
-import kotlin.math.log
+
 
 fun Workbook.loadConfigFromExcel() = mutableListOf<Any>().apply {
     val logger = LoggerFactory.getLogger("Config Loader")
     logger.info("===================== loadConfigFromExcel =====================")
     var port: Int
-    var judgeCount: Int = 0
-    var roomCount: Int = 0
-    var rWeight: Double = 0.0
-    var oWeight: Double = 0.0
-    var vWeight: Double = 0.0
+    var judgeCount = 0
+    var roomCount = 0
+    var rWeight: Double
+    var oWeight: Double
+    var vWeight: Double
     try {
         // 读取excel文件中的配置sheet
         val configSheet = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getSheet(R.CONFIG_SHEET_NAME)
@@ -186,14 +187,14 @@ fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
 
 fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
     val logger = LoggerFactory.getLogger("Team Data Loader")
-    logger.info("===================== loadTeamFromExcel =====================")
+
 
     try {
-        val teamSheet = this@loadTeamFromExcel.getSheet(R.JUDGE_SHEET_NAME)
-
+        val teamSheet = this@loadTeamFromExcel.getSheet(R.TEAM_SHEET_NAME)
+        val reversedSchoolMap = this@loadTeamFromExcel.loadSchoolFromExcel().entries.associate { (k, v) -> v to k }
+        logger.info("===================== loadTeamFromExcel =====================")
         // 读取sheet内容
         teamSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
-            val reversedSchoolMap = this@loadTeamFromExcel.loadSchoolFromExcel().entries.associate { (k, v) -> v to k }
             //跳过第一行标题行
             if (rowIndex != 0) {
                 val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
@@ -244,9 +245,13 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
 
 
 fun Workbook.initializeJson() {
-    TeamDataList(
-        this.loadTeamFromExcel(),
-        this.loadQuestionFromExcel()
-    ).toJson()
+    JsonInterface.toJson(
+        TeamDataList(
+            this.loadTeamFromExcel(),
+            this.loadQuestionFromExcel()
+        ),
+        R.TO_JSON_PATH
+    )
+
 
 }
