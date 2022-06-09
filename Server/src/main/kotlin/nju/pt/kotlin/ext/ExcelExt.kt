@@ -250,7 +250,7 @@ fun Workbook.initializeJson() {
             this.loadTeamFromExcel(),
             this.loadQuestionFromExcel()
         ),
-        R.TO_JSON_PATH
+        R.DATA_JSON_PATH
     )
 
 

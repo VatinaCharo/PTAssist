@@ -18,5 +18,5 @@ object R {
     private const val DATA_EXCEL_NAME = "server_data.xlsx"
     val DATA_EXCEL_FILE = File("./$DATA_EXCEL_NAME")
 
-    const val TO_JSON_PATH =  "./toJson.json"
+    const val DATA_JSON_PATH =  "./data.json"
 }
