@@ -256,7 +256,7 @@ fun Workbook.initializeJson() {
             questionMap = this.loadQuestionFromExcel(),
             schoolMap = this.loadSchoolFromExcel()
         ),
-        savePath = R.TO_JSON_PATH
+        savePath = R.DATA_JSON_PATH
     )
 }
 
