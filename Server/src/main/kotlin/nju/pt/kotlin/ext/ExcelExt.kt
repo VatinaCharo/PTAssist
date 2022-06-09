@@ -200,6 +200,7 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
                 val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
                 if (cellValues.size > 1) {
                     logger.info("cellValues = $cellValues")
+                    //判断队员名称-姓名是否齐全
                     if ((cellValues.size - 3) % 2 != 0) {
                         logger.error("队员信息不全！")
                         throw Exception("队员信息不全！")
@@ -215,7 +216,9 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
                             for (index in subCellValues.indices step 2) {
                                 this.add(
                                     PlayerData(
-                                        id = reversedSchoolMap[cellValues[0]]!! * 100 + index,
+                                        // 队员id的命名规则为 学校id*1000 + 队伍抽签号 *10 + 队内序号
+                                        id = reversedSchoolMap[cellValues[0]]!! * 1000 + cellValues[2].substringBefore(".")
+                                            .toInt() + index,
                                         name = subCellValues[index],
                                         gender = subCellValues[index + 1]
                                     )
@@ -231,15 +234,16 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
     } catch (e: NullPointerException) {
         logger.error("未找到sheet：" + e.message)
         throw Exception("未找到sheet，请检查sheet名称")
-    } catch (e: Exception) {
-        logger.error(e.message)
-        logger.error(e.stackTraceToString())
-        throw Exception("队伍信息填写有误！")
     } catch (e: NumberFormatException) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
         throw Exception("抽签号必须是整数！")
+    } catch (e: Exception) {
+        logger.error(e.message)
+        logger.error(e.stackTraceToString())
+        throw Exception("队伍信息填写有误！")
     }
+
 
 }.toList()
 
@@ -252,6 +256,4 @@ fun Workbook.initializeJson() {
         ),
         R.TO_JSON_PATH
     )
-
-
 }
