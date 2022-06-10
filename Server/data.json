@@ -6,12 +6,12 @@
             "schoolId": 1,
             "playerDataList": [
                 {
-                    "id": 1001,
+                    "id": 1,
                     "name": "张三",
                     "gender": "男"
                 },
                 {
-                    "id": 1003,
+                    "id": 2,
                     "name": "李四",
                     "gender": "女"
                 }
@@ -24,12 +24,12 @@
             "schoolId": 1,
             "playerDataList": [
                 {
-                    "id": 1002,
+                    "id": 3,
                     "name": "阿三",
                     "gender": "男"
                 },
                 {
-                    "id": 1004,
+                    "id": 4,
                     "name": "阿四",
                     "gender": "女"
                 }
@@ -39,7 +39,8 @@
     ],
     "questionMap": {
         "1": "你来发明",
-        "2": "牛顿摆"
+        "2": "牛顿摆",
+        "3": "我来发明"
     },
     "schoolMap": {
         "1": "南京大学",
