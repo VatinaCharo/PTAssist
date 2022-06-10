@@ -1,5 +1,6 @@
 package nju.pt.kotlin.ext
 
+
 import nju.pt.R
 import nju.pt.databaseassist.JsonInterface
 import nju.pt.databaseassist.PlayerData
@@ -9,6 +10,7 @@ import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
+
 
 
 fun Workbook.loadConfigFromExcel() = mutableListOf<Any>().apply {
@@ -97,9 +99,9 @@ fun Workbook.loadConfigFromExcel() = mutableListOf<Any>().apply {
 fun Workbook.loadQuestionFromExcel() = mutableMapOf<Int, String>().apply {
     val logger = LoggerFactory.getLogger("Question Data Loader")
     logger.info("===================== loadQuestionFromExcel =====================")
+    var qCount = 0
     try {
         val questionSheet = this@loadQuestionFromExcel.getSheet(R.QUESTIONS_SHEET_NAME)
-
         // 读取sheet内容
         questionSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
             //跳过第一行标题行
@@ -109,17 +111,30 @@ fun Workbook.loadQuestionFromExcel() = mutableMapOf<Int, String>().apply {
                     logger.info("cellValues = $cellValues")
                     this += (cellValues[0].substringBefore(".").toInt() to cellValues[1])
                     logger.info("Question Map = $this")
+                    qCount += 1
                 }
             }
         }
+        //判断题号是否有重复
+        if (qCount != this.size ){
+            logger.error("题号有重复")
+            throw Exception("题号有重复，请检查题号！")
+        }
+        //判断题目号是否有重复
+        if (qCount != this.values.distinct().size){
+            logger.error("题目名称有重复")
+            throw Exception("题号有重复，请检查题号！")
+        }
     } catch (e: NullPointerException) {
         logger.error("未找到sheet：" + e.message)
-        throw Exception("未找到sheet，请检查sheet名称")
+        throw Exception("未找到sheet，请检查sheet名称！")
     } catch (e: Exception) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
         throw Exception("赛题信息填写有误！")
     }
+
+
 
 
 }.toMap()
@@ -129,17 +144,19 @@ fun Workbook.loadSchoolFromExcel() = mutableMapOf<Int, String>().apply {
     logger.info("===================== loadSchoolFromExcel =====================")
 
     try {
-        val schoolSheet = this@loadSchoolFromExcel.getSheet(R.SCHOOL_SHEET_NAME)
+        val schoolSheet = this@loadSchoolFromExcel.getSheet(R.JUDGE_SHEET_NAME)
 
         // 读取sheet内容
+        var schoolIndex = 1
         schoolSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
             //跳过第一行标题行
             if (rowIndex != 0) {
                 val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
                 if (cellValues.size > 1) {
                     logger.info("cellValues = $cellValues")
-                    this += (cellValues[0].substringBefore(".").toInt() to cellValues[1])
+                    this += (schoolIndex to cellValues[0])
                     logger.info("School Map = $this")
+                    schoolIndex += 1
                 }
             }
         }
@@ -155,11 +172,15 @@ fun Workbook.loadSchoolFromExcel() = mutableMapOf<Int, String>().apply {
 }.toMap()
 
 fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
+
+    val schoolMap = this@loadJudgeFromExcel.loadSchoolFromExcel()
+
     val logger = LoggerFactory.getLogger("Judge Data Loader")
     logger.info("===================== loadJudgeFromExcel =====================")
 
     try {
         val judgeSheet = this@loadJudgeFromExcel.getSheet(R.JUDGE_SHEET_NAME)
+
 
         // 读取sheet内容
         judgeSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
@@ -167,6 +188,12 @@ fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
             if (rowIndex != 0) {
                 val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
                 if (cellValues.size > 1) {
+                    //检测裁判学校是否在提供的学校列表内
+                    if (!schoolMap.values.contains(cellValues[0])){
+                        logger.error("${cellValues[0]}并未在提供的学校信息内！")
+                        throw Exception("${cellValues[0]}并未在提供的学校信息内！")
+                    }
+
                     logger.info("cellValues = $cellValues")
                     this += (cellValues[0] to cellValues.subList(1, cellValues.size))
                     logger.info("School Map = $this")
@@ -193,6 +220,8 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
         val teamSheet = this@loadTeamFromExcel.getSheet(R.TEAM_SHEET_NAME)
         val reversedSchoolMap = this@loadTeamFromExcel.loadSchoolFromExcel().entries.associate { (k, v) -> v to k }
         logger.info("===================== loadTeamFromExcel =====================")
+
+        var playerId = 1
         // 读取sheet内容
         teamSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
             //跳过第一行标题行
@@ -200,11 +229,17 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
                 val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
                 if (cellValues.size > 1) {
                     logger.info("cellValues = $cellValues")
+                    //判断队员名称-姓名是否齐全
                     if ((cellValues.size - 3) % 2 != 0) {
                         logger.error("队员信息不全！")
                         throw Exception("队员信息不全！")
                     }
 
+                    //检测队伍学校是否在提供的学校列表内
+                    if (!reversedSchoolMap.containsKey(cellValues[0])){
+                        logger.error("${cellValues[0]}并未在提供的学校信息内！")
+                        throw Exception("${cellValues[0]}并未在提供的学校信息内！")
+                    }
 
                     this += TeamData(
                         id = cellValues[2].substringBefore(".").toInt(),
@@ -215,11 +250,13 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
                             for (index in subCellValues.indices step 2) {
                                 this.add(
                                     PlayerData(
-                                        id = reversedSchoolMap[cellValues[0]]!! * 100 + index,
+                                        // 队员id的命名规则为 学校id*1000 + 队伍抽签号 *10 + 队内序号
+                                        id = playerId,
                                         name = subCellValues[index],
                                         gender = subCellValues[index + 1]
                                     )
                                 )
+                                playerId += 1
                             }
                         },
                         recordDataList = null
@@ -228,30 +265,38 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
                 }
             }
         }
+    //检测抽签号是否有重复
+    if (this.size != this.map { it.id }.distinct().size){
+        logger.error("抽签号有重复")
+        throw Exception("抽签号有重复，请检查队伍抽签号！")
+    }
+
     } catch (e: NullPointerException) {
         logger.error("未找到sheet：" + e.message)
         throw Exception("未找到sheet，请检查sheet名称")
-    } catch (e: Exception) {
-        logger.error(e.message)
-        logger.error(e.stackTraceToString())
-        throw Exception("队伍信息填写有误！")
     } catch (e: NumberFormatException) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
         throw Exception("抽签号必须是整数！")
+    } catch (e: Exception) {
+        logger.error(e.message)
+        logger.error(e.stackTraceToString())
+        throw Exception("队伍信息填写有误！")
     }
-
 }.toList()
 
 
 fun Workbook.initializeJson() {
     JsonInterface.toJson(
         TeamDataList(
-            this.loadTeamFromExcel(),
-            this.loadQuestionFromExcel()
+            teamDataList = this.loadTeamFromExcel(),
+            questionMap = this.loadQuestionFromExcel(),
+            schoolMap = this.loadSchoolFromExcel()
         ),
-        R.DATA_JSON_PATH
+        savePath = R.DATA_JSON_PATH
     )
-
-
 }
+
+
+
+
