@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
 
 
-
 fun Workbook.loadConfigFromExcel() = mutableListOf<Any>().apply {
     val logger = LoggerFactory.getLogger("Config Loader")
     logger.info("===================== loadConfigFromExcel =====================")
@@ -116,12 +115,12 @@ fun Workbook.loadQuestionFromExcel() = mutableMapOf<Int, String>().apply {
             }
         }
         //判断题号是否有重复
-        if (qCount != this.size ){
+        if (qCount != this.size) {
             logger.error("题号有重复")
             throw Exception("题号有重复，请检查题号！")
         }
         //判断题目号是否有重复
-        if (qCount != this.values.distinct().size){
+        if (qCount != this.values.distinct().size) {
             logger.error("题目名称有重复")
             throw Exception("题号有重复，请检查题号！")
         }
@@ -133,11 +132,7 @@ fun Workbook.loadQuestionFromExcel() = mutableMapOf<Int, String>().apply {
         logger.error(e.stackTraceToString())
         throw Exception("赛题信息填写有误！")
     }
-
-
-
-
-}.toMap()
+}.entries.sortedBy { it.key }.associateBy({ it.key }, { it.value })
 
 fun Workbook.loadSchoolFromExcel() = mutableMapOf<Int, String>().apply {
     val logger = LoggerFactory.getLogger("School Data Loader")
@@ -189,7 +184,7 @@ fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
                 val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
                 if (cellValues.size > 1) {
                     //检测裁判学校是否在提供的学校列表内
-                    if (!schoolMap.values.contains(cellValues[0])){
+                    if (!schoolMap.values.contains(cellValues[0])) {
                         logger.error("${cellValues[0]}并未在提供的学校信息内！")
                         throw Exception("${cellValues[0]}并未在提供的学校信息内！")
                     }
@@ -236,7 +231,7 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
                     }
 
                     //检测队伍学校是否在提供的学校列表内
-                    if (!reversedSchoolMap.containsKey(cellValues[0])){
+                    if (!reversedSchoolMap.containsKey(cellValues[0])) {
                         logger.error("${cellValues[0]}并未在提供的学校信息内！")
                         throw Exception("${cellValues[0]}并未在提供的学校信息内！")
                     }
@@ -265,11 +260,11 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
                 }
             }
         }
-    //检测抽签号是否有重复
-    if (this.size != this.map { it.id }.distinct().size){
-        logger.error("抽签号有重复")
-        throw Exception("抽签号有重复，请检查队伍抽签号！")
-    }
+        //检测抽签号是否有重复
+        if (this.size != this.map { it.id }.distinct().size) {
+            logger.error("抽签号有重复")
+            throw Exception("抽签号有重复，请检查队伍抽签号！")
+        }
 
     } catch (e: NullPointerException) {
         logger.error("未找到sheet：" + e.message)
