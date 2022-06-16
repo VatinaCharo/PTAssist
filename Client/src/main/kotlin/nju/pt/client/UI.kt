@@ -2,14 +2,15 @@ package nju.pt.client
 
 import javafx.geometry.Insets
 import javafx.geometry.Pos
-import javafx.scene.control.Button
+import javafx.scene.control.*
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.scene.layout.HBox
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 import org.slf4j.LoggerFactory
 
-object StartStage {
+object StartView {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
     val root = StackPane()
@@ -69,18 +70,62 @@ object StartStage {
     }
 }
 
-object MatchStage {
+object MatchView {
+    private val logger = LoggerFactory.getLogger(this::class.java)
+    private val root = HBox()
+    private val optionalQuestionsStackPane = StackPane()
+    val optionalQuestionsVBox = VBox()
+    private val njuLogoImageView = ImageView(R.LOGO_PATH)
+    private val operationsVBox = VBox()
+    private val confirmHBox = HBox()
+    val questionViewLabel = Label("Here is question view")
+    val confirmBtn = Button("确认")
+    val refuseBtn = Button("拒绝")
+    val informationVBox = VBox()
+    val lockBtn = Button("锁定")
+    val scoresVBox = VBox()
+    private val submitAndNextHBox = HBox()
+    val submitBtn = Button("确认")
+    val nextBtn = Button("下一场")
+    val resetBtn = Button("重置比赛数据")
+    private val njuTextLogoImageView = ImageView(R.TEXT_LOGO_PATH)
+    val toggleGroup = ToggleGroup()
+
+    private fun init(judgeCount: Int) = apply {
+        logger.info("init()")
+        // Main Tab
+        root.children.addAll(optionalQuestionsStackPane, operationsVBox)
+        optionalQuestionsStackPane.children.addAll(njuLogoImageView, optionalQuestionsVBox)
+        operationsVBox.children.addAll(confirmHBox, informationVBox, scoresVBox)
+        confirmHBox.children.addAll(questionViewLabel, confirmBtn, refuseBtn)
+        informationVBox.children.addAll(
+            TeamBar(TeamType.REPORTER),
+            TeamBar(TeamType.OPPONENT),
+            TeamBar(TeamType.REVIEWER),
+            TeamBar(TeamType.OBSERVER).apply {
+                children.add(lockBtn)
+            }
+        )
+        scoresVBox.children.addAll(
+            ScoreBar("正：", judgeCount),
+            ScoreBar("反：", judgeCount),
+            ScoreBar("评：", judgeCount),
+            submitAndNextHBox.apply {
+                children.addAll(submitBtn, nextBtn, resetBtn)
+            },
+            njuTextLogoImageView
+        )
+    }
+}
+
+object DownloadView {
     private val logger = LoggerFactory.getLogger(this::class.java)
 }
 
-object DownloadStage {
+object SettingView {
     private val logger = LoggerFactory.getLogger(this::class.java)
 }
 
-object SettingStage {
-    private val logger = LoggerFactory.getLogger(this::class.java)
-}
-
-object AboutStage {
+object AboutView {
     private val logger = LoggerFactory.getLogger(this::class.java)
 }

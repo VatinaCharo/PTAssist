@@ -12,7 +12,7 @@ fun main() {
 class App : Application() {
     override fun start(primaryStage: Stage) {
         primaryStage.apply {
-            scene = Scene(StartStage.build()).apply {
+            scene = Scene(StartView.build()).apply {
                 stylesheets.add(R.DEFAULT_CSS_PATH)
             }
             icons.add(Image(R.LOGO_PATH))
