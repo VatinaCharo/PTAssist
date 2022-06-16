@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 
-object UIContainer {
+object StartStage {
     val root = StackPane()
     val imageView = ImageView()
     val menuVBox = VBox()
@@ -18,7 +18,7 @@ object UIContainer {
     val settingBtn = Button("设置")
     val aboutBtn = Button("关于软件")
 
-    fun init() = apply {
+    private fun init() = apply {
         root.apply {
             children.addAll(imageView, menuVBox)
             menuVBox.children.addAll(startBtn, downloadBtn, settingBtn, aboutBtn)
@@ -28,7 +28,7 @@ object UIContainer {
         }
     }
 
-    fun layout() = apply {
+    private fun layout() = apply {
         imageView.apply {
             fitWidth = 0.15 * image.width
             fitHeight = 0.15 * image.height
@@ -46,12 +46,14 @@ object UIContainer {
         }
     }
 
-    fun render() = apply {
+    private fun render() = apply {
         menuVBox.style = "-fx-background-color:#FAE3D955"
     }
 
     fun build(): StackPane {
-        // TODO: 2022/6/9 @Eur3ka something to build last
+        init()
+        layout()
+        render()
         return root
     }
 }
