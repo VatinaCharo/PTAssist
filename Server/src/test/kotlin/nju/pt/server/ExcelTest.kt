@@ -16,38 +16,38 @@ class ExcelTest {
 //        logger.info("port = ${Config.port}, judgeCount = ${Config.judgeCount}, roomCount = ${Config.roomCount}")
 //    }
 
-    @Test
-    fun workbookExtTest() {
-        WorkbookFactory.create(R.CONFIG_EXCEL_FILE).apply {
-//            logger.info("questionMap = ${loadQuestionFromExcel()}")
-//            logger.info("schoolMap = ${loadSchoolFromExcel()}")
-//            logger.info("judgerMap = ${loadJudgeFromExcel()}")
-            logger.info("teamData = ${initializeJson()}")
-        }
-
-        println(JsonInterface.fromJson(R.DATA_JSON_PATH))
-    }
-
 //    @Test
-//    fun exportExcelTest(){
-//        val teamDataList = JsonInterface.fromJson(R.DATA_JSON_PATH).apply {
-//            this.teamDataList.forEach {
-//                it.recordDataList = mutableListOf<RecordData>(
-//                    RecordData(
-//                        1,1,1,2,1,"R",30.0, doubleArrayOf(3.0,2.0,1.0)
-//                    ),
-//                    RecordData(
-//                        2,2,2,1,1,"O",30.0, doubleArrayOf(3.0,2.0,1.0)
-//                    )
-//                )
-//            }
+//    fun workbookExtTest() {
+//        WorkbookFactory.create(R.CONFIG_EXCEL_FILE).apply {
+////            logger.info("questionMap = ${loadQuestionFromExcel()}")
+////            logger.info("schoolMap = ${loadSchoolFromExcel()}")
+////            logger.info("judgerMap = ${loadJudgeFromExcel()}")
+//            logger.info("teamData = ${initializeJson()}")
 //        }
-//        println(teamDataList)
-//        ExportExcel(teamDataList,".").exportTeamScore()
-//        ExportExcel(teamDataList,".").exportReviewTable()
-//        ExportExcel(teamDataList,".").exportPlayerScore()
-
+//
+//        println(JsonInterface.fromJson(R.DATA_JSON_PATH))
 //    }
+
+    @Test
+    fun exportExcelTest(){
+        val teamDataList = JsonInterface.fromJson(R.DATA_JSON_PATH).apply {
+            this.teamDataList[0].recordDataList = mutableListOf<RecordData>(  RecordData(
+                1,1,1,9,1,"R",30.0, doubleArrayOf(3.0,2.0,1.0)
+            ),
+            )
+
+            this.teamDataList[1].recordDataList = mutableListOf<RecordData>(  RecordData(
+                1,1,1,1,3,"R",30.0, doubleArrayOf(3.0,2.0,1.0)
+            ),
+            )
+
+        }
+        println(teamDataList)
+        ExportExcel(teamDataList,".").exportTeamScore()
+        ExportExcel(teamDataList,".").exportReviewTable()
+        ExportExcel(teamDataList,".").exportPlayerScore()
+
+    }
 
 
 

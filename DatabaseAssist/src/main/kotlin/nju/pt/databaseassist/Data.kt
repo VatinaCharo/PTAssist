@@ -107,37 +107,51 @@ data class TeamDataList(
                     //若不是拒题
                     if (recordData.role != "X") {
                         //获取这条记录中的队员名称和性别
-                        val (playerName, playerGender) = it.playerDataList.filter { playerData ->
-                            playerData.id == recordData.playerId
-                        }[0].let { playerData ->
-                            listOf(playerData.name, playerData.gender)
-                        }
-                        //增加这条记录
-                        this[playerName] = this.getOrDefault(
-                            playerName, mutableListOf<Any>(
-                                playerGender,
-                                "", "", "",
-                                0.0,0.0,0.0
-                            )
-                        ).apply {
-                            when (recordData.role) {
-                                "R" -> {this[1] = this[1] as String + "," + recordData.score.toString()
-                                    this[1+3] = this[1+3] as Double + recordData.score}
-                                "O" -> {this[2] = this[2] as String + "," + recordData.score.toString()
-                                    this[2+3] = this[2+3] as Double + recordData.score}
-                                "V" -> {this[3] = this[3] as String + "," + recordData.score.toString()
-                                    this[3+3] = this[3+3] as Double + recordData.score}
+                        try {
+                            val (playerName, playerGender) = it.playerDataList.filter { playerData ->
+                                playerData.id == recordData.playerId
+                            }[0].let { playerData ->
+                                listOf(playerData.name, playerData.gender)
                             }
+
+                            //增加这条记录
+                            this[playerName] = this.getOrDefault(
+                                playerName, mutableListOf<Any>(
+                                    playerGender,
+                                    "", "", "",
+                                    0.0, 0.0, 0.0
+                                )
+                            ).apply {
+                                when (recordData.role) {
+                                    "R" -> {
+                                        this[1] = this[1] as String + "," + recordData.score.toString()
+                                        this[1 + 3] = this[1 + 3] as Double + recordData.score
+                                    }
+                                    "O" -> {
+                                        this[2] = this[2] as String + "," + recordData.score.toString()
+                                        this[2 + 3] = this[2 + 3] as Double + recordData.score
+                                    }
+                                    "V" -> {
+                                        this[3] = this[3] as String + "," + recordData.score.toString()
+                                        this[3 + 3] = this[3 + 3] as Double + recordData.score
+                                    }
+                                }
+                            }
+
+                        } catch (e: IndexOutOfBoundsException) {
+                            throw Exception("未在队员名单中找到比赛记录中id为${recordData.playerId}的队员，请检查！")
                         }
+
+
                     }
 
                 }
 
-                this.forEach { (name, dataList) ->
-                    for (i in 1..2){
-                        if (dataList[i] != ""){
+                this.forEach { (_, dataList) ->
+                    for (i in 1..2) {
+                        if (dataList[i] != "") {
                             //求平均值
-                            dataList[i+3] = (dataList[i+3]as Double)/( dataList[i] as String).count {it ==',' }
+                            dataList[i + 3] = (dataList[i + 3] as Double) / (dataList[i] as String).count { it == ',' }
                             //去掉第一个,
                             dataList[i] = (dataList[i] as String).substringAfter(",")
                         }

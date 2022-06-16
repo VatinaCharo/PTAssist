@@ -1,6 +1,11 @@
 package nju.pt.server
 
 import nju.pt.databaseassist.TeamDataList
+import org.apache.poi.ss.usermodel.BorderStyle
+import org.apache.poi.ss.usermodel.CellStyle
+import org.apache.poi.ss.usermodel.FillPatternType
+import org.apache.poi.ss.usermodel.IndexedColors
+import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.slf4j.LoggerFactory
@@ -41,6 +46,28 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
     }
 
 
+    private fun getTitleCellStyle(workBook: Workbook): CellStyle {
+        return workBook.createCellStyle().apply {
+            //颜色填充
+            fillForegroundColor = IndexedColors.YELLOW.index
+            fillPattern = FillPatternType.SOLID_FOREGROUND
+
+            //边界颜色
+            borderBottom = (BorderStyle.THIN)
+            bottomBorderColor = IndexedColors.BLACK.index
+            borderLeft = (BorderStyle.THIN)
+            leftBorderColor = IndexedColors.BLACK.index
+            borderRight = (BorderStyle.THIN)
+            rightBorderColor = IndexedColors.BLACK.index
+            borderTop = (BorderStyle.THIN)
+            topBorderColor = IndexedColors.BLACK.index
+
+
+        }
+    }
+
+
+
     fun exportTeamScore() {
         val logger = LoggerFactory.getLogger("Export Team Score")
         logger.info("===================== ExportTeamScore =====================")
@@ -58,6 +85,7 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
         val teamScoreWorkbook = WorkbookFactory.create(FileInputStream(savePath)).apply {
             //检查sheet是否存在
             logger.info("Examining whether the sheet exists:")
+            val titleStyle = getTitleCellStyle(this)
             try {
                 this.removeSheetAt(this.getSheetIndex("队伍总得分"))
                 logger.info("Exists, deleting and updating...")
@@ -67,9 +95,18 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
 
             createSheet("队伍总得分").apply {
                 this.createRow(0).apply {
-                    createCell(0).setCellValue("学校名")
-                    createCell(1).setCellValue("队伍名")
-                    createCell(2).setCellValue("总得分")
+                    createCell(0).apply {
+                        setCellValue("学校名")
+                        cellStyle = titleStyle
+                    }
+                    createCell(1).apply{
+                        setCellValue("队伍名")
+                        cellStyle = titleStyle
+                    }
+                    createCell(2).apply{
+                        setCellValue("总得分")
+                        cellStyle = titleStyle
+                    }
 
                 }
                 //由于有标题行，生成的行序号是index+1
@@ -112,6 +149,7 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
 
 
         val teamScoreWorkbook = WorkbookFactory.create(FileInputStream(savePath)).apply {
+            val titleStyle = getTitleCellStyle(this)
             //检查sheet是否存在
             logger.info("Examining whether the sheet exists:")
             try {
@@ -120,17 +158,28 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
             } catch (e: java.lang.Exception) {
                 logger.info("Not exists, creating...")
             }
-
-
+            //题号 ： 表中的列号
+            val qIndexMap: MutableMap<Int, Int> = mutableMapOf()
+            var qColumnIndex = 2
             createSheet("回顾表").apply {
                 //标题行
                 this.createRow(0).apply {
-                    createCell(0).setCellValue("学校名")
-                    createCell(1).setCellValue("队伍名")
+                    createCell(0).apply{
+                        setCellValue("学校名")
+                        cellStyle = titleStyle
+                    }
+                    createCell(1).apply{
+                        setCellValue("队伍名")
+                        cellStyle = titleStyle
+                    }
 
                     teamDataList.questionMap.forEach { (qId, qName) ->
-                        createCell(qId + 1).setCellValue("${qId}${qName}")
-
+                        createCell(qColumnIndex).apply{
+                            setCellValue("${qId}${qName}")
+                            cellStyle = titleStyle
+                        }
+                        qIndexMap[qId] = qColumnIndex
+                        qColumnIndex += 1
                     }
 
                 }
@@ -141,7 +190,7 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
                         createCell(0).setCellValue(triple.first)
                         createCell(1).setCellValue(triple.second)
                         triple.third.forEach { (qId, role) ->
-                            createCell(qId + 1).setCellValue(role)
+                            qIndexMap[qId]?.let { createCell(it).setCellValue(role) }
                         }
 
                     }
@@ -176,6 +225,7 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
 
 
         val teamScoreWorkbook = WorkbookFactory.create(FileInputStream(savePath)).apply {
+            val titleStyle = getTitleCellStyle(this)
             //检查sheet是否存在
             logger.info("Examining whether the sheet exists:")
             try {
@@ -189,16 +239,46 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
             createSheet("个人得分").apply {
                 //标题行
                 this.createRow(0).apply {
-                    createCell(0).setCellValue("学校名")
-                    createCell(1).setCellValue("队伍名")
-                    createCell(2).setCellValue("队员名")
-                    createCell(3).setCellValue("队员性别")
-                    createCell(4).setCellValue("正方得分情况")
-                    createCell(5).setCellValue("正方平均分")
-                    createCell(6).setCellValue("反方得分情况")
-                    createCell(7).setCellValue("反方平均分")
-                    createCell(8).setCellValue("评方得分情况")
-                    createCell(9).setCellValue("评方平均分")
+                    createCell(0).apply{
+                        setCellValue("学校名")
+                        cellStyle = titleStyle
+                    }
+                    createCell(1).apply{
+                        setCellValue("队伍名")
+                        cellStyle = titleStyle
+                    }
+                    createCell(2).apply{
+                        setCellValue("队员名")
+                        cellStyle = titleStyle
+                    }
+                    createCell(3).apply{
+                        setCellValue("队员性别")
+                        cellStyle = titleStyle
+                    }
+                    createCell(4).apply{
+                        setCellValue("正方得分情况")
+                        cellStyle = titleStyle
+                    }
+                    createCell(5).apply{
+                        setCellValue("正方平均分")
+                        cellStyle = titleStyle
+                    }
+                    createCell(6).apply{
+                        setCellValue("反方得分情况")
+                        cellStyle = titleStyle
+                    }
+                    createCell(7).apply{
+                        setCellValue("反方平均分")
+                        cellStyle = titleStyle
+                    }
+                    createCell(8).apply{
+                        setCellValue("评方得分情况")
+                        cellStyle = titleStyle
+                    }
+                    createCell(9).apply{
+                        setCellValue("评方平均分")
+                        cellStyle = titleStyle
+                    }
                 }
                 var index = 1
                 teamDataList.getPlayerScore().forEach { triple ->
@@ -210,11 +290,11 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
                             createCell(1).setCellValue(triple.second)
                             createCell(2).setCellValue(name)
                             createCell(3).setCellValue(dataList[0] as String)
-                            for (i in 1..3){
+                            for (i in 1..3) {
                                 //得分情况
-                                createCell(i+3).setCellValue(dataList[i] as String)
+                                createCell(i + 3).setCellValue(dataList[i] as String)
                                 //平均分
-                                createCell(i+4).setCellValue((dataList[i+3] as Double))
+                                createCell(i + 4).setCellValue((dataList[i + 3] as Double))
                             }
 
                         }
