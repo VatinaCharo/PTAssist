@@ -7,8 +7,11 @@ import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
+import org.slf4j.LoggerFactory
 
 object StartStage {
+    private val logger = LoggerFactory.getLogger(this::class.java)
+
     val root = StackPane()
     val imageView = ImageView()
     val menuVBox = VBox()
@@ -19,6 +22,7 @@ object StartStage {
     val aboutBtn = Button("关于软件")
 
     private fun init() = apply {
+        logger.info("init()")
         root.apply {
             children.addAll(imageView, menuVBox)
             menuVBox.children.addAll(startBtn, downloadBtn, settingBtn, aboutBtn)
@@ -26,9 +30,11 @@ object StartStage {
         imageView.apply {
             image = Image(R.MAIN_IMAGE_PATH)
         }
+        logger.info("init() return => $this")
     }
 
     private fun layout() = apply {
+        logger.info("layout()")
         imageView.apply {
             fitWidth = 0.15 * image.width
             fitHeight = 0.15 * image.height
@@ -44,16 +50,37 @@ object StartStage {
                 menuVBox.alignment = Pos.BOTTOM_CENTER
             }
         }
+        logger.info("layout() return => $this")
     }
 
     private fun render() = apply {
+        logger.info("render()")
         menuVBox.style = "-fx-background-color:#FAE3D955"
+        logger.info("render() return => $this")
     }
 
     fun build(): StackPane {
+        logger.info("build()")
         init()
         layout()
         render()
+        logger.info("build() return => $root")
         return root
     }
+}
+
+object MatchStage {
+    private val logger = LoggerFactory.getLogger(this::class.java)
+}
+
+object DownloadStage {
+    private val logger = LoggerFactory.getLogger(this::class.java)
+}
+
+object SettingStage {
+    private val logger = LoggerFactory.getLogger(this::class.java)
+}
+
+object AboutStage {
+    private val logger = LoggerFactory.getLogger(this::class.java)
 }
