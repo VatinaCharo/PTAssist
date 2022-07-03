@@ -1,30 +1,29 @@
 package nju.pt.client
 
 import javafx.geometry.Insets
-import javafx.geometry.Pos
 import javafx.scene.control.*
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
-import javafx.scene.layout.HBox
-import javafx.scene.layout.StackPane
-import javafx.scene.layout.VBox
+import javafx.scene.layout.*
+import javafx.scene.text.Font
 import org.slf4j.LoggerFactory
+import java.util.StringJoiner
 
 object StartView {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    val root = StackPane()
-    val imageView = ImageView()
-    val menuVBox = VBox()
+    val rootStackPane = StackPane().apply { id = "StartView_rootStackPane" }
+    val imageView = ImageView().apply { id = "StartView_imageView" }
+    val menuVBox = VBox().apply { id = "StartView_menuVBox" }
 
-    val startBtn = Button("开始比赛")
-    val downloadBtn = Button("下载数据")
-    val settingBtn = Button("设置")
-    val aboutBtn = Button("关于软件")
+    val startBtn = Button("开始比赛").apply { id = "StartView_startBtn" }
+    val downloadBtn = Button("下载数据").apply { id = "StartView_downloadBtn" }
+    val settingBtn = Button("设置").apply { id = "StartView_settingBtn" }
+    val aboutBtn = Button("关于软件").apply { id = "StartView_aboutBtn" }
 
     private fun init() = apply {
         logger.info("init()")
-        root.apply {
+        rootStackPane.apply {
             children.addAll(imageView, menuVBox)
             menuVBox.children.addAll(startBtn, downloadBtn, settingBtn, aboutBtn)
         }
@@ -40,62 +39,54 @@ object StartView {
             fitWidth = 0.15 * image.width
             fitHeight = 0.15 * image.height
         }
-        root.apply {
+        rootStackPane.apply {
             prefWidth = imageView.fitWidth
             prefHeight = imageView.fitHeight
-            menuVBox.apply {
-                maxWidth = 120.0
-                spacing = 20.0
-                padding = Insets(20.0, 10.0, 20.0, 10.0)
-                StackPane.setAlignment(this, Pos.BOTTOM_LEFT)
-                menuVBox.alignment = Pos.BOTTOM_CENTER
-            }
         }
         logger.info("layout() return => $this")
-    }
-
-    private fun render() = apply {
-        logger.info("render()")
-        menuVBox.style = "-fx-background-color:#FAE3D955"
-        logger.info("render() return => $this")
     }
 
     fun build(): StackPane {
         logger.info("build()")
         init()
         layout()
-        render()
-        logger.info("build() return => $root")
-        return root
+        logger.info("build() return => $rootStackPane")
+        return rootStackPane
     }
 }
 
 object MatchView {
     private val logger = LoggerFactory.getLogger(this::class.java)
-    private val root = HBox()
-    private val optionalQuestionsStackPane = StackPane()
-    val optionalQuestionsVBox = VBox()
-    private val njuLogoImageView = ImageView(R.LOGO_PATH)
-    private val operationsVBox = VBox()
-    private val confirmHBox = HBox()
-    val questionViewLabel = Label("Here is question view")
-    val confirmBtn = Button("确认")
-    val refuseBtn = Button("拒绝")
-    val informationVBox = VBox()
-    val lockBtn = Button("锁定")
-    val scoresVBox = VBox()
-    private val submitAndNextHBox = HBox()
-    val submitBtn = Button("确认")
-    val nextBtn = Button("下一场")
-    val resetBtn = Button("重置比赛数据")
-    private val njuTextLogoImageView = ImageView(R.TEXT_LOGO_PATH)
-    val toggleGroup = ToggleGroup()
+    private val rootHBox = HBox().apply { id = "MatchView_rootHBox" }
+    private val optionalQuestionsStackPane = StackPane().apply { id = "MatchView_optionalQuestionsStackPane" }
+    val optionalQuestionsVBox = VBox().apply { id = "MatchView_optionalQuestionsVBox" }
+    private val njuLogoImageView = ImageView(R.LOGO_PATH).apply { id = "MatchView_njuLogoImageView" }
+    private val operationsVBox = VBox().apply { id = "MatchView_operationsVBox" }
+    private val confirmHBox = HBox().apply { id = "MatchView_confirmHBox" }
+    val questionViewLabel = Label("Here is question view").apply { id = "MatchView_questionViewLabel" }
+    val confirmBtn = Button("确认").apply { id = "MatchView_confirmBtn" }
+    val refuseBtn = Button("拒绝").apply { id = "MatchView_refuseBtn" }
+    val informationVBox = VBox().apply { id = "MatchView_informationVBox" }
+    val lockBtn = Button("锁定").apply { id = "MatchView_lockBtn" }
+    val scoresVBox = VBox().apply { id = "MatchView_scoresVBox" }
+    private val submitAndNextHBox = HBox().apply { id = "MatchView_submitAndNextHBox" }
+    val submitBtn = Button("确认").apply { id = "MatchView_submitBtn" }
+    val nextBtn = Button("下一场").apply { id = "MatchView_nextBtn" }
+    private val njuTextLogoImageView = ImageView(R.TEXT_LOGO_PATH).apply { id = "MatchView_njuTextLogoImageView" }
+    val group = ToggleGroup()
 
-    private fun init(judgeCount: Int) = apply {
+    private fun init(judgeCount: Int, questionMap: Map<Int, String>) = apply {
         logger.info("init()")
         // Main Tab
-        root.children.addAll(optionalQuestionsStackPane, operationsVBox)
+        rootHBox.children.addAll(optionalQuestionsStackPane, operationsVBox)
         optionalQuestionsStackPane.children.addAll(njuLogoImageView, optionalQuestionsVBox)
+        optionalQuestionsVBox.children.addAll(questionMap.toList().map {
+            RadioButton().apply {
+                text = String.format("%02d  ${it.second}", it.first)
+                userData = it.first
+                toggleGroup = group
+            }
+        })
         operationsVBox.children.addAll(confirmHBox, informationVBox, scoresVBox)
         confirmHBox.children.addAll(questionViewLabel, confirmBtn, refuseBtn)
         informationVBox.children.addAll(
@@ -111,10 +102,34 @@ object MatchView {
             ScoreBar("反：", judgeCount),
             ScoreBar("评：", judgeCount),
             submitAndNextHBox.apply {
-                children.addAll(submitBtn, nextBtn, resetBtn)
+                children.addAll(submitBtn, nextBtn)
             },
             njuTextLogoImageView
         )
+    }
+
+    private fun layout() = apply {
+        logger.info("layout()")
+        logger.info("setting njuLogoImageView layout")
+        njuLogoImageView.apply {
+            njuLogoImageView.fitWidth = 0.7 * njuLogoImageView.image.width
+            njuLogoImageView.fitHeight = 0.7 * njuLogoImageView.image.height
+            logger.info("fitSize = ($fitWidth, $fitHeight)")
+        }
+        logger.info("setting njuTextLogoImageView layout")
+        njuTextLogoImageView.apply {
+            fitWidth = 0.45 * njuTextLogoImageView.image.width
+            fitHeight = 0.45 * njuTextLogoImageView.image.height
+            logger.info("fitSize = ($fitWidth, $fitHeight)")
+        }
+    }
+
+    fun build(judgeCount: Int, questionMap: Map<Int, String>): HBox {
+        logger.info("build()")
+        init(judgeCount, questionMap)
+        layout()
+        logger.info("build() return => $rootHBox")
+        return rootHBox
     }
 }
 

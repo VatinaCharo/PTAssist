@@ -1,10 +1,14 @@
 package nju.pt.client
 
 import javafx.geometry.Pos
+import javafx.scene.control.ChoiceBox
+import javafx.scene.control.ComboBox
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
+import javafx.scene.control.ToggleGroup
 import javafx.scene.control.Tooltip
 import javafx.scene.layout.HBox
+import javafx.scene.layout.VBox
 import javafx.scene.text.Font
 
 class TeamBar(type: TeamType) : HBox() {
@@ -45,7 +49,7 @@ class TeamBar(type: TeamType) : HBox() {
 }
 
 class ScoreBar(name: String, judgeCount: Int) : HBox() {
-    private val tagLabel = Label().apply {
+    private val tagLabel = Label(name).apply {
         font = Font.font(R.LABEL_FONT_SIZE)
     }
 
@@ -54,12 +58,16 @@ class ScoreBar(name: String, judgeCount: Int) : HBox() {
         children.add(tagLabel)
         children.addAll(
             (0 until judgeCount).map {
-                TextField("0").apply {
-                    prefWidth = 30.0
-                    alignment = Pos.CENTER
-                    textProperty().addListener { _, oldValue, newValue ->
-                        text = if (!newValue.matches(Regex("^\\d*$"))) oldValue else newValue
-                    }
+//                TextField("0").apply {
+//                    prefWidth = 30.0
+//                    alignment = Pos.CENTER
+//                    textProperty().addListener { _, oldValue, newValue ->
+//                        text = if (!newValue.matches(Regex("^\\d*$"))) oldValue else newValue
+//                    }
+//                }
+                ComboBox<Int>().apply {
+                    items.addAll(0..10)
+                    prefWidth = 70.0
                 }
             })
     }
