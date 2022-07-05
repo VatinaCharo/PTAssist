@@ -8,23 +8,23 @@ import java.io.File
 import java.io.FileNotFoundException
 
 object JsonHelper {
-    fun toJson(teamDataList: TeamDataList,savePath :String){
+    inline fun <reified T> toJson(data: T, savePath: String) {
         val logger = LoggerFactory.getLogger("Save json file to: $savePath")
         logger.info("===================== SavingJsonFile =====================")
         val format = Json { prettyPrint = true }
-        File(savePath).writeText(format.encodeToString(teamDataList))
+        File(savePath).writeText(format.encodeToString(data))
         logger.info("===================== JsonFileSavedSuccessfully =====================")
 
     }
 
-    fun fromJson(readPath:String):TeamDataList{
+    inline fun <reified T> fromJson(readPath: String): T {
         val logger = LoggerFactory.getLogger("Read json file from: $readPath")
         logger.info("===================== ReadingJsonFile =====================")
         try {
-            val teamDataList =  Json.decodeFromString<TeamDataList>(File(readPath).readText())
+            val data = Json.decodeFromString<T>(File(readPath).readText())
             logger.info("JsonFileReadSuccessfully!")
-            return  teamDataList
-        }catch (e: FileNotFoundException) {
+            return data
+        } catch (e: FileNotFoundException) {
             logger.error("未找到文件: ${e.message}")
             throw Exception("未找到文件: ${e.message}")
         }
