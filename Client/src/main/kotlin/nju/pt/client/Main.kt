@@ -4,12 +4,13 @@ import javafx.application.Application
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.stage.Stage
+import nju.pt.databaseassist.TeamData
 
 fun main() {
-    Application.launch(App::class.java)
+    Application.launch(AppUI::class.java)
 }
 
-class App : Application() {
+class AppUI: Application() {
     override fun start(primaryStage: Stage) {
         primaryStage.apply {
             scene = Scene(StartView.build()).apply {
@@ -19,5 +20,7 @@ class App : Application() {
             title = "PTAssist"
         }.show()
     }
+}
+class App(data:List<TeamData>){
 
 }
