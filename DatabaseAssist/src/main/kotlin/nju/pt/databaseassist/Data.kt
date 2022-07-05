@@ -8,15 +8,6 @@ data class PlayerData(
     var gender: String
 )
 
-@kotlinx.serialization.Serializable
-data class TeamData(
-    var id: Int,
-    var name: String,
-    var schoolId: Int,
-    val playerDataList: MutableList<PlayerData>,
-    var recordDataList: MutableList<RecordData>
-)
-
 /**
  * 一条比赛记录
  *  */
@@ -31,6 +22,16 @@ data class RecordData(
     var score: Double,
     var weight: Double
 )
+
+@kotlinx.serialization.Serializable
+data class TeamData(
+    var id: Int,
+    var name: String,
+    var schoolId: Int,
+    val playerDataList: MutableList<PlayerData>,
+    var recordDataList: MutableList<RecordData>
+)
+
 
 @kotlinx.serialization.Serializable
 data class TeamDataList(
