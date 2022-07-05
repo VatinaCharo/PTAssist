@@ -7,7 +7,7 @@ import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileNotFoundException
 
-object JsonInterface {
+object JsonHelper {
     fun toJson(teamDataList: TeamDataList,savePath :String){
         val logger = LoggerFactory.getLogger("Save json file to: $savePath")
         logger.info("===================== SavingJsonFile =====================")

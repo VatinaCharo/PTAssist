@@ -14,7 +14,7 @@ data class TeamData(
     var name: String,
     var schoolId: Int,
     val playerDataList: MutableList<PlayerData>,
-    var recordDataList: MutableList<RecordData>?
+    var recordDataList: MutableList<RecordData>
 )
 
 /**
@@ -29,39 +29,8 @@ data class RecordData(
     var playerId: Int,
     var role: String,
     var score: Double,
-    var weightArray: DoubleArray
-) {
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as RecordData
-
-        if (roomId != other.roomId) return false
-        if (round != other.round) return false
-        if (phase != other.phase) return false
-        if (questionId != other.questionId) return false
-        if (playerId != other.playerId) return false
-        if (role != other.role) return false
-        if (score != other.score) return false
-        if (!weightArray.contentEquals(other.weightArray)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = roomId
-        result = 31 * result + round
-        result = 31 * result + phase
-        result = 31 * result + questionId
-        result = 31 * result + playerId
-        result = 31 * result + role.hashCode()
-        result = 31 * result + score.hashCode()
-        result = 31 * result + weightArray.contentHashCode()
-        return result
-    }
-}
+    var weight: Double
+)
 
 @kotlinx.serialization.Serializable
 data class TeamDataList(
@@ -74,23 +43,28 @@ data class TeamDataList(
         Triple(
             schoolMap[it.schoolId],
             it.name,
-            it.recordDataList.let { listData ->
-                var totalScore: Double = 0.0
-                listData?.forEach { recordData ->
-                    totalScore += recordData.score
-                }
-                totalScore
-            })
+            // 可以使用fold函数简化代码
+//            it.recordDataList.let { recordDataList ->
+//                var totalScore: Double = 0.0
+//                recordDataList?.forEach { recordData ->
+//                    totalScore += recordData.score
+//                }
+//                totalScore
+//            }
+            it.recordDataList.fold(0.0) { total, recordData ->
+                total + recordData.score * recordData.weight
+            }
+        )
     }.sortedByDescending { it.third }
 
 
     fun getReviewTable() = teamDataList.map {
-        // 学校名，队伍名，[(赛题id to 角色们),()]
+        // 学校名，队伍名，[(赛题id to 队员们),()]
         Triple(
             schoolMap[it.schoolId],
             it.name,
             mutableMapOf<Int, String>().apply {
-                it.recordDataList?.forEach { recordData ->
+                it.recordDataList.forEach { recordData ->
                     this[recordData.questionId] = this.getOrDefault(recordData.questionId, "") + recordData.role
                 }
             }
@@ -103,7 +77,7 @@ data class TeamDataList(
             schoolMap[it.schoolId],
             it.name,
             mutableMapOf<String, MutableList<Any>>().apply {
-                it.recordDataList?.forEach { recordData ->
+                it.recordDataList.forEach { recordData ->
                     //若不是拒题
                     if (recordData.role != "X") {
                         //获取这条记录中的队员名称和性别
