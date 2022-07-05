@@ -2,7 +2,7 @@ package nju.pt.kotlin.ext
 
 
 import nju.pt.R
-import nju.pt.databaseassist.JsonInterface
+import nju.pt.databaseassist.JsonHelper
 import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.TeamData
 import nju.pt.databaseassist.TeamDataList
@@ -282,7 +282,7 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
 
 
 fun Workbook.initializeJson() {
-    JsonInterface.toJson(
+    JsonHelper.toJson(
         TeamDataList(
             teamDataList = this.loadTeamFromExcel(),
             questionMap = this.loadQuestionFromExcel(),

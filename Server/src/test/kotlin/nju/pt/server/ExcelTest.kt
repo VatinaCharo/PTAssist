@@ -1,7 +1,7 @@
 package nju.pt.server
 
 import nju.pt.R
-import nju.pt.databaseassist.JsonInterface
+import nju.pt.databaseassist.JsonHelper
 import nju.pt.databaseassist.RecordData
 import nju.pt.kotlin.ext.initializeJson
 import nju.pt.kotlin.ext.loadJudgeFromExcel
@@ -28,12 +28,12 @@ class ExcelTest {
             logger.info("teamData = ${initializeJson()}")
         }
 
-        println(JsonInterface.fromJson(R.DATA_JSON_PATH))
+        println(JsonHelper.fromJson(R.DATA_JSON_PATH))
     }
 
     @Test
     fun exportExcelTest() {
-        val teamDataList = JsonInterface.fromJson(R.DATA_JSON_PATH).apply {
+        val teamDataList = JsonHelper.fromJson(R.DATA_JSON_PATH).apply {
             this.teamDataList[0].recordDataList = mutableListOf<RecordData>(
                 RecordData(
                     1, 1, 1, 9, 1, "R", 30.0, doubleArrayOf(3.0, 2.0, 1.0)
