@@ -1,15 +1,12 @@
 package nju.pt.client
 
-import javafx.geometry.Pos
-import javafx.scene.control.ChoiceBox
 import javafx.scene.control.ComboBox
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
-import javafx.scene.control.ToggleGroup
 import javafx.scene.control.Tooltip
 import javafx.scene.layout.HBox
-import javafx.scene.layout.VBox
 import javafx.scene.text.Font
+import nju.pt.R
 
 class TeamBar(type: TeamType) : HBox() {
     private val tagLabel = Label().apply {

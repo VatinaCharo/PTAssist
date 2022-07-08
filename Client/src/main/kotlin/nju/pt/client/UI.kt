@@ -1,13 +1,11 @@
 package nju.pt.client
 
-import javafx.geometry.Insets
 import javafx.scene.control.*
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.layout.*
-import javafx.scene.text.Font
+import nju.pt.R
 import org.slf4j.LoggerFactory
-import java.util.StringJoiner
 
 object StartView {
     private val logger = LoggerFactory.getLogger(this::class.java)
