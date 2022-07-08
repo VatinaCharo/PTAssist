@@ -31,9 +31,9 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
     }
 
     //获知该数据中有多少轮，以此来命名输出文件名
-    private val roundName = teamDataList.teamDataList[0].recordDataList?.map { it.round }?.toSortedSet().let { it ->
+    private val roundName = teamDataList.teamDataList[0].recordDataList.map { it.round }.toSortedSet().let { it ->
         var string = ""
-        it?.forEach {
+        it.forEach {
             string += "$it&"
         }
         string.dropLast(1)

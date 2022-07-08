@@ -7,6 +7,7 @@ import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
+import kotlin.math.log
 
 
 fun Workbook.loadConfigFromExcel() = mutableListOf<Any>().apply {
@@ -132,6 +133,7 @@ fun Workbook.loadQuestionFromExcel() = mutableMapOf<Int, String>().apply {
 }.entries.sortedBy { it.key }.associateBy({ it.key }, { it.value })
 
 fun Workbook.loadSchoolFromExcel() = mutableMapOf<Int, String>().apply {
+    // 学校id to 学校名称
     val logger = LoggerFactory.getLogger("School Data Loader")
     logger.info("===================== loadSchoolFromExcel =====================")
 
@@ -205,9 +207,10 @@ fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
 
 
 fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
+    //[teamData1, teamData2, ...]
+
     val logger = LoggerFactory.getLogger("Team Data Loader")
-
-
+    
     try {
         val teamSheet = this@loadTeamFromExcel.getSheet(R.TEAM_SHEET_NAME)
         val reversedSchoolMap = this@loadTeamFromExcel.loadSchoolFromExcel().entries.associate { (k, v) -> v to k }
@@ -290,8 +293,8 @@ fun Workbook.getTotalTeamNumber(): Int {
             if (it.cellIterator().asSequence().toList().size > 1) {
                 totalTeamNumber += 1
             }
-
         }
+        logger.info("total team number: $totalTeamNumber")
         return totalTeamNumber
 
     } catch (e: FileNotFoundException) {
