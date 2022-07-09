@@ -1,6 +1,7 @@
 package nju.pt.server
 
 import nju.pt.databaseassist.TeamDataList
+import nju.pt.kotlin.ext.getTitleCellStyle
 import org.apache.poi.ss.usermodel.BorderStyle
 import org.apache.poi.ss.usermodel.CellStyle
 import org.apache.poi.ss.usermodel.FillPatternType
@@ -46,25 +47,24 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
     }
 
 
-    private fun getTitleCellStyle(workBook: Workbook): CellStyle {
-        return workBook.createCellStyle().apply {
-            //颜色填充
-            fillForegroundColor = IndexedColors.YELLOW.index
-            fillPattern = FillPatternType.SOLID_FOREGROUND
-
-            //边界颜色
-            borderBottom = (BorderStyle.THIN)
-            bottomBorderColor = IndexedColors.BLACK.index
-            borderLeft = (BorderStyle.THIN)
-            leftBorderColor = IndexedColors.BLACK.index
-            borderRight = (BorderStyle.THIN)
-            rightBorderColor = IndexedColors.BLACK.index
-            borderTop = (BorderStyle.THIN)
-            topBorderColor = IndexedColors.BLACK.index
-
-
-        }
-    }
+//    private fun getTitleCellStyle(workBook: Workbook): CellStyle {
+//        return workBook.createCellStyle().apply {
+//            //颜色填充
+//            fillForegroundColor = IndexedColors.YELLOW.index
+//            fillPattern = FillPatternType.SOLID_FOREGROUND
+//
+//            //边界颜色
+//            borderBottom = (BorderStyle.THIN)
+//            bottomBorderColor = IndexedColors.BLACK.index
+//            borderLeft = (BorderStyle.THIN)
+//            leftBorderColor = IndexedColors.BLACK.index
+//            borderRight = (BorderStyle.THIN)
+//            rightBorderColor = IndexedColors.BLACK.index
+//            borderTop = (BorderStyle.THIN)
+//            topBorderColor = IndexedColors.BLACK.index
+//
+//        }
+//    }
 
 
 
@@ -85,7 +85,7 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
         val teamScoreWorkbook = WorkbookFactory.create(FileInputStream(savePath)).apply {
             //检查sheet是否存在
             logger.info("Examining whether the sheet exists:")
-            val titleStyle = getTitleCellStyle(this)
+            val titleStyle = this.getTitleCellStyle()
             try {
                 this.removeSheetAt(this.getSheetIndex("队伍总得分"))
                 logger.info("Exists, deleting and updating...")
@@ -149,7 +149,7 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
 
 
         val teamScoreWorkbook = WorkbookFactory.create(FileInputStream(savePath)).apply {
-            val titleStyle = getTitleCellStyle(this)
+            val titleStyle = this.getTitleCellStyle()
             //检查sheet是否存在
             logger.info("Examining whether the sheet exists:")
             try {
@@ -225,7 +225,7 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
 
 
         val teamScoreWorkbook = WorkbookFactory.create(FileInputStream(savePath)).apply {
-            val titleStyle = getTitleCellStyle(this)
+            val titleStyle = this.getTitleCellStyle()
             //检查sheet是否存在
             logger.info("Examining whether the sheet exists:")
             try {

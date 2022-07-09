@@ -3,9 +3,16 @@ package nju.pt.server
 import nju.pt.R
 import nju.pt.kotlin.ext.*
 import org.apache.poi.ss.usermodel.WorkbookFactory
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.slf4j.LoggerFactory
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
 import java.util.*
+import kotlin.io.path.Path
+import kotlin.io.path.notExists
 import kotlin.math.exp
+import kotlin.math.log
 
 
 //对阵表生成
@@ -89,90 +96,105 @@ class CounterPartTable {
             it.id to schoolMap[it.schoolId]
         }
 
-        //创建记录不同轮次不同会场的裁判列表 [[第一轮 1,2,3,4,... 会场的裁判],[第二轮 1,2,3,4...会场的裁判],...]
-        val judgeTableAllTurns = mutableListOf<MutableList<MutableList<Int>>>()
 
-        //创建总轮次裁判序号 to 已上场次数的字典，用于均衡全部轮次各裁判的上场次数
-        val judgeUsedMap = judgeMap.keys.associateWith { 0 }.toMutableMap()
+        //由于裁判是较为随机决定的，偶尔会出现由于分配不是很合理，选不出裁判的情况，故默认最大的尝试次数为1001次，若还是得不到结果就报错
+        for (attemptNumber in 0..1000) {
+            logger.info("===================== Attempt ${attemptNumber + 1} =====================")
 
-        //遍历不同的轮次
-        for (turn in 0 until teamTableList.size) {
-            logger.info("-----Round ${turn + 1}-----")
+            //创建记录不同轮次不同会场的裁判列表 [[第一轮 1,2,3,4,... 会场的裁判],[第二轮 1,2,3,4...会场的裁判],...]
+            val judgeTableAllTurns = mutableListOf<MutableList<MutableList<Int>>>()
 
-            //读取本轮队伍对阵表
-            val teamTable = teamTableList[turn]
+            //创建总轮次裁判序号 to 已上场次数的字典，用于均衡全部轮次各裁判的上场次数
+            val judgeUsedMap = judgeMap.keys.associateWith { 0 }.toMutableMap()
 
-            //创建用于存储本轮所用裁判序号
-            val judgeTable = mutableListOf<MutableList<Int>>()
+            //遍历不同的轮次
+            turnLoop@ for (turn in 0 until teamTableList.size) {
+                logger.info("--------------------- Round ${turn + 1} ---------------------")
 
-            //创建本轮次已上场裁判的序号，用于避免一个老师在一轮中在多个会场出现
-            val judgeUsedList = mutableListOf<Int>()
+                //读取本轮队伍对阵表
+                val teamTable = teamTableList[turn]
 
-            //遍历每一个会场的情况
-            for (room in 0 until roomCount) {
-                logger.info("room ${room + 1}:")
-                logger.info("R:${teamTable.RList[room]}-${teamIdMap[teamTable.RList[room]]}")
-                logger.info("O:${teamTable.OList[room]}-${teamIdMap[teamTable.OList[room]]}")
-                logger.info("V:${teamTable.VList[room]}-${teamIdMap[teamTable.VList[room]]}")
-                logger.info("OB:${teamTable.OBList[room]}-${teamIdMap[teamTable.OBList[room]]}")
+                //创建用于存储本轮所用裁判序号
+                val judgeTable = mutableListOf<MutableList<Int>>()
 
-                //创建用于储存本会场所用裁判序号
-                val judgeTableRoom = mutableListOf<Int>()
+                //创建本轮次已上场裁判的序号，用于避免一个老师在一轮中在多个会场出现
+                val judgeUsedList = mutableListOf<Int>()
 
-                //得到参赛队伍学校名称列表
-                val playerSchoolNameList = mutableListOf<String>().apply {
-                    teamIdMap[teamTable.RList[room]]?.let { this.add(it) }
-                    teamIdMap[teamTable.OList[room]]?.let { this.add(it) }
-                    teamIdMap[teamTable.VList[room]]?.let { this.add(it) }
-                    if (teamTable.OBList[room] != -1) {
-                        teamIdMap[teamTable.OBList[room]]?.let { this.add(it) }
+                //遍历每一个会场的情况
+                for (room in 0 until roomCount) {
+                    logger.info("room ${room + 1}:")
+                    logger.info("R:${teamTable.RList[room]}-${teamIdMap[teamTable.RList[room]]}")
+                    logger.info("O:${teamTable.OList[room]}-${teamIdMap[teamTable.OList[room]]}")
+                    logger.info("V:${teamTable.VList[room]}-${teamIdMap[teamTable.VList[room]]}")
+                    logger.info("OB:${teamTable.OBList[room]}-${teamIdMap[teamTable.OBList[room]]}")
+
+                    //创建用于储存本会场所用裁判序号
+                    val judgeTableRoom = mutableListOf<Int>()
+
+                    //得到参赛队伍学校名称列表
+                    val playerSchoolNameList = mutableListOf<String>().apply {
+                        teamIdMap[teamTable.RList[room]]?.let { this.add(it) }
+                        teamIdMap[teamTable.OList[room]]?.let { this.add(it) }
+                        teamIdMap[teamTable.VList[room]]?.let { this.add(it) }
+                        if (teamTable.OBList[room] != -1) {
+                            teamIdMap[teamTable.OBList[room]]?.let { this.add(it) }
+                        }
+                    }.distinct()
+
+                    logger.info("Team School set: $playerSchoolNameList")
+
+                    //可用裁判的选择规则是 不与参赛队员学校相同，且未当过本轮裁判
+                    val availableJudgeList = judgeMap.filter {
+                        (it.value.first !in playerSchoolNameList) && (it.key !in judgeUsedList)
+                    }.toList().toMutableList()
+
+
+                    if (availableJudgeList.size < judgeCount) {
+                        if (attemptNumber == 1000) {
+                            throw Exception("学校(${playerSchoolNameList})没有足够多的裁判，请补充后再试！")
+                        } else {
+                            break@turnLoop
+                        }
+
                     }
-                }.distinct()
 
-                logger.info("Team School set: $playerSchoolNameList")
+                    for (judgeNumber in 0 until judgeCount) {
+                        //若之前选过同学校的老师，则人为地将其下次被选中的概率降低
+                        val selectedIndex = selectOne(availableJudgeList.mapNotNull { it ->
+                            if (it.second.first !in judgeUsedList.map { judgeMap[it]!!.first }) judgeUsedMap[it.first] else judgeUsedMap[it.first]!! + 5
+                        })
 
-                //可用裁判的选择规则是 不与参赛队员学校相同，且未当过本轮裁判
-                val availableJudgeList = judgeMap.filter {
-                    (it.value.first !in playerSchoolNameList) && (it.key !in judgeUsedList)
-                }.toList().toMutableList()
+                        availableJudgeList[selectedIndex].first.let {
+                            //添加到该会场的裁判存储列表
+                            judgeTableRoom.add(it)
+                            //添加到本轮已出场的裁判列表
+                            judgeUsedList.add(it)
+                            //该裁判总出场次数+1
+                            judgeUsedMap[it] = judgeUsedMap[it]!! + 1
 
+                        }
+                        //在可用裁判列表中删除
+                        availableJudgeList.removeAt(selectedIndex)
+                    }
+                    judgeTable.add(judgeTableRoom)
 
-                if (availableJudgeList.size < judgeCount) {
-                    throw Exception("学校(${playerSchoolNameList})没有足够多的裁判，请补充后再试！")
+                    logger.info("Judges:${judgeTableRoom.associateWith { judgeMap[it] }}")
+
                 }
+                judgeTableAllTurns.add(judgeTable)
 
-                for (judgeNumber in 0 until judgeCount) {
-                    //若之前选过同学校的老师，则人为地将其下次被选中的概率降低
-                    val selectedIndex = selectOne(availableJudgeList.mapNotNull { it ->
-                        if (it.second.first !in judgeUsedList.map { judgeMap[it]!!.first }) judgeUsedMap[it.first] else judgeUsedMap[it.first]!! + 5
-//
-                    }
-                    )
-
-                    availableJudgeList[selectedIndex].first.let {
-                        //添加到该会场的裁判存储列表
-                        judgeTableRoom.add(it)
-                        //添加到本轮已出场的裁判列表
-                        judgeUsedList.add(it)
-                        //该裁判总出场次数+1
-                        judgeUsedMap[it] = judgeUsedMap[it]!! + 1
-
-                    }
-                    //在可用裁判列表中删除
-                    availableJudgeList.removeAt(selectedIndex)
-                }
-                judgeTable.add(judgeTableRoom)
-
-                logger.info("Judges:${judgeTableRoom.associateWith { judgeMap[it] }}")
 
             }
-            judgeTableAllTurns.add(judgeTable)
 
+            tableWriteIntoExcel(teamTableList,
+                judgeTableAllTurns.map { it.map { it.mapNotNull { judgeMap[it] } } }
+            )
+            logger.info("CounterPartTable WITH judge generated successfully!")
+            break
 
         }
 
-//        println(judgeTableAllTurns)
-        logger.info("CounterPartTable WITH judge generated successfully!")
+
     }
 
     private fun selectOne(countList: List<Int>): Int {
@@ -202,11 +224,166 @@ class CounterPartTable {
             }
         }
         return probabilityList.size - 1
-
-
     }
 
+    private fun tableWriteIntoExcel(
+        playerTableList: MutableList<OneRoundTable>,
+        judgeTableList: List<List<List<Pair<String, String>>>>,
+    ) {
+        val logger = LoggerFactory.getLogger("Export CounterPart Table")
+        logger.info("===================== ExportCounterPartTable =====================")
 
+        // TODO: 2022/7/9 解除Excel依赖
+        //学校id to 学校名
+        val schoolMap = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel()
+        // 队伍抽签号 to (队伍名称,学校名称)
+        val teamIdMap = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadTeamFromExcel().associate {
+            it.id to Pair(it.name, schoolMap[it.schoolId])
+        }
+
+        //若文件不存在，则创建
+        logger.info("Examining whether the file exists:")
+        if (Path(R.COUNTERPART_TABLE_PATH).notExists()) {
+            logger.info("Not Exist, creating...")
+            XSSFWorkbook().write(FileOutputStream(R.COUNTERPART_TABLE_PATH))
+            logger.info("New excel file created successfully!")
+        } else {
+            logger.info("File already exists, reading...")
+        }
+
+
+        val counterPartTableWorkbook = WorkbookFactory.create(FileInputStream(R.COUNTERPART_TABLE_PATH)).apply {
+            val titleStyle = this.getTitleCellStyle()
+
+            logger.info("--------------------- 对阵表 ---------------------")
+            //检查sheet是否存在
+            logger.info("Examining whether the sheet exists:")
+            try {
+                this.removeSheetAt(this.getSheetIndex("对阵表"))
+                logger.info("Exists, deleting and updating...")
+            } catch (e: java.lang.Exception) {
+                logger.info("Not exists, creating...")
+            }
+
+            createSheet("对阵表").apply {
+                playerTableList.forEachIndexed { turn, oneRoundTable ->
+                    //标题行
+                    this.createRow((2 + roomCount) * turn).apply {
+                        createCell(0).apply { setCellValue("第${turn + 1}轮对阵表") }
+                    }
+                    logger.info("--------------------- Round ${turn + 1} ---------------------")
+
+                    this.createRow((2 + roomCount) * turn + 1).apply {
+                        createCell(0).apply { setCellValue("");cellStyle = titleStyle }
+                        createCell(1).apply { setCellValue("正方");cellStyle = titleStyle }
+                        createCell(2).apply { setCellValue("反方");cellStyle = titleStyle }
+                        createCell(3).apply { setCellValue("评方");cellStyle = titleStyle }
+                        createCell(4).apply { setCellValue("观摩方");cellStyle = titleStyle }
+                        createCell(5).apply { setCellValue("裁判们") }
+                    }
+
+                    //各个会场的对阵表
+                    for (room in 0 until roomCount) {
+                        this.createRow((2 + roomCount) * turn + room + 2).apply {
+                            createCell(0).apply { setCellValue("会场${room + 1}");cellStyle = titleStyle }
+                            logger.info("Room ${room + 1}:")
+                            //队伍情况
+                            createCell(1).setCellValue("${oneRoundTable.RList[room]}")
+                            logger.info("R:${oneRoundTable.RList[room]}")
+                            createCell(2).setCellValue("${oneRoundTable.OList[room]}")
+                            logger.info("O:${oneRoundTable.OList[room]}")
+                            createCell(3).setCellValue("${oneRoundTable.VList[room]}")
+                            logger.info("V:${oneRoundTable.VList[room]}")
+                            createCell(4).setCellValue("${oneRoundTable.OBList[room]}")
+                            logger.info("OB:${oneRoundTable.OBList[room]}")
+
+                            //裁判情况
+                            judgeTableList[turn][room].forEachIndexed { judgeNumber, pair ->
+                                createCell(5 + judgeNumber).setCellValue(pair.second)
+                            }
+                            logger.info("Judges:${judgeTableList[turn][room]}")
+
+                        }
+                    }
+
+                    //产生空行
+                    this.createRow((2 + roomCount) * turn + roomCount + 2).createCell(0).setCellValue("")
+
+                }
+            }
+
+            logger.info("--------------------- 对阵表（含学校名） ---------------------")
+            //检查sheet是否存在
+            logger.info("Examining whether the sheet exists:")
+            try {
+                this.removeSheetAt(this.getSheetIndex("对阵表（含学校名）"))
+                logger.info("Exists, deleting and updating...")
+            } catch (e: java.lang.Exception) {
+                logger.info("Not exists, creating...")
+            }
+
+            createSheet("对阵表（含学校名）").apply {
+                playerTableList.forEachIndexed { turn, oneRoundTable ->
+                    //标题行
+                    this.createRow((2 + roomCount) * turn).apply {
+                        createCell(0).apply { setCellValue("第${turn + 1}轮对阵表") }
+                    }
+                    logger.info("--------------------- Round ${turn + 1} ---------------------")
+
+                    this.createRow((2 + roomCount) * turn + 1).apply {
+                        createCell(0).apply { setCellValue("");cellStyle = titleStyle }
+                        createCell(1).apply { setCellValue("正方");cellStyle = titleStyle }
+                        createCell(2).apply { setCellValue("反方");cellStyle = titleStyle }
+                        createCell(3).apply { setCellValue("评方");cellStyle = titleStyle }
+                        createCell(4).apply { setCellValue("观摩方");cellStyle = titleStyle }
+                        createCell(5).apply { setCellValue("裁判们") }
+                    }
+
+                    //各个会场的对阵表
+                    for (room in 0 until roomCount) {
+                        this.createRow((2 + roomCount) * turn + room + 2).apply {
+                            createCell(0).apply { setCellValue("会场${room + 1}");cellStyle = titleStyle }
+                            logger.info("Room ${room + 1}:")
+                            //队伍情况
+                            createCell(1).setCellValue("${teamIdMap[oneRoundTable.RList[room]]}")
+                            logger.info("R:${teamIdMap[oneRoundTable.RList[room]]}")
+                            createCell(2).setCellValue("${teamIdMap[oneRoundTable.OList[room]]}")
+                            logger.info("O:${teamIdMap[oneRoundTable.OList[room]]}")
+                            createCell(3).setCellValue("${teamIdMap[oneRoundTable.VList[room]]}")
+                            logger.info("V:${teamIdMap[oneRoundTable.VList[room]]}")
+                            createCell(4).setCellValue(
+                                "${teamIdMap.getOrElse(oneRoundTable.OBList[room]) { "-1" }}"
+                            )
+                            logger.info("OB:${teamIdMap.getOrElse(oneRoundTable.OBList[room]) {  "-1" }}")
+
+                            //裁判情况
+                            judgeTableList[turn][room].forEachIndexed { judgeNumber, pair ->
+                                createCell(5 + judgeNumber).setCellValue("${pair}")
+                            }
+                            logger.info("Judges:${judgeTableList[turn][room]}")
+
+                        }
+                    }
+
+                    //产生空行
+                    this.createRow((2 + roomCount) * turn + roomCount + 2).createCell(0).setCellValue("")
+
+                }
+            }
+
+        }
+
+        try {
+            val fileOutputStream = FileOutputStream(R.COUNTERPART_TABLE_PATH)
+            counterPartTableWorkbook.write(fileOutputStream)
+            fileOutputStream.close()
+            logger.info("Export player score successfully to ${R.COUNTERPART_TABLE_PATH} !")
+        } catch (e: FileNotFoundException) {
+            logger.error(e.message)
+            throw Exception("文件 ${R.COUNTERPART_TABLE_PATH} 正被另一个程序占用，无法访问，请关闭！")
+        }
+
+    }
 }
 
 //一轮的参赛队伍对阵表

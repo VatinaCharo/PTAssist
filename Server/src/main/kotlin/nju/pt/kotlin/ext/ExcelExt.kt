@@ -3,8 +3,7 @@ package nju.pt.kotlin.ext
 
 import nju.pt.R
 import nju.pt.databaseassist.*
-import org.apache.poi.ss.usermodel.Workbook
-import org.apache.poi.ss.usermodel.WorkbookFactory
+import org.apache.poi.ss.usermodel.*
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
 import kotlin.math.log
@@ -320,5 +319,22 @@ fun Workbook.initializeJson() {
 }
 
 
+fun Workbook.getTitleCellStyle()=this.createCellStyle().apply {
+    //黄色，诸位边框实线
 
+    //颜色填充
+    fillForegroundColor = IndexedColors.YELLOW.index
+    fillPattern = FillPatternType.SOLID_FOREGROUND
+
+    //边界颜色
+    borderBottom = (BorderStyle.THIN)
+    bottomBorderColor = IndexedColors.BLACK.index
+    borderLeft = (BorderStyle.THIN)
+    leftBorderColor = IndexedColors.BLACK.index
+    borderRight = (BorderStyle.THIN)
+    rightBorderColor = IndexedColors.BLACK.index
+    borderTop = (BorderStyle.THIN)
+    topBorderColor = IndexedColors.BLACK.index
+
+}
 
