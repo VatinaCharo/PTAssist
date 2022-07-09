@@ -10,7 +10,8 @@ class CounterPartTableTest {
     @Test
     fun generateTableWithoutJudgeTest(){
         val counterPartTable = CounterPartTable()
-        val tableList = counterPartTable.apply { generateTableWithoutJudge(3)
+        val tableList = counterPartTable.apply {
+            generateTableWithoutJudge(3)
             generateTableWithJudge()
         }
     }

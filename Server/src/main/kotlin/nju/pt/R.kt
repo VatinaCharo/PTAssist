@@ -18,5 +18,6 @@ object R {
     val DATA_EXCEL_FILE = File("./$DATA_EXCEL_NAME")
 
     const val DATA_JSON_PATH =  "./data.json"
-    const val COUNTERPART_TABLE_PATH= "./counterpartTable.xlsx"
+    const val COUNTERPART_TABLE_JSON_PATH = "./counterpartTable.json"
+    const val COUNTERPART_TABLE_EXCEL_PATH= "./counterpartTable.xlsx"
 }

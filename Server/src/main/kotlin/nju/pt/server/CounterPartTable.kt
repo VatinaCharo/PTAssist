@@ -1,6 +1,7 @@
 package nju.pt.server
 
 import nju.pt.R
+import nju.pt.databaseassist.JsonHelper
 import nju.pt.kotlin.ext.*
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
@@ -12,10 +13,11 @@ import java.util.*
 import kotlin.io.path.Path
 import kotlin.io.path.notExists
 import kotlin.math.exp
-import kotlin.math.log
+
 
 
 //对阵表生成
+@kotlinx.serialization.Serializable
 class CounterPartTable {
     val logger = LoggerFactory.getLogger("CounterPartTableLogger")
 
@@ -26,7 +28,7 @@ class CounterPartTable {
     val totalTeamNumber: Int = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getTotalTeamNumber()//总队伍数
 
     //记录总的对阵表
-    val teamTableList = mutableListOf<OneRoundTable>()
+    var teamTableList = mutableListOf<OneRoundTable>()
 
     //记录未打乱会场的总的对阵表
     val teamTableListWithoutShuffle = mutableListOf<OneRoundTable>()
@@ -63,7 +65,7 @@ class CounterPartTable {
             teamTableList.add(oneRoundTable.shuffle())
 
         }
-
+        JsonHelper.toJson(this,R.COUNTERPART_TABLE_JSON_PATH)
         logger.info("CounterpartTable WITHOUT judge generated successfully!")
         return teamTableList
     }
@@ -71,11 +73,9 @@ class CounterPartTable {
     fun generateTableWithJudge() {
         logger.info("===================== generateTableWithJudge =====================")
 
-        if (teamTableList.size < 1 || teamTableListWithoutShuffle.size < 1) {
-            logger.error("请先生成没有裁判的对阵表！")
-            throw Exception("请先生成没有裁判的对阵表！")
-        }
-
+        // TODO: 2022/7/9 没有json文件的异常已经被JsonHelper捕捉了，怎么提示先生成没有裁判的对阵表?
+        teamTableList = JsonHelper.fromJson<CounterPartTable>(R.COUNTERPART_TABLE_JSON_PATH).teamTableList
+        
         //每个会场裁判个数
         val judgeCount = Config.judgeCount as Int
         // TODO: 2022/7/8 解除excel的依赖
@@ -190,6 +190,8 @@ class CounterPartTable {
                 judgeTableAllTurns.map { it.map { it.mapNotNull { judgeMap[it] } } }
             )
             logger.info("CounterPartTable WITH judge generated successfully!")
+
+
             break
 
         }
@@ -206,7 +208,7 @@ class CounterPartTable {
         }.apply {
             val sum = this.sum()
             //后归一化
-            this.forEachIndexed { index, d ->
+            this.forEachIndexed { index, _ ->
                 this[index] /= sum
             }
         }
@@ -243,16 +245,16 @@ class CounterPartTable {
 
         //若文件不存在，则创建
         logger.info("Examining whether the file exists:")
-        if (Path(R.COUNTERPART_TABLE_PATH).notExists()) {
+        if (Path(R.COUNTERPART_TABLE_EXCEL_PATH).notExists()) {
             logger.info("Not Exist, creating...")
-            XSSFWorkbook().write(FileOutputStream(R.COUNTERPART_TABLE_PATH))
+            XSSFWorkbook().write(FileOutputStream(R.COUNTERPART_TABLE_EXCEL_PATH))
             logger.info("New excel file created successfully!")
         } else {
             logger.info("File already exists, reading...")
         }
 
 
-        val counterPartTableWorkbook = WorkbookFactory.create(FileInputStream(R.COUNTERPART_TABLE_PATH)).apply {
+        val counterPartTableWorkbook = WorkbookFactory.create(FileInputStream(R.COUNTERPART_TABLE_EXCEL_PATH)).apply {
             val titleStyle = this.getTitleCellStyle()
 
             logger.info("--------------------- 对阵表 ---------------------")
@@ -268,13 +270,12 @@ class CounterPartTable {
             createSheet("对阵表").apply {
                 playerTableList.forEachIndexed { turn, oneRoundTable ->
                     //标题行
-                    this.createRow((2 + roomCount) * turn).apply {
+                    this.createRow((3 + roomCount) * turn).apply {
                         createCell(0).apply { setCellValue("第${turn + 1}轮对阵表") }
                     }
                     logger.info("--------------------- Round ${turn + 1} ---------------------")
 
-                    this.createRow((2 + roomCount) * turn + 1).apply {
-                        createCell(0).apply { setCellValue("");cellStyle = titleStyle }
+                    this.createRow((3 + roomCount) * turn + 1).apply {
                         createCell(1).apply { setCellValue("正方");cellStyle = titleStyle }
                         createCell(2).apply { setCellValue("反方");cellStyle = titleStyle }
                         createCell(3).apply { setCellValue("评方");cellStyle = titleStyle }
@@ -284,7 +285,7 @@ class CounterPartTable {
 
                     //各个会场的对阵表
                     for (room in 0 until roomCount) {
-                        this.createRow((2 + roomCount) * turn + room + 2).apply {
+                        this.createRow((3 + roomCount) * turn + room + 2).apply {
                             createCell(0).apply { setCellValue("会场${room + 1}");cellStyle = titleStyle }
                             logger.info("Room ${room + 1}:")
                             //队伍情况
@@ -306,9 +307,6 @@ class CounterPartTable {
                         }
                     }
 
-                    //产生空行
-                    this.createRow((2 + roomCount) * turn + roomCount + 2).createCell(0).setCellValue("")
-
                 }
             }
 
@@ -325,13 +323,12 @@ class CounterPartTable {
             createSheet("对阵表（含学校名）").apply {
                 playerTableList.forEachIndexed { turn, oneRoundTable ->
                     //标题行
-                    this.createRow((2 + roomCount) * turn).apply {
+                    this.createRow((3 + roomCount) * turn).apply {
                         createCell(0).apply { setCellValue("第${turn + 1}轮对阵表") }
                     }
                     logger.info("--------------------- Round ${turn + 1} ---------------------")
 
-                    this.createRow((2 + roomCount) * turn + 1).apply {
-                        createCell(0).apply { setCellValue("");cellStyle = titleStyle }
+                    this.createRow((3 + roomCount) * turn + 1).apply {
                         createCell(1).apply { setCellValue("正方");cellStyle = titleStyle }
                         createCell(2).apply { setCellValue("反方");cellStyle = titleStyle }
                         createCell(3).apply { setCellValue("评方");cellStyle = titleStyle }
@@ -341,7 +338,7 @@ class CounterPartTable {
 
                     //各个会场的对阵表
                     for (room in 0 until roomCount) {
-                        this.createRow((2 + roomCount) * turn + room + 2).apply {
+                        this.createRow((3 + roomCount) * turn + room + 2).apply {
                             createCell(0).apply { setCellValue("会场${room + 1}");cellStyle = titleStyle }
                             logger.info("Room ${room + 1}:")
                             //队伍情况
@@ -365,28 +362,26 @@ class CounterPartTable {
                         }
                     }
 
-                    //产生空行
-                    this.createRow((2 + roomCount) * turn + roomCount + 2).createCell(0).setCellValue("")
-
                 }
             }
 
         }
 
         try {
-            val fileOutputStream = FileOutputStream(R.COUNTERPART_TABLE_PATH)
+            val fileOutputStream = FileOutputStream(R.COUNTERPART_TABLE_EXCEL_PATH)
             counterPartTableWorkbook.write(fileOutputStream)
             fileOutputStream.close()
-            logger.info("Export player score successfully to ${R.COUNTERPART_TABLE_PATH} !")
+            logger.info("Export CounterPartTable successfully to ${R.COUNTERPART_TABLE_EXCEL_PATH} !")
         } catch (e: FileNotFoundException) {
             logger.error(e.message)
-            throw Exception("文件 ${R.COUNTERPART_TABLE_PATH} 正被另一个程序占用，无法访问，请关闭！")
+            throw Exception("文件 ${R.COUNTERPART_TABLE_EXCEL_PATH} 正被另一个程序占用，无法访问，请关闭！")
         }
 
     }
 }
 
 //一轮的参赛队伍对阵表
+@kotlinx.serialization.Serializable
 data class OneRoundTable(
     val roomCount: Int,//会场个数
     val totalTeamNumber: Int //总队伍数
@@ -453,6 +448,4 @@ data class OneRoundTable(
             OBList = this@OneRoundTable.OBList
         }
     }
-
-
 }
