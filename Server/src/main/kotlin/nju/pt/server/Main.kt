@@ -9,6 +9,7 @@ import nju.pt.R
 import nju.pt.databaseassist.Data
 import nju.pt.databaseassist.JsonHelper
 import org.slf4j.LoggerFactory
+import java.io.FileNotFoundException
 
 fun main() {
     Application.launch(App::class.java)
@@ -17,7 +18,13 @@ fun main() {
 class App : Application() {
     private val logger = LoggerFactory.getLogger(App::class.java)
     override fun start(primaryStage: Stage) {
-        val data = JsonHelper.fromJson<Data>(R.DATA_JSON_PATH)
+        var data = Data(listOf(), mapOf(), mapOf())
+        try {
+            data = JsonHelper.fromJson(R.DATA_JSON_PATH)
+        } catch (e: FileNotFoundException) {
+            logger.error("未找到JSON文件 ${e.message}")
+        }
+
         primaryStage.apply {
             scene = Scene(MainView.build(data)).apply {
                 stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)

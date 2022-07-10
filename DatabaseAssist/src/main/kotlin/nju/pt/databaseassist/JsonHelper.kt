@@ -22,13 +22,8 @@ object JsonHelper {
         val logger = LoggerFactory.getLogger("JSON Reader")
         logger.info("===================== ReadingJsonFile =====================")
         logger.info("read json form ${File(readPath).absolutePath}")
-        try {
-            val data = Json.decodeFromString<T>(File(readPath).readText())
-            logger.info("JsonFileReadSuccessfully!")
-            return data
-        } catch (e: FileNotFoundException) {
-            logger.error("未找到文件: ${e.message}")
-            throw Exception("未找到文件: ${e.message}")
-        }
+        val data = Json.decodeFromString<T>(File(readPath).readText())
+        logger.info("JsonFileReadSuccessfully!")
+        return data
     }
 }

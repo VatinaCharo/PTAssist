@@ -74,8 +74,11 @@ class CounterPartTable {
         logger.info("===================== generateTableWithJudge =====================")
 
         // TODO: 2022/7/9 没有json文件的异常已经被JsonHelper捕捉了，怎么提示先生成没有裁判的对阵表?
-        teamTableList = JsonHelper.fromJson<CounterPartTable>(R.COUNTERPART_TABLE_JSON_PATH).teamTableList
-        
+        try {
+            teamTableList = JsonHelper.fromJson<CounterPartTable>(R.COUNTERPART_TABLE_JSON_PATH).teamTableList
+        }catch (e:FileNotFoundException){
+            logger.error("未找到JSON文件 ${e.message}")
+        }
         //每个会场裁判个数
         val judgeCount = Config.judgeCount as Int
         // TODO: 2022/7/8 解除excel的依赖
