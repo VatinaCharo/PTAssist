@@ -160,10 +160,10 @@ object MainView {
         teamListView.selectionModel.select(0)
         logger.info("select 0 in teamListView")
         val playerDataList = data.teamDataList[0].playerDataList
-        playerTableView.items.addAll(playerDataList)
+        playerTableView.items = FXCollections.observableList(playerDataList)
         logger.info("load playerDataList $playerDataList")
         val recordDataList = data.teamDataList[0].recordDataList
-        recordTableView.items.addAll(recordDataList)
+        recordTableView.items = FXCollections.observableList(recordDataList)
         logger.info("load recordDataList $recordDataList")
         logger.info("init() return => $this")
     }
