@@ -13,11 +13,11 @@ data class PlayerData(
  *  */
 @kotlinx.serialization.Serializable
 data class RecordData(
-    var roomId: Int,
     var round: Int,
     var phase: Int,
-    var questionId: Int,
-    var playerId: Int,
+    var roomID: Int,
+    var questionID: Int,
+    var masterID: Int,
     var role: String,
     var score: Double,
     var weight: Double
@@ -27,14 +27,14 @@ data class RecordData(
 data class TeamData(
     var id: Int,
     var name: String,
-    var schoolId: Int,
+    var schoolID: Int,
     val playerDataList: MutableList<PlayerData>,
-    var recordDataList: MutableList<RecordData> = mutableListOf<RecordData>()
+    var recordDataList: MutableList<RecordData> = mutableListOf()
 )
 
 
 @kotlinx.serialization.Serializable
-data class TeamDataList(
+data class Data(
     var teamDataList: List<TeamData>,
     val questionMap: Map<Int, String>,
     val schoolMap: Map<Int, String>
@@ -42,7 +42,7 @@ data class TeamDataList(
     fun getTeamScore() = teamDataList.map {
         // 学校名，队伍名，总成绩
         Triple(
-            schoolMap[it.schoolId],
+            schoolMap[it.schoolID],
             it.name,
             // 可以使用fold函数简化代码
 //            it.recordDataList.let { recordDataList ->
@@ -62,11 +62,11 @@ data class TeamDataList(
     fun getReviewTable() = teamDataList.map {
         // 学校名，队伍名，[(赛题id to 队员们),()]
         Triple(
-            schoolMap[it.schoolId],
+            schoolMap[it.schoolID],
             it.name,
             mutableMapOf<Int, String>().apply {
                 it.recordDataList.forEach { recordData ->
-                    this[recordData.questionId] = this.getOrDefault(recordData.questionId, "") + recordData.role
+                    this[recordData.questionID] = this.getOrDefault(recordData.questionID, "") + recordData.role
                 }
             }
         )
@@ -75,7 +75,7 @@ data class TeamDataList(
     fun getPlayerScore() = teamDataList.map { it ->
         // 学校名，队伍名，[(姓名 to [性别，正方得分总览，反方得分总览，评方得分总览,正方平均分,反方平均分,评方平均分])]
         Triple(
-            schoolMap[it.schoolId],
+            schoolMap[it.schoolID],
             it.name,
             mutableMapOf<String, MutableList<Any>>().apply {
                 it.recordDataList.forEach { recordData ->
@@ -84,7 +84,7 @@ data class TeamDataList(
                         //获取这条记录中的队员名称和性别
                         try {
                             val (playerName, playerGender) = it.playerDataList.filter { playerData ->
-                                playerData.id == recordData.playerId
+                                playerData.id == recordData.masterID
                             }[0].let { playerData ->
                                 listOf(playerData.name, playerData.gender)
                             }
@@ -114,7 +114,7 @@ data class TeamDataList(
                             }
 
                         } catch (e: IndexOutOfBoundsException) {
-                            throw Exception("未在队员名单中找到比赛记录中id为${recordData.playerId}的队员，请检查！")
+                            throw Exception("未在队员名单中找到比赛记录中id为${recordData.masterID}的队员，请检查！")
                         }
 
 

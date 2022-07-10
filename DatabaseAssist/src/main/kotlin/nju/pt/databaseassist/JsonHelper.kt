@@ -9,8 +9,9 @@ import java.io.FileNotFoundException
 
 object JsonHelper {
     inline fun <reified T> toJson(data: T, savePath: String) {
-        val logger = LoggerFactory.getLogger("Save json file to: $savePath")
+        val logger = LoggerFactory.getLogger("JSON Saver")
         logger.info("===================== SavingJsonFile =====================")
+        logger.info("save json file to: ${File(savePath).absolutePath}")
         val format = Json { prettyPrint = true }
         File(savePath).writeText(format.encodeToString(data))
         logger.info("JsonFileSavedSuccessfully!")
@@ -18,8 +19,9 @@ object JsonHelper {
     }
 
     inline fun <reified T> fromJson(readPath: String): T {
-        val logger = LoggerFactory.getLogger("Read json file from: $readPath")
+        val logger = LoggerFactory.getLogger("JSON Reader")
         logger.info("===================== ReadingJsonFile =====================")
+        logger.info("read json form ${File(readPath).absolutePath}")
         try {
             val data = Json.decodeFromString<T>(File(readPath).readText())
             logger.info("JsonFileReadSuccessfully!")

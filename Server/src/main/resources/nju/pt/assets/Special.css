@@ -1,0 +1,32 @@
+#MainView_rootHBox {
+    -fx-background-color: #c7daff;
+    -fx-min-height: 400px;
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+}
+
+#MainView_informationVBox {
+    -fx-min-height: 400px;
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+}
+#MainView_operationHBox{
+    -fx-spacing: 10px;
+}
+#MainView_teamListView {
+    -fx-min-width: 240px;
+    -fx-max-width: 240px;
+    -fx-min-height: 300px;
+}
+
+#MainView_playerTableView {
+    -fx-min-width: 240px;
+    -fx-max-width: 240px;
+    -fx-min-height: 200px;
+}
+
+#MainView_recordTableView {
+    -fx-min-width: 500px;
+    -fx-min-height: 400px;
+}
+

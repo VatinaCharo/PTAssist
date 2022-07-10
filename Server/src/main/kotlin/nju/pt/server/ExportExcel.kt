@@ -1,12 +1,7 @@
 package nju.pt.server
 
-import nju.pt.databaseassist.TeamDataList
+import nju.pt.databaseassist.Data
 import nju.pt.kotlin.ext.getTitleCellStyle
-import org.apache.poi.ss.usermodel.BorderStyle
-import org.apache.poi.ss.usermodel.CellStyle
-import org.apache.poi.ss.usermodel.FillPatternType
-import org.apache.poi.ss.usermodel.IndexedColors
-import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.slf4j.LoggerFactory
@@ -18,7 +13,7 @@ import kotlin.io.path.isDirectory
 import kotlin.io.path.notExists
 
 
-class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
+class ExportExcel(private val data: Data, saveDirPath: String) {
 
     init {
         val logger = LoggerFactory.getLogger("Judge Directory Path:$saveDirPath")
@@ -32,7 +27,7 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
     }
 
     //获知该数据中有多少轮，以此来命名输出文件名
-    private val roundName = teamDataList.teamDataList[0].recordDataList.map { it.round }.toSortedSet().let { it ->
+    private val roundName = data.teamDataList[0].recordDataList.map { it.round }.toSortedSet().let { it ->
         var string = ""
         it.forEach {
             string += "$it&"
@@ -110,7 +105,7 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
 
                 }
                 //由于有标题行，生成的行序号是index+1
-                teamDataList.getTeamScore().forEachIndexed { index, data ->
+                data.getTeamScore().forEachIndexed { index, data ->
                     logger.info("写入数据：${data}")
                     this.createRow(index + 1).apply {
                         createCell(0).setCellValue(data.first)
@@ -173,7 +168,7 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
                         cellStyle = titleStyle
                     }
 
-                    teamDataList.questionMap.forEach { (qId, qName) ->
+                    data.questionMap.forEach { (qId, qName) ->
                         createCell(qColumnIndex).apply{
                             setCellValue("${qId}${qName}")
                             cellStyle = titleStyle
@@ -184,7 +179,7 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
 
                 }
                 //由于有标题行，生成的行序号是index+1
-                teamDataList.getReviewTable().forEachIndexed { index, triple ->
+                data.getReviewTable().forEachIndexed { index, triple ->
                     logger.info("写入数据：${triple}")
                     this.createRow(index + 1).apply {
                         createCell(0).setCellValue(triple.first)
@@ -281,7 +276,7 @@ class ExportExcel(private val teamDataList: TeamDataList, saveDirPath: String) {
                     }
                 }
                 var index = 1
-                teamDataList.getPlayerScore().forEach { triple ->
+                data.getPlayerScore().forEach { triple ->
                     logger.info("写入数据：${triple}")
 
                     triple.third.forEach { (name, dataList) ->

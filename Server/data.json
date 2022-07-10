@@ -1,47 +1,59 @@
 {
-    "teamDataList": [
+  "teamDataList": [
+    {
+      "id": 1,
+      "name": "德玛西亚",
+      "schoolID": 1,
+      "playerDataList": [
         {
-            "id": 1,
-            "name": "德玛西亚",
-            "schoolId": 1,
-            "playerDataList": [
-                {
-                    "id": 1,
-                    "name": "张三",
-                    "gender": "男"
-                },
-                {
-                    "id": 2,
-                    "name": "李四",
-                    "gender": "女"
-                }
-            ]
+          "id": 1,
+          "name": "张三",
+          "gender": "男"
         },
         {
-            "id": 2,
-            "name": "啦啦啦",
-            "schoolId": 1,
-            "playerDataList": [
-                {
-                    "id": 3,
-                    "name": "阿三",
-                    "gender": "男"
-                },
-                {
-                    "id": 4,
-                    "name": "阿四",
-                    "gender": "女"
-                }
-            ]
+          "id": 2,
+          "name": "李四",
+          "gender": "女"
         }
-    ],
-    "questionMap": {
-        "1": "你来发明",
-        "7": "我来发明",
-        "9": "牛顿摆"
+      ],
+      "recordDataList": [
+        {
+          "round": 1,
+          "phase": 1,
+          "roomID": 5,
+          "questionID": 5,
+          "masterID": 1,
+          "role": "R",
+          "score": 7.5,
+          "weight": 3.0
+        }
+      ]
     },
-    "schoolMap": {
-        "1": "南京大学",
-        "2": "北京大学"
+    {
+      "id": 2,
+      "name": "啦啦啦",
+      "schoolID": 1,
+      "playerDataList": [
+        {
+          "id": 3,
+          "name": "阿三",
+          "gender": "男"
+        },
+        {
+          "id": 4,
+          "name": "阿四",
+          "gender": "女"
+        }
+      ]
     }
+  ],
+  "questionMap": {
+    "1": "你来发明",
+    "7": "我来发明",
+    "9": "牛顿摆"
+  },
+  "schoolMap": {
+    "1": "南京大学",
+    "2": "北京大学"
+  }
 }

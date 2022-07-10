@@ -2,6 +2,7 @@ package nju.pt.client
 
 import javafx.scene.control.ComboBox
 import javafx.scene.control.Label
+import javafx.scene.control.TableColumn
 import javafx.scene.control.TextField
 import javafx.scene.control.Tooltip
 import javafx.scene.layout.HBox
@@ -9,9 +10,7 @@ import javafx.scene.text.Font
 import nju.pt.R
 
 class TeamBar(type: TeamType) : HBox() {
-    private val tagLabel = Label().apply {
-        font = Font.font(R.LABEL_FONT_SIZE)
-    }
+    private val tagLabel = Label()
     private val teamTextField = TextField().apply {
         prefWidth = 200.0
         isEditable = false
@@ -46,9 +45,7 @@ class TeamBar(type: TeamType) : HBox() {
 }
 
 class ScoreBar(name: String, judgeCount: Int) : HBox() {
-    private val tagLabel = Label(name).apply {
-        font = Font.font(R.LABEL_FONT_SIZE)
-    }
+    private val tagLabel = Label(name)
 
     init {
         spacing = 10.0

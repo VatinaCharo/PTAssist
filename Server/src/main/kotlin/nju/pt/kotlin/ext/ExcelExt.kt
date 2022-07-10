@@ -6,7 +6,6 @@ import nju.pt.databaseassist.*
 import org.apache.poi.ss.usermodel.*
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
-import kotlin.math.log
 
 
 fun Workbook.loadConfigFromExcel() = mutableListOf<Any>().apply {
@@ -239,7 +238,7 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
                     this += TeamData(
                         id = cellValues[2].substringBefore(".").toInt(),
                         name = cellValues[1],
-                        schoolId = reversedSchoolMap[cellValues[0]]!!,
+                        schoolID = reversedSchoolMap[cellValues[0]]!!,
                         playerDataList = mutableListOf<PlayerData>().apply {
                             val subCellValues = cellValues.subList(3, cellValues.size)
                             for (index in subCellValues.indices step 2) {
@@ -309,7 +308,7 @@ fun Workbook.getTotalTeamNumber(): Int {
 
 fun Workbook.initializeJson() {
     JsonHelper.toJson(
-        TeamDataList(
+        Data(
             teamDataList = this.loadTeamFromExcel(),
             questionMap = this.loadQuestionFromExcel(),
             schoolMap = this.loadSchoolFromExcel()

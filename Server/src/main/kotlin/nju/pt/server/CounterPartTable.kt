@@ -93,7 +93,7 @@ class CounterPartTable {
         val schoolMap = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel()
         // 队伍抽签号 to 学校名称
         val teamIdMap = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadTeamFromExcel().associate {
-            it.id to schoolMap[it.schoolId]
+            it.id to schoolMap[it.schoolID]
         }
 
 
@@ -240,7 +240,7 @@ class CounterPartTable {
         val schoolMap = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel()
         // 队伍抽签号 to (队伍名称,学校名称)
         val teamIdMap = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadTeamFromExcel().associate {
-            it.id to Pair(it.name, schoolMap[it.schoolId])
+            it.id to Pair(it.name, schoolMap[it.schoolID])
         }
 
         //若文件不存在，则创建
