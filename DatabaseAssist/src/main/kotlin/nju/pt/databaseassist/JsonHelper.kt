@@ -13,7 +13,7 @@ object JsonHelper {
         logger.info("===================== SavingJsonFile =====================")
         val format = Json { prettyPrint = true }
         File(savePath).writeText(format.encodeToString(data))
-        logger.info("===================== JsonFileSavedSuccessfully =====================")
+        logger.info("JsonFileSavedSuccessfully!")
 
     }
 

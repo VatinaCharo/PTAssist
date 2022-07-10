@@ -2,14 +2,11 @@ package nju.pt.kotlin.ext
 
 
 import nju.pt.R
-import nju.pt.databaseassist.JsonHelper
-import nju.pt.databaseassist.PlayerData
-import nju.pt.databaseassist.TeamData
-import nju.pt.databaseassist.TeamDataList
-import org.apache.poi.ss.usermodel.Workbook
-import org.apache.poi.ss.usermodel.WorkbookFactory
+import nju.pt.databaseassist.*
+import org.apache.poi.ss.usermodel.*
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
+import kotlin.math.log
 
 
 fun Workbook.loadConfigFromExcel() = mutableListOf<Any>().apply {
@@ -23,7 +20,7 @@ fun Workbook.loadConfigFromExcel() = mutableListOf<Any>().apply {
     var vWeight: Double
     try {
         // 读取excel文件中的配置sheet
-        val configSheet = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getSheet(R.CONFIG_SHEET_NAME)
+        val configSheet = this@loadConfigFromExcel.getSheet(R.CONFIG_SHEET_NAME)
         // 读取每行信息
         configSheet.rowIterator().asSequence().forEach { row ->
             val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
@@ -135,6 +132,7 @@ fun Workbook.loadQuestionFromExcel() = mutableMapOf<Int, String>().apply {
 }.entries.sortedBy { it.key }.associateBy({ it.key }, { it.value })
 
 fun Workbook.loadSchoolFromExcel() = mutableMapOf<Int, String>().apply {
+    // 学校id to 学校名称
     val logger = LoggerFactory.getLogger("School Data Loader")
     logger.info("===================== loadSchoolFromExcel =====================")
 
@@ -167,7 +165,7 @@ fun Workbook.loadSchoolFromExcel() = mutableMapOf<Int, String>().apply {
 }.toMap()
 
 fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
-
+    //返回 学校名称：裁判列表 的字典
     val schoolMap = this@loadJudgeFromExcel.loadSchoolFromExcel()
 
     val logger = LoggerFactory.getLogger("Judge Data Loader")
@@ -208,9 +206,10 @@ fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
 
 
 fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
+    //[teamData1, teamData2, ...]
+
     val logger = LoggerFactory.getLogger("Team Data Loader")
-
-
+    
     try {
         val teamSheet = this@loadTeamFromExcel.getSheet(R.TEAM_SHEET_NAME)
         val reversedSchoolMap = this@loadTeamFromExcel.loadSchoolFromExcel().entries.associate { (k, v) -> v to k }
@@ -226,8 +225,9 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
                     logger.info("cellValues = $cellValues")
                     //判断队员名称-姓名是否齐全
                     if ((cellValues.size - 3) % 2 != 0) {
-                        logger.error("队员信息不全！")
-                        throw Exception("队员信息不全！")
+                        println(cellValues)
+                        logger.error("第${rowIndex}行队伍/队员信息不全，请检查！")
+                        throw Exception("第${rowIndex}行队伍/队员信息不全，请检查！")
                     }
 
                     //检测队伍学校是否在提供的学校列表内
@@ -254,7 +254,7 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
                                 playerId += 1
                             }
                         },
-                        recordDataList = null
+                        //recordDataList 默认为空列表
                     )
 
                 }
@@ -273,12 +273,38 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
         throw Exception("抽签号必须是整数！")
-    } catch (e: Exception) {
-        logger.error(e.message)
-        logger.error(e.stackTraceToString())
-        throw Exception("队伍信息填写有误！")
     }
+//    catch (e: Exception) {
+//        logger.error(e.message)
+//        logger.error(e.stackTraceToString())
+//        throw Exception("队伍信息填写有误！")
+//    }
 }.toList()
+
+fun Workbook.getTotalTeamNumber(): Int {
+    val logger = LoggerFactory.getLogger("Tot team number Logger")
+    logger.info("===================== getTotalTeamNumberFromExcel =====================")
+    try {
+        //考虑到有标题行的存在，故初始值记为-1
+        var totalTeamNumber = -1
+
+        this.getSheet(R.TEAM_SHEET_NAME).rowIterator().asSequence().forEach {
+            if (it.cellIterator().asSequence().toList().size > 1) {
+                totalTeamNumber += 1
+            }
+        }
+        logger.info("total team number: $totalTeamNumber")
+        return totalTeamNumber
+
+    } catch (e: FileNotFoundException) {
+        logger.error("未找到文件: ${e.message}")
+        throw Exception("未找到文件: ${e.message}")
+    } catch (e: NullPointerException) {
+        logger.error("未找到sheet：" + e.message)
+        throw Exception("未找到sheet，请检查sheet名称")
+
+    }
+}
 
 
 fun Workbook.initializeJson() {
@@ -293,5 +319,22 @@ fun Workbook.initializeJson() {
 }
 
 
+fun Workbook.getTitleCellStyle()=this.createCellStyle().apply {
+    //黄色，诸位边框实线
 
+    //颜色填充
+    fillForegroundColor = IndexedColors.YELLOW.index
+    fillPattern = FillPatternType.SOLID_FOREGROUND
+
+    //边界颜色
+    borderBottom = (BorderStyle.THIN)
+    bottomBorderColor = IndexedColors.BLACK.index
+    borderLeft = (BorderStyle.THIN)
+    leftBorderColor = IndexedColors.BLACK.index
+    borderRight = (BorderStyle.THIN)
+    rightBorderColor = IndexedColors.BLACK.index
+    borderTop = (BorderStyle.THIN)
+    topBorderColor = IndexedColors.BLACK.index
+
+}
 

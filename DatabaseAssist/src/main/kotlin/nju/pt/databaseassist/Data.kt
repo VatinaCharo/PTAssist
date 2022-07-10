@@ -29,7 +29,7 @@ data class TeamData(
     var name: String,
     var schoolId: Int,
     val playerDataList: MutableList<PlayerData>,
-    var recordDataList: MutableList<RecordData>
+    var recordDataList: MutableList<RecordData> = mutableListOf<RecordData>()
 )
 
 
@@ -122,12 +122,13 @@ data class TeamDataList(
 
                 }
 
+                //再对得到的列表进行一定处理
                 this.forEach { (_, dataList) ->
                     for (i in 1..2) {
                         if (dataList[i] != "") {
                             //求平均值
                             dataList[i + 3] = (dataList[i + 3] as Double) / (dataList[i] as String).count { it == ',' }
-                            //去掉第一个,
+                            //去掉第一个逗号
                             dataList[i] = (dataList[i] as String).substringAfter(",")
                         }
                     }
