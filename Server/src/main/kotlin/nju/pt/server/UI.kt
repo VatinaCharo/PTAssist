@@ -21,8 +21,8 @@ object MainView {
     private val informationVBox = VBox().apply { id = "MainView_informationVBox" }
     private val operationHBox = HBox().apply { id = "MainView_operationHBox" }
     private val modifyBtn = Button("修改").apply { id = "MainView_modifyBtn" }
-    private val addBtn = Button("添加").apply { id = "MainView_addBtn" }
-    private val deleteBtn = Button("移除").apply { id = "MainView_deleteBtn" }
+    private val addBtn = Button("保存").apply { id = "MainView_saveBtn" }
+    private val deleteBtn = Button("增减").apply { id = "MainView_adBtn" }
     private val exportBtn = Button("导出").apply { id = "MainView_exportBtn" }
     val teamListView = ListView<String>().apply { id = "MainView_teamListView" }
     private val playerTableView = TableView<PlayerData>().apply { id = "MainView_playerTableView" }
