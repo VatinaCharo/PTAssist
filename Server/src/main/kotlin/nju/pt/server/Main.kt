@@ -25,7 +25,7 @@ class App : Application() {
             icons.add(Image(R.LOGO_PATH))
             title = "Match-Server ${R.VERSION}"
             minWidth = 800.0
-            minHeight = 600.0
+            minHeight = 800.0
         }.show()
         MainView.apply {
             teamListView.selectionModel.selectedItemProperty().addListener { _, _, newSelectedTeamName ->
