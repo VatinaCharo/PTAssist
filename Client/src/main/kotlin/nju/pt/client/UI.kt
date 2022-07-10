@@ -1,11 +1,13 @@
 package nju.pt.client
 
+import javafx.geometry.Pos
 import javafx.scene.control.*
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.layout.*
 import nju.pt.R
 import org.slf4j.LoggerFactory
+import kotlin.math.log
 
 object StartView {
     private val logger = LoggerFactory.getLogger(this::class.java)
@@ -73,7 +75,7 @@ object MatchView {
     private val njuTextLogoImageView = ImageView(R.TEXT_LOGO_PATH).apply { id = "MatchView_njuTextLogoImageView" }
     val group = ToggleGroup()
 
-    private fun init(judgeCount: Int, questionMap: Map<Int, String>) = apply {
+    private fun init(judgeCount: Int, questionMap: Map<Int, String>) {
         logger.info("init()")
         // Main Tab
         rootHBox.children.addAll(optionalQuestionsStackPane, operationsVBox)
@@ -106,7 +108,7 @@ object MatchView {
         )
     }
 
-    private fun layout() = apply {
+    private fun layout() {
         logger.info("layout()")
         logger.info("setting njuLogoImageView layout")
         njuLogoImageView.apply {
@@ -124,6 +126,7 @@ object MatchView {
 
     fun build(judgeCount: Int, questionMap: Map<Int, String>): HBox {
         logger.info("build()")
+        logger.info("init <<< judgeCount = $judgeCount   questionMap = $questionMap")
         init(judgeCount, questionMap)
         layout()
         logger.info("build() return => $rootHBox")
@@ -137,6 +140,67 @@ object DownloadView {
 
 object SettingView {
     private val logger = LoggerFactory.getLogger(this::class.java)
+    private val rootGridPane = GridPane().apply { id = "SettingView_rootGridPane" }
+    private val ipLabel = Label("IP:")
+    private val ipTF = TextField()
+    private val portLabel = Label("Port:")
+    private val portTF = TextField()
+    private val judgeCountLabel = Label("JudgeCount:")
+    private val judgeCountTF = TextField()
+    val saveBtn = Button("保存").apply { id = "SettingView_saveBtn" }
+
+    private fun init(config: Config) = apply {
+        logger.info("init(config: Config)")
+        rootGridPane.add(ipLabel, 0, 0)
+        rootGridPane.add(portLabel, 0, 1)
+        rootGridPane.add(judgeCountLabel, 0, 2)
+
+        rootGridPane.add(ipTF, 1, 0)
+        rootGridPane.add(portTF, 1, 1)
+        rootGridPane.add(judgeCountTF, 1, 2)
+
+        rootGridPane.add(saveBtn, 1, 3)
+
+        ipTF.apply {
+            tooltip = Tooltip("服务器ip地址")
+            text = config.ip
+            textProperty().addListener { _, oldValue, newValue ->
+                text =
+                    if (newValue.matches(Regex("^((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})(\\.((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})){3}$"))) newValue else oldValue
+            }
+        }
+        portTF.apply {
+            tooltip = Tooltip("服务器端口")
+            text = config.port.toString()
+            textProperty().addListener { _, oldValue, newValue ->
+                text =
+                    if (newValue.matches(Regex("^(\\d|[1-9]\\d{1,3}|[1-5]\\d{4}|6[0-4]\\d{3}|65[0-4]\\d{2}|655[0-2]\\d|6553[0-5])$"))) newValue else oldValue
+            }
+        }
+        judgeCountTF.apply {
+            tooltip = Tooltip("裁判人数")
+            text = config.judgeCount.toString()
+            textProperty().addListener { _, oldValue, newValue ->
+                text =
+                    if (newValue.matches(Regex("^\\d*$"))) newValue else oldValue
+            }
+        }
+    }
+
+    private fun layout() {
+        logger.info("layout()")
+        ipTF.alignment = Pos.CENTER_RIGHT
+        portTF.alignment = Pos.CENTER_RIGHT
+        judgeCountTF.alignment = Pos.CENTER_RIGHT
+    }
+
+    fun build(config: Config): GridPane {
+        logger.info("build(config:Config)")
+        init(config)
+        logger.info("build() return => $rootGridPane")
+        return rootGridPane
+    }
+    fun saveConfig() = Config(ipTF.text, portTF.text.toInt(), judgeCountTF.text.toInt())
 }
 
 object AboutView {
