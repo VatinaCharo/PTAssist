@@ -11,9 +11,10 @@ object JsonHelper {
     inline fun <reified T> toJson(data: T, savePath: String) {
         val logger = LoggerFactory.getLogger("JSON Saver")
         logger.info("===================== SavingJsonFile =====================")
-        logger.info("save json file to: ${File(savePath).absolutePath}")
+        val path = if (savePath.lowercase().startsWith("file:")) savePath.substringAfter(":") else savePath
+        logger.info("save json file to: ${File(path).absolutePath}")
         val format = Json { prettyPrint = true }
-        File(savePath).writeText(format.encodeToString(data))
+        File(path).writeText(format.encodeToString(data))
         logger.info("JsonFileSavedSuccessfully!")
 
     }
@@ -23,12 +24,14 @@ object JsonHelper {
         logger.info("===================== ReadingJsonFile =====================")
         logger.info("read json form ${File(readPath).absolutePath}")
         try {
-            val data = Json.decodeFromString<T>(File(readPath).readText())
+            val path = if (readPath.lowercase().startsWith("file:")) readPath.substringAfter(":") else readPath
+
+            val data = Json.decodeFromString<T>(File(path).readText())
             logger.info("JsonFileReadSuccessfully!")
             return data
         } catch (e: FileNotFoundException) {
-            logger.error("未找到文件: ${e.message}")
-            throw Exception("未找到文件: ${e.message}")
+            logger.error("未找到文件${readPath}: ${e.message}")
+            throw Exception("未找到文件${readPath}: ${e.message}")
         }
     }
 }
