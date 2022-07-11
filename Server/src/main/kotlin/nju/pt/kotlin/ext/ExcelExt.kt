@@ -397,6 +397,15 @@ fun Workbook.initializeExcel() {
                     setCellValue("题名");cellStyle = titleStyle
                 }
             }
+
+            createRow(1).apply {
+                createCell(0).apply {
+                    setCellValue("1")
+                }
+                createCell(1).apply {
+                    setCellValue("你来发明")
+                }
+            }
         }
         createSheet("队伍信息").apply {
             createRow(0).apply {
@@ -420,6 +429,30 @@ fun Workbook.initializeExcel() {
                 }
                 createCell(6).apply {
                     setCellValue("队员性别(男/女)");cellStyle = titleStyle
+                }
+            }
+
+            createRow(1).apply {
+                createCell(0).apply {
+                    setCellValue("南京大学")
+                }
+                createCell(1).apply {
+                    setCellValue("啦啦啦")
+                }
+                createCell(2).apply {
+                    setCellValue("1")
+                }
+                createCell(3).apply {
+                    setCellValue("张三")
+                }
+                createCell(4).apply {
+                    setCellValue("男")
+                }
+                createCell(5).apply {
+                    setCellValue("李四")
+                }
+                createCell(6).apply {
+                    setCellValue("女")
                 }
             }
         }
