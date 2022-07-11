@@ -242,7 +242,6 @@ object MainView {
         logger.info("load teamNameList $teamNameList")
         teamListView.selectionModel.select(0)
         logger.info("select 0 in teamListView")
-        println("playerDataList:${data.teamDataList}")
         val playerDataList = data.teamDataList[0].playerDataList
         playerTableView.items = FXCollections.observableList(playerDataList)
         logger.info("load playerDataList $playerDataList")
