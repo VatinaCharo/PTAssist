@@ -15,17 +15,17 @@ import kotlin.io.path.notExists
 import kotlin.math.exp
 
 
-
 //对阵表生成
 @kotlinx.serialization.Serializable
-class CounterPartTable {
+class CounterPartTable(
+    val totalTeamNumber: Int = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getTotalTeamNumber(),
+    val JUDGEMAP: Map<String, List<String>> = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadJudgeFromExcel(),
+    val SCHOOLMAP: Map<Int, String> =  WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel(),
+
+) {
     val logger = LoggerFactory.getLogger("CounterPartTableLogger")
 
-
     val roomCount: Int = Config.roomCount as Int//会场个数
-
-    // TODO: 2022/7/8 要把这个excel的依赖去掉
-    val totalTeamNumber: Int = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getTotalTeamNumber()//总队伍数
 
     //记录总的对阵表
     var teamTableList = mutableListOf<OneRoundTable>()
@@ -33,8 +33,9 @@ class CounterPartTable {
     //记录未打乱会场的总的对阵表
     val teamTableListWithoutShuffle = mutableListOf<OneRoundTable>()
 
-    fun generateTableWithoutJudge(turns: Int = 3): MutableList<OneRoundTable> //turns为需要产生对阵表的轮数
+    fun generateTableWithoutJudge(): MutableList<OneRoundTable> //turns为需要产生对阵表的轮数
     {
+        val turns:Int = Config.turns as Int
         logger.info("===================== generateTableWithoutJudge =====================")
         logger.info("roomCount:${roomCount}")
         logger.info("totalTeamNumber:${totalTeamNumber}")
@@ -65,7 +66,8 @@ class CounterPartTable {
             teamTableList.add(oneRoundTable.shuffle())
 
         }
-        JsonHelper.toJson(this,R.COUNTERPART_TABLE_JSON_PATH)
+        JsonHelper.toJson(this, R.COUNTERPART_TABLE_JSON_PATH)
+        logger.info("Saved to ${R.COUNTERPART_TABLE_JSON_PATH}")
         logger.info("CounterpartTable WITHOUT judge generated successfully!")
         return teamTableList
     }
@@ -74,29 +76,24 @@ class CounterPartTable {
         logger.info("===================== generateTableWithJudge =====================")
 
         // TODO: 2022/7/9 没有json文件的异常已经被JsonHelper捕捉了，怎么提示先生成没有裁判的对阵表?
-        try {
-            teamTableList = JsonHelper.fromJson<CounterPartTable>(R.COUNTERPART_TABLE_JSON_PATH).teamTableList
-        }catch (e:FileNotFoundException){
-            logger.error("未找到JSON文件 ${e.message}")
-        }
+        teamTableList = JsonHelper.fromJson<CounterPartTable>(R.COUNTERPART_TABLE_JSON_PATH).teamTableList
+
         //每个会场裁判个数
         val judgeCount = Config.judgeCount as Int
-        // TODO: 2022/7/8 解除excel的依赖
         // 裁判序号 to （裁判学校，裁判姓名）
         val judgeMap = mutableMapOf<Int, Pair<String, String>>().apply {
             var i = 0
-            WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadJudgeFromExcel().forEach { (schoolName, judgeList) ->
+            JUDGEMAP.forEach { (schoolName, judgeList) ->
                 judgeList.forEach { judgeName ->
                     this[i] = Pair(schoolName, judgeName)
                     i += 1
                 }
             }
         }
-        // 学校id to 学校名称
-        val schoolMap = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel()
+
         // 队伍抽签号 to 学校名称
         val teamIdMap = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadTeamFromExcel().associate {
-            it.id to schoolMap[it.schoolID]
+            it.id to SCHOOLMAP[it.schoolID]
         }
 
 
@@ -239,11 +236,9 @@ class CounterPartTable {
         logger.info("===================== ExportCounterPartTable =====================")
 
         // TODO: 2022/7/9 解除Excel依赖
-        //学校id to 学校名
-        val schoolMap = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel()
         // 队伍抽签号 to (队伍名称,学校名称)
         val teamIdMap = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadTeamFromExcel().associate {
-            it.id to Pair(it.name, schoolMap[it.schoolID])
+            it.id to Pair(it.name, SCHOOLMAP[it.schoolID])
         }
 
         //若文件不存在，则创建
@@ -354,11 +349,11 @@ class CounterPartTable {
                             createCell(4).setCellValue(
                                 "${teamIdMap.getOrElse(oneRoundTable.OBList[room]) { "-1" }}"
                             )
-                            logger.info("OB:${teamIdMap.getOrElse(oneRoundTable.OBList[room]) {  "-1" }}")
+                            logger.info("OB:${teamIdMap.getOrElse(oneRoundTable.OBList[room]) { "-1" }}")
 
                             //裁判情况
                             judgeTableList[turn][room].forEachIndexed { judgeNumber, pair ->
-                                createCell(5 + judgeNumber).setCellValue("${pair}")
+                                createCell(5 + judgeNumber).setCellValue("$pair")
                             }
                             logger.info("Judges:${judgeTableList[turn][room]}")
 

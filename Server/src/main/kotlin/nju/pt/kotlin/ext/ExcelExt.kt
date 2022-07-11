@@ -2,21 +2,27 @@ package nju.pt.kotlin.ext
 
 
 import nju.pt.R
-import nju.pt.databaseassist.*
+import nju.pt.databaseassist.Data
+import nju.pt.databaseassist.JsonHelper
+import nju.pt.databaseassist.PlayerData
+import nju.pt.databaseassist.TeamData
+import nju.pt.server.ConfigData
 import org.apache.poi.ss.usermodel.*
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
+import java.io.FileOutputStream
 
 
-fun Workbook.loadConfigFromExcel() = mutableListOf<Any>().apply {
+fun Workbook.loadConfigFromExcel(): ConfigData {
     val logger = LoggerFactory.getLogger("Config Loader")
     logger.info("===================== loadConfigFromExcel =====================")
-    var port: Int
+    var port = 0
     var judgeCount = 0
     var roomCount = 0
-    var rWeight: Double
-    var oWeight: Double
-    var vWeight: Double
+    var turns = 0
+    var rWeight: Double = 0.0
+    var oWeight: Double = 0.0
+    var vWeight: Double = 0.0
     try {
         // 读取excel文件中的配置sheet
         val configSheet = this@loadConfigFromExcel.getSheet(R.CONFIG_SHEET_NAME)
@@ -30,32 +36,30 @@ fun Workbook.loadConfigFromExcel() = mutableListOf<Any>().apply {
                     //  Excel单元格默认采用浮点数记录，故读取出的字符串会包含"."，需要用substringBefore截去
                     "端口号" -> {
                         port = cellValues[1].substringBefore(".").toInt()
-                        this.add(0, port)
                         logger.info("port = $port")
                     }
                     "每场比赛裁判个数" -> {
                         judgeCount = cellValues[1].substringBefore(".").toInt()
-                        this.add(1, judgeCount)
                         logger.info("judgeCount = $judgeCount")
                     }
                     "会场总个数" -> {
                         roomCount = cellValues[1].substringBefore(".").toInt()
-                        this.add(2, roomCount)
                         logger.info("roomCount = $roomCount")
+                    }
+                    "比赛轮数" -> {
+                        turns = cellValues[1].substringBefore(".").toInt()
+                        logger.info("turns = $roomCount")
                     }
                     "正方分数权重" -> {
                         rWeight = cellValues[1].toDouble()
-                        this.add(3, rWeight)
                         logger.info("roomCount = $rWeight")
                     }
                     "反方分数权重" -> {
                         oWeight = cellValues[1].toDouble()
-                        this.add(4, oWeight)
                         logger.info("roomCount = $oWeight")
                     }
                     "评方分数权重" -> {
                         vWeight = cellValues[1].toDouble()
-                        this.add(5, vWeight)
                         logger.info("roomCount = $vWeight")
                     }
                     else -> {
@@ -89,7 +93,16 @@ fun Workbook.loadConfigFromExcel() = mutableListOf<Any>().apply {
         logger.error("房间数必须是大于零的整数！")
         throw Exception("房间数必须是大于零的整数！")
     }
-}.toList()
+    return ConfigData(
+        port,
+        judgeCount,
+        roomCount,
+        turns,
+        rWeight,
+        oWeight,
+        vWeight,
+    )
+}
 
 fun Workbook.loadQuestionFromExcel() = mutableMapOf<Int, String>().apply {
     val logger = LoggerFactory.getLogger("Question Data Loader")
@@ -208,7 +221,7 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
     //[teamData1, teamData2, ...]
 
     val logger = LoggerFactory.getLogger("Team Data Loader")
-    
+
     try {
         val teamSheet = this@loadTeamFromExcel.getSheet(R.TEAM_SHEET_NAME)
         val reversedSchoolMap = this@loadTeamFromExcel.loadSchoolFromExcel().entries.associate { (k, v) -> v to k }
@@ -318,7 +331,7 @@ fun Workbook.initializeJson() {
 }
 
 
-fun Workbook.getTitleCellStyle()=this.createCellStyle().apply {
+fun Workbook.getTitleCellStyle(): CellStyle = this.createCellStyle().apply {
     //黄色，诸位边框实线
 
     //颜色填充
@@ -334,6 +347,150 @@ fun Workbook.getTitleCellStyle()=this.createCellStyle().apply {
     rightBorderColor = IndexedColors.BLACK.index
     borderTop = (BorderStyle.THIN)
     topBorderColor = IndexedColors.BLACK.index
+
+}
+
+fun Workbook.initializeExcel() {
+    val logger = LoggerFactory.getLogger("Server_ConfigInitializeLogger")
+    logger.info("=====================Initialize Server Config Excel=====================")
+    val titleStyle = this.getTitleCellStyle()
+
+    this.apply {
+        createSheet("软件配置").apply {
+            createRow(0).createCell(0).apply {
+                setCellValue("端口号");cellStyle = titleStyle.apply {
+                defaultColumnWidth = 17
+            }
+            }
+            createRow(1).createCell(0).apply {
+                setCellValue("每场比赛裁判个数");cellStyle = titleStyle.apply {
+                defaultColumnWidth = 17
+            }
+            }
+            createRow(2).createCell(0).apply {
+                setCellValue("会场总个数");cellStyle = titleStyle.apply {
+                defaultColumnWidth = 17
+            }
+            }
+            createRow(3).createCell(0).apply {
+                setCellValue("正方分数权重");cellStyle = titleStyle.apply {
+                defaultColumnWidth = 17
+            }
+            }
+            createRow(4).createCell(0).apply {
+                setCellValue("反方分数权重");cellStyle = titleStyle.apply {
+                defaultColumnWidth = 17
+            }
+            }
+            createRow(5).createCell(0).apply {
+                setCellValue("评方分数权重");cellStyle = titleStyle.apply {
+                defaultColumnWidth = 17
+            }
+            }
+        }
+        createSheet("赛题信息").apply {
+            createRow(0).apply {
+                createCell(0).apply {
+                    setCellValue("题号");cellStyle = titleStyle
+                }
+                createCell(1).apply {
+                    setCellValue("题名");cellStyle = titleStyle
+                }
+            }
+
+            createRow(1).apply {
+                createCell(0).apply {
+                    setCellValue("1")
+                }
+                createCell(1).apply {
+                    setCellValue("你来发明")
+                }
+            }
+        }
+        createSheet("队伍信息").apply {
+            createRow(0).apply {
+                createCell(0).apply {
+                    setCellValue("学校名");cellStyle = titleStyle
+                }
+                createCell(1).apply {
+                    setCellValue("队伍名");cellStyle = titleStyle
+                }
+                createCell(2).apply {
+                    setCellValue("抽签号");cellStyle = titleStyle
+                }
+                createCell(3).apply {
+                    setCellValue("队员姓名");cellStyle = titleStyle
+                }
+                createCell(4).apply {
+                    setCellValue("队员性别(男/女)");cellStyle = titleStyle
+                }
+                createCell(5).apply {
+                    setCellValue("队员姓名");cellStyle = titleStyle
+                }
+                createCell(6).apply {
+                    setCellValue("队员性别(男/女)");cellStyle = titleStyle
+                }
+            }
+
+            createRow(1).apply {
+                createCell(0).apply {
+                    setCellValue("南京大学")
+                }
+                createCell(1).apply {
+                    setCellValue("啦啦啦")
+                }
+                createCell(2).apply {
+                    setCellValue("1")
+                }
+                createCell(3).apply {
+                    setCellValue("张三")
+                }
+                createCell(4).apply {
+                    setCellValue("男")
+                }
+                createCell(5).apply {
+                    setCellValue("李四")
+                }
+                createCell(6).apply {
+                    setCellValue("女")
+                }
+            }
+        }
+        createSheet("裁判信息").apply {
+            createRow(0).apply {
+                createCell(0).apply {
+                    setCellValue("学校名");cellStyle = titleStyle
+                }
+                createCell(1).apply {
+                    setCellValue("裁判们");cellStyle = titleStyle
+                }
+            }
+            createRow(1).apply {
+                createCell(0).apply {
+                    setCellValue("南京大学")
+                }
+                createCell(1).apply {
+                    setCellValue("裁判1")
+                }
+                createCell(2).apply {
+                    setCellValue("裁判2")
+                }
+                createCell(3).apply {
+                    setCellValue("裁判3")
+                }
+            }
+        }
+        try {
+            val fileOutputStream = FileOutputStream(R.CONFIG_EXCEL_PATH)
+            this.write(fileOutputStream)
+            fileOutputStream.close()
+            logger.info("Export team score successfully to ${R.CONFIG_EXCEL_PATH} !")
+        } catch (e: FileNotFoundException) {
+            logger.error(e.message)
+            throw Exception("文件 ${R.CONFIG_EXCEL_PATH} 正被另一个程序占用，无法访问，请关闭！")
+        }
+
+    }
 
 }
 

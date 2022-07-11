@@ -2,18 +2,89 @@ package nju.pt.server
 
 import javafx.collections.FXCollections
 import javafx.geometry.Insets
-import javafx.scene.control.Button
-import javafx.scene.control.ListView
-import javafx.scene.control.TableColumn
-import javafx.scene.control.TableView
+import javafx.geometry.Pos
+import javafx.scene.control.*
 import javafx.scene.control.cell.PropertyValueFactory
 import javafx.scene.control.cell.TextFieldTableCell
+import javafx.scene.image.Image
+import javafx.scene.image.ImageView
 import javafx.scene.layout.*
 import javafx.scene.paint.Paint
+import nju.pt.R
 import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.RecordData
 import nju.pt.databaseassist.Data
 import org.slf4j.LoggerFactory
+
+object StartView {
+    private val logger = LoggerFactory.getLogger(this::class.java)
+
+    val rootStackPane = StackPane().apply { id = "StartView_rootStackPane" }
+    val imageView = ImageView().apply { id = "StartView_imageView" }
+    val menuVBox = VBox().apply { id = "StartView_menuVBox" }
+    val generateTableBtn = Button("生成对阵表(无裁判)").apply { id = "StartView_generateTableBtn" }
+    val generateTableWithJudgeBtn = Button("生成对阵表(有裁判)").apply { id = "StartView_generateTableWithJudgeBtn" }
+    val startBtn = Button("进入比赛").apply { id = "StartView_startBtn" }
+    val settingBtn = Button("设置").apply { id = "StartView_settingBtn" }
+    val aboutBtn = Button("关于软件").apply { id = "StartView_aboutBtn" }
+
+    val generateTableAlert = Alert(Alert.AlertType.ERROR).apply {
+        title = "生成对阵表(无裁判)"
+        headerText = "生成对阵表错误!"
+    }
+    val generateTableDialog = Dialog<ButtonType>().apply {
+        title = "生成对阵表(无裁判)"
+        headerText = "对阵表生成完成！"
+        dialogPane.apply {
+            buttonTypes.add(ButtonType.OK)
+            lookupButton(ButtonType.OK)
+        }
+    }
+
+    val startAlert = Alert(Alert.AlertType.ERROR).apply {
+        title = "进入比赛"
+        headerText = "Excel未准备完全，无法进入比赛!"
+    }
+
+
+    private fun init() = apply {
+        logger.info("init()")
+        rootStackPane.apply {
+            children.addAll(imageView, menuVBox)
+            menuVBox.children.addAll(generateTableBtn, generateTableWithJudgeBtn, startBtn, settingBtn, aboutBtn)
+        }
+        imageView.apply {
+            image = Image(R.START_IMAGE_PATH)
+        }
+        logger.info("init() return => $this")
+
+    }
+
+    private fun layout() = apply {
+        logger.info("layout()")
+        imageView.apply {
+            fitWidth = image.width
+            fitHeight = image.height
+        }
+        rootStackPane.apply {
+            alignment = Pos.CENTER
+            prefWidth = imageView.fitWidth
+            prefHeight = imageView.fitHeight
+        }
+        logger.info("layout() return => $this")
+    }
+
+    fun build(): StackPane {
+        logger.info("build()")
+        init()
+        layout()
+        logger.info("build() return => $rootStackPane")
+        return rootStackPane
+    }
+
+
+}
+
 
 object MainView {
     private val logger = LoggerFactory.getLogger(this::class.java)
@@ -159,6 +230,7 @@ object MainView {
         logger.info("load teamNameList $teamNameList")
         teamListView.selectionModel.select(0)
         logger.info("select 0 in teamListView")
+        println("playerDataList:${data.teamDataList}")
         val playerDataList = data.teamDataList[0].playerDataList
         playerTableView.items = FXCollections.observableList(playerDataList)
         logger.info("load playerDataList $playerDataList")
