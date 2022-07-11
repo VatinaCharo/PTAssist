@@ -3,10 +3,7 @@ package nju.pt.server
 import javafx.collections.FXCollections
 import javafx.geometry.Insets
 import javafx.geometry.Pos
-import javafx.scene.control.Button
-import javafx.scene.control.ListView
-import javafx.scene.control.TableColumn
-import javafx.scene.control.TableView
+import javafx.scene.control.*
 import javafx.scene.control.cell.PropertyValueFactory
 import javafx.scene.control.cell.TextFieldTableCell
 import javafx.scene.image.Image
@@ -30,6 +27,24 @@ object StartView {
     val startBtn = Button("进入比赛").apply { id = "StartView_startBtn" }
     val settingBtn = Button("设置").apply { id = "StartView_settingBtn" }
     val aboutBtn = Button("关于软件").apply { id = "StartView_aboutBtn" }
+
+    val generateTableAlert = Alert(Alert.AlertType.ERROR).apply {
+        title = "生成对阵表(无裁判)"
+        headerText = "生成对阵表错误!"
+    }
+    val generateTableDialog = Dialog<ButtonType>().apply {
+        title = "生成对阵表(无裁判)"
+        headerText = "对阵表生成完成！"
+        dialogPane.apply {
+            buttonTypes.add(ButtonType.OK)
+            lookupButton(ButtonType.OK)
+        }
+    }
+
+    val startAlert = Alert(Alert.AlertType.ERROR).apply {
+        title = "进入比赛"
+        headerText = "Excel未准备完全，无法进入比赛!"
+    }
 
 
     private fun init() = apply {
@@ -66,6 +81,8 @@ object StartView {
         logger.info("build() return => $rootStackPane")
         return rootStackPane
     }
+
+
 }
 
 
@@ -213,6 +230,7 @@ object MainView {
         logger.info("load teamNameList $teamNameList")
         teamListView.selectionModel.select(0)
         logger.info("select 0 in teamListView")
+        println("playerDataList:${data.teamDataList}")
         val playerDataList = data.teamDataList[0].playerDataList
         playerTableView.items.addAll(playerDataList)
         logger.info("load playerDataList $playerDataList")
