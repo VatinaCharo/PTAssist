@@ -2,10 +2,6 @@ package nju.pt.server
 
 import javafx.application.Application
 import javafx.scene.Scene
-import javafx.scene.control.Alert
-import javafx.scene.control.ButtonType
-import javafx.scene.control.Dialog
-import javafx.scene.control.DialogPane
 import javafx.scene.image.Image
 import javafx.stage.Stage
 import nju.pt.R
@@ -17,7 +13,6 @@ import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.slf4j.LoggerFactory
 import java.io.File
-import java.io.FileNotFoundException
 import kotlin.io.path.notExists
 
 fun main() {
