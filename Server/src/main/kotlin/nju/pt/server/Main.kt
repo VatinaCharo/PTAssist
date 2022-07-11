@@ -14,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.io.path.notExists
+import kotlin.math.log
 
 fun main() {
     Application.launch(AppUI::class.java)
@@ -132,9 +133,25 @@ class AppUI : Application() {
                         val selectedTeamData = data.teamDataList.first { it.name == newSelectedTeamName }
                         loadData(selectedTeamData.playerDataList, selectedTeamData.recordDataList)
                     }
+
+                    exportBtn.setOnAction {
+
+                        Stage().apply {
+                            scene = Scene(ExportView().build(data)).apply {
+                                stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+                                icons.add(Image(R.LOGO_PATH))
+
+                            }
+                            minWidth = 150.0
+                            minHeight = 300.0
+                            title = "导出内容设置"
+                        }.show()
+                    }
                 }
             }
         }
+
+
 
 
         logger.info("完成UI构建，展示Start界面")
