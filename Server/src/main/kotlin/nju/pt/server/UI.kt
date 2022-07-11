@@ -110,7 +110,7 @@ object MainView {
     private val scoreTC = TableColumn<RecordData, Number>("分数")
     private val weightTC = TableColumn<RecordData, Number>("系数")
 
-    private fun init(data: Data) = apply {
+    private fun init(data: Data) {
         logger.info("init(data: Data)")
         rootHBox.apply {
             children.addAll(informationVBox, recordTableView)
@@ -232,15 +232,16 @@ object MainView {
         logger.info("select 0 in teamListView")
         println("playerDataList:${data.teamDataList}")
         val playerDataList = data.teamDataList[0].playerDataList
-        playerTableView.items.addAll(playerDataList)
+        playerTableView.items = FXCollections.observableList(playerDataList)
         logger.info("load playerDataList $playerDataList")
         val recordDataList = data.teamDataList[0].recordDataList
-        recordTableView.items.addAll(recordDataList)
+        recordTableView.items = FXCollections.observableList(recordDataList)
         logger.info("load recordDataList $recordDataList")
         logger.info("init() return => $this")
     }
 
-    private fun action() = apply {
+    private fun action() {
+        logger.info("action()")
         modifyBtn.setOnAction {
             playerTableView.isEditable = playerTableView.isEditable.not()
             recordTableView.isEditable = recordTableView.isEditable.not()
@@ -253,7 +254,7 @@ object MainView {
         }
     }
 
-    private fun layout() = apply {
+    private fun layout() {
         logger.info("layout()")
         VBox.setVgrow(teamListView, Priority.ALWAYS)
         playerIDTC.prefWidthProperty().bind(playerTableView.widthProperty().multiply(0.2))
@@ -266,7 +267,6 @@ object MainView {
         }
         roomIDTC.prefWidthProperty().bind(recordTableView.widthProperty().multiply(0.15))
         masterIDTC.prefWidthProperty().bind(recordTableView.widthProperty().multiply(0.25).add(-10))
-        logger.info("layout() return => $this")
     }
 
     fun loadData(playerDataList: List<PlayerData>, recordDataList: List<RecordData>) = apply {
@@ -276,8 +276,10 @@ object MainView {
 
     fun build(data: Data): HBox {
         logger.info("build(data: Data)")
-        logger.info("data >>> init: $data")
-        init(data).action().layout()
+        logger.info("init <<< data = $data")
+        init(data)
+        action()
+        layout()
         logger.info("build() return => $rootHBox")
         return rootHBox
     }
