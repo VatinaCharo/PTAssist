@@ -655,3 +655,23 @@
     -fx-text-fill: rgba(0, 0, 0, 1);
     -fx-padding: 5px 100px 5px 5px;
 }
+
+.radio-button{
+    -fx-font-size : 20px  ;
+
+}
+
+.radio-button .radio{
+    -fx-background-color:  #FFFFFF;
+
+}
+
+.radio-button:selected .radio{
+    -fx-background-color: rgba(64, 158, 255, 1);
+
+}
+
+.radio-button:selected .dot {
+    -fx-background-color: #FFFFFF;
+
+}

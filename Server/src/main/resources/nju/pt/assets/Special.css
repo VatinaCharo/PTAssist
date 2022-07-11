@@ -31,3 +31,14 @@
     -fx-min-width: 500px;
     -fx-min-height: 400px;
 }
+
+#ExportView_rootVbox{
+    -fx-padding : 10.0px;
+    -fx-pref-width : 250.0;
+    -fx-pref-height : 300.0;
+    -fx-background-color: #c7daff;
+}
+
+#ExportView_checkBoxFlowPane{
+    -fx-alignment : center;
+}
