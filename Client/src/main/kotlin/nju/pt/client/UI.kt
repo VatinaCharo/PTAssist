@@ -136,6 +136,24 @@ object MatchView {
 
 object DownloadView {
     private val logger = LoggerFactory.getLogger(this::class.java)
+    private val rootGridPane = GridPane().apply { id = "DownloadView_rootGridPane" }
+    private val qJsonDownloadBtn = Button("下载题库").apply { id = "DownloadView_qJsonDownloadBtn" }
+    private val dataJsonDownloadBtn = Button("下载对阵数据").apply { id = "DownloadView_dataJsonDownloadBtn" }
+    private val infoLabel = Label().apply { id = "DownloadView_infoLabel" }
+
+    private fun init() {
+        logger.info("init()")
+        rootGridPane.add(qJsonDownloadBtn, 0, 0)
+        rootGridPane.add(dataJsonDownloadBtn, 1, 0)
+        rootGridPane.add(infoLabel, 0, 1, 1, 1)
+    }
+
+    fun build(): GridPane {
+        logger.info("build()")
+        init()
+        logger.info("build() return => $rootGridPane")
+        return rootGridPane
+    }
 }
 
 object SettingView {
@@ -149,7 +167,7 @@ object SettingView {
     private val judgeCountTF = TextField()
     val saveBtn = Button("保存").apply { id = "SettingView_saveBtn" }
 
-    private fun init(config: Config) = apply {
+    private fun init(config: Config) {
         logger.info("init(config: Config)")
         rootGridPane.add(ipLabel, 0, 0)
         rootGridPane.add(portLabel, 0, 1)
@@ -197,9 +215,11 @@ object SettingView {
     fun build(config: Config): GridPane {
         logger.info("build(config:Config)")
         init(config)
+        layout()
         logger.info("build() return => $rootGridPane")
         return rootGridPane
     }
+
     fun saveConfig() = Config(ipTF.text, portTF.text.toInt(), judgeCountTF.text.toInt())
 }
 
