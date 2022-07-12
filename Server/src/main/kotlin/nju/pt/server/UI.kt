@@ -25,8 +25,8 @@ object StartView {
     val rootStackPane = StackPane().apply { id = "StartView_rootStackPane" }
     val imageView = ImageView().apply { id = "StartView_imageView" }
     val menuVBox = VBox().apply { id = "StartView_menuVBox" }
-    val generateTableBtn = Button("生成对阵表(无裁判)").apply { id = "StartView_generateTableBtn" }
-    val generateTableWithJudgeBtn = Button("生成对阵表(有裁判)").apply { id = "StartView_generateTableWithJudgeBtn" }
+    val generateTableBtn = Button("生成对阵表\n  (无裁判)").apply { id = "StartView_generateTableBtn" }
+    val generateTableWithJudgeBtn = Button("生成对阵表\n  (有裁判)").apply { id = "StartView_generateTableWithJudgeBtn" }
     val startBtn = Button("进入比赛").apply { id = "StartView_startBtn" }
     val settingBtn = Button("设置").apply { id = "StartView_settingBtn" }
     val aboutBtn = Button("关于软件").apply { id = "StartView_aboutBtn" }

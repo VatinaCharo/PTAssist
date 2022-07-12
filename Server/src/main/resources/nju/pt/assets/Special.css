@@ -42,3 +42,16 @@
 #ExportView_checkBoxFlowPane{
     -fx-alignment : center;
 }
+
+#StartView_rootStackPane {
+    -fx-alignment: top-left;
+}
+
+
+#StartView_menuVBox {
+    -fx-background-color: #FAE3D955;
+    -fx-max-width: 180px;
+    -fx-spacing: 20px;
+    -fx-padding: 20px, 10px, 20px, 10px;
+    -fx-alignment: bottom-center;
+}

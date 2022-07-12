@@ -14,7 +14,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.io.path.notExists
-import kotlin.math.log
 
 fun main() {
     Application.launch(AppUI::class.java)
@@ -32,6 +31,18 @@ class AppUI : Application() {
     private val schoolMap: Map<Int, String> by lazy {
         WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel()
     }
+
+    private fun getExportSettingStage(data:Data) = Stage().apply {
+        scene = Scene(ExportView().build(data)).apply {
+            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+            icons.add(Image(R.LOGO_PATH))
+
+        }
+        minWidth = 150.0
+        minHeight = 300.0
+        title = "导出内容设置"
+    }
+
 
     override fun init() {
         if (Path(R.SERVER_CACHE_DIR_PATH).notExists()) {
@@ -135,17 +146,7 @@ class AppUI : Application() {
                     }
 
                     exportBtn.setOnAction {
-
-                        Stage().apply {
-                            scene = Scene(ExportView().build(data)).apply {
-                                stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-                                icons.add(Image(R.LOGO_PATH))
-
-                            }
-                            minWidth = 150.0
-                            minHeight = 300.0
-                            title = "导出内容设置"
-                        }.show()
+                        getExportSettingStage(data).show()
                     }
                 }
             }

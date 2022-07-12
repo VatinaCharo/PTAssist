@@ -272,7 +272,6 @@ class ExportExcel(private val data: Data, saveDirPath: String) {
 
                         }
                         index += 1
-                        println(index)
                     }
                 }
             }
