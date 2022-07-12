@@ -32,19 +32,24 @@ class ExcelTest {
 
     @Test
     fun exportExcelTest() {
-        val data = JsonHelper.fromJson<Data>(R.DATA_JSON_PATH).apply {
+        val data = JsonHelper.fromJson<Data>("../${R.DATA_JSON_PATH}").apply {
             this.teamDataList[0].recordDataList = mutableListOf<RecordData>(
                 RecordData(
-                    1, 1, 1, 9, 1, "R", 30.0, 3.0
+                    1, 1, 1, 9, 1, "R", 10.0, 3.0
                 ),
-            )
-
-            this.teamDataList[1].recordDataList = mutableListOf<RecordData>(
                 RecordData(
-                    1, 1, 1, 1, 3, "R", 30.0, 3.0
+                    2, 1, 1, 1, 1, "R", 8.0, 3.0
                 ),
             )
 
+//            this.teamDataList[0].recordDataList = mutableListOf<RecordData>(
+//                RecordData(
+//                    2, 1, 1, 1, 1, "R", 8.0, 3.0
+//                ),
+//            )
+
+        }.apply {
+            JsonHelper.toJson<Data>(this,"data_test.json")
         }
         println(data)
         ExportExcel(data, ".").exportTeamScore()

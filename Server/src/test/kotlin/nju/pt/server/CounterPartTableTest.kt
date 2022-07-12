@@ -11,7 +11,7 @@ class CounterPartTableTest {
     fun generateTableWithoutJudgeTest(){
         val counterPartTable = CounterPartTable()
         val tableList = counterPartTable.apply {
-            generateTableWithoutJudge(3)
+            generateTableWithoutJudge()
             generateTableWithJudge()
         }
     }

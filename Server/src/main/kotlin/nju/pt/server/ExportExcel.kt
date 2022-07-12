@@ -41,28 +41,6 @@ class ExportExcel(private val data: Data, saveDirPath: String) {
         else -> saveDirPath + "/第${roundName}轮成绩.xlsx"
     }
 
-
-//    private fun getTitleCellStyle(workBook: Workbook): CellStyle {
-//        return workBook.createCellStyle().apply {
-//            //颜色填充
-//            fillForegroundColor = IndexedColors.YELLOW.index
-//            fillPattern = FillPatternType.SOLID_FOREGROUND
-//
-//            //边界颜色
-//            borderBottom = (BorderStyle.THIN)
-//            bottomBorderColor = IndexedColors.BLACK.index
-//            borderLeft = (BorderStyle.THIN)
-//            leftBorderColor = IndexedColors.BLACK.index
-//            borderRight = (BorderStyle.THIN)
-//            rightBorderColor = IndexedColors.BLACK.index
-//            borderTop = (BorderStyle.THIN)
-//            topBorderColor = IndexedColors.BLACK.index
-//
-//        }
-//    }
-
-
-
     fun exportTeamScore() {
         val logger = LoggerFactory.getLogger("Export Team Score")
         logger.info("===================== ExportTeamScore =====================")
@@ -219,7 +197,7 @@ class ExportExcel(private val data: Data, saveDirPath: String) {
         }
 
 
-        val teamScoreWorkbook = WorkbookFactory.create(FileInputStream(savePath)).apply {
+        val playerScoreWorkbook = WorkbookFactory.create(FileInputStream(savePath)).apply {
             val titleStyle = this.getTitleCellStyle()
             //检查sheet是否存在
             logger.info("Examining whether the sheet exists:")
@@ -294,7 +272,6 @@ class ExportExcel(private val data: Data, saveDirPath: String) {
 
                         }
                         index += 1
-                        println(index)
                     }
                 }
             }
@@ -302,7 +279,7 @@ class ExportExcel(private val data: Data, saveDirPath: String) {
         }
         try {
             val fileOutputStream = FileOutputStream(savePath)
-            teamScoreWorkbook.write(fileOutputStream)
+            playerScoreWorkbook.write(fileOutputStream)
             fileOutputStream.close()
             logger.info("Export player score successfully to $savePath !")
         } catch (e: FileNotFoundException) {

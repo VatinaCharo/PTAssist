@@ -31,3 +31,27 @@
     -fx-min-width: 500px;
     -fx-min-height: 400px;
 }
+
+#ExportView_rootVbox{
+    -fx-padding : 10.0px;
+    -fx-pref-width : 250.0;
+    -fx-pref-height : 300.0;
+    -fx-background-color: #c7daff;
+}
+
+#ExportView_checkBoxFlowPane{
+    -fx-alignment : center;
+}
+
+#StartView_rootStackPane {
+    -fx-alignment: top-left;
+}
+
+
+#StartView_menuVBox {
+    -fx-background-color: #FAE3D955;
+    -fx-max-width: 180px;
+    -fx-spacing: 20px;
+    -fx-padding: 20px, 10px, 20px, 10px;
+    -fx-alignment: bottom-center;
+}

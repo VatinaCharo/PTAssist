@@ -3,6 +3,7 @@ package nju.pt.server
 import javafx.collections.FXCollections
 import javafx.geometry.Insets
 import javafx.geometry.Pos
+import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.scene.control.cell.PropertyValueFactory
 import javafx.scene.control.cell.TextFieldTableCell
@@ -10,10 +11,12 @@ import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.layout.*
 import javafx.scene.paint.Paint
+import javafx.stage.Stage
 import nju.pt.R
 import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.RecordData
 import nju.pt.databaseassist.Data
+import org.apache.xmlbeans.impl.xb.xsdschema.TopLevelAttribute
 import org.slf4j.LoggerFactory
 
 object StartView {
@@ -22,8 +25,8 @@ object StartView {
     val rootStackPane = StackPane().apply { id = "StartView_rootStackPane" }
     val imageView = ImageView().apply { id = "StartView_imageView" }
     val menuVBox = VBox().apply { id = "StartView_menuVBox" }
-    val generateTableBtn = Button("生成对阵表(无裁判)").apply { id = "StartView_generateTableBtn" }
-    val generateTableWithJudgeBtn = Button("生成对阵表(有裁判)").apply { id = "StartView_generateTableWithJudgeBtn" }
+    val generateTableBtn = Button("生成对阵表\n  (无裁判)").apply { id = "StartView_generateTableBtn" }
+    val generateTableWithJudgeBtn = Button("生成对阵表\n  (有裁判)").apply { id = "StartView_generateTableWithJudgeBtn" }
     val startBtn = Button("进入比赛").apply { id = "StartView_startBtn" }
     val settingBtn = Button("设置").apply { id = "StartView_settingBtn" }
     val aboutBtn = Button("关于软件").apply { id = "StartView_aboutBtn" }
@@ -31,6 +34,10 @@ object StartView {
     val generateTableAlert = Alert(Alert.AlertType.ERROR).apply {
         title = "生成对阵表(无裁判)"
         headerText = "生成对阵表错误!"
+        dialogPane.apply {
+            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
+        }
+
     }
     val generateTableDialog = Dialog<ButtonType>().apply {
         title = "生成对阵表(无裁判)"
@@ -38,12 +45,17 @@ object StartView {
         dialogPane.apply {
             buttonTypes.add(ButtonType.OK)
             lookupButton(ButtonType.OK)
+            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
         }
+
     }
 
     val startAlert = Alert(Alert.AlertType.ERROR).apply {
         title = "进入比赛"
         headerText = "Excel未准备完全，无法进入比赛!"
+        dialogPane.apply {
+            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
+        }
     }
 
 
@@ -94,7 +106,7 @@ object MainView {
     private val modifyBtn = Button("修改").apply { id = "MainView_modifyBtn" }
     private val addBtn = Button("保存").apply { id = "MainView_saveBtn" }
     private val deleteBtn = Button("增减").apply { id = "MainView_adBtn" }
-    private val exportBtn = Button("导出").apply { id = "MainView_exportBtn" }
+    val exportBtn = Button("导出").apply { id = "MainView_exportBtn" }
     val teamListView = ListView<String>().apply { id = "MainView_teamListView" }
     private val playerTableView = TableView<PlayerData>().apply { id = "MainView_playerTableView" }
     private val playerIDTC = TableColumn<PlayerData, Number>("ID")
@@ -230,7 +242,6 @@ object MainView {
         logger.info("load teamNameList $teamNameList")
         teamListView.selectionModel.select(0)
         logger.info("select 0 in teamListView")
-        println("playerDataList:${data.teamDataList}")
         val playerDataList = data.teamDataList[0].playerDataList
         playerTableView.items = FXCollections.observableList(playerDataList)
         logger.info("load playerDataList $playerDataList")
@@ -283,4 +294,75 @@ object MainView {
         logger.info("build() return => $rootHBox")
         return rootHBox
     }
+}
+
+class ExportView() {
+    private val logger = LoggerFactory.getLogger(this::class.java)
+    val rootVbox = VBox(15.0).apply { id="ExportView_rootVbox" }
+    val radioBtnHbox = VBox(30.0)
+    val reviewTableRadioBtn = RadioButton("各轮回顾表").apply { isSelected = true }
+    val teamScoreRadioBtn = RadioButton("各队伍总得分").apply { isSelected = true }
+    val playerScoreRadioBtn = RadioButton("个人得分情况").apply { isSelected = true }
+    val exportBtn = Button("导出")
+    val checkBoxFlowPane = FlowPane().apply { id = "ExportView_checkBoxFlowPane" }
+
+    val reviewTableTurnsCheckBoxList = mutableListOf<CheckBox>()
+
+    private fun layout() {
+        checkBoxFlowPane.apply {
+            children.addAll(reviewTableTurnsCheckBoxList)
+            checkBoxFlowPane.prefWidthProperty().bind(radioBtnHbox.widthProperty())
+        }
+
+        radioBtnHbox.apply {
+            children.add(checkBoxFlowPane)
+            children.add(reviewTableRadioBtn)
+            children.add(teamScoreRadioBtn)
+            children.add(playerScoreRadioBtn)
+        }
+
+        rootVbox.apply {
+            children.addAll(radioBtnHbox, exportBtn)
+            alignment = Pos.CENTER_RIGHT
+        }
+    }
+
+    private fun action(data:Data){
+        exportBtn.setOnAction {
+            logger.info("Exporting...")
+            logger.info("Selected rounds: ${ reviewTableTurnsCheckBoxList.filter { it.isSelected }.map { it.text.first() }}")
+            val dataCopy = data.copy()
+
+            dataCopy.teamDataList.forEach{teamData->
+                teamData.recordDataList = teamData.recordDataList.filter {recordData->
+                    reviewTableTurnsCheckBoxList.filter { it.isSelected }.map { "${it.text.first()}"}.contains("${recordData.round}") }.toMutableList()
+            }
+
+            ExportExcel(dataCopy,R.SERVER_DATA_DIR_PATH).apply {
+                if (reviewTableRadioBtn.isSelected){
+                    this.exportReviewTable()
+                }
+                if (teamScoreRadioBtn.isSelected){
+                    this.exportTeamScore()
+                }
+                if (playerScoreRadioBtn.isSelected){
+                    this.exportPlayerScore()
+                }
+            }
+        }
+    }
+
+    fun build(data: Data): VBox {
+        logger.info("build()")
+        data.teamDataList.map { it.recordDataList.map { it.round } }.flatten().distinct().sorted().forEach { round ->
+            reviewTableTurnsCheckBoxList.add(CheckBox("${round}轮").apply { isSelected = true })
+        }
+        layout()
+        action(data)
+
+        logger.info("build() return => $rootVbox")
+        return rootVbox
+    }
+
+
 }

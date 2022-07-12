@@ -32,6 +32,18 @@ class AppUI : Application() {
         WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel()
     }
 
+    private fun getExportSettingStage(data:Data) = Stage().apply {
+        scene = Scene(ExportView().build(data)).apply {
+            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+            icons.add(Image(R.LOGO_PATH))
+
+        }
+        minWidth = 150.0
+        minHeight = 300.0
+        title = "导出内容设置"
+    }
+
+
     override fun init() {
         if (Path(R.SERVER_CACHE_DIR_PATH).notExists()) {
             File(R.SERVER_CACHE_DIR_PATH).mkdir()
@@ -132,9 +144,15 @@ class AppUI : Application() {
                         val selectedTeamData = data.teamDataList.first { it.name == newSelectedTeamName }
                         loadData(selectedTeamData.playerDataList, selectedTeamData.recordDataList)
                     }
+
+                    exportBtn.setOnAction {
+                        getExportSettingStage(data).show()
+                    }
                 }
             }
         }
+
+
 
 
         logger.info("完成UI构建，展示Start界面")
