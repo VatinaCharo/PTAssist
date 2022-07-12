@@ -139,5 +139,6 @@ data class Data(
         )
     }
 
+    fun getMaxPlayerId() = teamDataList.map { it.playerDataList.map{it.id}}.flatten().maxOf { it }
 }
 
