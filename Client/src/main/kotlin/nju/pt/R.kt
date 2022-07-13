@@ -9,7 +9,9 @@ object R {
     val LOGO_PATH: String = R::class.java.getResource("assets/logo.png")!!.toExternalForm()
     val TEXT_LOGO_PATH: String = R::class.java.getResource("assets/text_logo.png")!!.toExternalForm()
 
-    const val SETTING_JSON_PATH = "setting.json"
+    const val SETTING_JSON_PATH = "config/setting.json"
+    const val DATA_JSON_PATH = "data/data.json"
+    const val QUESTION_JSON_PATH = "data/question.json"
 
     val DEFAULT_CONFIG = Config("127.0.0.1", 7890, 5)
 }
