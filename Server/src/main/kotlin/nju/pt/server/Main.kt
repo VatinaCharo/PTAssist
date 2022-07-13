@@ -42,6 +42,7 @@ class AppUI : Application() {
         }
         minWidth = 150.0
         minHeight = 300.0
+        isResizable = false
         title = "导出内容设置"
     }
 
@@ -202,36 +203,37 @@ class AppUI : Application() {
 
                 AddOrDeleteView.apply {
                     addPlayerConfirmBtn.setOnAction {
-
-                        data.teamDataList.filter {
-                            it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore("-")
-                        }[0].playerDataList.add(
-                            PlayerData(
-                                data.getMaxPlayerId() + 1,
-                                playerNameTextField.text,
-                                playerGenderComboBox.selectionModel.selectedItem
+                        if (checkAddPlayer()) {
+                            data.teamDataList.filter {
+                                it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore(
+                                    "-"
+                                )
+                            }[0].playerDataList.add(
+                                PlayerData(
+                                    data.getMaxPlayerId() + 1,
+                                    playerNameTextField.text,
+                                    playerGenderComboBox.selectionModel.selectedItem
+                                )
                             )
-                        )
-                        logger.info("Player info:")
-                        logger.info("schoolName:${schoolNameLabel.text}")
-                        logger.info("teamName:${teamNameLabel.text}")
-                        logger.info("Id: ${data.getMaxPlayerId()}")
-                        logger.info(("Name: ${playerNameTextField.text}"))
-                        logger.info("Gender: ${playerGenderComboBox.selectionModel.selectedItem}")
-                        logger.info("Player added successfully!")
+                            logger.info("Player info:")
+                            logger.info("schoolName:${schoolNameLabel.text}")
+                            logger.info("teamName:${teamNameLabel.text}")
+                            logger.info("Id: ${data.getMaxPlayerId()}")
+                            logger.info(("Name: ${playerNameTextField.text}"))
+                            logger.info("Gender: ${playerGenderComboBox.selectionModel.selectedItem}")
+                            logger.info("Player added successfully!")
 
-                        confirmDialog.apply {
-                            title = "增加选手"
-                            contentText = "增加选手${playerNameTextField.text}成功!"
-                            setOnCloseRequest { addPlayerStage.close() }
-                        }.show()
-
-                        MainView.refreshData(data)
-
-
+                            confirmDialog.apply {
+                                title = "增加选手"
+                                contentText = "增加选手${playerNameTextField.text}成功!"
+                                setOnCloseRequest { addPlayerStage.close() }
+                            }.show()
+                            MainView.refreshData(data)
+                        }
                     }
 
                     deletePlayerConfirmBtn.setOnAction {
+
                         data.teamDataList.filter {
                             it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore("-")
                         }[0].playerDataList.removeIf {
@@ -247,26 +249,31 @@ class AppUI : Application() {
                     }
 
                     addRecordConfirmBtn.setOnAction {
-                        data.teamDataList.filter {
-                            it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore("-")
-                        }[0].recordDataList.add(
-                            RecordData(
-                                recordRoundTextField.text.toInt(),
-                                recordPhaseTextField.text.toInt(),
-                                recordRoomIdTextField.text.toInt(),
-                                recordQIdTextField.text.toInt(),
-                                recordMasterIdTextField.text.toInt(),
-                                recordRoleComboBox.selectionModel.selectedItem,
-                                recordScoreTextField.text.toDouble(),
-                                recordWeightTextField.text.toDouble()
+                        if (checkAddRecord()) {
+                            data.teamDataList.filter {
+                                it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore(
+                                    "-"
+                                )
+                            }[0].recordDataList.add(
+                                RecordData(
+                                    recordRoundTextField.text.toInt(),
+                                    recordPhaseTextField.text.toInt(),
+                                    recordRoomIdTextField.text.toInt(),
+                                    recordQIdTextField.text.toInt(),
+                                    recordMasterIdTextField.text.toInt(),
+                                    recordRoleComboBox.selectionModel.selectedItem,
+                                    recordScoreTextField.text.toDouble(),
+                                    recordWeightTextField.text.toDouble()
+                                )
                             )
-                        )
-                        confirmDialog.apply {
-                            title = "增加记录"
-                            contentText = "增加记录成功!"
-                            setOnCloseRequest { addRecordStage.close() }
-                        }.show()
-                        MainView.refreshData(data)
+                            confirmDialog.apply {
+                                title = "增加记录"
+                                contentText = "增加记录成功!"
+                                setOnCloseRequest { addRecordStage.close() }
+                            }.show()
+                            MainView.refreshData(data)
+                        }
+
                     }
 
                     deleteRecordConfirmBtn.setOnAction {

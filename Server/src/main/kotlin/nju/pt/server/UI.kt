@@ -68,8 +68,8 @@ object StartView {
         dialogPane.apply {
             (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
         }
-
     }
+
     val generateTableDialog = Dialog<ButtonType>().apply {
         title = "生成对阵表(无裁判)"
         headerText = "对阵表生成完成！"
@@ -454,11 +454,11 @@ object AddOrDeleteView {
     val addRecordConfirmBtn = Button("确认添加")
     val deleteRecordConfirmBtn = Button("确认删除")
 
-    private val playerNameHbox = HBox(15.0).apply { children.addAll(Label("队员名"), playerNameTextField) }
-    private val playerGenderHbox = HBox(15.0).apply { children.addAll(Label("队员性别"), playerGenderComboBox) }
+    private val playerNameHbox = HBox(15.0).apply { children.addAll(Label("选手名"), playerNameTextField) }
+    private val playerGenderHbox = HBox(15.0).apply { children.addAll(Label("选手性别"), playerGenderComboBox) }
     private val schoolInfoHbox = HBox(15.0).apply { children.addAll(Label("学校名"), schoolNameLabel) }
     private val teamInfoHbox = HBox(15.0).apply { children.addAll(Label("队伍名"), teamNameLabel) }
-    private val playerChoiceHbox = HBox(15.0).apply { children.addAll(Label("选择删除队员:"), playerDeleteComboBox) }
+    private val playerChoiceHbox = HBox(15.0).apply { children.addAll(Label("选择删除选手:"), playerDeleteComboBox) }
     private val recordInfoFlowPane = FlowPane().apply {
         id = "AddOrDeleteView_recordInfoFlowPane"
         children.addAll(HBox(5.0).apply {
@@ -507,10 +507,14 @@ object AddOrDeleteView {
         dialogPane.apply {
             buttonTypes.add(ButtonType.OK)
             lookupButton(ButtonType.OK)
-
             (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
         }
+    }
 
+    val confirmAlert = Alert(Alert.AlertType.ERROR).apply {
+        dialogPane.apply {
+            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
+        }
     }
 
     private fun getIntegerTextField() = TextField().apply {
@@ -527,6 +531,42 @@ object AddOrDeleteView {
                 if (newValue.matches(Regex("\\d*\\.\\d*")) || newValue.matches(Regex("^\\d*"))) newValue else oldValue
         }
         id = "DoubleTextField"
+    }
+
+
+    fun checkAddPlayer():Boolean{
+        logger.info("Checking Add Player")
+        if(playerNameTextField.text.isEmpty()){
+            logger.error("Error:选手姓名不得为空")
+            confirmAlert.apply {
+                title = "增加选手"
+                headerText = "增加选手失败!"
+                contentText = "Error:选手姓名不得为空!"
+            }.show()
+            return  false
+        }else{
+            logger.info("No Error")
+            return  true
+        }
+
+    }
+    fun checkAddRecord():Boolean{
+        logger.info("Checking Add Record")
+        if (recordRoundTextField.text.isNotEmpty() && recordPhaseTextField.text.isNotEmpty()&&
+                recordRoomIdTextField.text.isNotEmpty()&& recordMasterIdTextField.text.isNotEmpty()&&
+                recordQIdTextField.text.isNotEmpty()&& recordScoreTextField.text.isNotEmpty()&&
+                recordWeightTextField.text.isNotEmpty()){
+            return true
+        }else{
+            confirmAlert.apply {
+                title = "增加记录"
+                headerText = "增加记录失败!"
+                contentText = "Error:增加记录框内不得空!"
+            }.show()
+            logger.error("Error:增加记录框内不得空!")
+            return false
+        }
+
     }
 
 
