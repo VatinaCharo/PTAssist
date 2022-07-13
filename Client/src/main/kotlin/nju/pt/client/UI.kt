@@ -1,15 +1,14 @@
 package nju.pt.client
 
 import RuleInterface
-import javafx.collections.FXCollections
 import javafx.geometry.Pos
 import javafx.scene.control.*
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.layout.*
 import nju.pt.R
+import nju.pt.databaseassist.RecordData
 import org.slf4j.LoggerFactory
-import kotlin.math.log
 
 object StartView {
     private val logger = LoggerFactory.getLogger(this::class.java)
@@ -121,6 +120,13 @@ object MatchView {
         }
     }
 
+    /**
+     * 构建UI界面
+     *
+     * @param judgeCount 裁判数
+     * @param questionMap 当前可选题
+     * @return
+     */
     fun build(judgeCount: Int, questionMap: Map<Int, String>): HBox {
         logger.info("build()")
         logger.info("init <<< judgeCount = $judgeCount   questionMap = $questionMap")
@@ -130,6 +136,11 @@ object MatchView {
         return rootHBox
     }
 
+    /**
+     * Load optional questions
+     *
+     * @param questionMap 当前的可选题
+     */
     private fun loadOptionalQuestions(questionMap: Map<Int, String>) {
         optionalQuestionsVBox.children.clear()
         optionalQuestionsVBox.children.addAll(questionMap.map {
@@ -141,9 +152,22 @@ object MatchView {
         })
     }
 
-    fun loadOptionalQuestions(questionLibMap: Map<Int, String>, rule: RuleInterface) {
-        val questionIdList = rule.getOptionalQuestionIdList()
-        loadOptionalQuestions(questionLibMap.filter { it.key in questionIdList })
+    fun loadOptionalQuestions(
+        repTeamRecordDataList: List<RecordData>,
+        oppTeamRecordDataList: List<RecordData>,
+        usedQuestionIDList: List<Int>,
+        questionLibMap: Map<Int, String>,
+        rule: RuleInterface
+    ) {
+        // 当前对局的可选题目编号
+        val questionIDList = rule.getOptionalQuestionIDList(
+            repTeamRecordDataList,
+            oppTeamRecordDataList,
+            usedQuestionIDList,
+            questionLibMap.keys.toList()
+        )
+        // 加载可选题到UI中
+        loadOptionalQuestions(questionLibMap.filter { it.key in questionIDList })
     }
 }
 
