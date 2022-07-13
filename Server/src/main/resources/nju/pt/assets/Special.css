@@ -77,6 +77,11 @@
     -fx-vgap : 10px;
 }
 
+#AddOrDeleteView_recordComboBox> .combo-box-popup .list-view{
+    -fx-pref-width: 350px;
+    -fx-border-color: rgb(228, 231, 237);
+}
+
 
 #IntegerTextField{
     -fx-max-width: 30px;

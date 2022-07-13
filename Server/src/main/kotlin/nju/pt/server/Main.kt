@@ -209,7 +209,7 @@ class AppUI : Application() {
                             PlayerData(
                                 data.getMaxPlayerId() + 1,
                                 playerNameTextField.text,
-                                playerGenderChoiceBox.selectionModel.selectedItem
+                                playerGenderComboBox.selectionModel.selectedItem
                             )
                         )
                         logger.info("Player info:")
@@ -217,7 +217,7 @@ class AppUI : Application() {
                         logger.info("teamName:${teamNameLabel.text}")
                         logger.info("Id: ${data.getMaxPlayerId()}")
                         logger.info(("Name: ${playerNameTextField.text}"))
-                        logger.info("Gender: ${playerGenderChoiceBox.selectionModel.selectedItem}")
+                        logger.info("Gender: ${playerGenderComboBox.selectionModel.selectedItem}")
                         logger.info("Player added successfully!")
 
                         confirmDialog.apply {
@@ -235,11 +235,11 @@ class AppUI : Application() {
                         data.teamDataList.filter {
                             it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore("-")
                         }[0].playerDataList.removeIf {
-                            "${it.id}" == playerDeleteChoiceBox.selectionModel.selectedItem.substringBefore("-")
+                            "${it.id}" == playerDeleteComboBox.selectionModel.selectedItem.substringBefore("-")
                         }
                         confirmDialog.apply {
                             title = "删除选手"
-                            contentText = "删除选手${playerDeleteChoiceBox.selectionModel.selectedItem}成功!"
+                            contentText = "删除选手${playerDeleteComboBox.selectionModel.selectedItem}成功!"
                             setOnCloseRequest { deletePlayerStage.close() }
                         }.show()
                         MainView.refreshData(data)
@@ -256,7 +256,7 @@ class AppUI : Application() {
                                 recordRoomIdTextField.text.toInt(),
                                 recordQIdTextField.text.toInt(),
                                 recordMasterIdTextField.text.toInt(),
-                                recordRoleChoiceBox.selectionModel.selectedItem,
+                                recordRoleComboBox.selectionModel.selectedItem,
                                 recordScoreTextField.text.toDouble(),
                                 recordWeightTextField.text.toDouble()
                             )
@@ -272,7 +272,7 @@ class AppUI : Application() {
                     deleteRecordConfirmBtn.setOnAction {
                         data.teamDataList.filter {
                             it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore("-")
-                        }[0].recordDataList.removeAt(recordChoiceBox.selectionModel.selectedIndex)
+                        }[0].recordDataList.removeAt(recordComboBox.selectionModel.selectedIndex)
                         confirmDialog.apply {
                             title = "删除记录"
                             contentText = "删除记录成功!"
