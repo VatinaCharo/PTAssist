@@ -1,13 +1,15 @@
 package nju.pt.server
 
+import com.sun.tools.javac.Main
 import javafx.application.Application
 import javafx.scene.Scene
+import javafx.scene.control.SelectionMode
 import javafx.scene.image.Image
 import javafx.stage.Stage
+import kotlinx.serialization.json.Json
 import nju.pt.R
+import nju.pt.databaseassist.*
 import kotlin.io.path.Path
-import nju.pt.databaseassist.Data
-import nju.pt.databaseassist.JsonHelper
 import nju.pt.kotlin.ext.*
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
@@ -32,7 +34,7 @@ class AppUI : Application() {
         WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel()
     }
 
-    private fun getExportSettingStage(data:Data) = Stage().apply {
+    private fun getExportSettingStage(data: Data) = Stage().apply {
         scene = Scene(ExportView().build(data)).apply {
             stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
             icons.add(Image(R.LOGO_PATH))
@@ -42,6 +44,15 @@ class AppUI : Application() {
         minHeight = 300.0
         title = "导出内容设置"
     }
+
+    private fun getSelectedTeamData(selectedTeamName: String? = MainView.teamListView.selectionModel.selectedItem) =
+        data.teamDataList.first {
+            //当学校选择为空，则默认显示全部的学校，此时不需要学校的判定
+            when (MainView.selectedSchoolItems.size == 0) {
+                true -> it.name == selectedTeamName
+                false -> it.name == selectedTeamName && data.schoolMap[it.schoolID] in MainView.selectedSchoolItems
+            }
+        }
 
 
     override fun init() {
@@ -138,17 +149,125 @@ class AppUI : Application() {
                     throw Exception(e.message)
                 }
 
-                //增加对ListView的监听
+
                 MainView.apply {
                     teamListView.selectionModel.selectedItemProperty().addListener { _, _, newSelectedTeamName ->
-                        val selectedTeamData = data.teamDataList.first { it.name == newSelectedTeamName }
+                        val selectedTeamData = getSelectedTeamData(newSelectedTeamName)
                         loadData(selectedTeamData.playerDataList, selectedTeamData.recordDataList)
+                    }
+
+                    selectedSchoolItems.addListener { _, _, newValue ->
+                        val teamListOriginalSize = teamListView.items.size
+                        if (newValue.size == 0) {
+                            logger.info("selected:All")
+                            teamListView.items.addAll(data.teamDataList.map { it.name })
+                        } else {
+                            logger.info("selected:${selectedSchoolItems}")
+                            teamListView.items.addAll(data.teamDataList.filter {
+                                data.schoolMap[it.schoolID] in newValue
+                            }.map { it.name })
+                        }
+
+                        teamListView.apply {
+                            selectionModel.select(teamListOriginalSize)
+                            logger.info("select the first in teamListView")
+
+                            for (i in 0 until teamListOriginalSize) {
+                                items.removeAt(0)
+                            }
+
+                        }
                     }
 
                     exportBtn.setOnAction {
                         getExportSettingStage(data).show()
                     }
+
+                    saveBtn.setOnAction {
+                        logger.info("Save Data")
+                        JsonHelper.toJson(data, R.DATA_JSON_PATH)
+                    }
+
+                    //增删Menu
+                    addPlayerMenuItem.setOnAction {
+                        AddOrDeleteView.getAddPlayerStage(getSelectedTeamData(), data.schoolMap).show()
+                    }
+                    deletePlayerMenuItem.setOnAction {
+                        AddOrDeleteView.getDeletePlayerStage(getSelectedTeamData(), data.schoolMap).show()
+                    }
+                    addRecordMenuItem.setOnAction {
+                        AddOrDeleteView.getAddRecordStage(getSelectedTeamData(), data.schoolMap).show()
+                    }
                 }
+
+
+                AddOrDeleteView.apply {
+                    addPlayerConfirmBtn.setOnAction {
+
+                        data.teamDataList.filter {
+                            it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore("-")
+                        }[0].playerDataList.add(
+                            PlayerData(
+                                data.getMaxPlayerId() + 1,
+                                playerNameTextField.text,
+                                playerGenderChoiceBox.selectionModel.selectedItem
+                            )
+                        )
+                        logger.info("Player info:")
+                        logger.info("schoolName:${schoolNameLabel.text}")
+                        logger.info("teamName:${teamNameLabel.text}")
+                        logger.info("Id: ${data.getMaxPlayerId()}")
+                        logger.info(("Name: ${playerNameTextField.text}"))
+                        logger.info("Gender: ${playerGenderChoiceBox.selectionModel.selectedItem}")
+                        logger.info("Player added successfully!")
+
+                        confirmDialog.apply {
+                            title = "增加选手"
+                            contentText = "增加选手${playerNameTextField.text}成功!"
+                        }
+                        MainView.refreshData(data)
+
+
+                    }
+
+                    deletePlayerConfirmBtn.setOnAction {
+                        data.teamDataList.filter {
+                            it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore("-")
+                        }[0].playerDataList.removeIf {
+                            "${it.id}" == playerDeleteChoiceBox.selectionModel.selectedItem.substringBefore("-")
+                        }
+                        confirmDialog.apply {
+                            title = "删除选手"
+                            contentText = "删除选手${playerDeleteChoiceBox.selectionModel.selectedItem}成功!"
+                        }
+                        MainView.refreshData(data)
+
+                    }
+
+                    addRecordConfirmBtn.setOnAction {
+                        data.teamDataList.filter {
+                            it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore("-")
+                        }[0].recordDataList.add(
+                            RecordData(
+                                recordRoundTextField.text.toInt(),
+                                recordPhaseTextField.text.toInt(),
+                                recordRoomIdTextField.text.toInt(),
+                                recordQIdTextField.text.toInt(),
+                                recordMasterIdTextField.text.toInt(),
+                                recordRoleChoiceBox.selectionModel.selectedItem,
+                                recordScoreTextField.text.toDouble(),
+                                recordWeightTextField.text.toDouble()
+                            )
+                        )
+                        confirmDialog.apply {
+                            title = "增加记录"
+                            contentText = "增加记录成功!"
+                        }
+                        MainView.refreshData(data)
+                    }
+                }
+
+
             }
         }
 

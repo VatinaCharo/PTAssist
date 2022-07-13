@@ -7,6 +7,7 @@ import javafx.scene.control.TextField
 import javafx.scene.control.Tooltip
 import javafx.scene.layout.HBox
 import javafx.scene.text.Font
+import javafx.util.StringConverter
 import nju.pt.R
 
 class TeamBar(type: TeamType) : HBox() {
@@ -66,3 +67,4 @@ class ScoreBar(name: String, judgeCount: Int) : HBox() {
             })
     }
 }
+

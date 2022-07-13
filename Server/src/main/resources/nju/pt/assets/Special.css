@@ -1,3 +1,17 @@
+#StartView_rootStackPane {
+    -fx-alignment: top-left;
+}
+
+
+#StartView_menuVBox {
+    -fx-background-color: #FAE3D955;
+    -fx-max-width: 180px;
+    -fx-spacing: 20px;
+    -fx-padding: 20px, 10px, 20px, 10px;
+    -fx-alignment: bottom-center;
+}
+
+
 #MainView_rootHBox {
     -fx-background-color: #c7daff;
     -fx-min-height: 400px;
@@ -15,10 +29,19 @@
     -fx-spacing: 10px;
 }
 
+#MainView_schoolListView {
+    -fx-min-width: 240px;
+    -fx-max-width: 240px;
+    -fx-min-height: 150px;
+    -fx-max-height: 200px;
+}
+
+
 #MainView_teamListView {
     -fx-min-width: 240px;
     -fx-max-width: 240px;
-    -fx-min-height: 300px;
+    -fx-min-height: 150px;
+    -fx-max-height: 200px;
 }
 
 #MainView_playerTableView {
@@ -43,15 +66,3 @@
     -fx-alignment : center;
 }
 
-#StartView_rootStackPane {
-    -fx-alignment: top-left;
-}
-
-
-#StartView_menuVBox {
-    -fx-background-color: #FAE3D955;
-    -fx-max-width: 180px;
-    -fx-spacing: 20px;
-    -fx-padding: 20px, 10px, 20px, 10px;
-    -fx-alignment: bottom-center;
-}
