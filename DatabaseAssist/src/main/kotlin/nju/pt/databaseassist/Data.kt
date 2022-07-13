@@ -45,14 +45,6 @@ data class Data(
         Triple(
             schoolMap[it.schoolID],
             it.name,
-            // 可以使用fold函数简化代码
-//            it.recordDataList.let { recordDataList ->
-//                var totalScore: Double = 0.0
-//                recordDataList?.forEach { recordData ->
-//                    totalScore += recordData.score
-//                }
-//                totalScore
-//            }
             it.recordDataList.fold(0.0) { total, recordData ->
                 total + recordData.score * recordData.weight
             }
