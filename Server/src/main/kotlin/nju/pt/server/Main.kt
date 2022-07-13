@@ -76,9 +76,7 @@ class AppUI : Application() {
     override fun start(primaryStage: Stage) {
         primaryStage.apply {
 
-            scene = Scene(StartView.build()).apply {
-                stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-            }
+            scene = MyScene(StartView.build())
 
             icons.add(Image(R.LOGO_PATH))
             title = "Match-Server ${R.VERSION}"
@@ -135,9 +133,7 @@ class AppUI : Application() {
 
                     //设置stage
                     primaryStage.apply {
-                        scene = Scene(MainView.build(data)).apply {
-                            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-                        }
+                        scene = MyScene(MainView.build(data))
                         minWidth = 800.0
                         minHeight = 800.0
                     }.show()
@@ -198,6 +194,9 @@ class AppUI : Application() {
                     addRecordMenuItem.setOnAction {
                         AddOrDeleteView.getAddRecordStage(getSelectedTeamData(), data.schoolMap).show()
                     }
+                    deleteRecordMenuItem.setOnAction {
+                        AddOrDeleteView.getDeleteRecordStage(getSelectedTeamData(), data.schoolMap).show()
+                    }
                 }
 
 
@@ -224,7 +223,9 @@ class AppUI : Application() {
                         confirmDialog.apply {
                             title = "增加选手"
                             contentText = "增加选手${playerNameTextField.text}成功!"
-                        }
+                            setOnCloseRequest { addPlayerStage.close() }
+                        }.show()
+
                         MainView.refreshData(data)
 
 
@@ -239,7 +240,8 @@ class AppUI : Application() {
                         confirmDialog.apply {
                             title = "删除选手"
                             contentText = "删除选手${playerDeleteChoiceBox.selectionModel.selectedItem}成功!"
-                        }
+                            setOnCloseRequest { deletePlayerStage.close() }
+                        }.show()
                         MainView.refreshData(data)
 
                     }
@@ -262,17 +264,27 @@ class AppUI : Application() {
                         confirmDialog.apply {
                             title = "增加记录"
                             contentText = "增加记录成功!"
-                        }
+                            setOnCloseRequest { addRecordStage.close() }
+                        }.show()
                         MainView.refreshData(data)
                     }
-                }
 
+                    deleteRecordConfirmBtn.setOnAction {
+                        data.teamDataList.filter {
+                            it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore("-")
+                        }[0].recordDataList.removeAt(recordChoiceBox.selectionModel.selectedIndex)
+                        confirmDialog.apply {
+                            title = "删除记录"
+                            contentText = "删除记录成功!"
+                            setOnCloseRequest { deleteRecordStage.close() }
+                        }.show()
+                        MainView.refreshData(data)
+                    }
+
+                }
 
             }
         }
-
-
-
 
         logger.info("完成UI构建，展示Start界面")
 

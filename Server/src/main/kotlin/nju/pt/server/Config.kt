@@ -31,6 +31,8 @@ object Config {
     val judgeCount by lazy { configData.judgeCount}
     val roomCount by lazy { configData.roomCount }
     val turns by lazy { configData.turns }
+
+    // TODO: 2022/7/13 默认的系数在哪用上?
     val rWeight by lazy { configData.rWeight }
     val orWeight by lazy { configData.oWeight }
     val vWeight by lazy { configData.vWeight }
