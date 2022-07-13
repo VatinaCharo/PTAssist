@@ -8,7 +8,6 @@ import javafx.stage.Stage
 import nju.pt.R
 import nju.pt.databaseassist.Data
 import nju.pt.databaseassist.JsonHelper
-import nju.pt.databaseassist.TeamData
 import nju.pt.kotlin.ext.mkdirIfEmpty
 import org.slf4j.LoggerFactory
 import java.io.File
