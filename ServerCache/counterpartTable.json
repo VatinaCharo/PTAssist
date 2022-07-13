@@ -1,0 +1,230 @@
+{
+    "teamTableList": [
+        {
+            "roomCount": 4,
+            "totalTeamNumber": 14,
+            "RList": [
+                3,
+                1,
+                4,
+                2
+            ],
+            "OList": [
+                7,
+                5,
+                8,
+                6
+            ],
+            "VList": [
+                11,
+                9,
+                12,
+                10
+            ],
+            "OBList": [
+                -1,
+                13,
+                -1,
+                14
+            ]
+        },
+        {
+            "roomCount": 4,
+            "totalTeamNumber": 14,
+            "RList": [
+                3,
+                1,
+                4,
+                2
+            ],
+            "OList": [
+                6,
+                8,
+                7,
+                5
+            ],
+            "VList": [
+                9,
+                11,
+                10,
+                12
+            ],
+            "OBList": [
+                -1,
+                14,
+                13,
+                -1
+            ]
+        },
+        {
+            "roomCount": 4,
+            "totalTeamNumber": 14,
+            "RList": [
+                3,
+                2,
+                4,
+                1
+            ],
+            "OList": [
+                5,
+                8,
+                6,
+                7
+            ],
+            "VList": [
+                11,
+                10,
+                12,
+                9
+            ],
+            "OBList": [
+                13,
+                -1,
+                14,
+                -1
+            ]
+        },
+        {
+            "roomCount": 4,
+            "totalTeamNumber": 14,
+            "RList": [
+                1,
+                3,
+                4,
+                2
+            ],
+            "OList": [
+                6,
+                8,
+                5,
+                7
+            ],
+            "VList": [
+                11,
+                9,
+                10,
+                12
+            ],
+            "OBList": [
+                -1,
+                14,
+                -1,
+                13
+            ]
+        }
+    ],
+    "teamTableListWithoutShuffle": [
+        {
+            "roomCount": 4,
+            "totalTeamNumber": 14,
+            "RList": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "OList": [
+                5,
+                6,
+                7,
+                8
+            ],
+            "VList": [
+                9,
+                10,
+                11,
+                12
+            ],
+            "OBList": [
+                13,
+                14,
+                -1,
+                -1
+            ]
+        },
+        {
+            "roomCount": 4,
+            "totalTeamNumber": 14,
+            "RList": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "OList": [
+                8,
+                5,
+                6,
+                7
+            ],
+            "VList": [
+                11,
+                12,
+                9,
+                10
+            ],
+            "OBList": [
+                14,
+                -1,
+                -1,
+                13
+            ]
+        },
+        {
+            "roomCount": 4,
+            "totalTeamNumber": 14,
+            "RList": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "OList": [
+                7,
+                8,
+                5,
+                6
+            ],
+            "VList": [
+                9,
+                10,
+                11,
+                12
+            ],
+            "OBList": [
+                -1,
+                -1,
+                13,
+                14
+            ]
+        },
+        {
+            "roomCount": 4,
+            "totalTeamNumber": 14,
+            "RList": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "OList": [
+                6,
+                7,
+                8,
+                5
+            ],
+            "VList": [
+                11,
+                12,
+                9,
+                10
+            ],
+            "OBList": [
+                -1,
+                13,
+                14,
+                -1
+            ]
+        }
+    ]
+}

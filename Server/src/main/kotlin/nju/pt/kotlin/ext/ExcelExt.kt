@@ -373,16 +373,21 @@ fun Workbook.initializeExcel() {
             }
             }
             createRow(3).createCell(0).apply {
-                setCellValue("正方分数权重");cellStyle = titleStyle.apply {
+                setCellValue("比赛轮数");cellStyle = titleStyle.apply {
                 defaultColumnWidth = 17
             }
             }
             createRow(4).createCell(0).apply {
-                setCellValue("反方分数权重");cellStyle = titleStyle.apply {
+                setCellValue("正方分数权重");cellStyle = titleStyle.apply {
                 defaultColumnWidth = 17
             }
             }
             createRow(5).createCell(0).apply {
+                setCellValue("反方分数权重");cellStyle = titleStyle.apply {
+                defaultColumnWidth = 17
+            }
+            }
+            createRow(6).createCell(0).apply {
                 setCellValue("评方分数权重");cellStyle = titleStyle.apply {
                 defaultColumnWidth = 17
             }

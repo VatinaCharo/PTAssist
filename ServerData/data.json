@@ -1,0 +1,39 @@
+{
+    "teamDataList": [
+        {
+            "id": 1,
+            "name": "啦啦啦",
+            "schoolID": 1,
+            "playerDataList": [
+                {
+                    "id": 1,
+                    "name": "张三",
+                    "gender": "男"
+                },
+                {
+                    "id": 2,
+                    "name": "李四",
+                    "gender": "女"
+                }
+            ],
+            "recordDataList": [
+                {
+                    "round": 1,
+                    "phase": 1,
+                    "roomID": 1,
+                    "questionID": 1,
+                    "masterID": 1,
+                    "role": "R",
+                    "score": 5.2,
+                    "weight": 3.0
+                }
+            ]
+        }
+    ],
+    "questionMap": {
+        "1": "你来发明"
+    },
+    "schoolMap": {
+        "1": "南京大学"
+    }
+}

@@ -20,9 +20,9 @@ import kotlin.math.exp
 class CounterPartTable(
     val totalTeamNumber: Int = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getTotalTeamNumber(),
     val JUDGEMAP: Map<String, List<String>> = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadJudgeFromExcel(),
-    val SCHOOLMAP: Map<Int, String> =  WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel(),
+    val SCHOOLMAP: Map<Int, String> = WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel(),
 
-) {
+    ) {
     val logger = LoggerFactory.getLogger("CounterPartTableLogger")
 
     val roomCount: Int = Config.roomCount as Int//会场个数
@@ -35,7 +35,7 @@ class CounterPartTable(
 
     fun generateTableWithoutJudge(): MutableList<OneRoundTable> //turns为需要产生对阵表的轮数
     {
-        val turns:Int = Config.turns as Int
+        val turns: Int = Config.turns as Int
         logger.info("===================== generateTableWithoutJudge =====================")
         logger.info("roomCount:${roomCount}")
         logger.info("totalTeamNumber:${totalTeamNumber}")
@@ -44,30 +44,43 @@ class CounterPartTable(
         val oneRoundTable = OneRoundTable(roomCount, totalTeamNumber)
 
         teamTableListWithoutShuffle.add(oneRoundTable.copy().also {
-            logger.info("Round 1 table without shuffle:")
+            logger.info("Round 1 table WITHOUT shuffle:")
             logger.info("R: ${it.RList}")
             logger.info("O: ${it.OList}")
             logger.info("V: ${it.VList}")
             logger.info("OB: ${it.OBList}")
         })
-        teamTableList.add(oneRoundTable.shuffle())
+        teamTableList.add(oneRoundTable.shuffle().also {
+            logger.info("Round 1 table WITH shuffle:")
+            logger.info("R: ${it.RList}")
+            logger.info("O: ${it.OList}")
+            logger.info("V: ${it.VList}")
+            logger.info("OB: ${it.OBList}")
+        })
 
 
         //生成第二轮及以后的对阵表
         for (turn in 1 until turns) {
             oneRoundTable.roomOffset()
             teamTableListWithoutShuffle.add(oneRoundTable.copy().also {
-                logger.info("Round ${turn + 1} table without shuffle:")
+                logger.info("Round ${turn + 1} table WITHOUT shuffle:")
                 logger.info("R: ${it.RList}")
                 logger.info("O: ${it.OList}")
                 logger.info("V: ${it.VList}")
                 logger.info("OB: ${it.OBList}")
             })
-            teamTableList.add(oneRoundTable.shuffle())
+            teamTableList.add(oneRoundTable.shuffle().also {
+                logger.info("Round ${turn + 1} table WITH shuffle:")
+                logger.info("R: ${it.RList}")
+                logger.info("O: ${it.OList}")
+                logger.info("V: ${it.VList}")
+                logger.info("OB: ${it.OBList}")
+            })
 
         }
         JsonHelper.toJson(this, R.COUNTERPART_TABLE_JSON_PATH)
-        logger.info("Saved to ${R.COUNTERPART_TABLE_JSON_PATH}")
+        logger.info("Json Saved to ${R.COUNTERPART_TABLE_JSON_PATH}")
+        tableWriteIntoExcel(teamTableList, teamTableListWithoutShuffle)
         logger.info("CounterpartTable WITHOUT judge generated successfully!")
         return teamTableList
     }
@@ -186,7 +199,7 @@ class CounterPartTable(
 
             }
 
-            tableWriteIntoExcel(teamTableList,
+            tableWithJudgeWriteIntoExcel(teamTableList,
                 judgeTableAllTurns.map { it.map { it.mapNotNull { judgeMap[it] } } }
             )
             logger.info("CounterPartTable WITH judge generated successfully!")
@@ -229,11 +242,117 @@ class CounterPartTable(
     }
 
     private fun tableWriteIntoExcel(
+        playerTableListWithShuffle: MutableList<OneRoundTable>,
+        playerTableListWithoutShuffle: MutableList<OneRoundTable>,
+    ) {
+        val logger = LoggerFactory.getLogger("Export CounterPart Table Without Judge")
+        logger.info("===================== ExportCounterPartTableWithoutJudge =====================")
+
+        logger.info("Examining whether the file exists:")
+        if (Path(R.COUNTERPART_TABLE_EXCEL_PATH).notExists()) {
+            logger.info("Not Exist, creating...")
+            XSSFWorkbook().write(FileOutputStream(R.COUNTERPART_TABLE_EXCEL_PATH))
+            logger.info("New excel file created successfully!")
+        } else {
+            logger.info("File already exists, reading...")
+        }
+
+        val counterPartTableWorkbook = WorkbookFactory.create(FileInputStream(R.COUNTERPART_TABLE_EXCEL_PATH)).apply {
+            val titleStyle = this.getTitleCellStyle()
+
+            logger.info("--------------------- 对阵表 ---------------------")
+            //检查sheet是否存在
+            logger.info("Examining whether the sheet exists:")
+            try {
+                this.removeSheetAt(this.getSheetIndex("对阵表(无裁判)"))
+                logger.info("Exists, deleting and updating...")
+            } catch (e: java.lang.Exception) {
+                logger.info("Not exists, creating...")
+            }
+
+            createSheet("对阵表(无裁判)").apply {
+                playerTableListWithoutShuffle.forEachIndexed { turn, oneRoundTableWithoutShuffle ->
+
+                    val oneRoundTableWithShuffle = playerTableListWithShuffle[turn]
+                    val everyRoundStartRow = (4 + roomCount) * turn
+
+                    //标题行
+                    this.createRow(everyRoundStartRow).apply {
+                        createCell(0).apply { setCellValue("第${turn + 1}轮对阵表") }
+                    }
+                    this.createRow(everyRoundStartRow + 1).apply {
+                        createCell(1).apply { setCellValue("已打乱") }
+                        createCell(6).apply { setCellValue("未打乱") }
+                    }
+                    logger.info("--------------------- Round ${turn + 1} ---------------------")
+
+                    this.createRow(everyRoundStartRow + 2).apply {
+                        createCell(1).apply { setCellValue("正方");cellStyle = titleStyle }
+                        createCell(2).apply { setCellValue("反方");cellStyle = titleStyle }
+                        createCell(3).apply { setCellValue("评方");cellStyle = titleStyle }
+                        createCell(4).apply { setCellValue("观摩方");cellStyle = titleStyle }
+
+                        createCell(6).apply { setCellValue("正方");cellStyle = titleStyle }
+                        createCell(7).apply { setCellValue("反方");cellStyle = titleStyle }
+                        createCell(8).apply { setCellValue("评方");cellStyle = titleStyle }
+                        createCell(9).apply { setCellValue("观摩方");cellStyle = titleStyle }
+                    }
+
+                    //各个会场的对阵表
+                    for (room in 0 until roomCount) {
+                        this.createRow(everyRoundStartRow + room + 3).apply {
+                            createCell(0).apply { setCellValue("会场${room + 1}");cellStyle = titleStyle }
+                            logger.info("Room ${room + 1}:")
+                            //打乱对阵表情况
+                            logger.info("WITH shuffle")
+                            createCell(1).setCellValue("${oneRoundTableWithShuffle.RList[room]}")
+                            logger.info("R:${oneRoundTableWithShuffle.RList[room]}")
+                            createCell(2).setCellValue("${oneRoundTableWithShuffle.OList[room]}")
+                            logger.info("O:${oneRoundTableWithShuffle.OList[room]}")
+                            createCell(3).setCellValue("${oneRoundTableWithShuffle.VList[room]}")
+                            logger.info("V:${oneRoundTableWithShuffle.VList[room]}")
+                            createCell(4).setCellValue("${oneRoundTableWithShuffle.OBList[room]}")
+                            logger.info("OB:${oneRoundTableWithShuffle.OBList[room]}")
+
+                            //未打乱对阵表
+                            logger.info("WITHOUT shuffle")
+                            createCell(6).setCellValue("${oneRoundTableWithoutShuffle.RList[room]}")
+                            logger.info("R:${oneRoundTableWithoutShuffle.RList[room]}")
+                            createCell(7).setCellValue("${oneRoundTableWithoutShuffle.OList[room]}")
+                            logger.info("O:${oneRoundTableWithoutShuffle.OList[room]}")
+                            createCell(8).setCellValue("${oneRoundTableWithoutShuffle.VList[room]}")
+                            logger.info("V:${oneRoundTableWithoutShuffle.VList[room]}")
+                            createCell(9).setCellValue("${oneRoundTableWithoutShuffle.OBList[room]}")
+                            logger.info("OB:${oneRoundTableWithoutShuffle.OBList[room]}")
+
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+        try {
+            val fileOutputStream = FileOutputStream(R.COUNTERPART_TABLE_EXCEL_PATH)
+            counterPartTableWorkbook.write(fileOutputStream)
+            fileOutputStream.close()
+            logger.info("Export CounterPartTable successfully to ${R.COUNTERPART_TABLE_EXCEL_PATH} !")
+        } catch (e: FileNotFoundException) {
+            logger.error(e.message)
+            throw Exception("文件 ${R.COUNTERPART_TABLE_EXCEL_PATH} 正被另一个程序占用，无法访问，请关闭！")
+        }
+
+
+    }
+
+    private fun tableWithJudgeWriteIntoExcel(
         playerTableList: MutableList<OneRoundTable>,
+        // 裁判列表，第一级是轮数，第二级是会场，第三级是裁判列表，Pair提供(裁判学校,裁判姓名)
         judgeTableList: List<List<List<Pair<String, String>>>>,
     ) {
-        val logger = LoggerFactory.getLogger("Export CounterPart Table")
-        logger.info("===================== ExportCounterPartTable =====================")
+        val logger = LoggerFactory.getLogger("Export CounterPart Table With Judge")
+        logger.info("===================== ExportCounterPartTableWithJudge =====================")
 
         // TODO: 2022/7/9 解除Excel依赖
         // 队伍抽签号 to (队伍名称,学校名称)
