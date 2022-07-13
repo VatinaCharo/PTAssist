@@ -1,5 +1,7 @@
 package nju.pt.client
 
+import RuleInterface
+import javafx.collections.FXCollections
 import javafx.geometry.Pos
 import javafx.scene.control.*
 import javafx.scene.image.Image
@@ -80,13 +82,8 @@ object MatchView {
         // Main Tab
         rootHBox.children.addAll(optionalQuestionsStackPane, operationsVBox)
         optionalQuestionsStackPane.children.addAll(njuLogoImageView, optionalQuestionsVBox)
-        optionalQuestionsVBox.children.addAll(questionMap.toList().map {
-            RadioButton().apply {
-                text = String.format("%02d  ${it.second}", it.first)
-                userData = it.first
-                toggleGroup = group
-            }
-        })
+        // 载入可选题
+        loadOptionalQuestions(questionMap)
         operationsVBox.children.addAll(confirmHBox, informationVBox, scoresVBox)
         confirmHBox.children.addAll(questionViewLabel, confirmBtn, refuseBtn)
         informationVBox.children.addAll(
@@ -131,6 +128,22 @@ object MatchView {
         layout()
         logger.info("build() return => $rootHBox")
         return rootHBox
+    }
+
+    private fun loadOptionalQuestions(questionMap: Map<Int, String>) {
+        optionalQuestionsVBox.children.clear()
+        optionalQuestionsVBox.children.addAll(questionMap.map {
+            RadioButton().apply {
+                text = String.format("%02d  ${it.value}", it.key)
+                userData = it.key
+                toggleGroup = group
+            }
+        })
+    }
+
+    fun loadOptionalQuestions(questionLibMap: Map<Int, String>, rule: RuleInterface) {
+        val questionIdList = rule.getOptionalQuestionIdList()
+        loadOptionalQuestions(questionLibMap.filter { it.key in questionIdList })
     }
 }
 
