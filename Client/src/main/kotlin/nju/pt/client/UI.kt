@@ -7,6 +7,7 @@ import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.layout.*
 import nju.pt.R
+import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.RecordData
 import org.slf4j.LoggerFactory
 
@@ -64,9 +65,10 @@ object MatchView {
     private val njuLogoImageView = ImageView(R.LOGO_PATH).apply { id = "MatchView_njuLogoImageView" }
     private val operationsVBox = VBox().apply { id = "MatchView_operationsVBox" }
     private val confirmHBox = HBox().apply { id = "MatchView_confirmHBox" }
-    val questionViewLabel = Label("Here is question view").apply { id = "MatchView_questionViewLabel" }
+    val questionViewLabel = Label("Here is selected question").apply { id = "MatchView_questionViewLabel" }
     val confirmBtn = Button("确认").apply { id = "MatchView_confirmBtn" }
-    val refuseBtn = Button("拒绝").apply { id = "MatchView_refuseBtn" }
+
+    //    val refuseBtn = Button("拒绝").apply { id = "MatchView_refuseBtn" }
     val informationVBox = VBox().apply { id = "MatchView_informationVBox" }
     val lockBtn = Button("锁定").apply { id = "MatchView_lockBtn" }
     val scoresVBox = VBox().apply { id = "MatchView_scoresVBox" }
@@ -76,22 +78,19 @@ object MatchView {
     private val njuTextLogoImageView = ImageView(R.TEXT_LOGO_PATH).apply { id = "MatchView_njuTextLogoImageView" }
     val group = ToggleGroup()
 
-    private fun init(judgeCount: Int, questionMap: Map<Int, String>) {
-        logger.info("init()")
+    private fun init(judgeCount: Int) {
+        logger.info("init(judgeCount: Int)")
         // Main Tab
         rootHBox.children.addAll(optionalQuestionsStackPane, operationsVBox)
         optionalQuestionsStackPane.children.addAll(njuLogoImageView, optionalQuestionsVBox)
-        // 载入可选题
-        loadOptionalQuestions(questionMap)
         operationsVBox.children.addAll(confirmHBox, informationVBox, scoresVBox)
-        confirmHBox.children.addAll(questionViewLabel, confirmBtn, refuseBtn)
+//        confirmHBox.children.addAll(questionViewLabel, confirmBtn, refuseBtn)
+        confirmHBox.children.addAll(questionViewLabel, confirmBtn)
         informationVBox.children.addAll(
             TeamBar(TeamType.REPORTER),
             TeamBar(TeamType.OPPONENT),
             TeamBar(TeamType.REVIEWER),
-            TeamBar(TeamType.OBSERVER).apply {
-                children.add(lockBtn)
-            }
+            TeamBar(TeamType.OBSERVER)
         )
         scoresVBox.children.addAll(
             ScoreBar("正：", judgeCount),
@@ -102,6 +101,10 @@ object MatchView {
             },
             njuTextLogoImageView
         )
+        // 默认不选中，置为-1，后续运行时置为赛题编号
+        group.apply {
+            userData = -1
+        }
     }
 
     private fun layout() {
@@ -127,13 +130,24 @@ object MatchView {
      * @param questionMap 当前可选题
      * @return
      */
-    fun build(judgeCount: Int, questionMap: Map<Int, String>): HBox {
+    fun build(judgeCount: Int): HBox {
         logger.info("build()")
-        logger.info("init <<< judgeCount = $judgeCount   questionMap = $questionMap")
-        init(judgeCount, questionMap)
+        logger.info("init <<< judgeCount = $judgeCount")
+        init(judgeCount)
         layout()
         logger.info("build() return => $rootHBox")
         return rootHBox
+    }
+
+    fun loadTeam(teamNameList: List<String>) {
+        teamNameList.forEachIndexed { index, name ->
+            val teamBar = informationVBox.children[index] as TeamBar
+            teamBar.loadTeam(name)
+        }
+        if (teamNameList.size == 3) {
+            val teamBar = informationVBox.children.last() as TeamBar
+            teamBar.loadTeam("无观摩方")
+        }
     }
 
     /**
@@ -159,15 +173,44 @@ object MatchView {
         questionLibMap: Map<Int, String>,
         rule: RuleInterface
     ) {
+        logger.info("getOptionalQuestionIDList(repTeamRecordDataList, oppTeamRecordDataList, usedQuestionIDList, questionIDLibList)")
+        logger.info("repTeamRecordDataList = $repTeamRecordDataList")
+        logger.info("oppTeamRecordDataList = $oppTeamRecordDataList")
+        logger.info("usedQuestionIDList = $usedQuestionIDList")
+        logger.info("questionIDLibList = ${questionLibMap.keys.toList()}")
         // 当前对局的可选题目编号
-        val questionIDList = rule.getOptionalQuestionIDList(
-            repTeamRecordDataList,
-            oppTeamRecordDataList,
-            usedQuestionIDList,
-            questionLibMap.keys.toList()
-        )
+        val questionIDList =
+            rule.getOptionalQuestionIDList(
+                repTeamRecordDataList,
+                oppTeamRecordDataList,
+                usedQuestionIDList,
+                questionLibMap.keys.toList()
+            )
+        logger.info("questionIDList = $questionIDList")
         // 加载可选题到UI中
         loadOptionalQuestions(questionLibMap.filter { it.key in questionIDList })
+    }
+
+    fun loadValidPlayer(
+        type: TeamType,
+        roundPlayerRecordList: List<PlayerData>,
+        teamRecordDataList: List<RecordData>,
+        playerDataList: List<PlayerData>,
+        rule: RuleInterface
+    ) {
+        informationVBox.children.forEach {
+            val teamBar = it as TeamBar
+            if (teamBar.type == type) {
+                logger.info("rule.getValidPlayerIDList(roundPlayerRecordList, teamRecordDataList, playerDataList)")
+                logger.info("roundPlayerRecordList = $roundPlayerRecordList")
+                logger.info("teamRecordDataList = $teamRecordDataList")
+                logger.info("playerDataList = $playerDataList")
+                val validPlayerIDList =
+                    rule.getValidPlayerIDList(roundPlayerRecordList, teamRecordDataList, playerDataList)
+                logger.info("validPlayerIDList = $validPlayerIDList")
+                teamBar.loadValidPlayer(playerDataList.filter { it.id in validPlayerIDList }.map { it.name })
+            }
+        }
     }
 }
 
@@ -204,6 +247,8 @@ object SettingView {
     private val judgeCountTF = TextField()
     private val ruleTypeLabel = Label("Rule:")
     private val ruleTypeCB = ComboBox<RuleType>()
+    private val roundTypeLabel = Label("RoundType:")
+    private val roundTypeCB = ComboBox<RoundType>()
     val saveBtn = Button("保存").apply { id = "SettingView_saveBtn" }
 
     private fun init(config: Config) {
@@ -211,14 +256,16 @@ object SettingView {
         rootGridPane.add(ipLabel, 0, 0)
         rootGridPane.add(portLabel, 0, 1)
         rootGridPane.add(judgeCountLabel, 0, 2)
-        rootGridPane.add(ruleTypeLabel, 0, 3)
+        rootGridPane.add(roundTypeLabel, 0, 3)
+        rootGridPane.add(ruleTypeLabel, 0, 4)
 
         rootGridPane.add(ipTF, 1, 0)
         rootGridPane.add(portTF, 1, 1)
         rootGridPane.add(judgeCountTF, 1, 2)
-        rootGridPane.add(ruleTypeCB, 1, 3)
+        rootGridPane.add(roundTypeCB, 1, 3)
+        rootGridPane.add(ruleTypeCB, 1, 4)
 
-        rootGridPane.add(saveBtn, 1, 4)
+        rootGridPane.add(saveBtn, 1, 5)
 
         ipTF.apply {
             tooltip = Tooltip("服务器ip地址")
@@ -248,6 +295,10 @@ object SettingView {
             items.addAll(RuleType.CUPT, RuleType.JSYPT)
             value = RuleType.CUPT
         }
+        roundTypeCB.apply {
+            items.addAll(RoundType.NORMAL, RoundType.SPECIAL)
+            value = RoundType.NORMAL
+        }
     }
 
     private fun layout() {
@@ -265,9 +316,32 @@ object SettingView {
         return rootGridPane
     }
 
-    fun saveConfig() = Config(ipTF.text, portTF.text.toInt(), judgeCountTF.text.toInt(), ruleTypeCB.value)
+    fun saveConfig() =
+        Config(ipTF.text, portTF.text.toInt(), judgeCountTF.text.toInt(), roundTypeCB.value, ruleTypeCB.value)
 }
 
 object AboutView {
     private val logger = LoggerFactory.getLogger(this::class.java)
+}
+
+object PopupView {
+    private val logger = LoggerFactory.getLogger(this::class.java)
+    private val rootGridPane = GridPane().apply { id = "PopupView_rootGridPane" }
+    private val infoLabel = Label().apply { id = "PopupView_infoLabel" }
+
+    private fun init() {
+        logger.info("init()")
+        rootGridPane.add(infoLabel, 0, 0)
+    }
+
+    fun info(msg: String) {
+        infoLabel.text = msg
+    }
+
+    fun build(): GridPane {
+        logger.info("build()")
+        init()
+        logger.info("build() return => $rootGridPane")
+        return rootGridPane
+    }
 }

@@ -1,6 +1,8 @@
 package nju.pt
 
+import nju.pt.client.Cache
 import nju.pt.client.Config
+import nju.pt.client.RoundType
 import nju.pt.client.RuleType
 
 object R {
@@ -12,7 +14,7 @@ object R {
 
     const val SETTING_JSON_PATH = "config/setting.json"
     const val DATA_JSON_PATH = "data/data.json"
-    const val QUESTION_JSON_PATH = "data/question.json"
+    const val CACHE_JSON_PATH = "data/cache.json"
 
-    val DEFAULT_CONFIG = Config("127.0.0.1", 7890, 5, RuleType.CUPT)
+    val DEFAULT_CONFIG = Config("127.0.0.1", 7890, 5, RoundType.NORMAL, RuleType.CUPT)
 }
