@@ -7,6 +7,7 @@ import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
 import javafx.scene.control.SelectionMode
 import javafx.scene.image.Image
+import javafx.stage.FileChooser
 import javafx.stage.Stage
 import kotlinx.serialization.json.Json
 import nju.pt.R
@@ -17,7 +18,11 @@ import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.slf4j.LoggerFactory
 import java.io.File
+import java.io.FileNotFoundException
+import kotlin.io.path.createDirectories
+import kotlin.io.path.createDirectory
 import kotlin.io.path.notExists
+import kotlin.math.log
 
 fun main() {
     Application.launch(AppUI::class.java)
@@ -36,7 +41,7 @@ class AppUI : Application() {
         WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel()
     }
 
-    private fun getExportSettingStage(data: Data) =MyStage(ExportView().build(data)).apply {
+    private fun getExportSettingStage(data: Data) = MyStage(ExportView().build(data)).apply {
         minWidth = 150.0
         minHeight = 300.0
         isResizable = false
@@ -54,21 +59,45 @@ class AppUI : Application() {
 
 
     override fun init() {
-        if (Path(R.SERVER_CACHE_DIR_PATH).notExists()) {
-            File(R.SERVER_CACHE_DIR_PATH).mkdir()
-        }
-        if (Path(R.SERVER_DATA_DIR_PATH).notExists()) {
-            File(R.SERVER_DATA_DIR_PATH).mkdir()
-            XSSFWorkbook().initializeExcel()
-            logger.error("已新建配置文件，请在${R.SERVER_DATA_DIR_PATH}中配置服务端配置文件！")
-            throw Exception("已新建配置文件，请在${R.SERVER_DATA_DIR_PATH}中配置服务端配置文件！")
+        logger.info("init()")
+        for (path in listOf<String>(
+            R.SERVER_CACHE_DIR_PATH,
+            R.SERVER_SEND_FILE_DIR_PATH,
+            R.SERVER_BACKUP_FILE_DIR_PATH,
+            R.SERVER_ACCEPT_FILE_TEMP_DIR_PATH
+        )) {
+            Path(path).apply {
+                if (this.notExists()) {
+                    this.createDirectories()
+                }
+            }
         }
 
-        if (Path(R.CONFIG_EXCEL_PATH).notExists()) {
-            XSSFWorkbook().initializeExcel()
-            logger.error("已新建配置文件，请在${R.SERVER_DATA_DIR_PATH}中配置服务端配置文件！")
-            throw Exception("已新建配置文件，请在${R.SERVER_DATA_DIR_PATH}中配置服务端配置文件！")
+
+        logger.info("checking configuration file...")
+        // 配置文件json找不到
+        if (Path(R.CONFIG_JSON_PATH).notExists()) {
+            Path(R.CONFIG_EXCEL_PATH).apply {
+                //配置文件excel找不到
+                if (this.notExists()) {
+                    if (this.parent.notExists()) {
+                        //Data文件夹都没有
+                        this.parent.createDirectory()
+                    }
+                    XSSFWorkbook().initializeExcel()
+                    logger.error("已新建配置文件，请先在${R.SERVER_DATA_DIR_PATH}中配置服务端配置文件再进入程序！")
+                    throw Exception("已新建配置文件，请在${R.SERVER_DATA_DIR_PATH}中配置服务端配置文件再进入程序！")
+                } else {
+                    WorkbookFactory.create(R.CONFIG_EXCEL_FILE).apply {
+                        checkConfigExcel()
+                    }
+                    //根据excel生成config_data.json
+                    Config.configData
+                }
+            }
         }
+
+
     }
 
     override fun start(primaryStage: Stage) {
@@ -88,8 +117,9 @@ class AppUI : Application() {
                     CounterPartTable(totalTeamNumber, judgeMap, schoolMap).generateTableWithoutJudge()
                 } catch (e: Exception) {
                     logger.error(e.message)
-
-                    generateTableAlert.apply {
+                    ConfirmAlert().apply {
+                        title = "生成对阵表(无裁判)"
+                        headerText = "生成对阵表错误!"
                         contentText = "Error:${e.message}"
                     }.show()
                     throw Exception(e.message)
@@ -101,16 +131,27 @@ class AppUI : Application() {
             generateTableWithJudgeBtn.setOnAction {
                 try {
                     CounterPartTable(totalTeamNumber, judgeMap, schoolMap).generateTableWithJudge()
+                } catch (e: FileNotFoundException) {
+                    logger.error("未找到${R.COUNTERPART_TABLE_JSON_PATH}文件，请先生成无裁判对阵表")
+                    ConfirmAlert().apply {
+                        title = "生成对阵表(有裁判)"
+                        headerText = "生成对阵表(有裁判)错误！"
+                        contentText = "Error:未找到${R.COUNTERPART_TABLE_JSON_PATH}文件，请先生成无裁判对阵表！"
+                    }.show()
+
+                    throw Exception("未找到${R.COUNTERPART_TABLE_JSON_PATH}文件，请先生成无裁判对阵表！")
                 } catch (e: Exception) {
                     logger.error(e.message)
-                    generateTableAlert.apply {
+                    ConfirmAlert().apply {
                         title = "生成对阵表(有裁判)"
+                        headerText = "生成对阵表(有裁判)错误！"
                         contentText = "Error:${e.message}"
                     }.show()
                     throw Exception(e.message)
 
                 }
-                generateTableDialog.apply {
+                ConfirmDialog().apply {
+                    headerText = "对阵表生成完成！"
                     title = "生成对阵表(有裁判)"
                 }.show()
             }
@@ -141,14 +182,14 @@ class AppUI : Application() {
                         minWidth = 800.0
                         minHeight = 800.0
 
-                        setOnCloseRequest {_ ->
+                        setOnCloseRequest { _ ->
                             Alert(Alert.AlertType.CONFIRMATION).apply {
                                 dialogPane.apply {
                                     (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
                                 }
                                 title = "退出"
                                 headerText = "是否保存?"
-                                if (this.showAndWait().get() == ButtonType.OK){
+                                if (this.showAndWait().get() == ButtonType.OK) {
                                     MainView.saveBtn.fire()
                                 }
                             }
@@ -214,6 +255,49 @@ class AppUI : Application() {
                     deleteRecordMenuItem.setOnAction {
                         AddOrDeleteView.getDeleteRecordStage(getSelectedTeamData(), data.schoolMap).show()
                     }
+
+                    //分会场数据交互
+                    generateRoomDataBtn.setOnAction {
+                        logger.info("generate room data")
+                        //目前轮数中最大
+                        val maxTurn = data.teamDataList.asSequence().map { it.recordDataList }.filter { it.isNotEmpty() }.flatten().toList().let{
+                            if (it.isEmpty()){
+                                0
+                            }else{
+                                it.maxOf { it.round }
+                            }
+                        }
+
+                        GenerateRoomDataView.getGenerateRoomDataStage(
+                            if (maxTurn == Config.turns) Config.turns else maxTurn + 1
+                        ).show()
+                    }
+
+                    addDataFromJsonBtn.setOnAction {
+                        try {
+                            FileChooser()
+                                .apply {
+                                    initialDirectory = File(".")
+                                    extensionFilters.addAll(
+                                        FileChooser.ExtensionFilter("Json File", "*.json"),
+                                        FileChooser.ExtensionFilter("All File", "*.*")
+                                    )
+                                }
+                                .run {
+                                    showOpenMultipleDialog(MyStage())
+                                }.forEach {
+
+                                    it.copyTo(File("${R.SERVER_BACKUP_FILE_DIR_PATH}/${it.name}"), true)
+                                    data = data.mergeData(JsonHelper.fromJson<Data>(it.path))
+                                    refreshData(data.teamDataList[0])
+                                    it.delete()
+
+                                }
+                        } catch (e: java.lang.NullPointerException) {
+                            println(e.message)
+                        }
+                    }
+
                 }
 
 
@@ -304,6 +388,12 @@ class AppUI : Application() {
                         MainView.refreshData(getSelectedTeamData())
                     }
 
+                }
+
+                GenerateRoomDataView.apply {
+                    generateRoomDataConfirmBtn.setOnAction {
+                        this.generateRoomData(data)
+                    }
                 }
 
             }

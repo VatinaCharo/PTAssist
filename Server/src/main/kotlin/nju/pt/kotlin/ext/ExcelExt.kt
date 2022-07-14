@@ -12,6 +12,20 @@ import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 
+fun Workbook.checkConfigExcel() {
+    //用于程序启动时的检查，通过加载一遍来检查服务端配置、题目，裁判信息，学校有没有写错
+    //由于队伍信息中可能抽签号还没有决定，不检查
+    val logger = LoggerFactory.getLogger("Config Check Loader")
+    logger.info("Checking config:")
+    this.loadConfigFromExcel()
+
+    logger.info("Checking questions:")
+    this.loadQuestionFromExcel()
+
+    logger.info("Checking schools & judges:")
+    this.loadJudgeFromExcel()
+
+}
 
 fun Workbook.loadConfigFromExcel(): ConfigData {
     val logger = LoggerFactory.getLogger("Config Loader")
@@ -25,7 +39,14 @@ fun Workbook.loadConfigFromExcel(): ConfigData {
     var vWeight: Double = 0.0
     try {
         // 读取excel文件中的配置sheet
-        val configSheet = this@loadConfigFromExcel.getSheet(R.CONFIG_SHEET_NAME)
+        val configSheet: Sheet
+        try {
+            configSheet = this@loadConfigFromExcel.getSheet(R.CONFIG_SHEET_NAME)
+        } catch (e: NullPointerException) {
+            logger.error("未找到sheet：" + e.message)
+            throw Exception("未找到sheet，请检查sheet名称")
+        }
+
         // 读取每行信息
         configSheet.rowIterator().asSequence().forEach { row ->
             val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
@@ -63,7 +84,7 @@ fun Workbook.loadConfigFromExcel(): ConfigData {
                         logger.info("roomCount = $vWeight")
                     }
                     else -> {
-                        logger.error("无法识别，请检查服务端配置信息")
+                        logger.error("无法识别，请检查服务端配置信息！")
                         throw Exception("无法识别，请检查服务端配置信息！")
                     }
                 }
@@ -75,23 +96,23 @@ fun Workbook.loadConfigFromExcel(): ConfigData {
     } catch (e: NumberFormatException) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
-        throw Exception("裁判数和会场数必须是大于零的整数！")
+        throw Exception("裁判数和会场数必须是大于零的整数！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: NullPointerException) {
-        logger.error("未找到sheet：" + e.message)
-        throw Exception("未找到sheet，请检查sheet名称")
+        logger.error("配置信息不得有空：" + e.message)
+        throw Exception("配置信息不得有空，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: Exception) {
         logger.error(e.message)
-        throw Exception("服务端信息配置信息有误")
+        throw Exception("服务端信息配置信息有误,请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     }
 
     if (judgeCount <= 0) {
-        logger.error("裁判数必须是大于零的整数！")
-        throw Exception("裁判数必须是大于零的整数！")
+        logger.error("裁判数必须是大于零的整数！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        throw Exception("裁判数必须是大于零的整数！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     }
 
     if (roomCount <= 0) {
-        logger.error("房间数必须是大于零的整数！")
-        throw Exception("房间数必须是大于零的整数！")
+        logger.error("房间数必须是大于零的整数！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        throw Exception("房间数必须是大于零的整数！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     }
     return ConfigData(
         port,
@@ -125,21 +146,21 @@ fun Workbook.loadQuestionFromExcel() = mutableMapOf<Int, String>().apply {
         }
         //判断题号是否有重复
         if (qCount != this.size) {
-            logger.error("题号有重复")
-            throw Exception("题号有重复，请检查题号！")
+            logger.error("题号有重复，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+            throw Exception("题号有重复，请检查题号！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
         }
         //判断题目号是否有重复
         if (qCount != this.values.distinct().size) {
-            logger.error("题目名称有重复")
-            throw Exception("题号有重复，请检查题号！")
+            logger.error("题目名称有重复，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+            throw Exception("题号有重复，请检查题号！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
         }
     } catch (e: NullPointerException) {
-        logger.error("未找到sheet：" + e.message)
-        throw Exception("未找到sheet，请检查sheet名称！")
+        logger.error("配置信息不得有空：" + e.message)
+        throw Exception("配置信息不得有空，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: Exception) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
-        throw Exception("赛题信息填写有误！")
+        throw Exception("赛题信息填写有误！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     }
 }.entries.sortedBy { it.key }.associateBy({ it.key }, { it.value })
 
@@ -149,7 +170,14 @@ fun Workbook.loadSchoolFromExcel() = mutableMapOf<Int, String>().apply {
     logger.info("===================== loadSchoolFromExcel =====================")
 
     try {
-        val schoolSheet = this@loadSchoolFromExcel.getSheet(R.JUDGE_SHEET_NAME)
+        val schoolSheet: Sheet
+        try {
+            schoolSheet = this@loadSchoolFromExcel.getSheet(R.JUDGE_SHEET_NAME)
+        } catch (e: NullPointerException) {
+            logger.error("未找到sheet：" + e.message)
+            throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        }
+
 
         // 读取sheet内容
         var schoolIndex = 1
@@ -167,11 +195,11 @@ fun Workbook.loadSchoolFromExcel() = mutableMapOf<Int, String>().apply {
         }
     } catch (e: NullPointerException) {
         logger.error("未找到sheet：" + e.message)
-        throw Exception("未找到sheet，请检查sheet名称")
+        throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: Exception) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
-        throw Exception("学校信息填写有误！")
+        throw Exception("学校信息填写有误！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     }
 
 }.toMap()
@@ -195,8 +223,8 @@ fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
                 if (cellValues.size > 1) {
                     //检测裁判学校是否在提供的学校列表内
                     if (!schoolMap.values.contains(cellValues[0])) {
-                        logger.error("${cellValues[0]}并未在提供的学校信息内！")
-                        throw Exception("${cellValues[0]}并未在提供的学校信息内！")
+                        logger.error("${cellValues[0]}并未在提供的学校信息内！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+                        throw Exception("${cellValues[0]}并未在提供的学校信息内！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
                     }
 
                     logger.info("cellValues = $cellValues")
@@ -207,11 +235,11 @@ fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
         }
     } catch (e: NullPointerException) {
         logger.error("未找到sheet：" + e.message)
-        throw Exception("未找到sheet，请检查sheet名称")
+        throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: Exception) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
-        throw Exception("裁判信息填写有误！")
+        throw Exception("裁判信息填写有误！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     }
 
 }.toMap()
@@ -238,14 +266,14 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
                     //判断队员名称-姓名是否齐全
                     if ((cellValues.size - 3) % 2 != 0) {
                         println(cellValues)
-                        logger.error("第${rowIndex}行队伍/队员信息不全，请检查！")
-                        throw Exception("第${rowIndex}行队伍/队员信息不全，请检查！")
+                        logger.error("第${rowIndex}行队伍/队员信息不全，请检查！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+                        throw Exception("第${rowIndex}行队伍/队员信息不全，请检查！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
                     }
 
                     //检测队伍学校是否在提供的学校列表内
                     if (!reversedSchoolMap.containsKey(cellValues[0])) {
-                        logger.error("${cellValues[0]}并未在提供的学校信息内！")
-                        throw Exception("${cellValues[0]}并未在提供的学校信息内！")
+                        logger.error("${cellValues[0]}并未在提供的学校信息内！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+                        throw Exception("${cellValues[0]}并未在提供的学校信息内！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
                     }
 
                     this += TeamData(
@@ -274,17 +302,17 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
         }
         //检测抽签号是否有重复
         if (this.size != this.map { it.id }.distinct().size) {
-            logger.error("抽签号有重复")
-            throw Exception("抽签号有重复，请检查队伍抽签号！")
+            logger.error("抽签号有重复，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+            throw Exception("抽签号有重复，请检查队伍抽签号！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
         }
 
     } catch (e: NullPointerException) {
         logger.error("未找到sheet：" + e.message)
-        throw Exception("未找到sheet，请检查sheet名称")
+        throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: NumberFormatException) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
-        throw Exception("抽签号必须是整数！")
+        throw Exception("抽签号必须是整数！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     }
 //    catch (e: Exception) {
 //        logger.error(e.message)
@@ -309,11 +337,11 @@ fun Workbook.getTotalTeamNumber(): Int {
         return totalTeamNumber
 
     } catch (e: FileNotFoundException) {
-        logger.error("未找到文件: ${e.message}")
-        throw Exception("未找到文件: ${e.message}")
+        logger.error("未找到文件，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        throw Exception("未找到文件，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: NullPointerException) {
-        logger.error("未找到sheet：" + e.message)
-        throw Exception("未找到sheet，请检查sheet名称")
+        logger.error("未找到sheet，请检查${R.CONFIG_EXCEL_PATH}配置文件！" )
+        throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
 
     }
 }

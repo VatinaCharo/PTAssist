@@ -14,6 +14,7 @@ import nju.pt.databaseassist.Data
 @kotlinx.serialization.Serializable
 data class Packet(
     val roomID: Int,
+    val round: Int,
     val phase: Int,
     val teamIDMatchList: List<Int>,
     val data: Data
