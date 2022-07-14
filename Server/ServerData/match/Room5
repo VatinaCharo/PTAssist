@@ -1,0 +1,86 @@
+{
+    "teamDataList": [
+        {
+            "id": 5,
+            "name": "5.0",
+            "schoolID": 1,
+            "playerDataList": [
+                {
+                    "id": 9,
+                    "name": "张三",
+                    "gender": "男"
+                },
+                {
+                    "id": 10,
+                    "name": "李四",
+                    "gender": "女"
+                }
+            ],
+            "recordDataList": [
+                {
+                    "round": 2,
+                    "phase": 1,
+                    "roomID": 1,
+                    "questionID": 1,
+                    "masterID": 9,
+                    "role": "R",
+                    "score": 1.0,
+                    "weight": 1.0
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "name": "8.0",
+            "schoolID": 1,
+            "playerDataList": [
+                {
+                    "id": 15,
+                    "name": "张三",
+                    "gender": "男"
+                },
+                {
+                    "id": 16,
+                    "name": "李四",
+                    "gender": "女"
+                }
+            ],
+            "recordDataList": [
+                {
+                    "round": 2,
+                    "phase": 1,
+                    "roomID": 1,
+                    "questionID": 1,
+                    "masterID": 15,
+                    "role": "R",
+                    "score": 1.0,
+                    "weight": 1.0
+                }
+            ]
+        },
+        {
+            "id": 11,
+            "name": "11.0",
+            "schoolID": 2,
+            "playerDataList": [
+                {
+                    "id": 21,
+                    "name": "张三",
+                    "gender": "男"
+                },
+                {
+                    "id": 22,
+                    "name": "李四",
+                    "gender": "女"
+                }
+            ]
+        }
+    ],
+    "questionMap": {
+        "1": "你来发明"
+    },
+    "schoolMap": {
+        "1": "南京大学",
+        "2": "北京大学"
+    }
+}

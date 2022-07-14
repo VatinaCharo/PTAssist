@@ -22,15 +22,16 @@ import javafx.stage.Stage
 import javafx.util.StringConverter
 import javafx.util.converter.IntegerStringConverter
 import nju.pt.R
-import nju.pt.databaseassist.PlayerData
-import nju.pt.databaseassist.RecordData
-import nju.pt.databaseassist.Data
-import nju.pt.databaseassist.TeamData
+import nju.pt.databaseassist.*
 import org.apache.logging.log4j.message.FormattedMessageFactory
 import org.apache.xmlbeans.impl.xb.xsdschema.TopLevelAttribute
 import org.slf4j.LoggerFactory
+import kotlin.io.path.Path
+
 import java.util.function.UnaryOperator
 import kotlin.coroutines.suspendCoroutine
+import kotlin.io.path.createDirectories
+import kotlin.io.path.notExists
 
 @DefaultProperty("root")
 class MyScene(root: Parent) : Scene(root) {
@@ -108,22 +109,9 @@ object StartView {
     val settingBtn = Button("设置").apply { id = "StartView_settingBtn" }
     val aboutBtn = Button("关于软件").apply { id = "StartView_aboutBtn" }
 
-    val generateTableAlert = Alert(Alert.AlertType.ERROR).apply {
-        title = "生成对阵表(无裁判)"
-        headerText = "生成对阵表错误!"
-        dialogPane.apply {
-            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
-        }
-    }
-
-    val generateTableDialog = Dialog<ButtonType>().apply {
+    val generateTableDialog = ConfirmDialog().apply {
         title = "生成对阵表(无裁判)"
         headerText = "对阵表生成完成！"
-        dialogPane.apply {
-            buttonTypes.add(ButtonType.OK)
-            lookupButton(ButtonType.OK)
-            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
-        }
 
     }
 
@@ -179,7 +167,8 @@ object MainView {
     private val logger = LoggerFactory.getLogger(this::class.java)
     private val rootHBox = HBox().apply { id = "MainView_rootHBox" }
     private val informationVBox = VBox().apply { id = "MainView_informationVBox" }
-    private val operationHBox = HBox().apply { id = "MainView_operationHBox" }
+    private val operationHBox1 = HBox().apply { id = "MainView_operationHBox1" }
+    private val operationHBox2 = HBox().apply { id = "MainView_operationHBox2" }
     private val modifyBtn = Button("修改").apply { id = "MainView_modifyBtn" }
     val saveBtn = Button("保存").apply { id = "MainView_saveBtn" }
     val addPlayerMenuItem = MenuItem("增加选手")
@@ -207,14 +196,24 @@ object MainView {
     private val scoreTC = TableColumn<RecordData, Number>("分数")
     private val weightTC = TableColumn<RecordData, Number>("系数")
 
+    val generateRoomDataBtn = Button("生成分会场数据")
+    val addDataFromJsonBtn = Button("增加数据")
+
 
     var selectedSchoolItems = SimpleListProperty(schoolListView.selectionModel.selectedItems)
     private fun init(data: Data) {
         logger.info("init(data: Data)")
         rootHBox.apply {
             children.addAll(informationVBox, recordTableView)
-            informationVBox.children.addAll(operationHBox, schoolListView, teamListView, playerTableView)
-            operationHBox.children.addAll(modifyBtn, saveBtn, addOrDeleteMenuBtn, exportBtn)
+            informationVBox.children.addAll(
+                operationHBox1,
+                operationHBox2,
+                schoolListView,
+                teamListView,
+                playerTableView
+            )
+            operationHBox1.children.addAll(modifyBtn, saveBtn, addOrDeleteMenuBtn, exportBtn)
+            operationHBox2.children.addAll(generateRoomDataBtn, addDataFromJsonBtn)
             playerTableView.columns.addAll(
                 playerIDTC, playerNameTC, playerGenderTC
             )
@@ -490,7 +489,7 @@ class SettingView {
     }
 
     private fun saveConfig() {
-        if (checkModifyConfig()){
+        if (checkModifyConfig()) {
             ConfigData(
                 portTF.text.toInt(),
                 judgeCountTF.text.toInt(),
@@ -771,3 +770,77 @@ object AddOrDeleteView {
     }
 
 }
+
+object GenerateRoomDataView {
+    private val logger = LoggerFactory.getLogger(this::class.java)
+
+    val turnSelectComboBox = ComboBox<String>()
+    val turnSelectHbox = HBox(10.0)
+    val generateRoomDataConfirmBtn = Button("确认生成")
+
+    init {
+        turnSelectHbox.children.addAll(Label("下一轮比赛的轮数:"), turnSelectComboBox)
+        turnSelectComboBox.items.addAll(List<String>(Config.turns) { index -> "${index + 1}" })
+    }
+
+
+    private fun build(nowTurn: Int): VBox {
+        logger.info("build(data: Data)")
+        logger.info("init <<< turns = $nowTurn")
+        turnSelectComboBox.selectionModel.select(nowTurn - 1)
+
+        logger.info("build() return => Vbox")
+        return VBox().apply {
+            children.addAll(turnSelectHbox, generateRoomDataConfirmBtn)
+        }
+    }
+
+    fun getGenerateRoomDataStage(turns: Int) = MyStage(build(turns)).apply {
+        title = "生成分会场数据"
+    }
+
+    fun generateRoomData(data: Data) {
+        logger.info("Generate room data")
+        val selectedTurn = turnSelectComboBox.selectionModel.selectedIndex+1
+        logger.info("selected turn:${selectedTurn}")
+        val dataCopy = data.copy()
+        dataCopy.teamDataList.forEach { teamData ->
+            teamData.recordDataList = teamData.recordDataList.filter {
+                it.round < selectedTurn
+            }.toMutableList()
+        }
+        logger.info("teamDataList:${data.teamDataList}")
+
+        Path(R.SERVER_SEND_FILE_DIR_PATH).apply {
+            if (this.notExists()) {
+                this.createDirectories()
+                logger.info("Directory created")
+            }
+        }
+        val counterPartTable = JsonHelper.fromJson<CounterPartTable>(R.COUNTERPART_TABLE_JSON_PATH)
+
+        for (roomId in 1..Config.roomCount){
+            logger.info("Room $roomId:")
+
+            val thisRoomTeamIdList = mutableListOf<Int>().apply {
+                counterPartTable.teamTableList[selectedTurn-1].let{
+                    this.add(it.RList[roomId-1])
+                    this.add(it.OList[roomId-1])
+                    this.add(it.VList[roomId-1])
+                    if (it.OBList[roomId-1] !=-1){
+                        this.add(it.OBList[roomId-1])
+                    }
+                }
+            }
+            logger.info("teamIdList:$thisRoomTeamIdList")
+            val dataCopyTemp = dataCopy.copy()
+            dataCopyTemp.teamDataList = dataCopyTemp.teamDataList.filter { it.id in thisRoomTeamIdList }
+            logger.info("teamDataList:${dataCopyTemp.teamDataList}")
+            JsonHelper.toJson(dataCopyTemp,"${R.SERVER_SEND_FILE_DIR_PATH}/Room${roomId}")
+
+        }
+
+    }
+}
+
+

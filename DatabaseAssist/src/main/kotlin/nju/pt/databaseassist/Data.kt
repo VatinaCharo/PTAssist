@@ -132,5 +132,26 @@ data class Data(
     }
 
     fun getMaxPlayerId() = teamDataList.map { it.playerDataList.map{it.id}}.flatten().maxOf { it }
+
+    fun mergeData(newData:Data):Data{
+        //队伍record的合并
+        val oldTeamIdList = this.teamDataList.map { it.id}.distinct()
+        val newTeamIdList = newData.teamDataList.map { it.id}.distinct()
+        val totalTeamIdList = (oldTeamIdList + newTeamIdList).distinct()
+
+        val totalTeamDataList = mutableListOf<TeamData>()
+        totalTeamIdList.forEach {teamId->
+            if (teamId in oldTeamIdList){
+                val teamData = this.teamDataList.first{it.id == teamId}
+                if (teamId in newTeamIdList){
+                    teamData.recordDataList += newData.teamDataList.first{it.id == teamId}.recordDataList
+                }
+                totalTeamDataList.add(teamData)
+            }else{
+                totalTeamDataList.add(newData.teamDataList.first{it.id == teamId})
+            }
+        }
+        return  Data(totalTeamDataList,this.questionMap,this.schoolMap)
+    }
 }
 

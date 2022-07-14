@@ -1,0 +1,74 @@
+{
+    "teamDataList": [
+        {
+            "id": 2,
+            "name": "2.0",
+            "schoolID": 1,
+            "playerDataList": [
+                {
+                    "id": 3,
+                    "name": "张三",
+                    "gender": "男"
+                },
+                {
+                    "id": 4,
+                    "name": "李四",
+                    "gender": "女"
+                }
+            ],
+            "recordDataList": [
+                {
+                    "round": 1,
+                    "phase": 1,
+                    "roomID": 1,
+                    "questionID": 1,
+                    "masterID": 3,
+                    "role": "R",
+                    "score": 1.0,
+                    "weight": 1.0
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "name": "10.0",
+            "schoolID": 2,
+            "playerDataList": [
+                {
+                    "id": 19,
+                    "name": "张三",
+                    "gender": "男"
+                },
+                {
+                    "id": 20,
+                    "name": "李四",
+                    "gender": "女"
+                }
+            ]
+        },
+        {
+            "id": 13,
+            "name": "13.0",
+            "schoolID": 2,
+            "playerDataList": [
+                {
+                    "id": 25,
+                    "name": "张三",
+                    "gender": "男"
+                },
+                {
+                    "id": 26,
+                    "name": "李四",
+                    "gender": "女"
+                }
+            ]
+        }
+    ],
+    "questionMap": {
+        "1": "你来发明"
+    },
+    "schoolMap": {
+        "1": "南京大学",
+        "2": "北京大学"
+    }
+}
