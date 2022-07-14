@@ -29,5 +29,8 @@ object R {
     const val COUNTERPART_TABLE_JSON_PATH = "$SERVER_CACHE_DIR_PATH/counterpartTable.json"
     const val COUNTERPART_TABLE_EXCEL_PATH = "$SERVER_DATA_DIR_PATH/counterpartTable.xlsx"
 
-
+    //文件传输
+    const val SERVER_SEND_FILE_DIR_PATH = "$SERVER_DATA_DIR_PATH/match"
+    const val SERVER_BACKUP_FILE_DIR_PATH = "$SERVER_DATA_DIR_PATH/backup"
+    const val SERVER_ACCEPT_FILE_TEMP_DIR_PATH = "$SERVER_DATA_DIR_PATH/.temp"
 }
