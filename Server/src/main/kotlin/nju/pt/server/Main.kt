@@ -36,12 +36,7 @@ class AppUI : Application() {
         WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel()
     }
 
-    private fun getExportSettingStage(data: Data) = Stage().apply {
-        scene = Scene(ExportView().build(data)).apply {
-            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-            icons.add(Image(R.LOGO_PATH))
-
-        }
+    private fun getExportSettingStage(data: Data) =MyStage(ExportView().build(data)).apply {
         minWidth = 150.0
         minHeight = 300.0
         isResizable = false
@@ -120,6 +115,11 @@ class AppUI : Application() {
                 }.show()
             }
 
+
+            //设置界面
+            settingBtn.setOnAction {
+                SettingView().getSettingViewStage(Config.configData).show()
+            }
 
             //进入比赛按钮
             startBtn.setOnAction {
@@ -239,7 +239,7 @@ class AppUI : Application() {
                             logger.info("Gender: ${playerGenderComboBox.selectionModel.selectedItem}")
                             logger.info("Player added successfully!")
 
-                            confirmDialog.apply {
+                            ConfirmDialog().apply {
                                 title = "增加选手"
                                 contentText = "增加选手${playerNameTextField.text}成功!"
                                 setOnCloseRequest { addPlayerStage.close() }
@@ -255,7 +255,7 @@ class AppUI : Application() {
                         }[0].playerDataList.removeIf {
                             "${it.id}" == playerDeleteComboBox.selectionModel.selectedItem.substringBefore("-")
                         }
-                        confirmDialog.apply {
+                        ConfirmDialog().apply {
                             title = "删除选手"
                             contentText = "删除选手${playerDeleteComboBox.selectionModel.selectedItem}成功!"
                             setOnCloseRequest { deletePlayerStage.close() }
@@ -282,7 +282,7 @@ class AppUI : Application() {
                                     recordWeightTextField.text.toDouble()
                                 )
                             )
-                            confirmDialog.apply {
+                            ConfirmDialog().apply {
                                 title = "增加记录"
                                 contentText = "增加记录成功!"
                                 setOnCloseRequest { addRecordStage.close() }
@@ -296,7 +296,7 @@ class AppUI : Application() {
                         data.teamDataList.filter {
                             it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore("-")
                         }[0].recordDataList.removeAt(recordComboBox.selectionModel.selectedIndex)
-                        confirmDialog.apply {
+                        ConfirmDialog().apply {
                             title = "删除记录"
                             contentText = "删除记录成功!"
                             setOnCloseRequest { deleteRecordStage.close() }
@@ -313,3 +313,4 @@ class AppUI : Application() {
 
     }
 }
+

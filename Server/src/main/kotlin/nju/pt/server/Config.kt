@@ -16,7 +16,7 @@ object Config {
 
     private val logger = LoggerFactory.getLogger(Config::class.java)
 
-    private val configData by lazy {
+    val configData by lazy {
         if (Path(R.CONFIG_JSON_PATH).notExists()) {
             WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadConfigFromExcel().also {
                 JsonHelper.toJson(it, R.CONFIG_JSON_PATH)
@@ -28,7 +28,7 @@ object Config {
     }
 
     val port by lazy { configData.port }
-    val judgeCount by lazy { configData.judgeCount}
+    val judgeCount by lazy { configData.judgeCount }
     val roomCount by lazy { configData.roomCount }
     val turns by lazy { configData.turns }
 
@@ -37,12 +37,35 @@ object Config {
     val orWeight by lazy { configData.oWeight }
     val vWeight by lazy { configData.vWeight }
 
+    fun writeIntoConfig(configData: ConfigData) {
+        logger.info("Save Config")
+        logger.info("port: ${configData.port}")
+        logger.info("judgeCount: ${configData.judgeCount}")
+        logger.info("turns: ${configData.turns}")
+        logger.info("rWeight: ${configData.rWeight}")
+        logger.info("oWeight: ${configData.oWeight}")
+        logger.info("vWeight: ${configData.vWeight}")
+
+        this.configData.apply {
+            port = configData.port
+            judgeCount = configData.judgeCount
+            roomCount = configData.roomCount
+            turns = configData.turns
+            rWeight = configData.rWeight
+            oWeight = configData.oWeight
+            vWeight = configData.vWeight
+        }
+        JsonHelper.toJson(configData, R.CONFIG_JSON_PATH)
+        logger.info("Saved successfully!")
+    }
+
 
 }
+
 @kotlinx.serialization.Serializable
 data class ConfigData(
     var port: Int,
-    var judgeCount: Int ,
+    var judgeCount: Int,
     var roomCount: Int,
     var turns: Int,
     var rWeight: Double,

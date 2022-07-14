@@ -49,6 +49,52 @@ class MyStage() : Stage() {
     }
 }
 
+class IntegerTextField() : TextField() {
+    constructor(text: String) : this() {
+        this.text = text
+    }
+
+    init {
+        textProperty().addListener { _, oldValue, newValue ->
+            text = if (newValue.matches(Regex("^\\d*\$"))) newValue else oldValue
+        }
+        id = "IntegerTextField"
+    }
+}
+
+class DoubleTextField() : TextField() {
+    constructor(text: String) : this() {
+        this.text = text
+    }
+
+    init {
+        textProperty().addListener { _, oldValue, newValue ->
+            text =
+                if (newValue.matches(Regex("\\d*\\.\\d*")) || newValue.matches(Regex("^\\d*"))) newValue else oldValue
+        }
+        id = "DoubleTextField"
+    }
+}
+
+class ConfirmDialog() : Dialog<ButtonType>() {
+    init {
+        dialogPane.apply {
+            buttonTypes.add(ButtonType.OK)
+            lookupButton(ButtonType.OK)
+            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
+        }
+    }
+}
+
+class ConfirmAlert() : Alert(AlertType.ERROR) {
+    init {
+        dialogPane.apply {
+            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------
 
 object StartView {
     private val logger = LoggerFactory.getLogger(this::class.java)
@@ -334,6 +380,14 @@ object MainView {
         recordTableView.refresh()
     }
 
+    fun refreshData(teamData: TeamData) {
+
+        logger.info("Refresh data")
+        logger.info("teamDataList:${teamData}")
+
+        loadData(teamData.playerDataList, teamData.recordDataList)
+    }
+
     fun build(data: Data): HBox {
         logger.info("build(data: Data)")
         logger.info("init <<< data = $data")
@@ -348,12 +402,108 @@ object MainView {
         return rootHBox
     }
 
-    fun refreshData(teamData: TeamData) {
 
-        logger.info("Refresh data")
-        logger.info("teamDataList:${teamData}")
+}
 
-        loadData(teamData.playerDataList,teamData.recordDataList)
+class SettingView {
+    private val logger = LoggerFactory.getLogger(this::class.java)
+    private val rootGridPane = GridPane().apply { id = "SettingView_rootGridPane" }
+    private val portLabel = Label("Port:")
+    private val portTF = IntegerTextField().apply { id = "SettingView_portTF" }
+    private val judgeCountLabel = Label("JudgeCount:")
+    private val judgeCountTF = IntegerTextField()
+    private val roomCountLabel = Label("RoomCount:")
+    private val roomCountTF = IntegerTextField()
+    private val turnLabel = Label("Turns:")
+    private val turnCountTF = IntegerTextField()
+    private val rWeightLabel = Label("Init R Weight:")
+    private val rWeighTF = DoubleTextField()
+    private val oWeightLabel = Label("Init R Weight:")
+    private val oWeighTF = DoubleTextField()
+    private val vWeightLabel = Label("Init R Weight:")
+    private val vWeighTF = DoubleTextField()
+    val saveBtn = Button("保存").apply { id = "SettingView_saveBtn" }
+
+    private fun init(config: ConfigData) {
+        logger.info("init(config: Config)")
+        rootGridPane.apply {
+            addRow(0, portLabel, portTF, judgeCountLabel, judgeCountTF)
+            addRow(1, roomCountLabel, roomCountTF, turnLabel, turnCountTF)
+            addRow(2, rWeightLabel, rWeighTF, oWeightLabel, oWeighTF)
+            addRow(3, vWeightLabel, vWeighTF)
+            add(saveBtn, 3, 4)
+        }
+
+        portTF.text = config.port.toString()
+        judgeCountTF.text = config.judgeCount.toString()
+        roomCountTF.text = config.roomCount.toString()
+        turnCountTF.text = config.turns.toString()
+        rWeighTF.text = config.rWeight.toString()
+        oWeighTF.text = config.oWeight.toString()
+        vWeighTF.text = config.vWeight.toString()
+
+    }
+
+    private fun action() {
+        saveBtn.setOnAction {
+            saveConfig()
+        }
+    }
+
+    private fun layout() {
+        logger.info("layout()")
+        portTF.alignment = Pos.CENTER_RIGHT
+        judgeCountTF.alignment = Pos.CENTER_RIGHT
+    }
+
+    private fun build(config: ConfigData): GridPane {
+        logger.info("build(config:Config)")
+        init(config)
+        layout()
+        action()
+        logger.info("build() return => $rootGridPane")
+        return rootGridPane
+    }
+
+    fun getSettingViewStage(config: ConfigData) = MyStage(build(config)).apply {
+        title = "服务端设置"
+        isResizable = false
+    }
+
+    private fun checkModifyConfig(): Boolean {
+        logger.info("Check Config")
+        if (portTF.text.isNotEmpty() && judgeCountTF.text.isNotEmpty() && roomCountTF.text.isNotEmpty() && turnCountTF.text.isNotEmpty() && rWeighTF.text.isNotEmpty() && oWeighTF.text.isNotEmpty() && vWeighTF.text.isNotEmpty()) {
+            logger.info("No Error")
+            ConfirmDialog().apply {
+                title = "配置服务端"
+                contentText = "服务端配置成功!"
+            }.show()
+            return true
+        }
+        ConfirmAlert().apply {
+            title = "配置服务端"
+            headerText = "服务端配置失败!"
+            contentText = "Error: 服务端配置信息不得有空"
+        }.show()
+        logger.info("Error: 服务端配置信息不得有空")
+        return false
+    }
+
+    private fun saveConfig() {
+        if (checkModifyConfig()){
+            ConfigData(
+                portTF.text.toInt(),
+                judgeCountTF.text.toInt(),
+                roomCountTF.text.toInt(),
+                turnCountTF.text.toInt(),
+                rWeighTF.text.toDouble(),
+                oWeighTF.text.toDouble(),
+                vWeighTF.text.toDouble()
+            ).let {
+                Config.writeIntoConfig(it)
+            }
+        }
+
     }
 }
 
@@ -438,16 +588,18 @@ object AddOrDeleteView {
     val schoolNameLabel = Label()
     val teamNameLabel = Label()
     val playerNameTextField = TextField()
-    val playerGenderComboBox = ComboBox<String>().apply { items.addAll("女", "男");selectionModel.select(0);id ="AddOrDeleteView_playerGenderChoiceBox" }
+    val playerGenderComboBox = ComboBox<String>().apply {
+        items.addAll("女", "男");selectionModel.select(0);id = "AddOrDeleteView_playerGenderChoiceBox"
+    }
     val playerDeleteComboBox = ComboBox<String>().apply { id = "AddOrDeleteView_playerDeleteComboBox" }
-    val recordRoundTextField = getIntegerTextField()
-    val recordPhaseTextField = getIntegerTextField()
-    val recordRoomIdTextField = getIntegerTextField()
-    val recordQIdTextField = getIntegerTextField()
-    val recordMasterIdTextField = getIntegerTextField()
+    val recordRoundTextField = IntegerTextField()
+    val recordPhaseTextField = IntegerTextField()
+    val recordRoomIdTextField = IntegerTextField()
+    val recordQIdTextField = IntegerTextField()
+    val recordMasterIdTextField = IntegerTextField()
     val recordRoleComboBox = ComboBox<String>().apply { items.addAll("R", "O", "V");selectionModel.select(0) }
-    val recordScoreTextField = getDoubleTextField()
-    val recordWeightTextField = getDoubleTextField()
+    val recordScoreTextField = DoubleTextField()
+    val recordWeightTextField = DoubleTextField()
     val recordComboBox = ComboBox<String>().apply { id = "AddOrDeleteView_recordComboBox" }
 
     val addPlayerConfirmBtn = Button("确认添加")
@@ -503,63 +655,29 @@ object AddOrDeleteView {
     val deleteRecordStage = MyStage().apply { title = "删除记录" }
 
 
-
-    val confirmDialog = Dialog<ButtonType>().apply {
-        dialogPane.apply {
-            buttonTypes.add(ButtonType.OK)
-            lookupButton(ButtonType.OK)
-            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
-        }
-    }
-
-    val confirmAlert = Alert(Alert.AlertType.ERROR).apply {
-        dialogPane.apply {
-            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
-        }
-    }
-
-    private fun getIntegerTextField() = TextField().apply {
-
-        textProperty().addListener { _, oldValue, newValue ->
-            text = if (newValue.matches(Regex("^\\d*\$"))) newValue else oldValue
-        }
-        id = "IntegerTextField"
-    }
-
-    private fun getDoubleTextField() = TextField().apply {
-        textProperty().addListener { _, oldValue, newValue ->
-            text =
-                if (newValue.matches(Regex("\\d*\\.\\d*")) || newValue.matches(Regex("^\\d*"))) newValue else oldValue
-        }
-        id = "DoubleTextField"
-    }
-
-
-    fun checkAddPlayer():Boolean{
+    fun checkAddPlayer(): Boolean {
         logger.info("Checking Add Player")
-        if(playerNameTextField.text.isEmpty()){
+        if (playerNameTextField.text.isEmpty()) {
             logger.error("Error:选手姓名不得为空")
-            confirmAlert.apply {
+            ConfirmAlert().apply {
                 title = "增加选手"
                 headerText = "增加选手失败!"
                 contentText = "Error:选手姓名不得为空!"
             }.show()
-            return  false
-        }else{
+            return false
+        } else {
             logger.info("No Error")
-            return  true
+            return true
         }
 
     }
-    fun checkAddRecord():Boolean{
+
+    fun checkAddRecord(): Boolean {
         logger.info("Checking Add Record")
-        if (recordRoundTextField.text.isNotEmpty() && recordPhaseTextField.text.isNotEmpty()&&
-                recordRoomIdTextField.text.isNotEmpty()&& recordMasterIdTextField.text.isNotEmpty()&&
-                recordQIdTextField.text.isNotEmpty()&& recordScoreTextField.text.isNotEmpty()&&
-                recordWeightTextField.text.isNotEmpty()){
+        if (recordRoundTextField.text.isNotEmpty() && recordPhaseTextField.text.isNotEmpty() && recordRoomIdTextField.text.isNotEmpty() && recordMasterIdTextField.text.isNotEmpty() && recordQIdTextField.text.isNotEmpty() && recordScoreTextField.text.isNotEmpty() && recordWeightTextField.text.isNotEmpty()) {
             return true
-        }else{
-            confirmAlert.apply {
+        } else {
+            ConfirmAlert().apply {
                 title = "增加记录"
                 headerText = "增加记录失败!"
                 contentText = "Error:增加记录框内不得空!"
