@@ -50,8 +50,9 @@ class TeamBar(val type: TeamType) : HBox() {
         playerNameCB.isDisable = true
     }
 
-    fun unlock() {
+    fun reset() {
         playerNameCB.isDisable = false
+        playerNameCB.value = null
     }
 
     fun isPlayerNotNull() = playerNameCB.value != null
@@ -77,6 +78,9 @@ class ScoreBar(name: String, judgeCount: Int) : HBox() {
 
     fun lock() = children.filterIsInstance<ComboBox<Int>>().forEach { it.isDisable = true }
 
-    fun unlock() = children.filterIsInstance<ComboBox<Int>>().forEach { it.isDisable = true }
+    fun reset() = children.filterIsInstance<ComboBox<Int>>().forEach {
+        it.isDisable = false
+        it.value = 0
+    }
 }
 

@@ -26,7 +26,8 @@ fun main() {
 
 enum class MatchState {
     QUESTION,
-    MATCH
+    SUBMIT,
+    NEXT
 }
 
 class AppUI : Application() {
@@ -88,13 +89,13 @@ class AppUI : Application() {
             startBtn.setOnAction {
                 // 载入数据JSON文件 和Cache
                 if (dataFile.exists()) {
-                    matchUILoad(rule)
                     primaryStage.apply {
                         scene = Scene(MatchView.build(config.judgeCount)).apply {
                             stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
                         }
                         title = "PTAssist-Match"
                     }
+                    matchUILoad(rule)
                 } else {
                     logger.warn("未找到比赛数据文件，无法开始比赛，请先尝试下载比赛数据文件")
                     PopupView.info("未找到比赛数据文件，无法开始比赛，请先尝试下载比赛数据文件")
@@ -170,16 +171,16 @@ class AppUI : Application() {
                             PopupView.info("锁定选题${questionViewLabel.text}")
                             popupStage.show()
                             // 切换成比赛状态
-                            state = MatchState.MATCH
+                            state = MatchState.SUBMIT
                         }
                         else -> {
-                            logger.info("选题已锁定，无法重复锁定")
+                            logger.info("选题已锁定，无法重复锁定 state = $state")
                             PopupView.info("选题已锁定，无法重复锁定")
                             popupStage.show()
                         }
                     }
                 } else {
-                    logger.info("双方未选题，无法锁定")
+                    logger.info("双方未选题，无法锁定 state = $state")
                     PopupView.info("双方未选题，无法锁定")
                     popupStage.show()
                 }
@@ -206,7 +207,7 @@ class AppUI : Application() {
             // 提交分数到本地数据库
             submitBtn.setOnAction {
                 when (state) {
-                    MatchState.MATCH -> {
+                    MatchState.SUBMIT -> {
                         val isPlayerSelected =
                             informationVBox.children.dropLast(1).fold(true) { acc: Boolean, node: Node ->
                                 val teamBar = node as TeamBar
@@ -225,17 +226,17 @@ class AppUI : Application() {
                             logger.info("锁定分数面板")
                             // 存储比赛数据
                             // TODO: 2022/7/15 拒题部分
-                            val repTeamData = data.teamDataList[cache.getRepTeamID()]
+                            val repTeamData = data.teamDataList.first { it.id == cache.getRepTeamID() }
                             val repPlayerID =
                                 repTeamData.playerDataList.first { it.name == (informationVBox.children[0] as TeamBar).getPlayerValue() }.id
                             val repScores = (scoresVBox.children[0] as ScoreBar).getScores()
 
-                            val oppTeamData = data.teamDataList[cache.getOppTeamID()]
+                            val oppTeamData = data.teamDataList.first { it.id == cache.getOppTeamID() }
                             val oppPlayerID =
                                 oppTeamData.playerDataList.first { it.name == (informationVBox.children[1] as TeamBar).getPlayerValue() }.id
                             val oppScores = (scoresVBox.children[1] as ScoreBar).getScores()
 
-                            val revTeamData = data.teamDataList[cache.getRevTeamID()]
+                            val revTeamData = data.teamDataList.first { it.id == cache.getRevTeamID() }
                             val revPlayerID =
                                 revTeamData.playerDataList.first { it.name == (informationVBox.children[2] as TeamBar).getPlayerValue() }.id
                             val revScores = (scoresVBox.children[2] as ScoreBar).getScores()
@@ -247,7 +248,7 @@ class AppUI : Application() {
                                     config.roomID,
                                     group.userData as Int,
                                     repPlayerID,
-                                    "nju.pt.net.R",
+                                    "R",
                                     rule.getScore(repScores),
                                     rule.getRepScoreWeight(refusedQuestionIDList)
                                 )
@@ -271,7 +272,7 @@ class AppUI : Application() {
                                     config.roomID,
                                     group.userData as Int,
                                     revPlayerID,
-                                    "O",
+                                    "V",
                                     rule.getScore(revScores),
                                     rule.getRevScoreWeight(refusedQuestionIDList)
                                 )
@@ -289,14 +290,16 @@ class AppUI : Application() {
                             logger.info("savePath = ${R.DATA_JSON_PATH}")
                             JsonHelper.toJson(data, R.DATA_JSON_PATH)
                             logger.info("保存数据文件")
+                            // 转换状态至NEXT
+                            state = MatchState.NEXT
                         } else {
-                            logger.info("存在未选择的主控队员，无法提交评分")
+                            logger.info("存在未选择的主控队员，无法提交评分 state = $state")
                             PopupView.info("存在未选择的主控队员，无法提交评分")
                             popupStage.show()
                         }
                     }
                     else -> {
-                        logger.info("选题信息未锁定，无法提交评分")
+                        logger.info("选题信息未锁定，无法提交评分 state = $state")
                         PopupView.info("选题信息未锁定，无法提交评分")
                         popupStage.show()
                     }
@@ -304,40 +307,57 @@ class AppUI : Application() {
             }
             // 下一阶段
             nextBtn.setOnAction {
-                // 转换系统状态
-                state = MatchState.QUESTION
-                if (cache.phase > cache.endPhase) {
-                    primaryStage.apply {
-                        scene = Scene(StartView.build()).apply {
-                            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-                        }
-                        icons.add(Image(R.LOGO_PATH))
-                        title = "PTAssist"
+                when (state) {
+                    MatchState.QUESTION -> {
+                        logger.info("选题信息未锁定，无法进行下一场 state = $state")
+                        PopupView.info("选题信息未锁定，无法进行下一场")
+                        popupStage.show()
                     }
-                    PopupView.info("上传数据")
-                    Thread {
-                        logger.info("上传数据")
-                        logger.info("data = $data")
-                        FileNetClient(config.ip, config.port).upload(Packet(config.roomID, config.round, data))
-                        Platform.runLater {
-                            logger.info("上传数据完毕")
-                            PopupView.info("上传数据完毕")
+                    MatchState.SUBMIT -> {
+                        logger.info("比赛数据尚未提交，无法进行下一场 state = $state")
+                        PopupView.info("比赛数据尚未提交，无法进行下一场")
+                        popupStage.show()
+                    }
+                    MatchState.NEXT -> {
+                        // 转换系统状态
+                        state = MatchState.QUESTION
+                        if (cache.phase > cache.endPhase) {
+                            primaryStage.apply {
+                                scene = Scene(StartView.build()).apply {
+                                    stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+                                }
+                                icons.add(Image(R.LOGO_PATH))
+                                title = "PTAssist"
+                            }
+                            PopupView.info("上传数据")
+                            Thread {
+                                logger.info("上传数据")
+                                logger.info("data = $data")
+                                FileNetClient(config.ip, config.port).upload(Packet(config.roomID, config.round, data))
+                                Platform.runLater {
+                                    logger.info("上传数据完毕")
+                                    PopupView.info("上传数据完毕")
+                                    popupStage.show()
+                                }
+                            }.start()
                             popupStage.show()
-                        }
-                    }.start()
-                    popupStage.show()
-                } else {
-                    matchUILoad(rule)
-                    // 解锁主控队员面板
-                    informationVBox.children.forEach { (it as TeamBar).unlock() }
-                    logger.info("解锁主控队员面板")
-                    // 解锁分数面板
-                    scoresVBox.children.forEach {
-                        if (it is ScoreBar) {
-                            it.unlock()
+                        } else {
+                            matchUILoad(rule)
+                            // 重置主控队员面板
+                            informationVBox.children.forEach { (it as TeamBar).reset() }
+                            logger.info("重置主控队员面板")
+                            // 重置分数面板
+                            scoresVBox.children.forEach {
+                                if (it is ScoreBar) {
+                                    it.reset()
+                                }
+                            }
+                            logger.info("重置分数面板")
+                            // 重置赛题展示Label
+                            questionViewLabel.text = ""
+                            logger.info("重置赛题展示Label")
                         }
                     }
-                    logger.info("解锁分数面板")
                 }
             }
         }
@@ -345,9 +365,9 @@ class AppUI : Application() {
             saveBtn.setOnAction {
                 logger.info("保存配置文件")
                 config = saveConfig()
-                logger.info("JsonHelper.toJson(config, nju.pt.net.R.SETTING_JSON_PATH)")
+                logger.info("JsonHelper.toJson(config, R.SETTING_JSON_PATH)")
                 logger.info("newConfig = $config")
-                logger.info("nju.pt.net.R.SETTING_JSON_PATH = ${R.SETTING_JSON_PATH}")
+                logger.info("R.SETTING_JSON_PATH = ${R.SETTING_JSON_PATH}")
                 JsonHelper.toJson(config, R.SETTING_JSON_PATH)
                 logger.info("关闭设置界面")
                 settingStage.close()
@@ -357,17 +377,28 @@ class AppUI : Application() {
 
     private fun matchUILoad(rule: RuleInterface) {
         data = JsonHelper.fromJson(dataFile.absolutePath)
+        logger.info("getCache(data)")
         cache = getCache(data)
-        val repTeamRecordDataList = data.teamDataList[cache.getRepTeamID()].recordDataList
-        val repPlayerDataList = data.teamDataList[cache.getRepTeamID()].playerDataList
-        val oppTeamRecordDataList = data.teamDataList[cache.getOppTeamID()].recordDataList
-        val oppPlayerDataList = data.teamDataList[cache.getOppTeamID()].playerDataList
-        val revTeamRecordDataList = data.teamDataList[cache.getRevTeamID()].recordDataList
-        val revPlayerDataList = data.teamDataList[cache.getRevTeamID()].playerDataList
+        logger.info("cache = $cache")
+        val repTeamRecordDataList = data.teamDataList.first { it.id == cache.getRepTeamID() }.recordDataList
+        val repPlayerDataList = data.teamDataList.first { it.id == cache.getRepTeamID() }.playerDataList
+        val oppTeamRecordDataList = data.teamDataList.first { it.id == cache.getOppTeamID() }.recordDataList
+        val oppPlayerDataList = data.teamDataList.first { it.id == cache.getOppTeamID() }.playerDataList
+        val revTeamRecordDataList = data.teamDataList.first { it.id == cache.getRevTeamID() }.recordDataList
+        val revPlayerDataList = data.teamDataList.first { it.id == cache.getRevTeamID() }.playerDataList
+        logger.info("repTeamRecordDataList = $repTeamRecordDataList")
+        logger.info("repPlayerDataList = $repPlayerDataList")
+        logger.info("oppTeamRecordDataList = $oppTeamRecordDataList")
+        logger.info("oppPlayerDataList = $oppPlayerDataList")
+        logger.info("revTeamRecordDataList = $revTeamRecordDataList")
+        logger.info("revPlayerDataList = $revPlayerDataList")
 
+        val teamID2NameList = data.teamDataList.map { it.id to it.name }
+        logger.info("teamID2NameList = $teamID2NameList")
+        val sortedTeamID2NameList = teamID2NameList.sortedBy { cache.teamIDMatchList.indexOf(it.first) }
+        logger.info("sortedTeamID2NameList = $sortedTeamID2NameList")
         // 加载比赛队伍
-        MatchView.loadTeam(data.teamDataList.map { it.id to it.name }
-            .sortedBy { cache.teamIDMatchList.indexOf(it.first) }.map { it.second })
+        MatchView.loadTeam(sortedTeamID2NameList.map { it.second })
         // 加载可选题
         MatchView.loadOptionalQuestions(
             repTeamRecordDataList,
