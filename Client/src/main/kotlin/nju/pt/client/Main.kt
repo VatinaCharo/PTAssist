@@ -2,6 +2,7 @@ package nju.pt.client
 
 import RuleInterface
 import javafx.application.Application
+import javafx.application.Platform
 import javafx.scene.Node
 import javafx.scene.Scene
 import javafx.scene.image.Image
@@ -14,6 +15,8 @@ import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.RecordData
 import nju.pt.kotlin.ext.mkdirIfEmpty
 import nju.pt.kotlin.ext.rotate
+import nju.pt.net.FileNetClient
+import nju.pt.net.Packet
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -100,7 +103,22 @@ class AppUI : Application() {
             }
             downloadBtn.setOnAction {
                 logger.info("开始下载数据文件")
-                // TODO: 2022/7/15 下载数据文件
+                // 下载数据
+                Thread {
+                    val packet =
+                        FileNetClient(config.ip, config.port).download(Packet(config.roomID, config.round, null))
+                    if (packet.data == null) {
+                        Platform.runLater {
+                            logger.info("服务器数据文件尚未准备完毕，无法获取数据文件")
+                            PopupView.info("服务器数据文件尚未准备完毕，请稍后再试")
+                            popupStage.show()
+                        }
+                    } else {
+                        Platform.runLater {
+                            JsonHelper.toJson(packet.data, R.DATA_JSON_PATH)
+                        }
+                    }
+                }.start()
             }
             settingBtn.setOnAction {
                 logger.info("打开设置界面 $settingStage")
@@ -297,10 +315,29 @@ class AppUI : Application() {
                         title = "PTAssist"
                     }
                     PopupView.info("上传数据")
-                    // TODO: 2022/7/15 上传数据文件
+                    Thread {
+                        logger.info("上传数据")
+                        logger.info("data = $data")
+                        FileNetClient(config.ip, config.port).upload(Packet(config.roomID, config.round, data))
+                        Platform.runLater {
+                            logger.info("上传数据完毕")
+                            PopupView.info("上传数据完毕")
+                            popupStage.show()
+                        }
+                    }.start()
                     popupStage.show()
                 } else {
                     matchUILoad(rule)
+                    // 解锁主控队员面板
+                    informationVBox.children.forEach { (it as TeamBar).unlock() }
+                    logger.info("解锁主控队员面板")
+                    // 解锁分数面板
+                    scoresVBox.children.forEach {
+                        if (it is ScoreBar) {
+                            it.unlock()
+                        }
+                    }
+                    logger.info("解锁分数面板")
                 }
             }
         }
