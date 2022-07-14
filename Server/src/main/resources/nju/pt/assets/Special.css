@@ -96,3 +96,16 @@
     -fx-max-width: 50px;
     -fx-alignment: center;
 }
+
+
+#SettingView_rootGridPane {
+    -fx-hgap: 20px;
+    -fx-vgap: 10px;
+    -fx-padding: 30px;
+    -fx-alignment: center-right;
+    -fx-background-color: #c7daff;
+}
+
+#SettingView_portTF{
+    -fx-max-width: 50px;
+}
