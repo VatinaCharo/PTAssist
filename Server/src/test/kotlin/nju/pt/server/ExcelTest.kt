@@ -27,7 +27,7 @@ class ExcelTest {
             logger.info("totTeamNumber = ${getTotalTeamNumber()}")
         }
 
-//        println(JsonHelper.fromJson(R.DATA_JSON_PATH))
+//        println(JsonHelper.fromJson(nju.pt.net.R.DATA_JSON_PATH))
     }
 
     @Test
@@ -35,16 +35,16 @@ class ExcelTest {
         val data = JsonHelper.fromJson<Data>("../${R.DATA_JSON_PATH}").apply {
             this.teamDataList[0].recordDataList = mutableListOf<RecordData>(
                 RecordData(
-                    1, 1, 1, 9, 1, "R", 10.0, 3.0
+                    1, 1, 1, 9, 1, "nju.pt.net.R", 10.0, 3.0
                 ),
                 RecordData(
-                    2, 1, 1, 1, 1, "R", 8.0, 3.0
+                    2, 1, 1, 1, 1, "nju.pt.net.R", 8.0, 3.0
                 ),
             )
 
 //            this.teamDataList[0].recordDataList = mutableListOf<RecordData>(
 //                RecordData(
-//                    2, 1, 1, 1, 1, "R", 8.0, 3.0
+//                    2, 1, 1, 1, 1, "nju.pt.net.R", 8.0, 3.0
 //                ),
 //            )
 

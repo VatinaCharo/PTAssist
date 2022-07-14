@@ -24,6 +24,8 @@ dependencies {
     implementation 'org.apache.poi:poi-ooxml:5.2.2'
 
     implementation project(":DatabaseAssist")
+    // 网络文件传输
+    implementation project(":FileNetAssist")
 }
 
 test {

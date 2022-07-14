@@ -229,7 +229,7 @@ class AppUI : Application() {
                                     config.roomID,
                                     group.userData as Int,
                                     repPlayerID,
-                                    "R",
+                                    "nju.pt.net.R",
                                     rule.getScore(repScores),
                                     rule.getRepScoreWeight(refusedQuestionIDList)
                                 )
@@ -308,9 +308,9 @@ class AppUI : Application() {
             saveBtn.setOnAction {
                 logger.info("保存配置文件")
                 config = saveConfig()
-                logger.info("JsonHelper.toJson(config, R.SETTING_JSON_PATH)")
+                logger.info("JsonHelper.toJson(config, nju.pt.net.R.SETTING_JSON_PATH)")
                 logger.info("newConfig = $config")
-                logger.info("R.SETTING_JSON_PATH = ${R.SETTING_JSON_PATH}")
+                logger.info("nju.pt.net.R.SETTING_JSON_PATH = ${R.SETTING_JSON_PATH}")
                 JsonHelper.toJson(config, R.SETTING_JSON_PATH)
                 logger.info("关闭设置界面")
                 settingStage.close()

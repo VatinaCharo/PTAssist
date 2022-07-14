@@ -3,7 +3,6 @@ package nju.pt.server
 import javafx.beans.DefaultProperty
 import javafx.beans.property.SimpleListProperty
 import javafx.collections.FXCollections
-import javafx.collections.ObservableList
 import javafx.event.EventHandler
 import javafx.geometry.Insets
 import javafx.geometry.Pos
@@ -11,7 +10,6 @@ import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.scene.control.cell.PropertyValueFactory
-import javafx.scene.control.cell.TextFieldListCell
 import javafx.scene.control.cell.TextFieldTableCell
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
@@ -19,17 +17,10 @@ import javafx.scene.input.MouseButton
 import javafx.scene.layout.*
 import javafx.scene.paint.Paint
 import javafx.stage.Stage
-import javafx.util.StringConverter
-import javafx.util.converter.IntegerStringConverter
 import nju.pt.R
 import nju.pt.databaseassist.*
-import org.apache.logging.log4j.message.FormattedMessageFactory
-import org.apache.xmlbeans.impl.xb.xsdschema.TopLevelAttribute
 import org.slf4j.LoggerFactory
 import kotlin.io.path.Path
-
-import java.util.function.UnaryOperator
-import kotlin.coroutines.suspendCoroutine
 import kotlin.io.path.createDirectories
 import kotlin.io.path.notExists
 
@@ -415,11 +406,11 @@ class SettingView {
     private val roomCountTF = IntegerTextField()
     private val turnLabel = Label("Turns:")
     private val turnCountTF = IntegerTextField()
-    private val rWeightLabel = Label("Init R Weight:")
+    private val rWeightLabel = Label("Init nju.pt.net.R Weight:")
     private val rWeighTF = DoubleTextField()
-    private val oWeightLabel = Label("Init R Weight:")
+    private val oWeightLabel = Label("Init nju.pt.net.R Weight:")
     private val oWeighTF = DoubleTextField()
-    private val vWeightLabel = Label("Init R Weight:")
+    private val vWeightLabel = Label("Init nju.pt.net.R Weight:")
     private val vWeighTF = DoubleTextField()
     val saveBtn = Button("保存").apply { id = "SettingView_saveBtn" }
 
@@ -596,7 +587,7 @@ object AddOrDeleteView {
     val recordRoomIdTextField = IntegerTextField()
     val recordQIdTextField = IntegerTextField()
     val recordMasterIdTextField = IntegerTextField()
-    val recordRoleComboBox = ComboBox<String>().apply { items.addAll("R", "O", "V");selectionModel.select(0) }
+    val recordRoleComboBox = ComboBox<String>().apply { items.addAll("nju.pt.net.R", "O", "V");selectionModel.select(0) }
     val recordScoreTextField = DoubleTextField()
     val recordWeightTextField = DoubleTextField()
     val recordComboBox = ComboBox<String>().apply { id = "AddOrDeleteView_recordComboBox" }
@@ -801,7 +792,7 @@ object GenerateRoomDataView {
 
     fun generateRoomData(data: Data) {
         logger.info("Generate room data")
-        val selectedTurn = turnSelectComboBox.selectionModel.selectedIndex+1
+        val selectedTurn = turnSelectComboBox.selectionModel.selectedIndex + 1
         logger.info("selected turn:${selectedTurn}")
         val dataCopy = data.copy()
         dataCopy.teamDataList.forEach { teamData ->
@@ -819,16 +810,16 @@ object GenerateRoomDataView {
         }
         val counterPartTable = JsonHelper.fromJson<CounterPartTable>(R.COUNTERPART_TABLE_JSON_PATH)
 
-        for (roomId in 1..Config.roomCount){
+        for (roomId in 1..Config.roomCount) {
             logger.info("Room $roomId:")
 
             val thisRoomTeamIdList = mutableListOf<Int>().apply {
-                counterPartTable.teamTableList[selectedTurn-1].let{
-                    this.add(it.RList[roomId-1])
-                    this.add(it.OList[roomId-1])
-                    this.add(it.VList[roomId-1])
-                    if (it.OBList[roomId-1] !=-1){
-                        this.add(it.OBList[roomId-1])
+                counterPartTable.teamTableList[selectedTurn - 1].let {
+                    this.add(it.RList[roomId - 1])
+                    this.add(it.OList[roomId - 1])
+                    this.add(it.VList[roomId - 1])
+                    if (it.OBList[roomId - 1] != -1) {
+                        this.add(it.OBList[roomId - 1])
                     }
                 }
             }
@@ -836,7 +827,7 @@ object GenerateRoomDataView {
             val dataCopyTemp = dataCopy.copy()
             dataCopyTemp.teamDataList = dataCopyTemp.teamDataList.filter { it.id in thisRoomTeamIdList }
             logger.info("teamDataList:${dataCopyTemp.teamDataList}")
-            JsonHelper.toJson(dataCopyTemp,"${R.SERVER_SEND_FILE_DIR_PATH}/Room${roomId}")
+            JsonHelper.toJson(dataCopyTemp, "${R.SERVER_SEND_FILE_DIR_PATH}/Room${roomId}.json")
 
         }
 

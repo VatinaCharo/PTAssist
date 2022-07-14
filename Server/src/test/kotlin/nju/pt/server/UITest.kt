@@ -19,13 +19,13 @@ class UITest {
                 val tList = JsonHelper.fromJson<Data>(R.DATA_JSON_PATH).apply {
                     teamDataList[0].recordDataList.addAll(
                         mutableListOf(
-                            RecordData(2, 1, 1, 9, 1, "R", 7.0, 3.0),
+                            RecordData(2, 1, 1, 9, 1, "nju.pt.net.R", 7.0, 3.0),
                             RecordData(3, 2, 3, 2, 1, "O", 8.0, 3.0)
                         )
                     )
                     teamDataList[1].recordDataList.addAll(
                         mutableListOf(
-                            RecordData(2, 1, 1, 1, 3, "R", 7.0, 2.8),
+                            RecordData(2, 1, 1, 1, 3, "nju.pt.net.R", 7.0, 2.8),
                             RecordData(3, 1, 2, 2, 2, "V", 8.0, 2.8),
                         )
                     )

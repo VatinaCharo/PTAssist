@@ -16,7 +16,7 @@ enum class QuestionType {
     override fun toString(): String {
         return when (this) {
             OPTIONAL -> "P"
-            REPORTED -> "R"
+            REPORTED -> "nju.pt.net.R"
             OPPOSED -> "O"
             REFUSED -> "X"
         }

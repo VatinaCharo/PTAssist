@@ -1,28 +1,27 @@
 package nju.pt.server
 
-import com.sun.tools.javac.Main
 import javafx.application.Application
-import javafx.scene.Scene
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
-import javafx.scene.control.SelectionMode
 import javafx.scene.image.Image
 import javafx.stage.FileChooser
 import javafx.stage.Stage
-import kotlinx.serialization.json.Json
 import nju.pt.R
-import nju.pt.databaseassist.*
-import kotlin.io.path.Path
+import nju.pt.databaseassist.Data
+import nju.pt.databaseassist.JsonHelper
+import nju.pt.databaseassist.PlayerData
+import nju.pt.databaseassist.RecordData
 import nju.pt.kotlin.ext.*
+import nju.pt.net.FileNetServer
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.FileNotFoundException
+import kotlin.io.path.Path
 import kotlin.io.path.createDirectories
 import kotlin.io.path.createDirectory
 import kotlin.io.path.notExists
-import kotlin.math.log
 
 fun main() {
     Application.launch(AppUI::class.java)
@@ -40,6 +39,7 @@ class AppUI : Application() {
     private val schoolMap: Map<Int, String> by lazy {
         WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadSchoolFromExcel()
     }
+    private lateinit var fileNetServer: FileNetServer
 
     private fun getExportSettingStage(data: Data) = MyStage(ExportView().build(data)).apply {
         minWidth = 150.0
@@ -60,7 +60,7 @@ class AppUI : Application() {
 
     override fun init() {
         logger.info("init()")
-        for (path in listOf<String>(
+        for (path in listOf(
             R.SERVER_CACHE_DIR_PATH,
             R.SERVER_SEND_FILE_DIR_PATH,
             R.SERVER_BACKUP_FILE_DIR_PATH,
@@ -72,7 +72,6 @@ class AppUI : Application() {
                 }
             }
         }
-
 
         logger.info("checking configuration file...")
         // 配置文件json找不到
@@ -97,7 +96,9 @@ class AppUI : Application() {
             }
         }
 
-
+        fileNetServer = FileNetServer(Config.port, FileRouter())
+        // 启动文件接收线程
+        Thread(fileNetServer).start()
     }
 
     override fun start(primaryStage: Stage) {
@@ -260,13 +261,15 @@ class AppUI : Application() {
                     generateRoomDataBtn.setOnAction {
                         logger.info("generate room data")
                         //目前轮数中最大
-                        val maxTurn = data.teamDataList.asSequence().map { it.recordDataList }.filter { it.isNotEmpty() }.flatten().toList().let{
-                            if (it.isEmpty()){
-                                0
-                            }else{
-                                it.maxOf { it.round }
-                            }
-                        }
+                        val maxTurn =
+                            data.teamDataList.asSequence().map { it.recordDataList }.filter { it.isNotEmpty() }
+                                .flatten().toList().let {
+                                    if (it.isEmpty()) {
+                                        0
+                                    } else {
+                                        it.maxOf { it.round }
+                                    }
+                                }
 
                         GenerateRoomDataView.getGenerateRoomDataStage(
                             if (maxTurn == Config.turns) Config.turns else maxTurn + 1
@@ -401,6 +404,11 @@ class AppUI : Application() {
 
         logger.info("完成UI构建，展示Start界面")
 
+    }
+
+    override fun stop() {
+        fileNetServer.close()
+        super.stop()
     }
 }
 

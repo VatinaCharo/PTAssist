@@ -17,7 +17,7 @@ object JSYPTRule : RuleInterface {
     private const val playerRepTimesIn1MatchConfig = 3
 
     private fun getQuestionType(value: String) = when (value) {
-        "R" -> QuestionType.REPORTED
+        "nju.pt.net.R" -> QuestionType.REPORTED
         "O" -> QuestionType.OPPOSED
         "X" -> QuestionType.REFUSED
         else -> QuestionType.OPTIONAL
@@ -128,7 +128,7 @@ object JSYPTRule : RuleInterface {
         }
         .filter { playerData ->
             val playerRepTimesIn1Match =
-                teamRecordDataList.filter { it.masterID == playerData.id && it.role == "R" }.size
+                teamRecordDataList.filter { it.masterID == playerData.id && it.role == "nju.pt.net.R" }.size
             logger.info("playerRepTimesIn1Match = $playerRepTimesIn1Match")
             playerRepTimesIn1Match < playerRepTimesIn1MatchConfig
         }
