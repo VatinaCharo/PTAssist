@@ -29,6 +29,57 @@
     -fx-text-fill: rgba(255, 255, 255, 1);
 }
 
+.menu-button{
+    -fx-background-color: #ECF5FFFF;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 1px;
+    -fx-border-radius: 5px 5px 5px 5px;
+    -fx-cursor: HAND;
+}
+.menu-button .label{
+    -fx-background-radius: 5px;
+    -fx-background-insets: 1px;
+    -fx-border-radius: 5px 5px 5px 5px;
+    -fx-text-fill: rgba(64, 158, 255, 1);
+    -fx-font-size: 15px;
+    -fx-padding: 5px 10px 5px 10px;
+}
+
+.menu-button:hover {
+    -fx-background-color: rgba(64, 158, 255, 1);
+
+}
+.menu-button:hover .label{
+    -fx-text-fill: rgba(255, 255, 255, 1);
+
+}
+
+
+.menu-item:hover{
+    -fx-background-color: #ECF5FFFF;
+    -fx-text-fill: rgba(64, 158, 255, 1);
+}
+.menu-item:pressed{
+    -fx-background-color: #ECF5FFFF;
+    -fx-text-fill: rgba(64, 158, 255, 1);
+}
+
+.menu-item .label{
+    -fx-background-color: #ECF5FFFF;
+    -fx-text-fill: rgba(64, 158, 255, 1);
+}
+
+.menu-item:hover .label{
+    -fx-background-color: rgba(64, 158, 255, 1);
+    -fx-text-fill: white;
+
+}
+.menu-item:pressed .label{
+    -fx-background-color: rgba(64, 158, 255, 1);
+    -fx-text-fill: white;
+}
+
+
 .text-field {
     -fx-border-radius: 5px 5px 5px 5px;
     -fx-border-color: #C1C5CDFF;
@@ -673,5 +724,20 @@
 
 .radio-button:selected .dot {
     -fx-background-color: #FFFFFF;
+
+}
+
+.choice-box {
+    -fx-background-color: rgba(64, 158, 255, 1);
+
+}
+
+.choice-box .label{
+    -fx-text-fill: rgba(255, 255, 255, 1);
+}
+
+.text-field{
+    -fx-max-width : 100px;
+    -fx-alignment : center;
 
 }

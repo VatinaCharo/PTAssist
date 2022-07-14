@@ -1,11 +1,13 @@
 package nju.pt.server
 
+import javafx.beans.DefaultProperty
 import javafx.beans.property.SimpleListProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.event.EventHandler
 import javafx.geometry.Insets
 import javafx.geometry.Pos
+import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.scene.control.cell.PropertyValueFactory
@@ -30,6 +32,24 @@ import org.slf4j.LoggerFactory
 import java.util.function.UnaryOperator
 import kotlin.coroutines.suspendCoroutine
 
+@DefaultProperty("root")
+class MyScene(root: Parent) : Scene(root) {
+    init {
+        stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+    }
+}
+
+class MyStage() : Stage() {
+    constructor(root: Parent) : this() {
+        scene = MyScene(root)
+    }
+
+    init {
+        icons.add(Image(R.LOGO_PATH))
+    }
+}
+
+
 object StartView {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
@@ -48,8 +68,8 @@ object StartView {
         dialogPane.apply {
             (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
         }
-
     }
+
     val generateTableDialog = Dialog<ButtonType>().apply {
         title = "生成对阵表(无裁判)"
         headerText = "对阵表生成完成！"
@@ -120,11 +140,9 @@ object MainView {
     val deletePlayerMenuItem = MenuItem("删除选手")
     val addRecordMenuItem = MenuItem("增加记录")
     val deleteRecordMenuItem = MenuItem("删除记录")
-
     private val addOrDeleteMenuBtn = MenuButton("增删").apply {
-        items.addAll(
-            addPlayerMenuItem, deletePlayerMenuItem, addRecordMenuItem, deleteRecordMenuItem
-        )
+        items.addAll(addPlayerMenuItem, deletePlayerMenuItem, addRecordMenuItem, deleteRecordMenuItem)
+        id = "MainView_addOrDeleteMenuBtn"
     }
     val exportBtn = Button("导出").apply { id = "MainView_exportBtn" }
     val schoolListView = ListView<String>().apply { id = "MainView_schoolListView" }
@@ -311,7 +329,9 @@ object MainView {
 
     fun loadData(playerDataList: List<PlayerData>, recordDataList: List<RecordData>) = apply {
         playerTableView.items = FXCollections.observableList(playerDataList)
+        playerTableView.refresh()
         recordTableView.items = FXCollections.observableList(recordDataList)
+        recordTableView.refresh()
     }
 
     fun build(data: Data): HBox {
@@ -328,12 +348,12 @@ object MainView {
         return rootHBox
     }
 
-    fun refreshData(data: Data) {
-        val playerDataList = data.teamDataList[0].playerDataList
-        playerTableView.items = FXCollections.observableList(playerDataList)
-        logger.info("load playerDataList $playerDataList")
-        val recordDataList = data.teamDataList[0].recordDataList
-        recordTableView.items = FXCollections.observableList(recordDataList)
+    fun refreshData(teamData: TeamData) {
+
+        logger.info("Refresh data")
+        logger.info("teamDataList:${teamData}")
+
+        loadData(teamData.playerDataList,teamData.recordDataList)
     }
 }
 
@@ -418,63 +438,71 @@ object AddOrDeleteView {
     val schoolNameLabel = Label()
     val teamNameLabel = Label()
     val playerNameTextField = TextField()
-    val playerGenderChoiceBox = ChoiceBox<String>().apply { items.addAll("女", "男");selectionModel.select(0) }
-    val playerDeleteChoiceBox = ChoiceBox<String>()
+    val playerGenderComboBox = ComboBox<String>().apply { items.addAll("女", "男");selectionModel.select(0);id ="AddOrDeleteView_playerGenderChoiceBox" }
+    val playerDeleteComboBox = ComboBox<String>().apply { id = "AddOrDeleteView_playerDeleteComboBox" }
     val recordRoundTextField = getIntegerTextField()
     val recordPhaseTextField = getIntegerTextField()
     val recordRoomIdTextField = getIntegerTextField()
     val recordQIdTextField = getIntegerTextField()
     val recordMasterIdTextField = getIntegerTextField()
-    val recordRoleChoiceBox = ChoiceBox<String>().apply { items.addAll("R", "O", "V");selectionModel.select(0) }
+    val recordRoleComboBox = ComboBox<String>().apply { items.addAll("R", "O", "V");selectionModel.select(0) }
     val recordScoreTextField = getDoubleTextField()
     val recordWeightTextField = getDoubleTextField()
-
+    val recordComboBox = ComboBox<String>().apply { id = "AddOrDeleteView_recordComboBox" }
 
     val addPlayerConfirmBtn = Button("确认添加")
     val deletePlayerConfirmBtn = Button("确认删除")
     val addRecordConfirmBtn = Button("确认添加")
+    val deleteRecordConfirmBtn = Button("确认删除")
 
-
-    private val playerNameHbox = HBox(15.0).apply { children.addAll(Label("队员名"), playerNameTextField) }
-    private val playerGenderHbox = HBox(15.0).apply { children.addAll(Label("队员性别"), playerGenderChoiceBox) }
+    private val playerNameHbox = HBox(15.0).apply { children.addAll(Label("选手名"), playerNameTextField) }
+    private val playerGenderHbox = HBox(15.0).apply { children.addAll(Label("选手性别"), playerGenderComboBox) }
     private val schoolInfoHbox = HBox(15.0).apply { children.addAll(Label("学校名"), schoolNameLabel) }
     private val teamInfoHbox = HBox(15.0).apply { children.addAll(Label("队伍名"), teamNameLabel) }
-    private val playerChoiceHbox = HBox(15.0).apply { children.addAll(Label("选择删除队员:"), playerDeleteChoiceBox) }
+    private val playerChoiceHbox = HBox(15.0).apply { children.addAll(Label("选择删除选手:"), playerDeleteComboBox) }
     private val recordInfoFlowPane = FlowPane().apply {
-        children.addAll(
-            HBox(5.0).apply {
-                children.addAll(
-                    Label("轮次:"), recordRoundTextField
-                )
-            }, HBox(5.0).apply { children.addAll(Label("阶段"), recordPhaseTextField) },
-            HBox(5.0).apply {
-                children.addAll(
-                    Label("会场Id"), recordRoomIdTextField
-                )
-            }, HBox(5.0).apply {
-                children.addAll(
-                    Label("题目Id"), recordQIdTextField,
-                )
-            }, HBox(5.0).apply {
-                children.addAll(
-                    Label("主控队员Id"), recordMasterIdTextField,
-                )
-            },
-            HBox(5.0).apply {
-                children.addAll(
-                    Label("角色"), recordRoleChoiceBox
-                )
-            },
-            HBox(5.0).apply {
-                children.addAll(
-                    Label("分数"), recordScoreTextField
-                )
-            }, HBox(5.0).apply {
-                children.addAll(
-                    Label("权重"), recordWeightTextField
-                )
-            })
+        id = "AddOrDeleteView_recordInfoFlowPane"
+        children.addAll(HBox(5.0).apply {
+            children.addAll(
+                Label("轮次:"), recordRoundTextField
+            )
+        }, HBox(5.0).apply { children.addAll(Label("阶段"), recordPhaseTextField) }, HBox(5.0).apply {
+            children.addAll(
+                Label("会场Id"), recordRoomIdTextField
+            )
+        }, HBox(5.0).apply {
+            children.addAll(
+                Label("题目Id"), recordQIdTextField,
+            )
+        }, HBox(5.0).apply {
+            children.addAll(
+                Label("主控队员Id"), recordMasterIdTextField,
+            )
+        }, HBox(5.0).apply {
+            children.addAll(
+                Label("角色"), recordRoleComboBox
+            )
+        }, HBox(5.0).apply {
+            children.addAll(
+                Label("分数"), recordScoreTextField
+            )
+        }, HBox(5.0).apply {
+            children.addAll(
+                Label("权重"), recordWeightTextField
+            )
+        })
     }
+    private val recordChoiceVbox = VBox(5.0).apply {
+        children.addAll(Label("选择一条记录:"), recordComboBox)
+
+    }
+
+    val addPlayerStage = MyStage().apply { title = "增加选手" }
+    val deletePlayerStage = MyStage().apply { title = "删除选手" }
+    val addRecordStage = MyStage().apply { title = "增加记录" }
+    val deleteRecordStage = MyStage().apply { title = "删除记录" }
+
+
 
     val confirmDialog = Dialog<ButtonType>().apply {
         dialogPane.apply {
@@ -482,7 +510,12 @@ object AddOrDeleteView {
             lookupButton(ButtonType.OK)
             (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
         }
+    }
 
+    val confirmAlert = Alert(Alert.AlertType.ERROR).apply {
+        dialogPane.apply {
+            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
+        }
     }
 
     private fun getIntegerTextField() = TextField().apply {
@@ -490,69 +523,132 @@ object AddOrDeleteView {
         textProperty().addListener { _, oldValue, newValue ->
             text = if (newValue.matches(Regex("^\\d*\$"))) newValue else oldValue
         }
+        id = "IntegerTextField"
     }
 
     private fun getDoubleTextField() = TextField().apply {
         textProperty().addListener { _, oldValue, newValue ->
-            text = if (newValue.matches(Regex("\\d*\\.\\d*")) || newValue.matches(Regex("^\\d*")) ) newValue else oldValue
+            text =
+                if (newValue.matches(Regex("\\d*\\.\\d*")) || newValue.matches(Regex("^\\d*"))) newValue else oldValue
         }
+        id = "DoubleTextField"
     }
 
 
-    fun getAddPlayerStage(teamData: TeamData, schoolMap: Map<Int, String>) = Stage().apply {
+    fun checkAddPlayer():Boolean{
+        logger.info("Checking Add Player")
+        if(playerNameTextField.text.isEmpty()){
+            logger.error("Error:选手姓名不得为空")
+            confirmAlert.apply {
+                title = "增加选手"
+                headerText = "增加选手失败!"
+                contentText = "Error:选手姓名不得为空!"
+            }.show()
+            return  false
+        }else{
+            logger.info("No Error")
+            return  true
+        }
+
+    }
+    fun checkAddRecord():Boolean{
+        logger.info("Checking Add Record")
+        if (recordRoundTextField.text.isNotEmpty() && recordPhaseTextField.text.isNotEmpty()&&
+                recordRoomIdTextField.text.isNotEmpty()&& recordMasterIdTextField.text.isNotEmpty()&&
+                recordQIdTextField.text.isNotEmpty()&& recordScoreTextField.text.isNotEmpty()&&
+                recordWeightTextField.text.isNotEmpty()){
+            return true
+        }else{
+            confirmAlert.apply {
+                title = "增加记录"
+                headerText = "增加记录失败!"
+                contentText = "Error:增加记录框内不得空!"
+            }.show()
+            logger.error("Error:增加记录框内不得空!")
+            return false
+        }
+
+    }
+
+
+    fun getAddPlayerStage(teamData: TeamData, schoolMap: Map<Int, String>) = addPlayerStage.apply {
         logger.info("add player stage")
         schoolNameLabel.text = "${teamData.schoolID}-${schoolMap[teamData.schoolID]}"
         teamNameLabel.text = teamData.name
         logger.info("schoolName:${schoolNameLabel.text}")
         logger.info("teamName:${teamNameLabel.text}")
 
-
-        scene = Scene(VBox().apply {
+        scene = MyScene(VBox(10.0).apply {
             children.addAll(schoolInfoHbox, teamInfoHbox, playerNameHbox, playerGenderHbox, addPlayerConfirmBtn)
             alignment = Pos.CENTER_RIGHT
-        }
+            id = "AddOrDeleteView_Layout"
+        })
+        width = 240.0
+        isResizable = false
 
-        ).apply {
-            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-        }
     }
 
-    fun getDeletePlayerStage(teamData: TeamData, schoolMap: Map<Int, String>) = Stage().apply {
+    fun getDeletePlayerStage(teamData: TeamData, schoolMap: Map<Int, String>) = deletePlayerStage.apply {
         logger.info("delete player stage")
         schoolNameLabel.text = "${teamData.schoolID}-${schoolMap[teamData.schoolID]}"
         teamNameLabel.text = teamData.name
         logger.info("schoolName:${schoolNameLabel.text}")
         logger.info("teamName:${teamNameLabel.text}")
 
-        playerDeleteChoiceBox.items.apply {
+        playerDeleteComboBox.items.apply {
             clear()
             addAll(teamData.playerDataList.map { "${it.id}-${it.name}" })
         }
+        playerDeleteComboBox.selectionModel.select(0)
 
-        scene = Scene(VBox().apply {
+        scene = MyScene(VBox(10.0).apply {
             children.addAll(schoolInfoHbox, teamInfoHbox, playerChoiceHbox, deletePlayerConfirmBtn)
             alignment = Pos.CENTER_RIGHT
-        }).apply {
-            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-        }
+            id = "AddOrDeleteView_Layout"
+        })
+        isResizable = false
 
     }
 
-    fun getAddRecordStage(teamData: TeamData, schoolMap: Map<Int, String>) = Stage().apply {
+    fun getAddRecordStage(teamData: TeamData, schoolMap: Map<Int, String>) = addRecordStage.apply {
         logger.info("add record")
         schoolNameLabel.text = "${teamData.schoolID}-${schoolMap[teamData.schoolID]}"
         teamNameLabel.text = teamData.name
         logger.info("schoolName:${schoolNameLabel.text}")
         logger.info("teamName:${teamNameLabel.text}")
 
-        scene = Scene(VBox().apply {
+        scene = MyScene(VBox(10.0).apply {
             children.addAll(
                 schoolInfoHbox, teamInfoHbox, recordInfoFlowPane, addRecordConfirmBtn
             )
             alignment = Pos.CENTER_RIGHT
-        }).apply {
-            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+            id = "AddOrDeleteView_Layout"
+        })
+        width = 509.0
+        isResizable = false
+    }
+
+    fun getDeleteRecordStage(teamData: TeamData, schoolMap: Map<Int, String>) = deleteRecordStage.apply {
+        logger.info("delete record")
+        schoolNameLabel.text = "${teamData.schoolID}-${schoolMap[teamData.schoolID]}"
+        teamNameLabel.text = teamData.name
+        logger.info("schoolName:${schoolNameLabel.text}")
+        logger.info("teamName:${teamNameLabel.text}")
+
+        recordComboBox.items.clear()
+        teamData.recordDataList.forEachIndexed { index, recordData ->
+            recordComboBox.items.add("${index + 1}-${recordData.round}轮,${recordData.phase}阶段,${recordData.roomID}会场->题${recordData.questionID},主控ID ${recordData.masterID},${recordData.role}")
+            logger.info("recordData${index + 1}:${recordData}")
         }
+        recordComboBox.selectionModel.select(0)
+
+        scene = MyScene(VBox(10.0).apply {
+            children.addAll(schoolInfoHbox, teamInfoHbox, recordChoiceVbox, deleteRecordConfirmBtn)
+            alignment = Pos.CENTER_RIGHT
+            id = "AddOrDeleteView_Layout"
+        })
+        isResizable = false
+
 
     }
 

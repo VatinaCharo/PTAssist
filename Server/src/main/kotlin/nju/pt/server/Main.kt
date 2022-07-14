@@ -3,6 +3,8 @@ package nju.pt.server
 import com.sun.tools.javac.Main
 import javafx.application.Application
 import javafx.scene.Scene
+import javafx.scene.control.Alert
+import javafx.scene.control.ButtonType
 import javafx.scene.control.SelectionMode
 import javafx.scene.image.Image
 import javafx.stage.Stage
@@ -42,6 +44,7 @@ class AppUI : Application() {
         }
         minWidth = 150.0
         minHeight = 300.0
+        isResizable = false
         title = "导出内容设置"
     }
 
@@ -76,9 +79,7 @@ class AppUI : Application() {
     override fun start(primaryStage: Stage) {
         primaryStage.apply {
 
-            scene = Scene(StartView.build()).apply {
-                stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-            }
+            scene = MyScene(StartView.build())
 
             icons.add(Image(R.LOGO_PATH))
             title = "Match-Server ${R.VERSION}"
@@ -135,11 +136,23 @@ class AppUI : Application() {
 
                     //设置stage
                     primaryStage.apply {
-                        scene = Scene(MainView.build(data)).apply {
-                            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-                        }
+
+                        scene = MyScene(MainView.build(data))
                         minWidth = 800.0
                         minHeight = 800.0
+
+                        setOnCloseRequest {_ ->
+                            Alert(Alert.AlertType.CONFIRMATION).apply {
+                                dialogPane.apply {
+                                    (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
+                                }
+                                title = "退出"
+                                headerText = "是否保存?"
+                                if (this.showAndWait().get() == ButtonType.OK){
+                                    MainView.saveBtn.fire()
+                                }
+                            }
+                        }
                     }.show()
                 } catch (e: Exception) {
                     logger.error(e.message)
@@ -198,81 +211,103 @@ class AppUI : Application() {
                     addRecordMenuItem.setOnAction {
                         AddOrDeleteView.getAddRecordStage(getSelectedTeamData(), data.schoolMap).show()
                     }
+                    deleteRecordMenuItem.setOnAction {
+                        AddOrDeleteView.getDeleteRecordStage(getSelectedTeamData(), data.schoolMap).show()
+                    }
                 }
 
 
                 AddOrDeleteView.apply {
                     addPlayerConfirmBtn.setOnAction {
-
-                        data.teamDataList.filter {
-                            it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore("-")
-                        }[0].playerDataList.add(
-                            PlayerData(
-                                data.getMaxPlayerId() + 1,
-                                playerNameTextField.text,
-                                playerGenderChoiceBox.selectionModel.selectedItem
+                        if (checkAddPlayer()) {
+                            data.teamDataList.filter {
+                                it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore(
+                                    "-"
+                                )
+                            }[0].playerDataList.add(
+                                PlayerData(
+                                    data.getMaxPlayerId() + 1,
+                                    playerNameTextField.text,
+                                    playerGenderComboBox.selectionModel.selectedItem
+                                )
                             )
-                        )
-                        logger.info("Player info:")
-                        logger.info("schoolName:${schoolNameLabel.text}")
-                        logger.info("teamName:${teamNameLabel.text}")
-                        logger.info("Id: ${data.getMaxPlayerId()}")
-                        logger.info(("Name: ${playerNameTextField.text}"))
-                        logger.info("Gender: ${playerGenderChoiceBox.selectionModel.selectedItem}")
-                        logger.info("Player added successfully!")
+                            logger.info("Player info:")
+                            logger.info("schoolName:${schoolNameLabel.text}")
+                            logger.info("teamName:${teamNameLabel.text}")
+                            logger.info("Id: ${data.getMaxPlayerId()}")
+                            logger.info(("Name: ${playerNameTextField.text}"))
+                            logger.info("Gender: ${playerGenderComboBox.selectionModel.selectedItem}")
+                            logger.info("Player added successfully!")
 
-                        confirmDialog.apply {
-                            title = "增加选手"
-                            contentText = "增加选手${playerNameTextField.text}成功!"
+                            confirmDialog.apply {
+                                title = "增加选手"
+                                contentText = "增加选手${playerNameTextField.text}成功!"
+                                setOnCloseRequest { addPlayerStage.close() }
+                            }.show()
+                            MainView.refreshData(getSelectedTeamData())
                         }
-                        MainView.refreshData(data)
-
-
                     }
 
                     deletePlayerConfirmBtn.setOnAction {
+
                         data.teamDataList.filter {
                             it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore("-")
                         }[0].playerDataList.removeIf {
-                            "${it.id}" == playerDeleteChoiceBox.selectionModel.selectedItem.substringBefore("-")
+                            "${it.id}" == playerDeleteComboBox.selectionModel.selectedItem.substringBefore("-")
                         }
                         confirmDialog.apply {
                             title = "删除选手"
-                            contentText = "删除选手${playerDeleteChoiceBox.selectionModel.selectedItem}成功!"
-                        }
-                        MainView.refreshData(data)
+                            contentText = "删除选手${playerDeleteComboBox.selectionModel.selectedItem}成功!"
+                            setOnCloseRequest { deletePlayerStage.close() }
+                        }.show()
+                        MainView.refreshData(getSelectedTeamData())
 
                     }
 
                     addRecordConfirmBtn.setOnAction {
+                        if (checkAddRecord()) {
+                            data.teamDataList.filter {
+                                it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore(
+                                    "-"
+                                )
+                            }[0].recordDataList.add(
+                                RecordData(
+                                    recordRoundTextField.text.toInt(),
+                                    recordPhaseTextField.text.toInt(),
+                                    recordRoomIdTextField.text.toInt(),
+                                    recordQIdTextField.text.toInt(),
+                                    recordMasterIdTextField.text.toInt(),
+                                    recordRoleComboBox.selectionModel.selectedItem,
+                                    recordScoreTextField.text.toDouble(),
+                                    recordWeightTextField.text.toDouble()
+                                )
+                            )
+                            confirmDialog.apply {
+                                title = "增加记录"
+                                contentText = "增加记录成功!"
+                                setOnCloseRequest { addRecordStage.close() }
+                            }.show()
+                            MainView.refreshData(getSelectedTeamData())
+                        }
+
+                    }
+
+                    deleteRecordConfirmBtn.setOnAction {
                         data.teamDataList.filter {
                             it.name == teamNameLabel.text && "${it.schoolID}" == schoolNameLabel.text.substringBefore("-")
-                        }[0].recordDataList.add(
-                            RecordData(
-                                recordRoundTextField.text.toInt(),
-                                recordPhaseTextField.text.toInt(),
-                                recordRoomIdTextField.text.toInt(),
-                                recordQIdTextField.text.toInt(),
-                                recordMasterIdTextField.text.toInt(),
-                                recordRoleChoiceBox.selectionModel.selectedItem,
-                                recordScoreTextField.text.toDouble(),
-                                recordWeightTextField.text.toDouble()
-                            )
-                        )
+                        }[0].recordDataList.removeAt(recordComboBox.selectionModel.selectedIndex)
                         confirmDialog.apply {
-                            title = "增加记录"
-                            contentText = "增加记录成功!"
-                        }
-                        MainView.refreshData(data)
+                            title = "删除记录"
+                            contentText = "删除记录成功!"
+                            setOnCloseRequest { deleteRecordStage.close() }
+                        }.show()
+                        MainView.refreshData(getSelectedTeamData())
                     }
-                }
 
+                }
 
             }
         }
-
-
-
 
         logger.info("完成UI构建，展示Start界面")
 
