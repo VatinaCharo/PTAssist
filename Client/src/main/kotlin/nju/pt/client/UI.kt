@@ -202,6 +202,8 @@ object SettingView {
     private val portTF = TextField()
     private val judgeCountLabel = Label("JudgeCount:")
     private val judgeCountTF = TextField()
+    private val ruleTypeLabel = Label("Rule:")
+    private val ruleTypeCB = ComboBox<RuleType>()
     val saveBtn = Button("保存").apply { id = "SettingView_saveBtn" }
 
     private fun init(config: Config) {
@@ -209,12 +211,14 @@ object SettingView {
         rootGridPane.add(ipLabel, 0, 0)
         rootGridPane.add(portLabel, 0, 1)
         rootGridPane.add(judgeCountLabel, 0, 2)
+        rootGridPane.add(ruleTypeLabel, 0, 3)
 
         rootGridPane.add(ipTF, 1, 0)
         rootGridPane.add(portTF, 1, 1)
         rootGridPane.add(judgeCountTF, 1, 2)
+        rootGridPane.add(ruleTypeCB, 1, 3)
 
-        rootGridPane.add(saveBtn, 1, 3)
+        rootGridPane.add(saveBtn, 1, 4)
 
         ipTF.apply {
             tooltip = Tooltip("服务器ip地址")
@@ -240,6 +244,10 @@ object SettingView {
                     if (newValue.matches(Regex("^\\d*$"))) newValue else oldValue
             }
         }
+        ruleTypeCB.apply {
+            items.addAll(RuleType.CUPT, RuleType.JSYPT)
+            value = RuleType.CUPT
+        }
     }
 
     private fun layout() {
@@ -257,7 +265,7 @@ object SettingView {
         return rootGridPane
     }
 
-    fun saveConfig() = Config(ipTF.text, portTF.text.toInt(), judgeCountTF.text.toInt())
+    fun saveConfig() = Config(ipTF.text, portTF.text.toInt(), judgeCountTF.text.toInt(), ruleTypeCB.value)
 }
 
 object AboutView {

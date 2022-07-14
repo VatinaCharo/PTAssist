@@ -1,5 +1,6 @@
 {
     "ip": "127.0.0.1",
     "port": 7890,
-    "judgeCount": 5
+    "judgeCount": 5,
+    "rule": "CUPT"
 }

@@ -28,7 +28,13 @@ class AppUI : Application() {
             logger.info("未找到配置文件 ${configFile.absolutePath}，创建默认配置文件")
             JsonHelper.toJson(R.DEFAULT_CONFIG, R.SETTING_JSON_PATH)
         }
-        var config = JsonHelper.fromJson<Config>(R.SETTING_JSON_PATH)
+        var config = R.DEFAULT_CONFIG
+        try {
+            config = JsonHelper.fromJson(R.SETTING_JSON_PATH)
+        } catch (e: kotlinx.serialization.SerializationException) {
+            logger.error("配置文件读取失败，可能是文件损坏，已重置为默认配置文件：${e.message}")
+            JsonHelper.toJson(R.DEFAULT_CONFIG, R.SETTING_JSON_PATH)
+        }
         // 构建启动页Stage
         primaryStage.apply {
             scene = Scene(StartView.build()).apply {
@@ -66,7 +72,12 @@ class AppUI : Application() {
             startBtn.setOnAction {
                 if (dataFile.exists()) {
                     data = JsonHelper.fromJson(dataFile.absolutePath)
-                    primaryStage.scene = Scene(MatchView.build(config.judgeCount, data!!.questionMap))
+                    primaryStage.apply {
+                        scene = Scene(MatchView.build(config.judgeCount, data!!.questionMap)).apply {
+                            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+                        }
+                        title = "PTAssist-Match"
+                    }
                 } else {
                     logger.warn("未找到比赛数据文件，无法开始比赛，请先尝试下载比赛数据文件")
                     // TODO: 2022/7/13 @Eur3ka popup一个提示信息
@@ -106,5 +117,6 @@ class AppUI : Application() {
 data class Config(
     val ip: String,
     val port: Int,
-    val judgeCount: Int
+    val judgeCount: Int,
+    val rule: RuleType
 )

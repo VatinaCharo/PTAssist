@@ -22,3 +22,8 @@ enum class QuestionType {
         }
     }
 }
+
+enum class RuleType {
+    CUPT,
+    JSYPT
+}
