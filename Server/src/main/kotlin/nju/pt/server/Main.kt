@@ -244,7 +244,7 @@ class AppUI : Application() {
                                 contentText = "增加选手${playerNameTextField.text}成功!"
                                 setOnCloseRequest { addPlayerStage.close() }
                             }.show()
-                            MainView.refreshData(data)
+                            MainView.refreshData(getSelectedTeamData())
                         }
                     }
 
@@ -260,7 +260,7 @@ class AppUI : Application() {
                             contentText = "删除选手${playerDeleteComboBox.selectionModel.selectedItem}成功!"
                             setOnCloseRequest { deletePlayerStage.close() }
                         }.show()
-                        MainView.refreshData(data)
+                        MainView.refreshData(getSelectedTeamData())
 
                     }
 
@@ -287,7 +287,7 @@ class AppUI : Application() {
                                 contentText = "增加记录成功!"
                                 setOnCloseRequest { addRecordStage.close() }
                             }.show()
-                            MainView.refreshData(data)
+                            MainView.refreshData(getSelectedTeamData())
                         }
 
                     }
@@ -301,7 +301,7 @@ class AppUI : Application() {
                             contentText = "删除记录成功!"
                             setOnCloseRequest { deleteRecordStage.close() }
                         }.show()
-                        MainView.refreshData(data)
+                        MainView.refreshData(getSelectedTeamData())
                     }
 
                 }

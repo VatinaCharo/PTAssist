@@ -329,7 +329,9 @@ object MainView {
 
     fun loadData(playerDataList: List<PlayerData>, recordDataList: List<RecordData>) = apply {
         playerTableView.items = FXCollections.observableList(playerDataList)
+        playerTableView.refresh()
         recordTableView.items = FXCollections.observableList(recordDataList)
+        recordTableView.refresh()
     }
 
     fun build(data: Data): HBox {
@@ -346,13 +348,12 @@ object MainView {
         return rootHBox
     }
 
-    fun refreshData(data: Data) {
-        // TODO: 2022/7/13 还有一些bug，显示有问题
-        val playerDataList = data.teamDataList[0].playerDataList
-        playerTableView.items = FXCollections.observableList(playerDataList)
-        logger.info("load playerDataList $playerDataList")
-        val recordDataList = data.teamDataList[0].recordDataList
-        recordTableView.items = FXCollections.observableList(recordDataList)
+    fun refreshData(teamData: TeamData) {
+
+        logger.info("Refresh data")
+        logger.info("teamDataList:${teamData}")
+
+        loadData(teamData.playerDataList,teamData.recordDataList)
     }
 }
 
@@ -438,7 +439,7 @@ object AddOrDeleteView {
     val teamNameLabel = Label()
     val playerNameTextField = TextField()
     val playerGenderComboBox = ComboBox<String>().apply { items.addAll("女", "男");selectionModel.select(0);id ="AddOrDeleteView_playerGenderChoiceBox" }
-    val playerDeleteComboBox = ComboBox<String>()
+    val playerDeleteComboBox = ComboBox<String>().apply { id = "AddOrDeleteView_playerDeleteComboBox" }
     val recordRoundTextField = getIntegerTextField()
     val recordPhaseTextField = getIntegerTextField()
     val recordRoomIdTextField = getIntegerTextField()
