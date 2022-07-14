@@ -45,6 +45,17 @@ class TeamBar(val type: TeamType) : HBox() {
     fun loadValidPlayer(playerNameList: List<String>) {
         playerNameCB.items = FXCollections.observableList(playerNameList)
     }
+
+    fun lock() {
+        playerNameCB.isDisable = true
+    }
+
+    fun unlock() {
+        playerNameCB.isDisable = false
+    }
+
+    fun isPlayerNotNull() = playerNameCB.value != null
+    fun getPlayerValue() = playerNameCB.value!!
 }
 
 class ScoreBar(name: String, judgeCount: Int) : HBox() {
@@ -53,13 +64,19 @@ class ScoreBar(name: String, judgeCount: Int) : HBox() {
     init {
         spacing = 10.0
         children.add(tagLabel)
-        children.addAll(
-            (0 until judgeCount).map {
-                ComboBox<Int>().apply {
-                    items.addAll(0..10)
-                    prefWidth = 70.0
-                }
-            })
+        children.addAll((0 until judgeCount).map {
+            ComboBox<Int>().apply {
+                items.addAll(0..10)
+                value = 0
+                prefWidth = 70.0
+            }
+        })
     }
+
+    fun getScores() = children.filterIsInstance<ComboBox<Int>>().map { it.value }
+
+    fun lock() = children.filterIsInstance<ComboBox<Int>>().forEach { it.isDisable = true }
+
+    fun unlock() = children.filterIsInstance<ComboBox<Int>>().forEach { it.isDisable = true }
 }
 

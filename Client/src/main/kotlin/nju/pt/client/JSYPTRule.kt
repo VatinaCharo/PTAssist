@@ -143,19 +143,19 @@ object JSYPTRule : RuleInterface {
      * @param scoreList 分数列表 传入各裁判打分
      * @return 分数 获取最后的统计分数
      */
-    override fun getScore(scoreList: List<Double>): Double {
+    override fun getScore(scoreList: List<Int>): Double {
         when (scoreList.size) {
             5 -> {
                 val sortedScoreList = scoreList.sorted()
                 val minScore = sortedScoreList.first()
                 val maxScore = sortedScoreList.last()
-                return (sortedScoreList.sum() - (minScore + maxScore) / 2.0) / (sortedScoreList.size - 1)
+                return (sortedScoreList.sum() - (minScore + maxScore) / 2.0) / (sortedScoreList.size - 1.0)
             }
             7 -> {
                 val sortedScoreList = scoreList.sorted()
                 val minScore = sortedScoreList.first()
                 val maxScore = sortedScoreList.last()
-                return (sortedScoreList.sum() - minScore - maxScore) / (sortedScoreList.size - 2)
+                return (sortedScoreList.sum() - minScore - maxScore) / (sortedScoreList.size - 2.0)
             }
             else -> {
                 logger.warn("暂未提供其他裁判数下的统分规则，默认采用平均分机制")
@@ -163,4 +163,28 @@ object JSYPTRule : RuleInterface {
             }
         }
     }
+
+    /**
+     * Get rep score weight
+     *
+     * @param refusedQuestionIDList 拒绝的题号列表
+     * @return 正方计分权重
+     */
+    override fun getRepScoreWeight(refusedQuestionIDList: List<Int>) = 3.0 - refusedQuestionIDList.size * 0.2
+
+    /**
+     * Get opp score weight
+     *
+     * @param refusedQuestionIDList 拒绝的题号列表
+     * @return 反方计分权重
+     */
+    override fun getOppScoreWeight(refusedQuestionIDList: List<Int>) = 2.0
+
+    /**
+     * Get rev score weight
+     *
+     * @param refusedQuestionIDList 拒绝的题号列表
+     * @return 评方计分权重
+     */
+    override fun getRevScoreWeight(refusedQuestionIDList: List<Int>) = 1.0
 }

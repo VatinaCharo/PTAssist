@@ -27,7 +27,7 @@ class UITest {
                     .plus(12 to "maybe not a question")
                     .plus(15 to "who knows")
                 stage.apply {
-                    scene = Scene(MatchView.build(5, qMap)).apply {
+                    scene = Scene(MatchView.build(5)).apply {
                         stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
                     }
                     icons.add(Image(R.LOGO_PATH))

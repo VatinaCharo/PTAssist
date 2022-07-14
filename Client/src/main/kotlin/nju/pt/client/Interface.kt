@@ -38,5 +38,29 @@ interface RuleInterface {
      * @param scoreList 分数列表 传入各裁判打分
      * @return 分数 获取最后的统计分数
      */
-    fun getScore(scoreList: List<Double>): Double
+    fun getScore(scoreList: List<Int>): Double
+
+    /**
+     * Get rep score weight
+     *
+     * @param refusedQuestionIDList 拒绝的题号列表
+     * @return 正方计分权重
+     */
+    fun getRepScoreWeight(refusedQuestionIDList: List<Int>): Double
+
+    /**
+     * Get opp score weight
+     *
+     * @param refusedQuestionIDList 拒绝的题号列表
+     * @return 反方计分权重
+     */
+    fun getOppScoreWeight(refusedQuestionIDList: List<Int>): Double
+
+    /**
+     * Get rev score weight
+     *
+     * @param refusedQuestionIDList 拒绝的题号列表
+     * @return 评方计分权重
+     */
+    fun getRevScoreWeight(refusedQuestionIDList: List<Int>): Double
 }

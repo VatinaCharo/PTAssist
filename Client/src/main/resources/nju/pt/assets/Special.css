@@ -103,7 +103,8 @@
     -fx-alignment: center-right;
     -fx-background-color: #c7daff;
 }
-#DownloadView_rootGridPane {
+
+#PopupView_rootGridPane {
     -fx-hgap: 20px;
     -fx-vgap: 10px;
     -fx-padding: 30px;

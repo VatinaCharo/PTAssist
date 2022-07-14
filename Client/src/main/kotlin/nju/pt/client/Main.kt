@@ -1,8 +1,9 @@
 package nju.pt.client
 
+import RuleInterface
 import javafx.application.Application
+import javafx.scene.Node
 import javafx.scene.Scene
-import javafx.scene.control.RadioButton
 import javafx.scene.image.Image
 import javafx.stage.Modality
 import javafx.stage.Stage
@@ -10,7 +11,9 @@ import nju.pt.R
 import nju.pt.databaseassist.Data
 import nju.pt.databaseassist.JsonHelper
 import nju.pt.databaseassist.PlayerData
+import nju.pt.databaseassist.RecordData
 import nju.pt.kotlin.ext.mkdirIfEmpty
+import nju.pt.kotlin.ext.rotate
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -30,14 +33,15 @@ class AppUI : Application() {
     private val cacheFile = File(R.CACHE_JSON_PATH).mkdirIfEmpty()
     private lateinit var data: Data
     private lateinit var cache: Cache
+    private lateinit var config: Config
     private val usedQuestionIDList = mutableListOf<Int>()
-    private val refuseQuestionIDList = mutableListOf<Int>()
+    private val refusedQuestionIDList = mutableListOf<Int>()
     private val roundPlayerRecordList = mutableListOf<PlayerData>()
     private var state = MatchState.QUESTION
 
     override fun start(primaryStage: Stage) {
         // 获取配置文件
-        var config = getConfig()
+        config = getConfig()
         // 根据配置文件选择规则
         val rule = when (config.rule) {
             RuleType.CUPT -> CUPTRule
@@ -51,18 +55,6 @@ class AppUI : Application() {
             icons.add(Image(R.LOGO_PATH))
             title = "PTAssist"
         }.show()
-
-        // 构建下载页Stage
-        val downloadStage = Stage().apply {
-            initOwner(primaryStage)
-            initModality(Modality.WINDOW_MODAL)
-            scene = Scene(DownloadView.build()).apply {
-                stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-            }
-            icons.add(Image(R.LOGO_PATH))
-            title = "PTAssist-Download"
-            isResizable = false
-        }
 
         // 构建设置页Stage
         val settingStage = Stage().apply {
@@ -93,8 +85,7 @@ class AppUI : Application() {
             startBtn.setOnAction {
                 // 载入数据JSON文件 和Cache
                 if (dataFile.exists()) {
-                    data = JsonHelper.fromJson(dataFile.absolutePath)
-                    cache = getCache(data)
+                    matchUILoad(rule)
                     primaryStage.apply {
                         scene = Scene(MatchView.build(config.judgeCount)).apply {
                             stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
@@ -106,53 +97,10 @@ class AppUI : Application() {
                     PopupView.info("未找到比赛数据文件，无法开始比赛，请先尝试下载比赛数据文件")
                     popupStage.show()
                 }
-
-                val repTeamRecordDataList = data.teamDataList[cache.teamIDMatchList[0]].recordDataList
-                val repPlayerDataList = data.teamDataList[cache.teamIDMatchList[0]].playerDataList
-                val oppTeamRecordDataList = data.teamDataList[cache.teamIDMatchList[1]].recordDataList
-                val oppPlayerDataList = data.teamDataList[cache.teamIDMatchList[1]].playerDataList
-                val revTeamRecordDataList = data.teamDataList[cache.teamIDMatchList[2]].recordDataList
-                val revPlayerDataList = data.teamDataList[cache.teamIDMatchList[2]].playerDataList
-
-                // 加载比赛队伍
-                MatchView.loadTeam(data.teamDataList.map { it.id to it.name }
-                    .sortedBy { cache.teamIDMatchList.indexOf(it.first) }.map { it.second })
-                // 加载可选题
-                MatchView.loadOptionalQuestions(
-                    repTeamRecordDataList,
-                    oppTeamRecordDataList,
-                    usedQuestionIDList,
-                    data.questionMap,
-                    rule
-                )
-                // 加载正方队员
-                MatchView.loadValidPlayer(
-                    TeamType.REPORTER,
-                    roundPlayerRecordList,
-                    repTeamRecordDataList,
-                    repPlayerDataList,
-                    rule
-                )
-                // 加载反方队员
-                MatchView.loadValidPlayer(
-                    TeamType.OPPONENT,
-                    roundPlayerRecordList,
-                    oppTeamRecordDataList,
-                    oppPlayerDataList,
-                    rule
-                )
-                // 加载评方队员
-                MatchView.loadValidPlayer(
-                    TeamType.REVIEWER,
-                    roundPlayerRecordList,
-                    revTeamRecordDataList,
-                    revPlayerDataList,
-                    rule
-                )
             }
             downloadBtn.setOnAction {
-                logger.info("打开下载界面 $downloadStage")
-                downloadStage.show()
+                logger.info("开始下载数据文件")
+                // TODO: 2022/7/15 下载数据文件
             }
             settingBtn.setOnAction {
                 logger.info("打开设置界面 $settingStage")
@@ -241,7 +189,93 @@ class AppUI : Application() {
             submitBtn.setOnAction {
                 when (state) {
                     MatchState.MATCH -> {
-                        // TODO: 2022/7/14 提交分数到本地以及发送文件到服务器端
+                        val isPlayerSelected =
+                            informationVBox.children.dropLast(1).fold(true) { acc: Boolean, node: Node ->
+                                val teamBar = node as TeamBar
+                                acc and teamBar.isPlayerNotNull()
+                            }
+                        if (isPlayerSelected) {
+                            // 锁定主控队员面板
+                            informationVBox.children.forEach { (it as TeamBar).lock() }
+                            logger.info("锁定主控队员面板")
+                            // 锁定分数面板
+                            scoresVBox.children.forEach {
+                                if (it is ScoreBar) {
+                                    it.lock()
+                                }
+                            }
+                            logger.info("锁定分数面板")
+                            // 存储比赛数据
+                            // TODO: 2022/7/15 拒题部分
+                            val repTeamData = data.teamDataList[cache.getRepTeamID()]
+                            val repPlayerID =
+                                repTeamData.playerDataList.first { it.name == (informationVBox.children[0] as TeamBar).getPlayerValue() }.id
+                            val repScores = (scoresVBox.children[0] as ScoreBar).getScores()
+
+                            val oppTeamData = data.teamDataList[cache.getOppTeamID()]
+                            val oppPlayerID =
+                                oppTeamData.playerDataList.first { it.name == (informationVBox.children[1] as TeamBar).getPlayerValue() }.id
+                            val oppScores = (scoresVBox.children[1] as ScoreBar).getScores()
+
+                            val revTeamData = data.teamDataList[cache.getRevTeamID()]
+                            val revPlayerID =
+                                revTeamData.playerDataList.first { it.name == (informationVBox.children[2] as TeamBar).getPlayerValue() }.id
+                            val revScores = (scoresVBox.children[2] as ScoreBar).getScores()
+                            // 更新RecordData
+                            repTeamData.recordDataList.add(
+                                RecordData(
+                                    config.round,
+                                    cache.phase,
+                                    config.roomID,
+                                    group.userData as Int,
+                                    repPlayerID,
+                                    "R",
+                                    rule.getScore(repScores),
+                                    rule.getRepScoreWeight(refusedQuestionIDList)
+                                )
+                            )
+                            oppTeamData.recordDataList.add(
+                                RecordData(
+                                    config.round,
+                                    cache.phase,
+                                    config.roomID,
+                                    group.userData as Int,
+                                    oppPlayerID,
+                                    "O",
+                                    rule.getScore(oppScores),
+                                    rule.getOppScoreWeight(refusedQuestionIDList)
+                                )
+                            )
+                            revTeamData.recordDataList.add(
+                                RecordData(
+                                    config.round,
+                                    cache.phase,
+                                    config.roomID,
+                                    group.userData as Int,
+                                    revPlayerID,
+                                    "O",
+                                    rule.getScore(revScores),
+                                    rule.getRevScoreWeight(refusedQuestionIDList)
+                                )
+                            )
+                            // 更新缓存并保存
+                            logger.info("cache = $cache")
+                            logger.info("更新缓存")
+                            cache = Cache(cache.phase + 1, cache.endPhase, cache.teamIDMatchList.rotate())
+                            logger.info("cache = $cache")
+                            logger.info("保存缓存文件")
+                            cache.save()
+                            // 保存数据文件
+                            logger.info("JsonHelper.toJson(data, savePath)")
+                            logger.info("data = $data")
+                            logger.info("savePath = ${R.DATA_JSON_PATH}")
+                            JsonHelper.toJson(data, R.DATA_JSON_PATH)
+                            logger.info("保存数据文件")
+                        } else {
+                            logger.info("存在未选择的主控队员，无法提交评分")
+                            PopupView.info("存在未选择的主控队员，无法提交评分")
+                            popupStage.show()
+                        }
                     }
                     else -> {
                         logger.info("选题信息未锁定，无法提交评分")
@@ -250,9 +284,25 @@ class AppUI : Application() {
                     }
                 }
             }
-        }
-        DownloadView.apply {
-            // TODO: 2022/7/12 @Eur3ka 处理下载文件逻辑，并显示结果到infoLabel上
+            // 下一阶段
+            nextBtn.setOnAction {
+                // 转换系统状态
+                state = MatchState.QUESTION
+                if (cache.phase > cache.endPhase) {
+                    primaryStage.apply {
+                        scene = Scene(StartView.build()).apply {
+                            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+                        }
+                        icons.add(Image(R.LOGO_PATH))
+                        title = "PTAssist"
+                    }
+                    PopupView.info("上传数据")
+                    // TODO: 2022/7/15 上传数据文件
+                    popupStage.show()
+                } else {
+                    matchUILoad(rule)
+                }
+            }
         }
         SettingView.apply {
             saveBtn.setOnAction {
@@ -268,18 +318,65 @@ class AppUI : Application() {
         }
     }
 
+    private fun matchUILoad(rule: RuleInterface) {
+        data = JsonHelper.fromJson(dataFile.absolutePath)
+        cache = getCache(data)
+        val repTeamRecordDataList = data.teamDataList[cache.getRepTeamID()].recordDataList
+        val repPlayerDataList = data.teamDataList[cache.getRepTeamID()].playerDataList
+        val oppTeamRecordDataList = data.teamDataList[cache.getOppTeamID()].recordDataList
+        val oppPlayerDataList = data.teamDataList[cache.getOppTeamID()].playerDataList
+        val revTeamRecordDataList = data.teamDataList[cache.getRevTeamID()].recordDataList
+        val revPlayerDataList = data.teamDataList[cache.getRevTeamID()].playerDataList
+
+        // 加载比赛队伍
+        MatchView.loadTeam(data.teamDataList.map { it.id to it.name }
+            .sortedBy { cache.teamIDMatchList.indexOf(it.first) }.map { it.second })
+        // 加载可选题
+        MatchView.loadOptionalQuestions(
+            repTeamRecordDataList,
+            oppTeamRecordDataList,
+            usedQuestionIDList,
+            data.questionMap,
+            rule
+        )
+        // 加载正方队员
+        MatchView.loadValidPlayer(
+            TeamType.REPORTER,
+            roundPlayerRecordList,
+            repTeamRecordDataList,
+            repPlayerDataList,
+            rule
+        )
+        // 加载反方队员
+        MatchView.loadValidPlayer(
+            TeamType.OPPONENT,
+            roundPlayerRecordList,
+            oppTeamRecordDataList,
+            oppPlayerDataList,
+            rule
+        )
+        // 加载评方队员
+        MatchView.loadValidPlayer(
+            TeamType.REVIEWER,
+            roundPlayerRecordList,
+            revTeamRecordDataList,
+            revPlayerDataList,
+            rule
+        )
+    }
+
     private fun getConfig(): Config {
         // 获取配置文件
         if (!configFile.exists()) {
             logger.info("未找到配置文件 ${configFile.absolutePath}，创建默认配置文件")
-            JsonHelper.toJson(R.DEFAULT_CONFIG, R.SETTING_JSON_PATH)
+            R.DEFAULT_CONFIG.save()
         }
         var config = R.DEFAULT_CONFIG
         try {
             config = JsonHelper.fromJson(R.SETTING_JSON_PATH)
         } catch (e: kotlinx.serialization.SerializationException) {
             logger.error("配置文件读取失败，可能是文件损坏，已重置为默认配置文件：${e.message}")
-            JsonHelper.toJson(R.DEFAULT_CONFIG, R.SETTING_JSON_PATH)
+            R.DEFAULT_CONFIG.save()
         }
         return config
     }
@@ -289,14 +386,14 @@ class AppUI : Application() {
         // 获取缓存文件
         if (!cacheFile.exists()) {
             logger.info("未找到缓存文件 ${configFile.absolutePath}，创建默认缓存文件")
-            JsonHelper.toJson(defaultCache, R.CACHE_JSON_PATH)
+            defaultCache.save()
         }
         var cache = defaultCache
         try {
             cache = JsonHelper.fromJson(R.CACHE_JSON_PATH)
         } catch (e: kotlinx.serialization.SerializationException) {
             logger.error("缓存文件读取失败，可能是文件损坏，已重置为默认缓存文件：${e.message}")
-            JsonHelper.toJson(defaultCache, R.CACHE_JSON_PATH)
+            defaultCache.save()
         }
         return cache
     }
@@ -306,10 +403,20 @@ class AppUI : Application() {
 data class Config(
     val ip: String,
     val port: Int,
+    val roomID: Int,
+    val round: Int,
     val judgeCount: Int,
     val roundType: RoundType,
     val rule: RuleType
-)
+) {
+    /**
+     * 保存配置文件
+     *
+     */
+    fun save() {
+        JsonHelper.toJson(this, R.SETTING_JSON_PATH)
+    }
+}
 
 @kotlinx.serialization.Serializable
 data class Cache(
@@ -317,6 +424,14 @@ data class Cache(
     val endPhase: Int,
     val teamIDMatchList: List<Int>
 ) {
+    fun getRepTeamID() = teamIDMatchList[0]
+    fun getOppTeamID() = teamIDMatchList[1]
+    fun getRevTeamID() = teamIDMatchList[2]
+
+    /**
+     * 保存缓存文件
+     *
+     */
     fun save() {
         JsonHelper.toJson(this, R.CACHE_JSON_PATH)
     }

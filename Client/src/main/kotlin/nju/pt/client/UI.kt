@@ -214,38 +214,20 @@ object MatchView {
     }
 }
 
-object DownloadView {
-    private val logger = LoggerFactory.getLogger(this::class.java)
-    private val rootGridPane = GridPane().apply { id = "DownloadView_rootGridPane" }
-    private val qJsonDownloadBtn = Button("下载题库").apply { id = "DownloadView_qJsonDownloadBtn" }
-    private val dataJsonDownloadBtn = Button("下载对阵数据").apply { id = "DownloadView_dataJsonDownloadBtn" }
-    private val infoLabel = Label().apply { id = "DownloadView_infoLabel" }
-
-    private fun init() {
-        logger.info("init()")
-        rootGridPane.add(qJsonDownloadBtn, 0, 0)
-        rootGridPane.add(dataJsonDownloadBtn, 1, 0)
-        rootGridPane.add(infoLabel, 0, 1, 1, 1)
-    }
-
-    fun build(): GridPane {
-        logger.info("build()")
-        init()
-        logger.info("build() return => $rootGridPane")
-        return rootGridPane
-    }
-}
-
 object SettingView {
     private val logger = LoggerFactory.getLogger(this::class.java)
     private val rootGridPane = GridPane().apply { id = "SettingView_rootGridPane" }
     private val ipLabel = Label("IP:")
     private val ipTF = TextField()
-    private val portLabel = Label("Port:")
+    private val portLabel = Label("端口:")
     private val portTF = TextField()
-    private val judgeCountLabel = Label("JudgeCount:")
+    private val roomIDLabel = Label("会场编号:")
+    private val roomIDTF = TextField()
+    private val roundLabel = Label("轮次:")
+    private val roundTF = TextField()
+    private val judgeCountLabel = Label("裁判数:")
     private val judgeCountTF = TextField()
-    private val ruleTypeLabel = Label("Rule:")
+    private val ruleTypeLabel = Label("规则:")
     private val ruleTypeCB = ComboBox<RuleType>()
     private val roundTypeLabel = Label("RoundType:")
     private val roundTypeCB = ComboBox<RoundType>()
@@ -255,24 +237,28 @@ object SettingView {
         logger.info("init(config: Config)")
         rootGridPane.add(ipLabel, 0, 0)
         rootGridPane.add(portLabel, 0, 1)
-        rootGridPane.add(judgeCountLabel, 0, 2)
-        rootGridPane.add(roundTypeLabel, 0, 3)
-        rootGridPane.add(ruleTypeLabel, 0, 4)
+        rootGridPane.add(roomIDLabel, 0, 2)
+        rootGridPane.add(roundLabel, 0, 3)
+        rootGridPane.add(judgeCountLabel, 0, 4)
+        rootGridPane.add(roundTypeLabel, 0, 5)
+        rootGridPane.add(ruleTypeLabel, 0, 6)
 
         rootGridPane.add(ipTF, 1, 0)
         rootGridPane.add(portTF, 1, 1)
-        rootGridPane.add(judgeCountTF, 1, 2)
-        rootGridPane.add(roundTypeCB, 1, 3)
-        rootGridPane.add(ruleTypeCB, 1, 4)
+        rootGridPane.add(roomIDTF, 1, 2)
+        rootGridPane.add(roundTF, 1, 3)
+        rootGridPane.add(judgeCountTF, 1, 4)
+        rootGridPane.add(roundTypeCB, 1, 5)
+        rootGridPane.add(ruleTypeCB, 1, 6)
 
-        rootGridPane.add(saveBtn, 1, 5)
+        rootGridPane.add(saveBtn, 1, 7)
 
         ipTF.apply {
             tooltip = Tooltip("服务器ip地址")
             text = config.ip
             textProperty().addListener { _, oldValue, newValue ->
                 text =
-                    if (newValue.matches(Regex("^((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})(\\.((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})){3}$"))) newValue else oldValue
+                    if (newValue.matches(Regex("^((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})?(\\.?((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})?){3}$"))) newValue else oldValue
             }
         }
         portTF.apply {
@@ -280,7 +266,23 @@ object SettingView {
             text = config.port.toString()
             textProperty().addListener { _, oldValue, newValue ->
                 text =
-                    if (newValue.matches(Regex("^(\\d|[1-9]\\d{1,3}|[1-5]\\d{4}|6[0-4]\\d{3}|65[0-4]\\d{2}|655[0-2]\\d|6553[0-5])$"))) newValue else oldValue
+                    if (newValue.matches(Regex("^(\\d?|[1-9]\\d{1,3}|[1-5]\\d{4}|6[0-4]\\d{3}|65[0-4]\\d{2}|655[0-2]\\d|6553[0-5])$"))) newValue else oldValue
+            }
+        }
+        roomIDTF.apply {
+            tooltip = Tooltip("会场编号")
+            text = config.roomID.toString()
+            textProperty().addListener { _, oldValue, newValue ->
+                text =
+                    if (newValue.matches(Regex("^\\d*$"))) newValue else oldValue
+            }
+        }
+        roundTF.apply {
+            tooltip = Tooltip("比赛轮次")
+            text = config.round.toString()
+            textProperty().addListener { _, oldValue, newValue ->
+                text =
+                    if (newValue.matches(Regex("^\\d*$"))) newValue else oldValue
             }
         }
         judgeCountTF.apply {
@@ -293,11 +295,11 @@ object SettingView {
         }
         ruleTypeCB.apply {
             items.addAll(RuleType.CUPT, RuleType.JSYPT)
-            value = RuleType.CUPT
+            value = config.rule
         }
         roundTypeCB.apply {
             items.addAll(RoundType.NORMAL, RoundType.SPECIAL)
-            value = RoundType.NORMAL
+            value = config.roundType
         }
     }
 
@@ -317,7 +319,15 @@ object SettingView {
     }
 
     fun saveConfig() =
-        Config(ipTF.text, portTF.text.toInt(), judgeCountTF.text.toInt(), roundTypeCB.value, ruleTypeCB.value)
+        Config(
+            ipTF.text,
+            portTF.text.toInt(),
+            roomIDTF.text.toInt(),
+            roundTF.text.toInt(),
+            judgeCountTF.text.toInt(),
+            roundTypeCB.value,
+            ruleTypeCB.value
+        )
 }
 
 object AboutView {
