@@ -3,6 +3,8 @@ package nju.pt.server
 import com.sun.tools.javac.Main
 import javafx.application.Application
 import javafx.scene.Scene
+import javafx.scene.control.Alert
+import javafx.scene.control.ButtonType
 import javafx.scene.control.SelectionMode
 import javafx.scene.image.Image
 import javafx.stage.Stage
@@ -134,9 +136,23 @@ class AppUI : Application() {
 
                     //设置stage
                     primaryStage.apply {
+
                         scene = MyScene(MainView.build(data))
                         minWidth = 800.0
                         minHeight = 800.0
+
+                        setOnCloseRequest {_ ->
+                            Alert(Alert.AlertType.CONFIRMATION).apply {
+                                dialogPane.apply {
+                                    (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
+                                }
+                                title = "退出"
+                                headerText = "是否保存?"
+                                if (this.showAndWait().get() == ButtonType.OK){
+                                    MainView.saveBtn.fire()
+                                }
+                            }
+                        }
                     }.show()
                 } catch (e: Exception) {
                     logger.error(e.message)
