@@ -5,14 +5,12 @@ import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.RecordData
 import org.slf4j.LoggerFactory
 
-object CUPTRule : RuleInterface {
+object JSYPTRule : RuleInterface {
     private val logger = LoggerFactory.getLogger(this::class.java)
     private const val questionCount = 5
     private val banRuleListConfig = listOf(
         TeamType.REPORTER to QuestionType.REFUSED,
-        TeamType.REPORTER to QuestionType.REPORTED,
         TeamType.OPPONENT to QuestionType.OPPOSED,
-        TeamType.OPPONENT to QuestionType.REPORTED
     )
     private const val playerMasterTimesIn1RoundConfig = 2
     private const val playerMasterTimesIn1MatchConfig = 5
@@ -36,10 +34,8 @@ object CUPTRule : RuleInterface {
      *
      * 【可解锁规则】：
      *
-     * 1. 正方作为正方拒绝过的题目
-     * 2. 正方作为正方拒绝过的题目
-     * 3. 反方作为反方挑战过的题目
-     * 4. 反方作为正方陈述过的题目
+     * 1. 正方作为正方拒绝过的题目 （用于实现自主报题）
+     * 2. 反方作为反方挑战过的题目
      *
      *
      * @param repTeamRecordDataList 正方队伍比赛记录
