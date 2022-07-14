@@ -229,8 +229,10 @@ object SettingView {
     private val judgeCountTF = TextField()
     private val ruleTypeLabel = Label("规则:")
     private val ruleTypeCB = ComboBox<RuleType>()
-    private val roundTypeLabel = Label("RoundType:")
-    private val roundTypeCB = ComboBox<RoundType>()
+    private val roundTypeLabel = Label("本轮比赛类型:")
+    private val roundTypeCB = ComboBox<String>()
+    private val modeLabel = Label("工作模式:")
+    private val modeCB = ComboBox<WorkMode>()
     val saveBtn = Button("保存").apply { id = "SettingView_saveBtn" }
 
     private fun init(config: Config) {
@@ -242,6 +244,7 @@ object SettingView {
         rootGridPane.add(judgeCountLabel, 0, 4)
         rootGridPane.add(roundTypeLabel, 0, 5)
         rootGridPane.add(ruleTypeLabel, 0, 6)
+        rootGridPane.add(modeLabel, 0, 7)
 
         rootGridPane.add(ipTF, 1, 0)
         rootGridPane.add(portTF, 1, 1)
@@ -250,8 +253,9 @@ object SettingView {
         rootGridPane.add(judgeCountTF, 1, 4)
         rootGridPane.add(roundTypeCB, 1, 5)
         rootGridPane.add(ruleTypeCB, 1, 6)
+        rootGridPane.add(modeCB, 1, 7)
 
-        rootGridPane.add(saveBtn, 1, 7)
+        rootGridPane.add(saveBtn, 1, 8)
 
         ipTF.apply {
             tooltip = Tooltip("服务器ip地址")
@@ -298,8 +302,12 @@ object SettingView {
             value = config.rule
         }
         roundTypeCB.apply {
-            items.addAll(RoundType.NORMAL, RoundType.SPECIAL)
-            value = config.roundType
+            items.addAll(RoundType.NORMAL.toString(), RoundType.SPECIAL.toString())
+            value = config.roundType.toString()
+        }
+        modeCB.apply {
+            items.addAll(WorkMode.ONLINE, WorkMode.OFFLINE)
+            value = config.mode
         }
     }
 
@@ -307,6 +315,8 @@ object SettingView {
         logger.info("layout()")
         ipTF.alignment = Pos.CENTER_RIGHT
         portTF.alignment = Pos.CENTER_RIGHT
+        roomIDTF.alignment = Pos.CENTER_RIGHT
+        roundTF.alignment = Pos.CENTER_RIGHT
         judgeCountTF.alignment = Pos.CENTER_RIGHT
     }
 
@@ -325,8 +335,9 @@ object SettingView {
             roomIDTF.text.toInt(),
             roundTF.text.toInt(),
             judgeCountTF.text.toInt(),
-            roundTypeCB.value,
-            ruleTypeCB.value
+            RoundType.valueOf(roundTypeCB.value),
+            ruleTypeCB.value,
+            modeCB.value
         )
 }
 

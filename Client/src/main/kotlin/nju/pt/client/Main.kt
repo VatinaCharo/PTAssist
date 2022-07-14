@@ -407,7 +407,8 @@ data class Config(
     val round: Int,
     val judgeCount: Int,
     val roundType: RoundType,
-    val rule: RuleType
+    val rule: RuleType,
+    val mode: WorkMode
 ) {
     /**
      * 保存配置文件

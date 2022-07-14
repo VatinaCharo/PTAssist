@@ -1,8 +1,10 @@
 {
-  "ip": "127.0.0.1",
-  "port": 4567,
-  "round": 1,
-  "judgeCount": 7,
-  "roundType": "SPECIAL",
-  "rule": "JSYPT"
+    "ip": "127.0.0.1",
+    "port": 7890,
+    "roomID": 0,
+    "round": 1,
+    "judgeCount": 5,
+    "roundType": "NORMAL",
+    "rule": "CUPT",
+    "mode": "OFFLINE"
 }

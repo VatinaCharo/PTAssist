@@ -32,3 +32,8 @@ enum class RoundType(s: String) {
     NORMAL("正常模式"),
     SPECIAL("自选题模式")
 }
+
+enum class WorkMode {
+    ONLINE,
+    OFFLINE
+}

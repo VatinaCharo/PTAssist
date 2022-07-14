@@ -3,6 +3,7 @@ package nju.pt
 import nju.pt.client.Config
 import nju.pt.client.RoundType
 import nju.pt.client.RuleType
+import nju.pt.client.WorkMode
 
 object R {
     val DEFAULT_CSS_PATH: String = R::class.java.getResource("assets/Element.css")!!.toExternalForm()
@@ -15,5 +16,5 @@ object R {
     const val DATA_JSON_PATH = "data/data.json"
     const val CACHE_JSON_PATH = "data/cache.json"
 
-    val DEFAULT_CONFIG = Config("127.0.0.1", 7890, 0, 1, 5, RoundType.NORMAL, RuleType.CUPT)
+    val DEFAULT_CONFIG = Config("127.0.0.1", 7890, 0, 1, 5, RoundType.NORMAL, RuleType.CUPT, WorkMode.OFFLINE)
 }
