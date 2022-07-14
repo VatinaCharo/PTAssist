@@ -5,7 +5,7 @@ import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.RecordData
 import org.slf4j.LoggerFactory
 
-class Rule : RuleInterface {
+class CUPTRule : RuleInterface {
     private val logger = LoggerFactory.getLogger(this::class.java)
     private val questionCount = 5
     private val banRuleListConfig = listOf(
