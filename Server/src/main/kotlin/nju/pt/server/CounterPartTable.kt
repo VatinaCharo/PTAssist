@@ -41,7 +41,7 @@ class CounterPartTable(
         logger.info("totalTeamNumber:${totalTeamNumber}")
 
         //生成第一轮的对阵表
-        val oneRoundTable = OneRoundTable(roomCount, totalTeamNumber)
+        val oneRoundTable = OneRoundTable(roomCount, totalTeamNumber).apply { initialize() }
 
         teamTableListWithoutShuffle.add(oneRoundTable.copy().also {
             logger.info("Round 1 table WITHOUT shuffle:")
@@ -507,12 +507,12 @@ data class OneRoundTable(
     private val fourPlayersNumber = totalTeamNumber.mod(roomCount) // 本次比赛中存在四个队伍的个数
 
     // 各个角色的编号列表，其索引号为会场号
-    var RList: MutableList<Int>
-    var OList: MutableList<Int>
-    var VList: MutableList<Int>
-    var OBList: MutableList<Int>
+    lateinit var RList: MutableList<Int>
+    lateinit var OList: MutableList<Int>
+    lateinit var VList: MutableList<Int>
+    lateinit var OBList: MutableList<Int>
 
-    init {
+    fun initialize() {
         RList = (1 until roomCount + 1).toMutableList()
         OList = (roomCount + 1 until roomCount * 2 + 1).toMutableList()
         VList = (roomCount * 2 + 1 until roomCount * 3 + 1).toMutableList()

@@ -31,7 +31,7 @@ object JsonHelper {
             return data
         } catch (e: FileNotFoundException) {
             logger.error("未找到文件${readPath}: ${e.message}")
-            throw Exception("未找到文件${readPath}: ${e.message}")
+            throw FileNotFoundException("未找到文件${readPath}: ${e.message}")
         }
     }
 }
