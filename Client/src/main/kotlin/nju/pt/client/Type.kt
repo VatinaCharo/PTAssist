@@ -27,3 +27,8 @@ enum class RuleType {
     CUPT,
     JSYPT
 }
+
+enum class RoundType {
+    NORMAL,
+    SPECIAL
+}

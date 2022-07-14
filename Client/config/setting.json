@@ -1,6 +1,7 @@
 {
-    "ip": "127.0.0.1",
-    "port": 7890,
-    "judgeCount": 5,
-    "rule": "CUPT"
+    "ip": "189.2.45.1",
+    "port": 4567,
+    "judgeCount": 7,
+    "roundType": "SPECIAL",
+    "rule": "JSYPT"
 }

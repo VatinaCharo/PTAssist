@@ -1,26 +1,20 @@
 package nju.pt.client
 
+import javafx.collections.FXCollections
 import javafx.scene.control.ComboBox
 import javafx.scene.control.Label
-import javafx.scene.control.TableColumn
 import javafx.scene.control.TextField
 import javafx.scene.control.Tooltip
 import javafx.scene.layout.HBox
-import javafx.scene.text.Font
-import javafx.util.StringConverter
-import nju.pt.R
 
-class TeamBar(type: TeamType) : HBox() {
+class TeamBar(val type: TeamType) : HBox() {
     private val tagLabel = Label()
     private val teamTextField = TextField().apply {
         prefWidth = 200.0
         isEditable = false
         tooltip = Tooltip("Team Name")
     }
-    private val playerTextField = TextField().apply {
-        prefWidth = 100.0
-        tooltip = Tooltip("Player Name")
-    }
+    private val playerNameCB = ComboBox<String>()
 
     init {
         spacing = 10.0
@@ -28,20 +22,28 @@ class TeamBar(type: TeamType) : HBox() {
         when (type) {
             TeamType.REPORTER -> {
                 tagLabel.text = "正："
-                children.add(playerTextField)
+                children.add(playerNameCB)
             }
             TeamType.OPPONENT -> {
                 tagLabel.text = "反："
-                children.add(playerTextField)
+                children.add(playerNameCB)
             }
             TeamType.REVIEWER -> {
                 tagLabel.text = "评："
-                children.add(playerTextField)
+                children.add(playerNameCB)
             }
             TeamType.OBSERVER -> {
                 tagLabel.text = "观："
             }
         }
+    }
+
+    fun loadTeam(teamName: String) {
+        teamTextField.text = teamName
+    }
+
+    fun loadValidPlayer(playerNameList: List<String>) {
+        playerNameCB.items = FXCollections.observableList(playerNameList)
     }
 }
 
@@ -53,13 +55,6 @@ class ScoreBar(name: String, judgeCount: Int) : HBox() {
         children.add(tagLabel)
         children.addAll(
             (0 until judgeCount).map {
-//                TextField("0").apply {
-//                    prefWidth = 30.0
-//                    alignment = Pos.CENTER
-//                    textProperty().addListener { _, oldValue, newValue ->
-//                        text = if (!newValue.matches(Regex("^\\d*$"))) oldValue else newValue
-//                    }
-//                }
                 ComboBox<Int>().apply {
                     items.addAll(0..10)
                     prefWidth = 70.0
