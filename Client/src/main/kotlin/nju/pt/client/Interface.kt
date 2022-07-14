@@ -8,26 +8,26 @@ interface RuleInterface {
      * @param repTeamRecordDataList 正方队伍比赛记录
      * @param oppTeamRecordDataList 反方队伍比赛记录
      * @param usedQuestionIDList 当前比赛轮次中已用的赛题
-     * @param questionLibList 赛题库
+     * @param questionIDLibList 赛题库
      * @return 赛题编号列表 包含了当前对局中的全部可选题
      */
     fun getOptionalQuestionIDList(
         repTeamRecordDataList: List<RecordData>,
         oppTeamRecordDataList: List<RecordData>,
         usedQuestionIDList: List<Int>,
-        questionLibList: List<Int>
+        questionIDLibList: List<Int>
     ): List<Int>
 
     /**
      * 获取当前对局的可上场队员
      *
-     * @param tempPlayerRecordList 当前比赛轮次中上场主控的队员
+     * @param roundPlayerRecordList 当前比赛轮次中上场主控的队员记录
      * @param teamRecordDataList 队伍比赛记录
      * @param playerDataList 队伍的队员列表
      * @return 当前可主控队员 包含了此队伍的当前可上场主控的全部队员
      */
     fun getValidPlayerIDList(
-        tempPlayerRecordList: List<PlayerData>,
+        roundPlayerRecordList: List<PlayerData>,
         teamRecordDataList: List<RecordData>,
         playerDataList: List<PlayerData>
     ): List<Int>
