@@ -228,8 +228,15 @@ fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
                     }
 
                     logger.info("cellValues = $cellValues")
-                    this += (cellValues[0] to cellValues.subList(1, cellValues.size))
-                    logger.info("School Map = $this")
+                    if (cellValues[1].trim() != "无") {
+                        this += (cellValues[0] to cellValues.subList(1, cellValues.size))
+                        logger.info("School Map = $this")
+                    } else {
+                        this += (cellValues[0] to listOf<String>())
+                        logger.info("${cellValues[0]}无裁判出席")
+
+                    }
+
                 }
             }
         }
@@ -340,7 +347,7 @@ fun Workbook.getTotalTeamNumber(): Int {
         logger.error("未找到文件，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
         throw Exception("未找到文件，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: NullPointerException) {
-        logger.error("未找到sheet，请检查${R.CONFIG_EXCEL_PATH}配置文件！" )
+        logger.error("未找到sheet，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
         throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
 
     }

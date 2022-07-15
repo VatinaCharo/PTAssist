@@ -45,14 +45,14 @@ class CounterPartTable(
 
         teamTableListWithoutShuffle.add(oneRoundTable.copy().also {
             logger.info("Round 1 table WITHOUT shuffle:")
-            logger.info("nju.pt.net.R: ${it.RList}")
+            logger.info("R: ${it.RList}")
             logger.info("O: ${it.OList}")
             logger.info("V: ${it.VList}")
             logger.info("OB: ${it.OBList}")
         })
         teamTableList.add(oneRoundTable.shuffle().also {
             logger.info("Round 1 table WITH shuffle:")
-            logger.info("nju.pt.net.R: ${it.RList}")
+            logger.info("R: ${it.RList}")
             logger.info("O: ${it.OList}")
             logger.info("V: ${it.VList}")
             logger.info("OB: ${it.OBList}")
@@ -64,14 +64,14 @@ class CounterPartTable(
             oneRoundTable.roomOffset()
             teamTableListWithoutShuffle.add(oneRoundTable.copy().also {
                 logger.info("Round ${turn + 1} table WITHOUT shuffle:")
-                logger.info("nju.pt.net.R: ${it.RList}")
+                logger.info("R: ${it.RList}")
                 logger.info("O: ${it.OList}")
                 logger.info("V: ${it.VList}")
                 logger.info("OB: ${it.OBList}")
             })
             teamTableList.add(oneRoundTable.shuffle().also {
                 logger.info("Round ${turn + 1} table WITH shuffle:")
-                logger.info("nju.pt.net.R: ${it.RList}")
+                logger.info("R: ${it.RList}")
                 logger.info("O: ${it.OList}")
                 logger.info("V: ${it.VList}")
                 logger.info("OB: ${it.OBList}")
@@ -136,7 +136,7 @@ class CounterPartTable(
                 //遍历每一个会场的情况
                 for (room in 0 until roomCount) {
                     logger.info("room ${room + 1}:")
-                    logger.info("nju.pt.net.R:${teamTable.RList[room]}-${teamIdMap[teamTable.RList[room]]}")
+                    logger.info("R:${teamTable.RList[room]}-${teamIdMap[teamTable.RList[room]]}")
                     logger.info("O:${teamTable.OList[room]}-${teamIdMap[teamTable.OList[room]]}")
                     logger.info("V:${teamTable.VList[room]}-${teamIdMap[teamTable.VList[room]]}")
                     logger.info("OB:${teamTable.OBList[room]}-${teamIdMap[teamTable.OBList[room]]}")
@@ -306,7 +306,7 @@ class CounterPartTable(
                             //打乱对阵表情况
                             logger.info("WITH shuffle")
                             createCell(1).setCellValue("${oneRoundTableWithShuffle.RList[room]}")
-                            logger.info("nju.pt.net.R:${oneRoundTableWithShuffle.RList[room]}")
+                            logger.info("R:${oneRoundTableWithShuffle.RList[room]}")
                             createCell(2).setCellValue("${oneRoundTableWithShuffle.OList[room]}")
                             logger.info("O:${oneRoundTableWithShuffle.OList[room]}")
                             createCell(3).setCellValue("${oneRoundTableWithShuffle.VList[room]}")
@@ -317,7 +317,7 @@ class CounterPartTable(
                             //未打乱对阵表
                             logger.info("WITHOUT shuffle")
                             createCell(6).setCellValue("${oneRoundTableWithoutShuffle.RList[room]}")
-                            logger.info("nju.pt.net.R:${oneRoundTableWithoutShuffle.RList[room]}")
+                            logger.info("R:${oneRoundTableWithoutShuffle.RList[room]}")
                             createCell(7).setCellValue("${oneRoundTableWithoutShuffle.OList[room]}")
                             logger.info("O:${oneRoundTableWithoutShuffle.OList[room]}")
                             createCell(8).setCellValue("${oneRoundTableWithoutShuffle.VList[room]}")
@@ -460,7 +460,7 @@ class CounterPartTable(
                             logger.info("Room ${room + 1}:")
                             //队伍情况
                             createCell(1).setCellValue("${teamIdMap[oneRoundTable.RList[room]]}")
-                            logger.info("nju.pt.net.R:${teamIdMap[oneRoundTable.RList[room]]}")
+                            logger.info("R:${teamIdMap[oneRoundTable.RList[room]]}")
                             createCell(2).setCellValue("${teamIdMap[oneRoundTable.OList[room]]}")
                             logger.info("O:${teamIdMap[oneRoundTable.OList[room]]}")
                             createCell(3).setCellValue("${teamIdMap[oneRoundTable.VList[room]]}")
