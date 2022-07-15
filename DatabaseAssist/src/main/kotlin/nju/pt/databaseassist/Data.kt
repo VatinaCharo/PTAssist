@@ -38,8 +38,11 @@ data class Data(
     var teamDataList: List<TeamData>,
     val questionMap: Map<Int, String>,
     val schoolMap: Map<Int, String>
-) {
-    fun copy():Data = Data(this.teamDataList,this.questionMap,this.schoolMap)
+){
+    fun copy():Data{
+        JsonHelper.toJson(this,"./tmp.json")
+        return JsonHelper.fromJson<Data>("./tmp.json")
+    }
     fun getTeamScore() = teamDataList.map {
         // 学校名，队伍名，总成绩
         Triple(

@@ -537,13 +537,18 @@ class ExportView() {
                 reviewTableTurnsCheckBoxList.filter { it.isSelected }.map { it.text.first() }
             }")
             val dataCopy = data.copy()
+            logger.info("dataCopy:${dataCopy}")
 
             dataCopy.teamDataList.forEach { teamData ->
                 teamData.recordDataList = teamData.recordDataList.filter { recordData ->
                     reviewTableTurnsCheckBoxList.filter { it.isSelected }.map { "${it.text.first()}" }
                         .contains("${recordData.round}")
-                }.toMutableList()
+                }.toMutableList().also {
+                    logger.info("selected teamData:${it}")
+                }
             }
+
+            logger.info("datCopy teamList:${dataCopy}")
 
             ExportExcel(dataCopy, R.SERVER_DATA_DIR_PATH).apply {
                 if (reviewTableRadioBtn.isSelected) {

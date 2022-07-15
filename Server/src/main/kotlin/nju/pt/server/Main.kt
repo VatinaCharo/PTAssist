@@ -43,7 +43,7 @@ class AppUI : Application() {
     }
     private lateinit var fileNetServer: FileNetServer
 
-    private fun getExportSettingStage(data: Data) = MyStage(ExportView().build(data)).apply {
+    private fun getExportSettingStage(data: Data) = MyStage(ExportView().build(data.copy())).apply {
         minWidth = 150.0
         minHeight = 300.0
         isResizable = false
