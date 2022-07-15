@@ -6,7 +6,7 @@ import nju.pt.client.RuleType
 import nju.pt.client.WorkMode
 
 object R {
-    const val VERSION = "v0.1.0"
+    const val VERSION = "1.0.0"
 
     val DEFAULT_CSS_PATH: String = R::class.java.getResource("assets/Element.css")!!.toExternalForm()
     val SPECIAL_CSS_PATH: String = R::class.java.getResource("assets/Special.css")!!.toExternalForm()
