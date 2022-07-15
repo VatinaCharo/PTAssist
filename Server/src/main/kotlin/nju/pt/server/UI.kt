@@ -783,11 +783,13 @@ object GenerateRoomDataView {
         logger.info("build() return => Vbox")
         return VBox().apply {
             children.addAll(turnSelectHbox, generateRoomDataConfirmBtn)
+            id = "GenerateRoomDataView_rootVBox"
         }
     }
 
     fun getGenerateRoomDataStage(turns: Int) = MyStage(build(turns)).apply {
         title = "生成分会场数据"
+        isResizable = false
     }
 
     fun generateRoomData(data: Data) {
@@ -796,9 +798,12 @@ object GenerateRoomDataView {
         logger.info("selected turn:${selectedTurn}")
         val dataCopy = data.copy()
         dataCopy.teamDataList.forEach { teamData ->
-            teamData.recordDataList = teamData.recordDataList.filter {
-                it.round < selectedTurn
-            }.toMutableList()
+            if (teamData.recordDataList.isNotEmpty()){
+                teamData.recordDataList = teamData.recordDataList.filter {
+                    it.round < selectedTurn
+                }.toMutableList()
+            }
+
         }
         logger.info("teamDataList:${data.teamDataList}")
 

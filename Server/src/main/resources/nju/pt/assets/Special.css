@@ -113,3 +113,10 @@
 #SettingView_portTF{
     -fx-max-width: 50px;
 }
+
+#GenerateRoomDataView_rootVBox{
+    -fx-background-color: #C7DAFF;
+    -fx-padding: 10px;
+    -fx-alignment: center-right;
+    -fx-spacing: 20px;
+}
