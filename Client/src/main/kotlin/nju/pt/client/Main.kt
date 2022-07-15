@@ -149,13 +149,14 @@ class AppUI : Application() {
                             } else {
                                 Platform.runLater {
                                     JsonHelper.toJson(packet.data, R.DATA_JSON_PATH)
+                                    File(R.CACHE_JSON_PATH).delete()
                                 }
                             }
                         }.start()
                     }
                     WorkMode.OFFLINE -> {
-                        logger.info("当前处于离线模式，需要手动放入数据文件")
-                        PopupView.info("当前处于离线模式，请手动放入数据文件")
+                        logger.info("当前处于离线模式，需要手动放入数据文件，并删除缓存文件")
+                        PopupView.info("当前处于离线模式，请手动放入数据文件，并删除缓存文件")
                         popupStage.show()
                     }
                 }
