@@ -1,11 +1,13 @@
 package nju.pt.client
 
 import RuleInterface
+import javafx.application.HostServices
 import javafx.geometry.Pos
 import javafx.scene.control.*
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.layout.*
+import javafx.scene.text.Font
 import nju.pt.R
 import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.RecordData
@@ -343,6 +345,45 @@ object SettingView {
 
 object AboutView {
     private val logger = LoggerFactory.getLogger(this::class.java)
+    private val rootAnchorPane = AnchorPane()
+    private val nameLabel = Label("PTAssist").apply {
+        font = Font.font(18.0)
+    }
+    private val noteLabel = Label("注意事项:").apply {
+        font = Font.font(18.0)
+    }
+    private val notes = listOf(
+        "1. 完成一轮比赛后，程序会自动回到首页，此时可以关闭程序",
+        "2. 重启程序时，程序会保留上次提交数据时的状态，但不保留下次提交前的全部操作",
+        "3. 处于离线模式时，程序不会上传数据也不会下载数据，需手动更换数据库文件"
+    )
+    private val labelList = notes.map {
+        Label(it).apply {
+            font = Font.font(18.0)
+        }
+    }
+    val nju = Hyperlink("NJU", Label("By Eur3ka & EnjoyXu @ "))
+
+    fun build(): AnchorPane {
+        logger.info("init()")
+        rootAnchorPane.apply {
+            children.addAll(nameLabel, noteLabel)
+            children.addAll(labelList)
+            children.add(nju)
+        }
+        nameLabel.layoutX = 50.0
+        nameLabel.layoutY = 50.0
+        noteLabel.layoutX = 50.0
+        noteLabel.layoutY = 100.0
+        labelList.forEachIndexed { index, label ->
+            label.layoutX = 100.0
+            label.layoutY = 150.0 + index * 50.0
+        }
+        nju.layoutX = 600.0
+        nju.layoutY = 500.0
+        rootAnchorPane.style = "-fx-background-color:#FAE3D9"
+        return rootAnchorPane
+    }
 }
 
 object PopupView {

@@ -24,3 +24,87 @@
 [08:19:20.397] |-INFO nju.pt.client.PopupView => build()
 [08:19:20.398] |-INFO nju.pt.client.PopupView => init()
 [08:19:20.398] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[08:43:14.679] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[08:43:14.682] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[08:43:14.797] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[08:43:14.922] |-INFO nju.pt.client.StartView => build()
+[08:43:14.923] |-INFO nju.pt.client.StartView => init()
+[08:43:15.452] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[08:43:15.452] |-INFO nju.pt.client.StartView => layout()
+[08:43:15.453] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[08:43:15.453] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[08:43:15.786] |-INFO nju.pt.client.SettingView => build(config:Config)
+[08:43:15.787] |-INFO nju.pt.client.SettingView => init(config: Config)
+[08:43:15.804] |-INFO nju.pt.client.SettingView => layout()
+[08:43:15.807] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[08:43:15.821] |-INFO nju.pt.client.AboutView => init()
+[08:43:15.831] |-INFO nju.pt.client.PopupView => build()
+[08:43:15.832] |-INFO nju.pt.client.PopupView => init()
+[08:43:15.832] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[08:43:17.701] |-INFO nju.pt.client.AppUI => 打开关于界面 javafx.stage.Stage@31995029
+[08:44:24.841] |-INFO nju.pt.client.MatchView => build()
+[08:44:24.841] |-INFO nju.pt.client.MatchView => init <<< judgeCount = 5
+[08:44:24.841] |-INFO nju.pt.client.MatchView => init(judgeCount: Int)
+[08:44:24.853] |-INFO nju.pt.client.MatchView => layout()
+[08:44:24.853] |-INFO nju.pt.client.MatchView => setting njuLogoImageView layout
+[08:44:24.854] |-INFO nju.pt.client.MatchView => fitSize = (312.2, 391.29999999999995)
+[08:44:24.860] |-INFO nju.pt.client.MatchView => setting njuTextLogoImageView layout
+[08:44:24.860] |-INFO nju.pt.client.MatchView => fitSize = (343.8, 147.15)
+[08:44:24.860] |-INFO nju.pt.client.MatchView => build() return => HBox[id=MatchView_rootHBox]
+[08:44:25.369] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[08:44:25.370] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\data\data.json
+[08:44:25.387] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[08:44:25.387] |-INFO nju.pt.client.AppUI => getCache(data)
+[08:44:25.388] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[08:44:25.389] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\data\cache.json
+[08:44:25.390] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[08:44:25.393] |-INFO nju.pt.client.AppUI => cache = Cache(phase=2, endPhase=4, teamIDMatchList=[5, 1, 2, 3])
+[08:44:25.394] |-INFO nju.pt.client.AppUI => repTeamRecordDataList = []
+[08:44:25.397] |-INFO nju.pt.client.AppUI => repPlayerDataList = [PlayerData(id=7, name=王二, gender=男), PlayerData(id=8, name=麻子, gender=女)]
+[08:44:25.405] |-INFO nju.pt.client.AppUI => oppTeamRecordDataList = [RecordData(round=1, phase=1, roomID=1, questionID=4, masterID=1, role=R, score=0.125, weight=3.0)]
+[08:44:25.405] |-INFO nju.pt.client.AppUI => oppPlayerDataList = [PlayerData(id=1, name=张三, gender=男), PlayerData(id=2, name=李四, gender=女)]
+[08:44:25.405] |-INFO nju.pt.client.AppUI => revTeamRecordDataList = [RecordData(round=1, phase=1, roomID=1, questionID=4, masterID=4, role=O, score=0.25, weight=2.0)]
+[08:44:25.405] |-INFO nju.pt.client.AppUI => revPlayerDataList = [PlayerData(id=3, name=阿三, gender=男), PlayerData(id=4, name=阿四, gender=女)]
+[08:44:25.406] |-INFO nju.pt.client.AppUI => teamID2NameList = [(1, 德玛西亚), (2, 啦啦啦), (3, 呜呜呜), (5, 小火车)]
+[08:44:25.408] |-INFO nju.pt.client.AppUI => sortedTeamID2NameList = [(5, 小火车), (1, 德玛西亚), (2, 啦啦啦), (3, 呜呜呜)]
+[08:44:25.410] |-INFO nju.pt.client.MatchView => getOptionalQuestionIDList(repTeamRecordDataList, oppTeamRecordDataList, usedQuestionIDList, questionIDLibList)
+[08:44:25.411] |-INFO nju.pt.client.MatchView => repTeamRecordDataList = []
+[08:44:25.411] |-INFO nju.pt.client.MatchView => oppTeamRecordDataList = [RecordData(round=1, phase=1, roomID=1, questionID=4, masterID=1, role=R, score=0.125, weight=3.0)]
+[08:44:25.411] |-INFO nju.pt.client.MatchView => usedQuestionIDList = []
+[08:44:25.411] |-INFO nju.pt.client.MatchView => questionIDLibList = [1, 2, 3, 4, 5, 6, 10, 11, 12, 13, 14]
+[08:44:25.415] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = []
+[08:44:25.416] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = []
+[08:44:25.416] |-INFO nju.pt.client.MatchView => questionIDList = [1, 2, 3, 4, 5, 6, 10, 11, 12, 13, 14]
+[08:44:25.421] |-INFO nju.pt.client.MatchView => rule.getValidPlayerIDList(roundPlayerRecordList, teamRecordDataList, playerDataList)
+[08:44:25.421] |-INFO nju.pt.client.MatchView => roundPlayerRecordList = []
+[08:44:25.421] |-INFO nju.pt.client.MatchView => teamRecordDataList = []
+[08:44:25.422] |-INFO nju.pt.client.MatchView => playerDataList = [PlayerData(id=7, name=王二, gender=男), PlayerData(id=8, name=麻子, gender=女)]
+[08:44:25.422] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[08:44:25.422] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[08:44:25.422] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 0
+[08:44:25.422] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 0
+[08:44:25.422] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[08:44:25.422] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[08:44:25.422] |-INFO nju.pt.client.MatchView => validPlayerIDList = [7, 8]
+[08:44:25.423] |-INFO nju.pt.client.MatchView => rule.getValidPlayerIDList(roundPlayerRecordList, teamRecordDataList, playerDataList)
+[08:44:25.423] |-INFO nju.pt.client.MatchView => roundPlayerRecordList = []
+[08:44:25.423] |-INFO nju.pt.client.MatchView => teamRecordDataList = [RecordData(round=1, phase=1, roomID=1, questionID=4, masterID=1, role=R, score=0.125, weight=3.0)]
+[08:44:25.423] |-INFO nju.pt.client.MatchView => playerDataList = [PlayerData(id=1, name=张三, gender=男), PlayerData(id=2, name=李四, gender=女)]
+[08:44:25.423] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[08:44:25.423] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[08:44:25.423] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 1
+[08:44:25.423] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 0
+[08:44:25.423] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[08:44:25.423] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[08:44:25.423] |-INFO nju.pt.client.MatchView => validPlayerIDList = [1, 2]
+[08:44:25.424] |-INFO nju.pt.client.MatchView => rule.getValidPlayerIDList(roundPlayerRecordList, teamRecordDataList, playerDataList)
+[08:44:25.424] |-INFO nju.pt.client.MatchView => roundPlayerRecordList = []
+[08:44:25.424] |-INFO nju.pt.client.MatchView => teamRecordDataList = [RecordData(round=1, phase=1, roomID=1, questionID=4, masterID=4, role=O, score=0.25, weight=2.0)]
+[08:44:25.424] |-INFO nju.pt.client.MatchView => playerDataList = [PlayerData(id=3, name=阿三, gender=男), PlayerData(id=4, name=阿四, gender=女)]
+[08:44:25.424] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[08:44:25.424] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[08:44:25.424] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 0
+[08:44:25.424] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 1
+[08:44:25.424] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[08:44:25.424] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[08:44:25.424] |-INFO nju.pt.client.MatchView => validPlayerIDList = [3, 4]

@@ -84,6 +84,17 @@ class AppUI : Application() {
             isResizable = false
         }
 
+        val aboutStage = Stage().apply {
+            initOwner(primaryStage)
+            initModality(Modality.WINDOW_MODAL)
+            scene = Scene(AboutView.build()).apply {
+                stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+            }
+            icons.add(Image(R.LOGO_PATH))
+            title = "PTAssist-About"
+            isResizable = false
+        }
+
         // 构建Popup信息页
         val popupStage = Stage().apply {
             initOwner(primaryStage)
@@ -115,27 +126,46 @@ class AppUI : Application() {
                 }
             }
             downloadBtn.setOnAction {
-                logger.info("开始下载数据文件")
-                // 下载数据
-                Thread {
-                    val packet =
-                        FileNetClient(config.ip, config.port).download(Packet(config.roomID, config.round, null))
-                    if (packet.data == null) {
-                        Platform.runLater {
-                            logger.info("服务器数据文件尚未准备完毕，无法获取数据文件")
-                            PopupView.info("服务器数据文件尚未准备完毕，请稍后再试")
-                            popupStage.show()
-                        }
-                    } else {
-                        Platform.runLater {
-                            JsonHelper.toJson(packet.data, R.DATA_JSON_PATH)
-                        }
+                when (config.mode) {
+                    WorkMode.ONLINE -> {
+                        logger.info("开始下载数据文件")
+                        // 下载数据
+                        Thread {
+                            val packet =
+                                FileNetClient(config.ip, config.port).download(
+                                    Packet(
+                                        config.roomID,
+                                        config.round,
+                                        null
+                                    )
+                                )
+                            if (packet.data == null) {
+                                Platform.runLater {
+                                    logger.info("服务器数据文件尚未准备完毕，无法获取数据文件")
+                                    PopupView.info("服务器数据文件尚未准备完毕，请稍后再试")
+                                    popupStage.show()
+                                }
+                            } else {
+                                Platform.runLater {
+                                    JsonHelper.toJson(packet.data, R.DATA_JSON_PATH)
+                                }
+                            }
+                        }.start()
                     }
-                }.start()
+                    WorkMode.OFFLINE -> {
+                        logger.info("当前处于离线模式，需要手动放入数据文件")
+                        PopupView.info("当前处于离线模式，请手动放入数据文件")
+                        popupStage.show()
+                    }
+                }
             }
             settingBtn.setOnAction {
                 logger.info("打开设置界面 $settingStage")
                 settingStage.show()
+            }
+            aboutBtn.setOnAction {
+                logger.info("打开关于界面 $aboutStage")
+                aboutStage.show()
             }
         }
         MatchView.apply {
@@ -331,8 +361,6 @@ class AppUI : Application() {
                         popupStage.show()
                     }
                     MatchState.NEXT -> {
-                        // 转换系统状态
-                        state = MatchState.QUESTION
                         if (cache.phase > cache.endPhase) {
                             primaryStage.apply {
                                 scene = Scene(StartView.build()).apply {
@@ -341,18 +369,37 @@ class AppUI : Application() {
                                 icons.add(Image(R.LOGO_PATH))
                                 title = "PTAssist"
                             }
-                            PopupView.info("上传数据")
-                            Thread {
-                                logger.info("上传数据")
-                                logger.info("data = $data")
-                                FileNetClient(config.ip, config.port).upload(Packet(config.roomID, config.round, data))
-                                Platform.runLater {
-                                    logger.info("上传数据完毕")
-                                    PopupView.info("上传数据完毕")
+                            when (config.mode) {
+                                WorkMode.ONLINE -> {
+                                    PopupView.info("上传数据")
+                                    Thread {
+                                        logger.info("上传数据")
+                                        logger.info("data = $data")
+                                        FileNetClient(config.ip, config.port).upload(
+                                            Packet(config.roomID, config.round, data)
+                                        )
+                                        Platform.runLater {
+                                            logger.info("上传数据完毕")
+                                            PopupView.info("上传数据完毕")
+                                            popupStage.show()
+                                        }
+                                    }.start()
+                                    popupStage.show()
+                                    // 回到启动页
+                                }
+                                WorkMode.OFFLINE -> {
+                                    logger.info("离线模式，无法上传数据，需要手动提交数据文件")
+                                    PopupView.info("离线模式，无法上传数据，请手动提交数据文件")
                                     popupStage.show()
                                 }
-                            }.start()
-                            popupStage.show()
+                            }
+                            primaryStage.apply {
+                                scene = Scene(StartView.build()).apply {
+                                    stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+                                }
+                                icons.add(Image(R.LOGO_PATH))
+                                title = "PTAssist"
+                            }
                         } else {
                             matchUILoad(rule)
                             // 重置主控队员面板
@@ -368,6 +415,8 @@ class AppUI : Application() {
                             // 重置赛题展示Label
                             questionViewLabel.text = ""
                             logger.info("重置赛题展示Label")
+                            // 转换系统状态
+                            state = MatchState.QUESTION
                         }
                     }
                 }
@@ -384,6 +433,11 @@ class AppUI : Application() {
                 logger.info("关闭设置界面")
                 settingStage.close()
             }
+        }
+        AboutView.nju.setOnAction {
+            hostServices.showDocument(R.NJU_LINK)
+            hostServices.showDocument(R.AUTHOR1_LINK)
+            hostServices.showDocument(R.AUTHOR2_LINK)
         }
     }
 
