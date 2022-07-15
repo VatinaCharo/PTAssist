@@ -827,7 +827,12 @@ object GenerateRoomDataView {
             val dataCopyTemp = dataCopy.copy()
             dataCopyTemp.teamDataList = dataCopyTemp.teamDataList.filter { it.id in thisRoomTeamIdList }
             logger.info("teamDataList:${dataCopyTemp.teamDataList}")
-            JsonHelper.toJson(dataCopyTemp, "${R.SERVER_SEND_FILE_DIR_PATH}/Room${roomId}.json")
+            Path("${R.SERVER_SEND_FILE_DIR_PATH}/Round${selectedTurn}").apply {
+                if (this.notExists()){
+                    this.createDirectories()
+                }
+            }
+            JsonHelper.toJson(dataCopyTemp, "${R.SERVER_SEND_FILE_DIR_PATH}/Round${selectedTurn}/Room${roomId}.json")
 
         }
 
