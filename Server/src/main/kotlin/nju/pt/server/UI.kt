@@ -837,7 +837,14 @@ object GenerateRoomDataView {
             }
             logger.info("teamIdList:$thisRoomTeamIdList")
             val dataCopyTemp = dataCopy.copy()
-            dataCopyTemp.teamDataList = dataCopyTemp.teamDataList.filter { it.id in thisRoomTeamIdList }
+            dataCopyTemp.teamDataList = mutableListOf<TeamData>().apply {
+                for (teamId in thisRoomTeamIdList) {
+                    this.add(
+                        dataCopy.teamDataList.first{it.id == teamId}
+                    )
+                }
+            }
+
             logger.info("teamDataList:${dataCopyTemp.teamDataList}")
             Path("${R.SERVER_SEND_FILE_DIR_PATH}/Round${selectedTurn}").apply {
                 if (this.notExists()){
