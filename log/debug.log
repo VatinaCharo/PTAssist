@@ -1,0 +1,506 @@
+[13:23:18.064] |-INFO nju.pt.server.AppUI => init()
+[13:23:18.074] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:23:20.457] |-INFO Server_ConfigInitializeLogger => =====================Initialize Server Config Excel=====================
+[13:23:21.275] |-INFO Server_ConfigInitializeLogger => Export team score successfully to ServerData/server_config.xlsx !
+[13:23:21.277] |-ERROR nju.pt.server.AppUI => 已新建配置文件，请先在ServerData中配置服务端配置文件再进入程序！
+[13:24:24.160] |-INFO nju.pt.server.AppUI => init()
+[13:24:24.165] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:24:25.401] |-INFO Config Check Loader => Checking config:
+[13:24:25.402] |-INFO Config Loader => ===================== loadConfigFromExcel =====================
+[13:24:25.430] |-INFO Config Loader => cellValues = [端口号, 7890.0]
+[13:24:25.430] |-INFO Config Loader => port = 7890
+[13:24:25.431] |-INFO Config Loader => cellValues = [每场比赛裁判个数, 5.0]
+[13:24:25.431] |-INFO Config Loader => judgeCount = 5
+[13:24:25.434] |-INFO Config Loader => cellValues = [会场总个数, 21.0]
+[13:24:25.435] |-INFO Config Loader => roomCount = 21
+[13:24:25.436] |-INFO Config Loader => cellValues = [比赛轮数, 4.0]
+[13:24:25.437] |-INFO Config Loader => turns = 21
+[13:24:25.438] |-INFO Config Loader => cellValues = [正方分数权重, 3.0]
+[13:24:25.439] |-INFO Config Loader => roomCount = 3.0
+[13:24:25.440] |-INFO Config Loader => cellValues = [反方分数权重, 2.0]
+[13:24:25.440] |-INFO Config Loader => roomCount = 2.0
+[13:24:25.441] |-INFO Config Loader => cellValues = [评方分数权重, 1.0]
+[13:24:25.442] |-INFO Config Loader => roomCount = 1.0
+[13:24:25.443] |-INFO Config Check Loader => Checking questions:
+[13:24:25.443] |-INFO Question Data Loader => ===================== loadQuestionFromExcel =====================
+[13:24:25.446] |-INFO Question Data Loader => cellValues = [1, 你来发明]
+[13:24:25.446] |-INFO Question Data Loader => Question Map = {1=你来发明}
+[13:24:25.452] |-INFO Config Check Loader => Checking schools & judges:
+[13:24:25.452] |-INFO School Data Loader => ===================== loadSchoolFromExcel =====================
+[13:24:25.454] |-INFO School Data Loader => cellValues = [南京大学, 裁判1, 裁判2, 裁判3]
+[13:24:25.454] |-INFO School Data Loader => School Map = {1=南京大学}
+[13:24:25.455] |-INFO Judge Data Loader => ===================== loadJudgeFromExcel =====================
+[13:24:25.456] |-INFO Judge Data Loader => cellValues = [南京大学, 裁判1, 裁判2, 裁判3]
+[13:24:25.458] |-INFO Judge Data Loader => School Map = {南京大学=[裁判1, 裁判2, 裁判3]}
+[13:24:25.524] |-INFO Config Loader => ===================== loadConfigFromExcel =====================
+[13:24:25.525] |-INFO Config Loader => cellValues = [端口号, 7890.0]
+[13:24:25.525] |-INFO Config Loader => port = 7890
+[13:24:25.528] |-INFO Config Loader => cellValues = [每场比赛裁判个数, 5.0]
+[13:24:25.528] |-INFO Config Loader => judgeCount = 5
+[13:24:25.529] |-INFO Config Loader => cellValues = [会场总个数, 21.0]
+[13:24:25.529] |-INFO Config Loader => roomCount = 21
+[13:24:25.530] |-INFO Config Loader => cellValues = [比赛轮数, 4.0]
+[13:24:25.530] |-INFO Config Loader => turns = 21
+[13:24:25.530] |-INFO Config Loader => cellValues = [正方分数权重, 3.0]
+[13:24:25.531] |-INFO Config Loader => roomCount = 3.0
+[13:24:25.531] |-INFO Config Loader => cellValues = [反方分数权重, 2.0]
+[13:24:25.531] |-INFO Config Loader => roomCount = 2.0
+[13:24:25.532] |-INFO Config Loader => cellValues = [评方分数权重, 1.0]
+[13:24:25.532] |-INFO Config Loader => roomCount = 1.0
+[13:24:25.534] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[13:24:25.535] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:24:25.565] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[13:24:25.569] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:24:26.124] |-INFO nju.pt.server.StartView => build()
+[13:24:26.124] |-INFO nju.pt.server.StartView => init()
+[13:24:26.239] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@3a01b108
+[13:24:26.239] |-INFO nju.pt.server.StartView => layout()
+[13:24:26.240] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@3a01b108
+[13:24:26.240] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:24:28.751] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:24:49.629] |-INFO nju.pt.server.AppUI => Judging whether the json file exists:
+[13:24:49.629] |-INFO nju.pt.server.AppUI => Not exists, loading data from excel...
+[13:24:49.772] |-INFO School Data Loader => ===================== loadSchoolFromExcel =====================
+[13:24:49.773] |-INFO School Data Loader => cellValues = [南京大学, 裁判1, 裁判2, 裁判3]
+[13:24:49.773] |-INFO School Data Loader => School Map = {1=南京大学}
+[13:24:49.773] |-INFO Team Data Loader => ===================== loadTeamFromExcel =====================
+[13:24:49.776] |-INFO Team Data Loader => cellValues = [南京大学, 啦啦啦, 1, 张三, 男, 李四, 女]
+[13:24:49.777] |-INFO Question Data Loader => ===================== loadQuestionFromExcel =====================
+[13:24:49.778] |-INFO Question Data Loader => cellValues = [1, 你来发明]
+[13:24:49.779] |-INFO Question Data Loader => Question Map = {1=你来发明}
+[13:24:49.779] |-INFO School Data Loader => ===================== loadSchoolFromExcel =====================
+[13:24:49.779] |-INFO School Data Loader => cellValues = [南京大学, 裁判1, 裁判2, 裁判3]
+[13:24:49.779] |-INFO School Data Loader => School Map = {1=南京大学}
+[13:24:49.779] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[13:24:49.779] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\ServerData\data.json
+[13:24:49.782] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[13:24:49.782] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:24:49.783] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerData\data.json
+[13:24:49.784] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:24:49.872] |-INFO nju.pt.server.MainView => build(data: Data)
+[13:24:49.894] |-INFO nju.pt.server.MainView => init <<< data = Data(teamDataList=[TeamData(id=1, name=啦啦啦, schoolID=1, playerDataList=[PlayerData(id=1, name=张三, gender=男), PlayerData(id=2, name=李四, gender=女)], recordDataList=[])], questionMap={1=你来发明}, schoolMap={1=南京大学})
+[13:24:49.894] |-INFO nju.pt.server.MainView => init(data: Data)
+[13:24:49.910] |-INFO nju.pt.server.MainView => load schoolNameList [南京大学]
+[13:24:49.910] |-INFO nju.pt.server.MainView => load teamNameList [啦啦啦]
+[13:24:49.911] |-INFO nju.pt.server.MainView => load playerDataList [PlayerData(id=1, name=张三, gender=男), PlayerData(id=2, name=李四, gender=女)]
+[13:24:49.911] |-INFO nju.pt.server.MainView => load recordDataList []
+[13:24:49.911] |-INFO nju.pt.server.MainView => init() return => nju.pt.server.MainView@4d31eb7a
+[13:24:49.912] |-INFO nju.pt.server.MainView => select 0 in teamListView
+[13:24:49.912] |-INFO nju.pt.server.MainView => action()
+[13:24:49.913] |-INFO nju.pt.server.MainView => layout()
+[13:24:49.929] |-INFO nju.pt.server.MainView => SelectedSchool:ListProperty [value: []]
+[13:24:49.929] |-INFO nju.pt.server.MainView => build() return => HBox[id=MainView_rootHBox]
+[13:24:53.941] |-INFO nju.pt.server.AppUI => selected:ListProperty [value: [南京大学]]
+[13:24:53.979] |-INFO nju.pt.server.AppUI => select the first in teamListView
+[13:25:03.580] |-INFO nju.pt.server.AppUI => Save Data
+[13:25:03.580] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[13:25:03.581] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\ServerData\data.json
+[13:25:03.583] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[13:26:54.032] |-INFO nju.pt.server.AppUI => init()
+[13:26:54.037] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:26:54.044] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:26:54.045] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:26:54.052] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:26:54.053] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:26:54.439] |-INFO nju.pt.server.StartView => build()
+[13:26:54.441] |-INFO nju.pt.server.StartView => init()
+[13:26:54.516] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@1a24ba8c
+[13:26:54.516] |-INFO nju.pt.server.StartView => layout()
+[13:26:54.519] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@1a24ba8c
+[13:26:54.519] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:26:56.511] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:27:00.046] |-INFO nju.pt.server.AppUI => Judging whether the json file exists:
+[13:27:00.046] |-INFO nju.pt.server.AppUI => Exists, loading json file...
+[13:27:00.046] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:27:00.046] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerData\data.json
+[13:27:00.047] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:27:00.111] |-INFO nju.pt.server.MainView => build(data: Data)
+[13:27:00.125] |-INFO nju.pt.server.MainView => init <<< data = Data(teamDataList=[TeamData(id=1, name=啦啦啦, schoolID=1, playerDataList=[PlayerData(id=1, name=张三, gender=男), PlayerData(id=2, name=李四, gender=女)], recordDataList=[])], questionMap={1=你来发明}, schoolMap={1=南京大学})
+[13:27:00.125] |-INFO nju.pt.server.MainView => init(data: Data)
+[13:27:00.137] |-INFO nju.pt.server.MainView => load schoolNameList [南京大学]
+[13:27:00.137] |-INFO nju.pt.server.MainView => load teamNameList [啦啦啦]
+[13:27:00.137] |-INFO nju.pt.server.MainView => load playerDataList [PlayerData(id=1, name=张三, gender=男), PlayerData(id=2, name=李四, gender=女)]
+[13:27:00.138] |-INFO nju.pt.server.MainView => load recordDataList []
+[13:27:00.138] |-INFO nju.pt.server.MainView => init() return => nju.pt.server.MainView@6754b60d
+[13:27:00.139] |-INFO nju.pt.server.MainView => select 0 in teamListView
+[13:27:00.139] |-INFO nju.pt.server.MainView => action()
+[13:27:00.140] |-INFO nju.pt.server.MainView => layout()
+[13:27:00.150] |-INFO nju.pt.server.MainView => SelectedSchool:ListProperty [value: []]
+[13:27:00.150] |-INFO nju.pt.server.MainView => build() return => HBox[id=MainView_rootHBox]
+[13:27:06.480] |-INFO nju.pt.server.AppUI => Save Data
+[13:27:06.481] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[13:27:06.481] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\ServerData\data.json
+[13:27:06.506] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[13:32:45.850] |-INFO nju.pt.server.AppUI => init()
+[13:32:45.855] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:32:45.861] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:32:45.861] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:32:45.866] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:32:45.867] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:32:46.347] |-INFO nju.pt.server.StartView => build()
+[13:32:46.347] |-INFO nju.pt.server.StartView => init()
+[13:32:46.414] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@3f174cf8
+[13:32:46.414] |-INFO nju.pt.server.StartView => layout()
+[13:32:46.415] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@3f174cf8
+[13:32:46.415] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:32:47.407] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:35:20.339] |-INFO nju.pt.server.AppUI => init()
+[13:35:20.344] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:35:20.349] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:35:20.349] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:35:20.355] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:35:20.357] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:35:20.850] |-INFO nju.pt.server.StartView => build()
+[13:35:20.850] |-INFO nju.pt.server.StartView => init()
+[13:35:20.940] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@3f174cf8
+[13:35:20.940] |-INFO nju.pt.server.StartView => layout()
+[13:35:20.944] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@3f174cf8
+[13:35:20.945] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:35:24.074] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:35:26.358] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:36:41.344] |-INFO nju.pt.server.AppUI => init()
+[13:36:41.348] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:36:41.353] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:36:41.353] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:36:41.360] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:36:41.363] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:36:41.806] |-INFO nju.pt.server.StartView => build()
+[13:36:41.806] |-INFO nju.pt.server.StartView => init()
+[13:36:41.871] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@3f174cf8
+[13:36:41.872] |-INFO nju.pt.server.StartView => layout()
+[13:36:41.872] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@3f174cf8
+[13:36:41.873] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:36:43.087] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:36:46.270] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:36:46.270] |-INFO nju.pt.net.FileNetServer => set flag = false
+[13:37:46.233] |-INFO nju.pt.server.AppUI => init()
+[13:37:46.237] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:37:46.242] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:37:46.242] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:37:46.247] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:37:46.248] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:37:46.820] |-INFO nju.pt.server.StartView => build()
+[13:37:46.820] |-INFO nju.pt.server.StartView => init()
+[13:37:46.906] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@3f174cf8
+[13:37:46.912] |-INFO nju.pt.server.StartView => layout()
+[13:37:46.913] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@3f174cf8
+[13:37:46.913] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:37:47.994] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:37:50.410] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:37:50.411] |-INFO nju.pt.net.FileNetServer => set flag = false
+[13:39:31.051] |-INFO nju.pt.server.AppUI => init()
+[13:39:31.055] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:39:31.060] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:39:31.060] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:39:31.065] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:39:31.066] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:39:31.426] |-INFO nju.pt.server.StartView => build()
+[13:39:31.426] |-INFO nju.pt.server.StartView => init()
+[13:39:31.540] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@3f174cf8
+[13:39:31.542] |-INFO nju.pt.server.StartView => layout()
+[13:39:31.542] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@3f174cf8
+[13:39:31.543] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:39:32.692] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:39:35.554] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:39:35.554] |-INFO nju.pt.net.FileNetServer => set flag = false
+[13:39:35.576] |-INFO nju.pt.net.FileNetServer => finish shutdown
+[13:44:13.512] |-INFO nju.pt.server.AppUI => init()
+[13:44:13.518] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:44:13.523] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:44:13.523] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:44:13.528] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:44:13.529] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:44:13.539] |-INFO nju.pt.net.FileNetServer => flag = true in Thread-3
+[13:44:13.775] |-INFO nju.pt.server.StartView => build()
+[13:44:13.775] |-INFO nju.pt.server.StartView => init()
+[13:44:13.821] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@3f174cf8
+[13:44:13.822] |-INFO nju.pt.server.StartView => layout()
+[13:44:13.822] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@3f174cf8
+[13:44:13.822] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:44:14.113] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:44:15.853] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:44:15.854] |-INFO nju.pt.net.FileNetServer => set flag = false
+[13:44:15.855] |-INFO nju.pt.net.FileNetServer => flag = false in Thread-3
+[13:44:15.855] |-INFO nju.pt.net.FileNetServer => flag = false in Thread-3
+[13:44:15.874] |-INFO nju.pt.net.FileNetServer => finish shutdown
+[13:44:15.876] |-INFO nju.pt.net.Task => client link: 127.0.0.1:3768
+[13:44:15.877] |-INFO nju.pt.net.Task => 服务端接收请求
+[13:44:16.298] |-INFO nju.pt.net.Task => post = Packet(roomID=0, round=-1, data=null)
+[13:44:16.298] |-INFO nju.pt.net.Task => 服务器关闭
+[13:46:55.862] |-INFO nju.pt.server.AppUI => init()
+[13:46:55.868] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:46:55.873] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:46:55.874] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:46:55.879] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:46:55.880] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:46:56.154] |-INFO nju.pt.server.StartView => build()
+[13:46:56.155] |-INFO nju.pt.server.StartView => init()
+[13:46:56.231] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@1a24ba8c
+[13:46:56.232] |-INFO nju.pt.server.StartView => layout()
+[13:46:56.232] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@1a24ba8c
+[13:46:56.232] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:46:56.542] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:46:58.984] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:46:58.995] |-INFO nju.pt.net.Task => client link: 127.0.0.1:3830
+[13:46:59.003] |-INFO nju.pt.net.Task => 服务端接收请求
+[13:46:59.226] |-INFO nju.pt.net.Task => post = Packet(roomID=0, round=-1, data=null)
+[13:46:59.283] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:46:59.283] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerData\match\Round-1\Room0.json
+[13:46:59.287] |-ERROR JSON Reader => 未找到文件ServerData/match/Round-1/Room0.json: ServerData\match\Round-1\Room0.json (系统找不到指定的路径。)
+[13:46:59.329] |-WARN nju.pt.server.FileRouter => 服务端无法找到文件或该文件已损坏：未找到文件ServerData/match/Round-1/Room0.json: ServerData\match\Round-1\Room0.json (系统找不到指定的路径。)
+[13:46:59.329] |-INFO nju.pt.net.Task => 服务端发送数据
+[13:46:59.329] |-INFO nju.pt.net.Task => msg = Packet(roomID=0, round=-1, data=null)
+[13:48:44.452] |-INFO nju.pt.server.AppUI => init()
+[13:48:44.456] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:48:44.461] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:48:44.461] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:48:44.466] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:48:44.467] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:48:44.693] |-INFO nju.pt.server.StartView => build()
+[13:48:44.694] |-INFO nju.pt.server.StartView => init()
+[13:48:44.742] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@1a24ba8c
+[13:48:44.742] |-INFO nju.pt.server.StartView => layout()
+[13:48:44.742] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@1a24ba8c
+[13:48:44.743] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:48:45.025] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:48:46.549] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:48:46.981] |-INFO nju.pt.net.Task => client link: 127.0.0.1:3901
+[13:48:46.982] |-INFO nju.pt.net.Task => 服务端接收请求
+[13:48:46.991] |-INFO nju.pt.net.Task => InetAddress.getLocalHost() = DESKTOP-L3VDQNK/192.168.31.102
+[13:48:47.021] |-INFO nju.pt.net.Task => post = Packet(roomID=0, round=-1, data=null)
+[13:48:47.029] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:48:47.032] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerData\match\Round-1\Room0.json
+[13:48:47.035] |-ERROR JSON Reader => 未找到文件ServerData/match/Round-1/Room0.json: ServerData\match\Round-1\Room0.json (系统找不到指定的路径。)
+[13:48:47.037] |-WARN nju.pt.server.FileRouter => 服务端无法找到文件或该文件已损坏：未找到文件ServerData/match/Round-1/Room0.json: ServerData\match\Round-1\Room0.json (系统找不到指定的路径。)
+[13:48:47.037] |-INFO nju.pt.net.Task => 服务端发送数据
+[13:48:47.037] |-INFO nju.pt.net.Task => msg = Packet(roomID=0, round=-1, data=null)
+[13:49:21.918] |-INFO nju.pt.server.AppUI => init()
+[13:49:21.922] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:49:21.927] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:49:21.928] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:49:21.934] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:49:21.936] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:49:22.178] |-INFO nju.pt.server.StartView => build()
+[13:49:22.179] |-INFO nju.pt.server.StartView => init()
+[13:49:22.229] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@3f174cf8
+[13:49:22.229] |-INFO nju.pt.server.StartView => layout()
+[13:49:22.230] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@3f174cf8
+[13:49:22.230] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:49:22.520] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:49:24.016] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:49:24.026] |-INFO nju.pt.net.Task => client link: 127.0.0.1:3932
+[13:49:24.042] |-INFO nju.pt.net.Task => 服务端接收请求
+[13:49:24.068] |-INFO nju.pt.net.Task => InetAddress.getLocalHost() = 192.168.31.102
+[13:49:24.094] |-INFO nju.pt.net.Task => post = Packet(roomID=0, round=-1, data=null)
+[13:49:24.101] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:49:24.102] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerData\match\Round-1\Room0.json
+[13:49:24.104] |-ERROR JSON Reader => 未找到文件ServerData/match/Round-1/Room0.json: ServerData\match\Round-1\Room0.json (系统找不到指定的路径。)
+[13:49:24.105] |-WARN nju.pt.server.FileRouter => 服务端无法找到文件或该文件已损坏：未找到文件ServerData/match/Round-1/Room0.json: ServerData\match\Round-1\Room0.json (系统找不到指定的路径。)
+[13:49:24.105] |-INFO nju.pt.net.Task => 服务端发送数据
+[13:49:24.106] |-INFO nju.pt.net.Task => msg = Packet(roomID=0, round=-1, data=null)
+[13:49:48.878] |-INFO nju.pt.server.AppUI => init()
+[13:49:48.881] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:49:48.886] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:49:48.886] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:49:48.891] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:49:48.893] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:49:49.154] |-INFO nju.pt.server.StartView => build()
+[13:49:49.155] |-INFO nju.pt.server.StartView => init()
+[13:49:49.205] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@3f174cf8
+[13:49:49.205] |-INFO nju.pt.server.StartView => layout()
+[13:49:49.205] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@3f174cf8
+[13:49:49.205] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:49:49.487] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:49:51.391] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:49:51.400] |-INFO nju.pt.net.Task => client link: 127.0.0.1:3954
+[13:49:51.411] |-INFO nju.pt.net.Task => 服务端接收请求
+[13:49:51.475] |-INFO nju.pt.net.Task => InetAddress.getLocalHost() = localhost/127.0.0.1
+[13:49:51.520] |-INFO nju.pt.net.Task => post = Packet(roomID=0, round=-1, data=null)
+[13:49:51.539] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:49:51.541] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerData\match\Round-1\Room0.json
+[13:49:51.542] |-ERROR JSON Reader => 未找到文件ServerData/match/Round-1/Room0.json: ServerData\match\Round-1\Room0.json (系统找不到指定的路径。)
+[13:49:51.556] |-WARN nju.pt.server.FileRouter => 服务端无法找到文件或该文件已损坏：未找到文件ServerData/match/Round-1/Room0.json: ServerData\match\Round-1\Room0.json (系统找不到指定的路径。)
+[13:49:51.558] |-INFO nju.pt.net.Task => 服务端发送数据
+[13:49:51.558] |-INFO nju.pt.net.Task => msg = Packet(roomID=0, round=-1, data=null)
+[13:51:05.811] |-INFO nju.pt.server.AppUI => init()
+[13:51:05.815] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:51:05.820] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:51:05.820] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:51:05.826] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:51:05.828] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:51:06.100] |-INFO nju.pt.server.StartView => build()
+[13:51:06.100] |-INFO nju.pt.server.StartView => init()
+[13:51:06.149] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@3f174cf8
+[13:51:06.149] |-INFO nju.pt.server.StartView => layout()
+[13:51:06.150] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@3f174cf8
+[13:51:06.150] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:51:06.443] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:51:07.867] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:51:20.237] |-INFO nju.pt.server.AppUI => init()
+[13:51:20.241] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:51:20.246] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:51:20.246] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:51:20.251] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:51:20.252] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:51:20.526] |-INFO nju.pt.server.StartView => build()
+[13:51:20.526] |-INFO nju.pt.server.StartView => init()
+[13:51:20.575] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@3f174cf8
+[13:51:20.575] |-INFO nju.pt.server.StartView => layout()
+[13:51:20.575] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@3f174cf8
+[13:51:20.576] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:51:20.865] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:51:22.786] |-INFO nju.pt.server.AppUI => Judging whether the json file exists:
+[13:51:22.786] |-INFO nju.pt.server.AppUI => Exists, loading json file...
+[13:51:22.786] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:51:22.787] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerData\data.json
+[13:51:22.787] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:51:22.831] |-INFO nju.pt.server.MainView => build(data: Data)
+[13:51:22.849] |-INFO nju.pt.server.MainView => init <<< data = Data(teamDataList=[TeamData(id=1, name=啦啦啦, schoolID=1, playerDataList=[PlayerData(id=1, name=张三, gender=男), PlayerData(id=2, name=李四, gender=女)], recordDataList=[])], questionMap={1=你来发明}, schoolMap={1=南京大学})
+[13:51:22.850] |-INFO nju.pt.server.MainView => init(data: Data)
+[13:51:22.862] |-INFO nju.pt.server.MainView => load schoolNameList [南京大学]
+[13:51:22.863] |-INFO nju.pt.server.MainView => load teamNameList [啦啦啦]
+[13:51:22.863] |-INFO nju.pt.server.MainView => load playerDataList [PlayerData(id=1, name=张三, gender=男), PlayerData(id=2, name=李四, gender=女)]
+[13:51:22.864] |-INFO nju.pt.server.MainView => load recordDataList []
+[13:51:22.864] |-INFO nju.pt.server.MainView => init() return => nju.pt.server.MainView@d637a7b
+[13:51:22.864] |-INFO nju.pt.server.MainView => select 0 in teamListView
+[13:51:22.865] |-INFO nju.pt.server.MainView => action()
+[13:51:22.866] |-INFO nju.pt.server.MainView => layout()
+[13:51:22.876] |-INFO nju.pt.server.MainView => SelectedSchool:ListProperty [value: []]
+[13:51:22.876] |-INFO nju.pt.server.MainView => build() return => HBox[id=MainView_rootHBox]
+[13:51:27.345] |-INFO nju.pt.server.AppUI => Save Data
+[13:51:27.346] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[13:51:27.346] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\ServerData\data.json
+[13:51:27.365] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[13:51:38.863] |-INFO nju.pt.server.AppUI => init()
+[13:51:38.867] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:51:38.873] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:51:38.873] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:51:38.879] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:51:38.881] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:51:39.207] |-INFO nju.pt.server.StartView => build()
+[13:51:39.208] |-INFO nju.pt.server.StartView => init()
+[13:51:39.257] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@3f174cf8
+[13:51:39.258] |-INFO nju.pt.server.StartView => layout()
+[13:51:39.258] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@3f174cf8
+[13:51:39.258] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:51:39.556] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:51:41.218] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:51:41.226] |-INFO nju.pt.net.Task => client link: 127.0.0.1:4033
+[13:51:41.236] |-INFO nju.pt.net.Task => 服务端接收请求
+[13:51:41.244] |-INFO nju.pt.net.Task => post = Packet(roomID=0, round=-1, data=null)
+[13:51:41.267] |-INFO nju.pt.net.Task => 服务器关闭
+[13:53:01.529] |-INFO nju.pt.server.AppUI => init()
+[13:53:01.533] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:53:01.538] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:53:01.538] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:53:01.543] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:53:01.545] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:53:01.822] |-INFO nju.pt.server.StartView => build()
+[13:53:01.822] |-INFO nju.pt.server.StartView => init()
+[13:53:01.902] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@7ca8e8a0
+[13:53:01.903] |-INFO nju.pt.server.StartView => layout()
+[13:53:01.903] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@7ca8e8a0
+[13:53:01.904] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:53:02.188] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:53:05.139] |-INFO nju.pt.server.AppUI => Judging whether the json file exists:
+[13:53:05.140] |-INFO nju.pt.server.AppUI => Exists, loading json file...
+[13:53:05.140] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:53:05.140] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerData\data.json
+[13:53:05.141] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:53:05.180] |-INFO nju.pt.server.MainView => build(data: Data)
+[13:53:05.192] |-INFO nju.pt.server.MainView => init <<< data = Data(teamDataList=[TeamData(id=1, name=啦啦啦, schoolID=1, playerDataList=[PlayerData(id=1, name=张三, gender=男), PlayerData(id=2, name=李四, gender=女)], recordDataList=[])], questionMap={1=你来发明}, schoolMap={1=南京大学})
+[13:53:05.193] |-INFO nju.pt.server.MainView => init(data: Data)
+[13:53:05.202] |-INFO nju.pt.server.MainView => load schoolNameList [南京大学]
+[13:53:05.203] |-INFO nju.pt.server.MainView => load teamNameList [啦啦啦]
+[13:53:05.203] |-INFO nju.pt.server.MainView => load playerDataList [PlayerData(id=1, name=张三, gender=男), PlayerData(id=2, name=李四, gender=女)]
+[13:53:05.204] |-INFO nju.pt.server.MainView => load recordDataList []
+[13:53:05.204] |-INFO nju.pt.server.MainView => init() return => nju.pt.server.MainView@1e43d12d
+[13:53:05.204] |-INFO nju.pt.server.MainView => select 0 in teamListView
+[13:53:05.204] |-INFO nju.pt.server.MainView => action()
+[13:53:05.205] |-INFO nju.pt.server.MainView => layout()
+[13:53:05.216] |-INFO nju.pt.server.MainView => SelectedSchool:ListProperty [value: []]
+[13:53:05.216] |-INFO nju.pt.server.MainView => build() return => HBox[id=MainView_rootHBox]
+[13:53:11.071] |-INFO nju.pt.server.AppUI => Save Data
+[13:53:11.071] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[13:53:11.072] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\ServerData\data.json
+[13:53:11.092] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[13:54:38.065] |-INFO nju.pt.server.AppUI => init()
+[13:54:38.069] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:54:38.074] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:54:38.075] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:54:38.080] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:54:38.081] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:54:38.345] |-INFO nju.pt.server.StartView => build()
+[13:54:38.345] |-INFO nju.pt.server.StartView => init()
+[13:54:38.396] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@5657b06c
+[13:54:38.396] |-INFO nju.pt.server.StartView => layout()
+[13:54:38.396] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@5657b06c
+[13:54:38.396] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:54:38.677] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:54:44.354] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:54:44.389] |-INFO nju.pt.net.Task => client link: 127.0.0.1:4144
+[13:54:44.391] |-INFO nju.pt.net.Task => 服务端接收请求
+[13:54:44.395] |-INFO nju.pt.net.Task => post = Packet(roomID=0, round=-1, data=null)
+[13:54:44.414] |-INFO nju.pt.net.Task => 服务器关闭
+[13:54:49.715] |-INFO nju.pt.server.AppUI => init()
+[13:54:49.720] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:54:49.727] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:54:49.727] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:54:49.744] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:54:49.746] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:54:50.161] |-INFO nju.pt.server.StartView => build()
+[13:54:50.161] |-INFO nju.pt.server.StartView => init()
+[13:54:50.215] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@29b08a33
+[13:54:50.216] |-INFO nju.pt.server.StartView => layout()
+[13:54:50.216] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@29b08a33
+[13:54:50.217] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:54:50.501] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:54:51.599] |-INFO nju.pt.server.AppUI => Judging whether the json file exists:
+[13:54:51.600] |-INFO nju.pt.server.AppUI => Exists, loading json file...
+[13:54:51.600] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:54:51.600] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerData\data.json
+[13:54:51.601] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:54:51.638] |-INFO nju.pt.server.MainView => build(data: Data)
+[13:54:51.650] |-INFO nju.pt.server.MainView => init <<< data = Data(teamDataList=[TeamData(id=1, name=啦啦啦, schoolID=1, playerDataList=[PlayerData(id=1, name=张三, gender=男), PlayerData(id=2, name=李四, gender=女)], recordDataList=[])], questionMap={1=你来发明}, schoolMap={1=南京大学})
+[13:54:51.650] |-INFO nju.pt.server.MainView => init(data: Data)
+[13:54:51.659] |-INFO nju.pt.server.MainView => load schoolNameList [南京大学]
+[13:54:51.660] |-INFO nju.pt.server.MainView => load teamNameList [啦啦啦]
+[13:54:51.660] |-INFO nju.pt.server.MainView => load playerDataList [PlayerData(id=1, name=张三, gender=男), PlayerData(id=2, name=李四, gender=女)]
+[13:54:51.661] |-INFO nju.pt.server.MainView => load recordDataList []
+[13:54:51.661] |-INFO nju.pt.server.MainView => init() return => nju.pt.server.MainView@72366272
+[13:54:51.661] |-INFO nju.pt.server.MainView => select 0 in teamListView
+[13:54:51.661] |-INFO nju.pt.server.MainView => action()
+[13:54:51.662] |-INFO nju.pt.server.MainView => layout()
+[13:54:51.671] |-INFO nju.pt.server.MainView => SelectedSchool:ListProperty [value: []]
+[13:54:51.672] |-INFO nju.pt.server.MainView => build() return => HBox[id=MainView_rootHBox]
+[13:54:54.584] |-INFO nju.pt.server.AppUI => Save Data
+[13:54:54.585] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[13:54:54.585] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\ServerData\data.json
+[13:54:54.606] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[13:54:54.626] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:54:54.640] |-INFO nju.pt.net.Task => client link: 127.0.0.1:4161
+[13:54:54.642] |-INFO nju.pt.net.Task => 服务端接收请求
+[13:54:54.647] |-INFO nju.pt.net.Task => post = Packet(roomID=0, round=-1, data=null)
+[13:54:54.662] |-INFO nju.pt.net.Task => 服务器关闭
+[13:55:01.282] |-INFO nju.pt.server.AppUI => init()
+[13:55:01.290] |-INFO nju.pt.server.AppUI => checking configuration file...
+[13:55:01.297] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[13:55:01.298] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\ServerCache\config_data.json
+[13:55:01.305] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[13:55:01.307] |-INFO nju.pt.net.FileNetServer => ===================== FileNetServer =====================
+[13:55:01.744] |-INFO nju.pt.server.StartView => build()
+[13:55:01.744] |-INFO nju.pt.server.StartView => init()
+[13:55:01.799] |-INFO nju.pt.server.StartView => init() return => nju.pt.server.StartView@5657b06c
+[13:55:01.799] |-INFO nju.pt.server.StartView => layout()
+[13:55:01.800] |-INFO nju.pt.server.StartView => layout() return => nju.pt.server.StartView@5657b06c
+[13:55:01.800] |-INFO nju.pt.server.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[13:55:02.078] |-INFO nju.pt.server.AppUI => 完成UI构建，展示Start界面
+[13:55:09.658] |-INFO nju.pt.server.SettingView => build(config:Config)
+[13:55:09.658] |-INFO nju.pt.server.SettingView => init(config: Config)
+[13:55:09.663] |-INFO nju.pt.server.SettingView => layout()
+[13:55:09.666] |-INFO nju.pt.server.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[13:55:21.079] |-INFO nju.pt.net.FileNetServer => shutdown
+[13:55:21.096] |-INFO nju.pt.net.Task => client link: 127.0.0.1:4175
+[13:55:21.108] |-INFO nju.pt.net.Task => 服务端接收请求
+[13:55:21.112] |-INFO nju.pt.net.Task => post = Packet(roomID=0, round=-1, data=null)
+[13:55:21.128] |-INFO nju.pt.net.Task => 服务器关闭
