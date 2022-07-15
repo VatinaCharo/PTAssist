@@ -24,19 +24,23 @@ class ExportExcel(private val data: Data, saveDirPath: String) {
             logger.error("导出excel文件夹路径错误！")
             throw Exception("导出excel文件夹路径错误！")
         }
+        logger.info("data:$data")
     }
+
+
 
     //获知该数据中有多少轮，以此来命名输出文件名
-    private val roundName = data.teamDataList[0].recordDataList.map { it.round }.toSortedSet().let { it ->
-        var string = ""
-        it.forEach {
-            string += "$it&"
+    private val roundName =
+        data.teamDataList.asSequence().map { it.recordDataList }.flatten().map { it.round }.toSortedSet().let { it ->
+            var string = ""
+            it.forEach {
+                string += "$it&"
+            }
+            string.dropLast(1)
         }
-        string.dropLast(1)
-    }
 
     //导出文件路径
-    val savePath = when (saveDirPath.endsWith("/")) {
+    private val savePath = when (saveDirPath.endsWith("/")) {
         true -> saveDirPath + "第${roundName}轮成绩.xlsx"
         else -> saveDirPath + "/第${roundName}轮成绩.xlsx"
     }
@@ -72,11 +76,11 @@ class ExportExcel(private val data: Data, saveDirPath: String) {
                         setCellValue("学校名")
                         cellStyle = titleStyle
                     }
-                    createCell(1).apply{
+                    createCell(1).apply {
                         setCellValue("队伍名")
                         cellStyle = titleStyle
                     }
-                    createCell(2).apply{
+                    createCell(2).apply {
                         setCellValue("总得分")
                         cellStyle = titleStyle
                     }
@@ -137,17 +141,17 @@ class ExportExcel(private val data: Data, saveDirPath: String) {
             createSheet("回顾表").apply {
                 //标题行
                 this.createRow(0).apply {
-                    createCell(0).apply{
+                    createCell(0).apply {
                         setCellValue("学校名")
                         cellStyle = titleStyle
                     }
-                    createCell(1).apply{
+                    createCell(1).apply {
                         setCellValue("队伍名")
                         cellStyle = titleStyle
                     }
 
                     data.questionMap.forEach { (qId, qName) ->
-                        createCell(qColumnIndex).apply{
+                        createCell(qColumnIndex).apply {
                             setCellValue("${qId}${qName}")
                             cellStyle = titleStyle
                         }
@@ -212,43 +216,43 @@ class ExportExcel(private val data: Data, saveDirPath: String) {
             createSheet("个人得分").apply {
                 //标题行
                 this.createRow(0).apply {
-                    createCell(0).apply{
+                    createCell(0).apply {
                         setCellValue("学校名")
                         cellStyle = titleStyle
                     }
-                    createCell(1).apply{
+                    createCell(1).apply {
                         setCellValue("队伍名")
                         cellStyle = titleStyle
                     }
-                    createCell(2).apply{
+                    createCell(2).apply {
                         setCellValue("队员名")
                         cellStyle = titleStyle
                     }
-                    createCell(3).apply{
+                    createCell(3).apply {
                         setCellValue("队员性别")
                         cellStyle = titleStyle
                     }
-                    createCell(4).apply{
+                    createCell(4).apply {
                         setCellValue("正方得分情况")
                         cellStyle = titleStyle
                     }
-                    createCell(5).apply{
+                    createCell(5).apply {
                         setCellValue("正方平均分")
                         cellStyle = titleStyle
                     }
-                    createCell(6).apply{
+                    createCell(6).apply {
                         setCellValue("反方得分情况")
                         cellStyle = titleStyle
                     }
-                    createCell(7).apply{
+                    createCell(7).apply {
                         setCellValue("反方平均分")
                         cellStyle = titleStyle
                     }
-                    createCell(8).apply{
+                    createCell(8).apply {
                         setCellValue("评方得分情况")
                         cellStyle = titleStyle
                     }
-                    createCell(9).apply{
+                    createCell(9).apply {
                         setCellValue("评方平均分")
                         cellStyle = titleStyle
                     }
