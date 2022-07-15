@@ -5,7 +5,7 @@ import java.util.concurrent.ArrayBlockingQueue
 
 
 object R {
-    const val VERSION = "v0.1.0a"
+    const val VERSION = "v0.1.0"
 
     val DEFAULT_CSS_PATH = R::class.java.getResource("assets/Element.css")?.toExternalForm()
     val SPECIAL_CSS_PATH = R::class.java.getResource("assets/Special.css")?.toExternalForm()
