@@ -1,8 +1,11 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm'
     id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'application'
 }
-
+application {
+    mainClassName("nju.pt.client.MainKt")
+}
 group = 'nju.pt'
 version = '1.0-SNAPSHOT'
 

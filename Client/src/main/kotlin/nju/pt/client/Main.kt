@@ -13,7 +13,6 @@ import nju.pt.databaseassist.Data
 import nju.pt.databaseassist.JsonHelper
 import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.RecordData
-import nju.pt.kotlin.ext.mkdirIfEmpty
 import nju.pt.kotlin.ext.rotate
 import nju.pt.net.FileNetClient
 import nju.pt.net.Packet
@@ -32,9 +31,9 @@ enum class MatchState {
 
 class AppUI : Application() {
     private val logger = LoggerFactory.getLogger(this::class.java)
-    private val configFile = File(R.SETTING_JSON_PATH).mkdirIfEmpty()
-    private val dataFile = File(R.DATA_JSON_PATH).mkdirIfEmpty()
-    private val cacheFile = File(R.CACHE_JSON_PATH).mkdirIfEmpty()
+    private val configFile = File(R.SETTING_JSON_PATH)
+    private val dataFile = File(R.DATA_JSON_PATH)
+    private val cacheFile = File(R.CACHE_JSON_PATH)
     private lateinit var data: Data
     private lateinit var cache: Cache
     private lateinit var config: Config
@@ -42,6 +41,19 @@ class AppUI : Application() {
     private val refusedQuestionIDList = mutableListOf<Int>()
     private val roundPlayerRecordList = mutableListOf<PlayerData>()
     private var state = MatchState.QUESTION
+
+    override fun init() {
+        super.init()
+        if (!configFile.exists()) {
+            configFile.parentFile.mkdirs()
+        }
+        if (!dataFile.exists()) {
+            dataFile.parentFile.mkdirs()
+        }
+        if (!cacheFile.exists()) {
+            cacheFile.parentFile.mkdirs()
+        }
+    }
 
     override fun start(primaryStage: Stage) {
         // 获取配置文件
