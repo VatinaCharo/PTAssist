@@ -6,6 +6,7 @@ import kotlinx.serialization.json.Json
 import org.slf4j.LoggerFactory
 import java.io.DataInputStream
 import java.io.DataOutputStream
+import java.io.EOFException
 import java.net.InetAddress
 import java.net.ServerSocket
 import java.net.Socket
@@ -86,18 +87,23 @@ class FileNetClient(private val ip: String, private val port: Int) {
     fun download(postPacket: Packet): Packet {
         Socket(ip, port).use { socket ->
             // DataIOStream不要用use自动释放资源，因为会顺手关闭socket
-            DataOutputStream(socket.getOutputStream()).apply {
-                val post = Json.encodeToString(postPacket)
-                logger.info("客户端发送请求")
-                logger.info("post = $post")
-                writeUTF(post)
-                flush()
-            }
-            DataInputStream(socket.getInputStream()).apply {
-                logger.info("客户端接收数据")
-                val packet = Json.decodeFromString<Packet>(readUTF())
-                logger.info("packet = $packet")
-                return packet
+            try {
+                DataOutputStream(socket.getOutputStream()).apply {
+                    val post = Json.encodeToString(postPacket)
+                    logger.info("客户端发送请求")
+                    logger.info("post = $post")
+                    writeUTF(post)
+                    flush()
+                }
+                DataInputStream(socket.getInputStream()).apply {
+                    logger.info("客户端接收数据")
+                    val packet = Json.decodeFromString<Packet>(readUTF())
+                    logger.info("packet = $packet")
+                    return packet
+                }
+            } catch (e: EOFException) {
+                logger.error("未收到服务器端发送的数据文件，或服务器端未发送了纯空文件EOF")
+                return postPacket
             }
         }
     }

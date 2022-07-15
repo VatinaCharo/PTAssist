@@ -148,8 +148,11 @@ class AppUI : Application() {
                                 }
                             } else {
                                 Platform.runLater {
+                                    logger.info("数据下载完毕")
                                     JsonHelper.toJson(packet.data, R.DATA_JSON_PATH)
                                     File(R.CACHE_JSON_PATH).delete()
+                                    PopupView.info("数据下载完毕")
+                                    popupStage.show()
                                 }
                             }
                         }.start()
