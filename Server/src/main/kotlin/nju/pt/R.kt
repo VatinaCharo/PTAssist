@@ -3,6 +3,7 @@ package nju.pt
 import java.io.File
 import java.util.concurrent.ArrayBlockingQueue
 
+
 object R {
     const val VERSION = "v0.1.0a"
 
@@ -34,5 +35,9 @@ object R {
     const val SERVER_SEND_FILE_DIR_PATH = "$SERVER_DATA_DIR_PATH/match"
     const val SERVER_BACKUP_FILE_DIR_PATH = "$SERVER_DATA_DIR_PATH/backup"
     const val SERVER_ACCEPT_FILE_TEMP_DIR_PATH = "$SERVER_DATA_DIR_PATH/.temp"
-    val ROOM_DATA_UPDATE_QUEUE = ArrayBlockingQueue<Int>(100, true)
+//    val ROOM_DATA_UPDATE_QUEUE = ArrayBlockingQueue<Int>(100, true)
+
+//    init {
+//        nju.pt.net.R.initialize(SERVER_SEND_FILE_DIR_PATH,SERVER_ACCEPT_FILE_TEMP_DIR_PATH)
+//    }
 }
