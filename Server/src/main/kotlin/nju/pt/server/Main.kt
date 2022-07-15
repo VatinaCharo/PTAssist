@@ -100,7 +100,7 @@ class AppUI : Application() {
 
         fileNetServer = FileNetServer(Config.port, FileRouter())
         // 启动文件接收线程
-        Thread(fileNetServer).start()
+        fileNetServer.service().start()
     }
 
     override fun start(primaryStage: Stage) {
@@ -197,7 +197,7 @@ class AppUI : Application() {
                                 }
                             }
                         }
-                    }.show()
+                    }
                 } catch (e: Exception) {
                     logger.error(e.message)
                     startAlert.apply {
@@ -405,11 +405,10 @@ class AppUI : Application() {
         }
 
         logger.info("完成UI构建，展示Start界面")
-
     }
 
     override fun stop() {
-        fileNetServer.close()
+        fileNetServer.shutdown()
         super.stop()
     }
 }

@@ -6,23 +6,27 @@ import kotlinx.serialization.json.Json
 import org.slf4j.LoggerFactory
 import java.io.DataInputStream
 import java.io.DataOutputStream
-import java.net.Inet4Address
+import java.net.InetAddress
 import java.net.ServerSocket
 import java.net.Socket
 
-class FileNetServer(private val port: Int, private val fileRouter: FileRouterInterface) : Runnable {
+class FileNetServer(private val port: Int, private val fileRouter: FileRouterInterface) {
     private val logger = LoggerFactory.getLogger(this::class.java)
     private var flag = true
 
-    override fun run() {
+    fun service(): Thread {
         logger.info("===================== FileNetServer =====================")
         val server = ServerSocket(port)
-        while (flag) {
-            Thread { Task(server.accept(), fileRouter) }.start()
+        return Thread() {
+            while (flag) {
+                // 此处的Thread()不要写作了Thread{}，否则会关不掉
+                Thread(Task(server.accept(), fileRouter)).start()
+            }
         }
     }
 
-    fun close() {
+    fun shutdown() {
+        logger.info("shutdown")
         flag = false
         // 自行连接Server Socket 用于中断accept的线程阻塞状态 进而关闭服务器的线程
         Socket("127.0.0.1", port).use { socket ->
@@ -43,7 +47,8 @@ class Task(private val socket: Socket, private val fileRouter: FileRouterInterfa
                 val post = Json.decodeFromString<Packet>(dis.readUTF())
                 logger.info("服务端接收请求")
                 logger.info("post = $post")
-                if (post.roomID == 0 && post.round == -1 && it.inetAddress == Inet4Address.getLocalHost()) {
+                // 利用回环地址筛出合法的自身的关闭请求
+                if (post.roomID == 0 && post.round == -1 && it.inetAddress == InetAddress.getLoopbackAddress()) {
                     logger.info("服务器关闭")
                 } else {
                     if (post.data == null) {
