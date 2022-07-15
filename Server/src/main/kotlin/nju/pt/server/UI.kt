@@ -305,7 +305,9 @@ object MainView {
                 it.rowValue.weight = it.newValue.toDouble()
             }
         }
-        val schoolNameList = data.schoolMap.values
+        val schoolNameList = data.schoolMap.keys.filter {
+            it in data.teamDataList.map { it.schoolID }
+        }.map { data.schoolMap[it] }
         schoolListView.apply {
             items.addAll(schoolNameList)
             selectionModel.selectionMode = SelectionMode.MULTIPLE
