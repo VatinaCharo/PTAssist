@@ -368,7 +368,7 @@ class AppUI : Application() {
                     MatchState.NEXT -> {
                         if (cache.phase > cache.endPhase) {
                             primaryStage.apply {
-                                scene = Scene(StartView.build()).apply {
+                                scene = Scene(StartView.rootStackPane).apply {
                                     stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
                                 }
                                 icons.add(Image(R.LOGO_PATH))
