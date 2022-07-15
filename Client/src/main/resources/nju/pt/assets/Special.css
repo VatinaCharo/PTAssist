@@ -104,6 +104,18 @@
     -fx-background-color: #c7daff;
 }
 
+#SettingView_roundTypeCB > .combo-box-popup .list-view {
+    -fx-pref-width: 120px;
+}
+
+#SettingView_ruleTypeCB > .combo-box-popup .list-view {
+    -fx-pref-width: 80px;
+}
+
+#SettingView_modeCB > .combo-box-popup .list-view {
+    -fx-pref-width: 100px;
+}
+
 #PopupView_rootGridPane {
     -fx-hgap: 20px;
     -fx-vgap: 10px;

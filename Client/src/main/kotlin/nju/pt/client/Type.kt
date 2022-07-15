@@ -16,7 +16,7 @@ enum class QuestionType {
     override fun toString(): String {
         return when (this) {
             OPTIONAL -> "P"
-            REPORTED -> "nju.pt.net.R"
+            REPORTED -> "R"
             OPPOSED -> "O"
             REFUSED -> "X"
         }
@@ -30,7 +30,14 @@ enum class RuleType {
 
 enum class RoundType(s: String) {
     NORMAL("正常模式"),
-    SPECIAL("自选题模式")
+    SPECIAL("自选题模式");
+
+    override fun toString(): String {
+        return when (this) {
+            NORMAL -> "正常模式"
+            SPECIAL -> "自选题模式"
+        }
+    }
 }
 
 enum class WorkMode {

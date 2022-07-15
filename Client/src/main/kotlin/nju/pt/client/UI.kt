@@ -228,12 +228,12 @@ object SettingView {
     private val roundTF = TextField()
     private val judgeCountLabel = Label("裁判数:")
     private val judgeCountTF = TextField()
-    private val ruleTypeLabel = Label("规则:")
-    private val ruleTypeCB = ComboBox<RuleType>()
     private val roundTypeLabel = Label("本轮比赛类型:")
-    private val roundTypeCB = ComboBox<String>()
+    private val roundTypeCB = ComboBox<String>().apply { id = "SettingView_roundTypeCB" }
+    private val ruleTypeLabel = Label("规则:")
+    private val ruleTypeCB = ComboBox<RuleType>().apply { id = "SettingView_ruleTypeCB" }
     private val modeLabel = Label("工作模式:")
-    private val modeCB = ComboBox<WorkMode>()
+    private val modeCB = ComboBox<WorkMode>().apply { id = "SettingView_modeCB" }
     val saveBtn = Button("保存").apply { id = "SettingView_saveBtn" }
 
     private fun init(config: Config) {
@@ -329,6 +329,14 @@ object SettingView {
         return rootGridPane
     }
 
+    private fun getRoundType(value: String) = when (value) {
+        "正常模式" -> RoundType.NORMAL
+        "自选题模式" -> RoundType.SPECIAL
+        else -> {
+            TODO("Not yet implement")
+        }
+    }
+
     fun saveConfig() =
         Config(
             ipTF.text,
@@ -336,7 +344,7 @@ object SettingView {
             roomIDTF.text.toInt(),
             roundTF.text.toInt(),
             judgeCountTF.text.toInt(),
-            RoundType.valueOf(roundTypeCB.value),
+            getRoundType(roundTypeCB.value),
             ruleTypeCB.value,
             modeCB.value
         )
