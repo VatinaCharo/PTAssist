@@ -148,6 +148,7 @@ data class Data(
                 val teamData = this.teamDataList.first{it.id == teamId}
                 if (teamId in newTeamIdList){
                     teamData.recordDataList += newData.teamDataList.first{it.id == teamId}.recordDataList
+                    teamData.recordDataList = teamData.recordDataList.distinct().toMutableList()
                 }
                 totalTeamDataList.add(teamData)
             }else{
