@@ -1,75 +1,51 @@
 {
     "teamDataList": [
         {
-            "id": 3,
-            "name": "3.0",
+            "id": 5,
+            "name": "5.0",
             "schoolID": 1,
             "playerDataList": [
                 {
-                    "id": 5,
+                    "id": 9,
                     "name": "张三",
                     "gender": "男"
                 },
                 {
-                    "id": 6,
+                    "id": 10,
                     "name": "李四",
                     "gender": "女"
-                }
-            ],
-            "recordDataList": [
-                {
-                    "round": 1,
-                    "phase": 1,
-                    "roomID": 1,
-                    "questionID": 1,
-                    "masterID": 5,
-                    "role": "R",
-                    "score": 1.0,
-                    "weight": 1.0
                 }
             ]
         },
         {
-            "id": 6,
-            "name": "6.0",
-            "schoolID": 1,
-            "playerDataList": [
-                {
-                    "id": 11,
-                    "name": "张三",
-                    "gender": "男"
-                },
-                {
-                    "id": 12,
-                    "name": "李四",
-                    "gender": "女"
-                }
-            ],
-            "recordDataList": [
-                {
-                    "round": 2,
-                    "phase": 1,
-                    "roomID": 1,
-                    "questionID": 1,
-                    "masterID": 11,
-                    "role": "R",
-                    "score": 1.0,
-                    "weight": 1.0
-                }
-            ]
-        },
-        {
-            "id": 14,
-            "name": "14.0",
+            "id": 9,
+            "name": "9.0",
             "schoolID": 2,
             "playerDataList": [
                 {
-                    "id": 27,
+                    "id": 17,
                     "name": "张三",
                     "gender": "男"
                 },
                 {
-                    "id": 28,
+                    "id": 18,
+                    "name": "李四",
+                    "gender": "女"
+                }
+            ]
+        },
+        {
+            "id": 13,
+            "name": "13.0",
+            "schoolID": 2,
+            "playerDataList": [
+                {
+                    "id": 25,
+                    "name": "张三",
+                    "gender": "男"
+                },
+                {
+                    "id": 26,
                     "name": "李四",
                     "gender": "女"
                 }

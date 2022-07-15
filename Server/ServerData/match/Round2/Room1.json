@@ -1,17 +1,17 @@
 {
     "teamDataList": [
         {
-            "id": 2,
-            "name": "2.0",
+            "id": 3,
+            "name": "3.0",
             "schoolID": 1,
             "playerDataList": [
                 {
-                    "id": 3,
+                    "id": 5,
                     "name": "张三",
                     "gender": "男"
                 },
                 {
-                    "id": 4,
+                    "id": 6,
                     "name": "李四",
                     "gender": "女"
                 }
@@ -22,7 +22,7 @@
                     "phase": 1,
                     "roomID": 1,
                     "questionID": 1,
-                    "masterID": 3,
+                    "masterID": 5,
                     "role": "R",
                     "score": 1.0,
                     "weight": 1.0
@@ -30,34 +30,34 @@
             ]
         },
         {
-            "id": 10,
-            "name": "10.0",
-            "schoolID": 2,
+            "id": 7,
+            "name": "7.0",
+            "schoolID": 1,
             "playerDataList": [
                 {
-                    "id": 19,
+                    "id": 13,
                     "name": "张三",
                     "gender": "男"
                 },
                 {
-                    "id": 20,
+                    "id": 14,
                     "name": "李四",
                     "gender": "女"
                 }
             ]
         },
         {
-            "id": 13,
-            "name": "13.0",
+            "id": 11,
+            "name": "11.0",
             "schoolID": 2,
             "playerDataList": [
                 {
-                    "id": 25,
+                    "id": 21,
                     "name": "张三",
                     "gender": "男"
                 },
                 {
-                    "id": 26,
+                    "id": 22,
                     "name": "李四",
                     "gender": "女"
                 }
