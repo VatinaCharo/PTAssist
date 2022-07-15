@@ -397,8 +397,6 @@ class AppUI : Application() {
                                 scene = Scene(StartView.build()).apply {
                                     stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
                                 }
-                                icons.add(Image(R.LOGO_PATH))
-                                title = "PTAssist"
                             }
                         } else {
                             matchUILoad(rule)

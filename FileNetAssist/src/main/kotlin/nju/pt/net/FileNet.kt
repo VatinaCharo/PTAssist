@@ -17,7 +17,7 @@ class FileNetServer(private val port: Int, private val fileRouter: FileRouterInt
     fun service(): Thread {
         logger.info("===================== FileNetServer =====================")
         val server = ServerSocket(port)
-        return Thread() {
+        return Thread {
             while (flag) {
                 // 此处的Thread()不要写作了Thread{}，否则会关不掉
                 Thread(Task(server.accept(), fileRouter)).start()
@@ -53,9 +53,10 @@ class Task(private val socket: Socket, private val fileRouter: FileRouterInterfa
                 } else {
                     if (post.data == null) {
                         DataOutputStream(it.getOutputStream()).use { dos ->
-                            val msg = fileRouter.getPacket(post)
+                            val msg = Json.encodeToString(fileRouter.getPacket(post))
                             logger.info("服务端发送数据")
                             logger.info("msg = $msg")
+                            dos.writeUTF(msg)
                             dos.flush()
                         }
                     } else {
@@ -84,16 +85,17 @@ class FileNetClient(private val ip: String, private val port: Int) {
 
     fun download(postPacket: Packet): Packet {
         Socket(ip, port).use { socket ->
-            DataOutputStream(socket.getOutputStream()).use { dos ->
+            // DataIOStream不要用use自动释放资源，因为会顺手关闭socket
+            DataOutputStream(socket.getOutputStream()).apply {
                 val post = Json.encodeToString(postPacket)
                 logger.info("客户端发送请求")
                 logger.info("post = $post")
-                dos.writeUTF(post)
-                dos.flush()
+                writeUTF(post)
+                flush()
             }
-            DataInputStream(socket.getInputStream()).use { dis ->
-                val packet = Json.decodeFromString<Packet>(dis.readUTF())
+            DataInputStream(socket.getInputStream()).apply {
                 logger.info("客户端接收数据")
+                val packet = Json.decodeFromString<Packet>(readUTF())
                 logger.info("packet = $packet")
                 return packet
             }

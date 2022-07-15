@@ -1,125 +1,131 @@
 {
     "teamDataList": [
         {
-            "id": 1,
-            "name": "德玛西亚",
-            "schoolID": 1,
-            "playerDataList": [
-                {
-                    "id": 1,
-                    "name": "张三",
-                    "gender": "男"
-                },
-                {
-                    "id": 2,
-                    "name": "李四",
-                    "gender": "女"
-                }
-            ],
-            "recordDataList": [
-                {
-                    "round": 1,
-                    "phase": 1,
-                    "roomID": 1,
-                    "questionID": 4,
-                    "masterID": 1,
-                    "role": "R",
-                    "score": 0.125,
-                    "weight": 3.0
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "name": "啦啦啦",
-            "schoolID": 1,
-            "playerDataList": [
-                {
-                    "id": 3,
-                    "name": "阿三",
-                    "gender": "男"
-                },
-                {
-                    "id": 4,
-                    "name": "阿四",
-                    "gender": "女"
-                }
-            ],
-            "recordDataList": [
-                {
-                    "round": 1,
-                    "phase": 1,
-                    "roomID": 1,
-                    "questionID": 4,
-                    "masterID": 4,
-                    "role": "O",
-                    "score": 0.25,
-                    "weight": 2.0
-                }
-            ]
-        },
-        {
             "id": 3,
-            "name": "呜呜呜",
-            "schoolID": 2,
+            "name": "旺旺 WON ONE",
+            "schoolID": 11,
             "playerDataList": [
                 {
-                    "id": 5,
-                    "name": "李三",
+                    "id": 11,
+                    "name": "吴世凡",
                     "gender": "男"
                 },
                 {
-                    "id": 6,
-                    "name": "李四",
-                    "gender": "女"
-                }
-            ],
-            "recordDataList": [
+                    "id": 12,
+                    "name": "黄润涵",
+                    "gender": "男"
+                },
                 {
-                    "round": 1,
-                    "phase": 1,
-                    "roomID": 1,
-                    "questionID": 4,
-                    "masterID": 5,
-                    "role": "V",
-                    "score": 0.25,
-                    "weight": 1.0
+                    "id": 13,
+                    "name": "卢奕轩",
+                    "gender": "男"
+                },
+                {
+                    "id": 14,
+                    "name": "黄子宸",
+                    "gender": "男"
                 }
             ]
         },
         {
-            "id": 5,
-            "name": "小火车",
-            "schoolID": 2,
+            "id": 7,
+            "name": "自然哲学队",
+            "schoolID": 9,
             "playerDataList": [
                 {
-                    "id": 7,
-                    "name": "王二",
+                    "id": 29,
+                    "name": "刘培锐",
                     "gender": "男"
                 },
                 {
-                    "id": 8,
-                    "name": "麻子",
-                    "gender": "女"
+                    "id": 30,
+                    "name": "袁浩文",
+                    "gender": "男"
+                },
+                {
+                    "id": 31,
+                    "name": "罗欣",
+                    "gender": "男"
+                },
+                {
+                    "id": 32,
+                    "name": "李祖奇",
+                    "gender": "男"
+                },
+                {
+                    "id": 33,
+                    "name": "曾旭苒",
+                    "gender": "男"
+                }
+            ]
+        },
+        {
+            "id": 11,
+            "name": "MISSION队",
+            "schoolID": 9,
+            "playerDataList": [
+                {
+                    "id": 49,
+                    "name": "耿祥瑞",
+                    "gender": "男"
+                },
+                {
+                    "id": 50,
+                    "name": "樊昌硕",
+                    "gender": "男"
+                },
+                {
+                    "id": 51,
+                    "name": "王冬挺",
+                    "gender": "男"
+                },
+                {
+                    "id": 52,
+                    "name": "吴程远",
+                    "gender": "男"
+                },
+                {
+                    "id": 53,
+                    "name": "黄思禹",
+                    "gender": "男"
                 }
             ]
         }
     ],
     "questionMap": {
-        "1": "你来发明",
-        "2": "我来发明",
-        "3": "他来发明",
-        "4": "她来发明",
-        "5": "它来发明",
-        "6": "TA来发明",
-        "10": "左左右右上上下下ABAB",
-        "11": "AAAA",
-        "12": "BBBB",
-        "13": "XXXX",
-        "14": "YYYY"
+        "1": "Invent Yourself 自己发明",
+        "2": "Rayleigh Disk 瑞利盘",
+        "3": "Ring on the Rod 棒上环",
+        "4": "Unsinkable Disk 永不沉没的圆盘",
+        "5": "Bimetallic Oscillator 双金属振荡器",
+        "6": "Tennis Ball Tower 网球塔",
+        "7": "Three-Sided Dice 圆柱形骰子",
+        "8": "Equipotential Lines 等势线",
+        "9": "Water Spiral 水螺旋",
+        "10": "Droplet Explosion  液滴爆炸",
+        "11": "Balls on an Elastic Band 橡皮筋上的球",
+        "12": "Strange Motion 奇怪的运动",
+        "13": "Candle Powered Turbine 蜡烛动力涡旋机",
+        "14": "Ball on Membrane 膜上球",
+        "15": "Boycott Effect 抵制作用",
+        "16": "Saving Honey 拯救蜂蜜",
+        "17": "Invisibility 隐形"
     },
     "schoolMap": {
-        "1": "南京大学",
-        "2": "北京大学"
+        "1": "东南大学",
+        "2": "江苏师范大学",
+        "3": "南京航空航天大学",
+        "4": "南京农业大学",
+        "5": "南京师范大学",
+        "6": "苏州大学",
+        "7": "南京大学",
+        "8": "江苏省前黄高级中学",
+        "9": "四川省温江中学",
+        "10": "南京外国语学校",
+        "11": "南京市第十三中学",
+        "12": "南京市第五高级中学",
+        "13": "南京师范大学附属中学",
+        "14": "四川省成都市新都一中",
+        "15": "南京市金陵中学"
     }
 }

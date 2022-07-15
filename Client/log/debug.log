@@ -499,3 +499,157 @@
 [11:04:34.896] |-INFO nju.pt.client.PopupView => init()
 [11:04:34.896] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
 [11:04:37.134] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[14:58:12.100] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[14:58:12.104] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[14:58:12.227] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[14:58:12.362] |-INFO nju.pt.client.StartView => build()
+[14:58:12.375] |-INFO nju.pt.client.StartView => init()
+[14:58:12.406] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[14:58:12.406] |-INFO nju.pt.client.StartView => layout()
+[14:58:12.407] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[14:58:12.407] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[14:58:12.771] |-INFO nju.pt.client.SettingView => build(config:Config)
+[14:58:12.771] |-INFO nju.pt.client.SettingView => init(config: Config)
+[14:58:12.802] |-INFO nju.pt.client.SettingView => layout()
+[14:58:12.805] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[14:58:12.828] |-INFO nju.pt.client.AboutView => init()
+[14:58:12.839] |-INFO nju.pt.client.PopupView => build()
+[14:58:12.839] |-INFO nju.pt.client.PopupView => init()
+[14:58:12.840] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[14:58:20.562] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[14:58:28.955] |-INFO nju.pt.client.AppUI => 保存配置文件
+[14:58:28.956] |-INFO nju.pt.client.AppUI => JsonHelper.toJson(config, R.SETTING_JSON_PATH)
+[14:58:28.973] |-INFO nju.pt.client.AppUI => newConfig = Config(ip=127.0.0.1, port=7890, roomID=1, round=1, judgeCount=7, roundType=正常模式, rule=JSYPT, mode=ONLINE)
+[14:58:28.973] |-INFO nju.pt.client.AppUI => R.SETTING_JSON_PATH = config/setting.json
+[14:58:28.973] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[14:58:28.973] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[14:58:28.998] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[14:58:28.998] |-INFO nju.pt.client.AppUI => 关闭设置界面
+[14:58:30.701] |-INFO nju.pt.client.AppUI => 开始下载数据文件
+[14:58:30.710] |-INFO nju.pt.net.FileNetClient => 客户端发送请求
+[14:58:30.711] |-INFO nju.pt.net.FileNetClient => post = {"roomID":1,"round":1,"data":null}
+[15:02:30.959] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:02:30.963] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[15:02:31.119] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:02:31.327] |-INFO nju.pt.client.StartView => build()
+[15:02:31.327] |-INFO nju.pt.client.StartView => init()
+[15:02:31.365] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@6e6111cd
+[15:02:31.366] |-INFO nju.pt.client.StartView => layout()
+[15:02:31.366] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@6e6111cd
+[15:02:31.366] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[15:02:31.815] |-INFO nju.pt.client.SettingView => build(config:Config)
+[15:02:31.815] |-INFO nju.pt.client.SettingView => init(config: Config)
+[15:02:31.836] |-INFO nju.pt.client.SettingView => layout()
+[15:02:31.840] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[15:02:31.857] |-INFO nju.pt.client.AboutView => init()
+[15:02:31.868] |-INFO nju.pt.client.PopupView => build()
+[15:02:31.868] |-INFO nju.pt.client.PopupView => init()
+[15:02:31.869] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[15:02:58.678] |-INFO nju.pt.client.AppUI => 开始下载数据文件
+[15:02:58.700] |-INFO nju.pt.net.FileNetClient => 客户端发送请求
+[15:02:58.700] |-INFO nju.pt.net.FileNetClient => post = {"roomID":1,"round":1,"data":null}
+[15:04:38.411] |-INFO nju.pt.client.AppUI => 开始下载数据文件
+[15:04:38.413] |-INFO nju.pt.net.FileNetClient => 客户端发送请求
+[15:04:38.413] |-INFO nju.pt.net.FileNetClient => post = {"roomID":1,"round":1,"data":null}
+[15:06:23.794] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:06:23.798] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[15:06:23.914] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:06:24.037] |-INFO nju.pt.client.StartView => build()
+[15:06:24.037] |-INFO nju.pt.client.StartView => init()
+[15:06:24.068] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[15:06:24.068] |-INFO nju.pt.client.StartView => layout()
+[15:06:24.069] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[15:06:24.069] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[15:06:24.447] |-INFO nju.pt.client.SettingView => build(config:Config)
+[15:06:24.447] |-INFO nju.pt.client.SettingView => init(config: Config)
+[15:06:24.468] |-INFO nju.pt.client.SettingView => layout()
+[15:06:24.471] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[15:06:24.485] |-INFO nju.pt.client.AboutView => init()
+[15:06:24.494] |-INFO nju.pt.client.PopupView => build()
+[15:06:24.494] |-INFO nju.pt.client.PopupView => init()
+[15:06:24.495] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[15:06:53.458] |-INFO nju.pt.client.AppUI => 开始下载数据文件
+[15:06:53.482] |-INFO nju.pt.net.FileNetClient => 客户端发送请求
+[15:06:53.483] |-INFO nju.pt.net.FileNetClient => post = {"roomID":1,"round":1,"data":null}
+[15:06:53.483] |-INFO nju.pt.net.FileNetClient => 客户端接收数据
+[15:38:31.998] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:38:32.002] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[15:38:32.132] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:38:32.259] |-INFO nju.pt.client.StartView => build()
+[15:38:32.259] |-INFO nju.pt.client.StartView => init()
+[15:38:32.288] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[15:38:32.288] |-INFO nju.pt.client.StartView => layout()
+[15:38:32.288] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[15:38:32.289] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[15:38:32.678] |-INFO nju.pt.client.SettingView => build(config:Config)
+[15:38:32.679] |-INFO nju.pt.client.SettingView => init(config: Config)
+[15:38:32.700] |-INFO nju.pt.client.SettingView => layout()
+[15:38:32.703] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[15:38:32.729] |-INFO nju.pt.client.AboutView => init()
+[15:38:32.742] |-INFO nju.pt.client.PopupView => build()
+[15:38:32.743] |-INFO nju.pt.client.PopupView => init()
+[15:38:32.744] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[15:41:54.827] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:41:54.830] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[15:41:54.962] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:41:55.081] |-INFO nju.pt.client.StartView => build()
+[15:41:55.081] |-INFO nju.pt.client.StartView => init()
+[15:41:55.109] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[15:41:55.109] |-INFO nju.pt.client.StartView => layout()
+[15:41:55.110] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[15:41:55.110] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[15:41:55.483] |-INFO nju.pt.client.SettingView => build(config:Config)
+[15:41:55.483] |-INFO nju.pt.client.SettingView => init(config: Config)
+[15:41:55.506] |-INFO nju.pt.client.SettingView => layout()
+[15:41:55.508] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[15:41:55.525] |-INFO nju.pt.client.AboutView => init()
+[15:41:55.535] |-INFO nju.pt.client.PopupView => build()
+[15:41:55.535] |-INFO nju.pt.client.PopupView => init()
+[15:41:55.536] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[15:41:58.235] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[15:42:02.139] |-INFO nju.pt.client.AppUI => 保存配置文件
+[15:42:02.140] |-INFO nju.pt.client.AppUI => JsonHelper.toJson(config, R.SETTING_JSON_PATH)
+[15:42:02.148] |-INFO nju.pt.client.AppUI => newConfig = Config(ip=127.0.0.1, port=7890, roomID=1, round=1, judgeCount=7, roundType=正常模式, rule=JSYPT, mode=ONLINE)
+[15:42:02.148] |-INFO nju.pt.client.AppUI => R.SETTING_JSON_PATH = config/setting.json
+[15:42:02.148] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[15:42:02.149] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[15:42:02.167] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[15:42:02.168] |-INFO nju.pt.client.AppUI => 关闭设置界面
+[15:42:04.702] |-INFO nju.pt.client.AppUI => 开始下载数据文件
+[15:42:04.712] |-INFO nju.pt.net.FileNetClient => 客户端发送请求
+[15:42:04.713] |-INFO nju.pt.net.FileNetClient => post = {"roomID":1,"round":1,"data":null}
+[15:42:04.713] |-INFO nju.pt.net.FileNetClient => 客户端接收数据
+[15:57:51.968] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:57:51.972] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[15:57:52.098] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:57:52.221] |-INFO nju.pt.client.StartView => build()
+[15:57:52.221] |-INFO nju.pt.client.StartView => init()
+[15:57:52.252] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[15:57:52.253] |-INFO nju.pt.client.StartView => layout()
+[15:57:52.255] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[15:57:52.256] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[15:57:52.774] |-INFO nju.pt.client.SettingView => build(config:Config)
+[15:57:52.775] |-INFO nju.pt.client.SettingView => init(config: Config)
+[15:57:52.796] |-INFO nju.pt.client.SettingView => layout()
+[15:57:52.804] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[15:57:52.851] |-INFO nju.pt.client.AboutView => init()
+[15:57:52.867] |-INFO nju.pt.client.PopupView => build()
+[15:57:52.868] |-INFO nju.pt.client.PopupView => init()
+[15:57:52.871] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[15:58:06.165] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[15:58:11.844] |-INFO nju.pt.client.AppUI => 保存配置文件
+[15:58:11.845] |-INFO nju.pt.client.AppUI => JsonHelper.toJson(config, R.SETTING_JSON_PATH)
+[15:58:11.854] |-INFO nju.pt.client.AppUI => newConfig = Config(ip=127.0.0.1, port=7890, roomID=1, round=1, judgeCount=7, roundType=正常模式, rule=JSYPT, mode=ONLINE)
+[15:58:11.855] |-INFO nju.pt.client.AppUI => R.SETTING_JSON_PATH = config/setting.json
+[15:58:11.855] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[15:58:11.855] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[15:58:11.874] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[15:58:11.874] |-INFO nju.pt.client.AppUI => 关闭设置界面
+[15:58:15.659] |-INFO nju.pt.client.AppUI => 开始下载数据文件
+[15:58:15.666] |-INFO nju.pt.net.FileNetClient => 客户端发送请求
+[15:58:15.667] |-INFO nju.pt.net.FileNetClient => post = {"roomID":1,"round":1,"data":null}
+[15:58:15.667] |-INFO nju.pt.net.FileNetClient => 客户端接收数据
+[15:58:15.719] |-INFO nju.pt.net.FileNetClient => packet = Packet(roomID=1, round=1, data=Data(teamDataList=[TeamData(id=3, name=旺旺 WON ONE, schoolID=11, playerDataList=[PlayerData(id=11, name=吴世凡, gender=男), PlayerData(id=12, name=黄润涵, gender=男), PlayerData(id=13, name=卢奕轩, gender=男), PlayerData(id=14, name=黄子宸, gender=男)], recordDataList=[]), TeamData(id=7, name=自然哲学队, schoolID=9, playerDataList=[PlayerData(id=29, name=刘培锐, gender=男), PlayerData(id=30, name=袁浩文, gender=男), PlayerData(id=31, name=罗欣, gender=男), PlayerData(id=32, name=李祖奇, gender=男), PlayerData(id=33, name=曾旭苒, gender=男)], recordDataList=[]), TeamData(id=11, name=MISSION队, schoolID=9, playerDataList=[PlayerData(id=49, name=耿祥瑞, gender=男), PlayerData(id=50, name=樊昌硕, gender=男), PlayerData(id=51, name=王冬挺, gender=男), PlayerData(id=52, name=吴程远, gender=男), PlayerData(id=53, name=黄思禹, gender=男)], recordDataList=[])], questionMap={1=Invent Yourself 自己发明, 2=Rayleigh Disk 瑞利盘, 3=Ring on the Rod 棒上环, 4=Unsinkable Disk 永不沉没的圆盘, 5=Bimetallic Oscillator 双金属振荡器, 6=Tennis Ball Tower 网球塔, 7=Three-Sided Dice 圆柱形骰子, 8=Equipotential Lines 等势线, 9=Water Spiral 水螺旋, 10=Droplet Explosion  液滴爆炸, 11=Balls on an Elastic Band 橡皮筋上的球, 12=Strange Motion 奇怪的运动, 13=Candle Powered Turbine 蜡烛动力涡旋机, 14=Ball on Membrane 膜上球, 15=Boycott Effect 抵制作用, 16=Saving Honey 拯救蜂蜜, 17=Invisibility 隐形}, schoolMap={1=东南大学, 2=江苏师范大学, 3=南京航空航天大学, 4=南京农业大学, 5=南京师范大学, 6=苏州大学, 7=南京大学, 8=江苏省前黄高级中学, 9=四川省温江中学, 10=南京外国语学校, 11=南京市第十三中学, 12=南京市第五高级中学, 13=南京师范大学附属中学, 14=四川省成都市新都一中, 15=南京市金陵中学}))
+[15:58:15.720] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[15:58:15.721] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\Client\data\data.json
+[15:58:15.725] |-INFO JSON Saver => JsonFileSavedSuccessfully!

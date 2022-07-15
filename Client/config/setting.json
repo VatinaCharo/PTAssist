@@ -3,8 +3,8 @@
     "port": 7890,
     "roomID": 1,
     "round": 1,
-    "judgeCount": 5,
+    "judgeCount": 7,
     "roundType": "NORMAL",
-    "rule": "CUPT",
+    "rule": "JSYPT",
     "mode": "ONLINE"
 }
