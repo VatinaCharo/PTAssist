@@ -108,3 +108,394 @@
 [08:44:25.424] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
 [08:44:25.424] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
 [08:44:25.424] |-INFO nju.pt.client.MatchView => validPlayerIDList = [3, 4]
+[09:30:36.267] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[09:30:36.271] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[09:30:36.464] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[09:30:36.659] |-INFO nju.pt.client.StartView => build()
+[09:30:36.659] |-INFO nju.pt.client.StartView => init()
+[09:30:36.784] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@3ce80d1e
+[09:30:36.784] |-INFO nju.pt.client.StartView => layout()
+[09:30:36.785] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@3ce80d1e
+[09:30:36.785] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[09:30:37.144] |-INFO nju.pt.client.SettingView => build(config:Config)
+[09:30:37.144] |-INFO nju.pt.client.SettingView => init(config: Config)
+[09:30:37.166] |-INFO nju.pt.client.SettingView => layout()
+[09:30:37.169] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:30:37.187] |-INFO nju.pt.client.AboutView => init()
+[09:30:37.196] |-INFO nju.pt.client.PopupView => build()
+[09:30:37.196] |-INFO nju.pt.client.PopupView => init()
+[09:30:37.197] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:36:00.242] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[09:36:00.245] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[09:36:00.450] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[09:36:00.570] |-INFO nju.pt.client.StartView => build()
+[09:36:00.570] |-INFO nju.pt.client.StartView => init()
+[09:36:00.600] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[09:36:00.600] |-INFO nju.pt.client.StartView => layout()
+[09:36:00.601] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[09:36:00.601] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[09:36:01.003] |-INFO nju.pt.client.SettingView => build(config:Config)
+[09:36:01.003] |-INFO nju.pt.client.SettingView => init(config: Config)
+[09:36:01.025] |-INFO nju.pt.client.SettingView => layout()
+[09:36:01.028] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:36:01.042] |-INFO nju.pt.client.AboutView => init()
+[09:36:01.051] |-INFO nju.pt.client.PopupView => build()
+[09:36:01.051] |-INFO nju.pt.client.PopupView => init()
+[09:36:01.051] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:36:15.397] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[09:36:15.400] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[09:36:15.524] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[09:36:15.649] |-INFO nju.pt.client.StartView => build()
+[09:36:15.649] |-INFO nju.pt.client.StartView => init()
+[09:36:15.678] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@6e6111cd
+[09:36:15.678] |-INFO nju.pt.client.StartView => layout()
+[09:36:15.679] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@6e6111cd
+[09:36:15.679] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[09:36:16.028] |-INFO nju.pt.client.SettingView => build(config:Config)
+[09:36:16.028] |-INFO nju.pt.client.SettingView => init(config: Config)
+[09:36:16.048] |-INFO nju.pt.client.SettingView => layout()
+[09:36:16.050] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:36:16.065] |-INFO nju.pt.client.AboutView => init()
+[09:36:16.076] |-INFO nju.pt.client.PopupView => build()
+[09:36:16.076] |-INFO nju.pt.client.PopupView => init()
+[09:36:16.077] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:36:29.331] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[09:36:29.334] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[09:36:29.450] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[09:36:29.574] |-INFO nju.pt.client.StartView => build()
+[09:36:29.575] |-INFO nju.pt.client.StartView => init()
+[09:36:29.603] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[09:36:29.603] |-INFO nju.pt.client.StartView => layout()
+[09:36:29.604] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[09:36:29.604] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[09:36:29.957] |-INFO nju.pt.client.SettingView => build(config:Config)
+[09:36:29.958] |-INFO nju.pt.client.SettingView => init(config: Config)
+[09:36:29.978] |-INFO nju.pt.client.SettingView => layout()
+[09:36:29.980] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:36:29.994] |-INFO nju.pt.client.AboutView => init()
+[09:36:30.004] |-INFO nju.pt.client.PopupView => build()
+[09:36:30.004] |-INFO nju.pt.client.PopupView => init()
+[09:36:30.005] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:36:40.967] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[09:36:40.970] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[09:36:41.091] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[09:36:41.213] |-INFO nju.pt.client.StartView => build()
+[09:36:41.213] |-INFO nju.pt.client.StartView => init()
+[09:36:41.241] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[09:36:41.241] |-INFO nju.pt.client.StartView => layout()
+[09:36:41.242] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[09:36:41.242] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[09:36:41.602] |-INFO nju.pt.client.SettingView => build(config:Config)
+[09:36:41.602] |-INFO nju.pt.client.SettingView => init(config: Config)
+[09:36:41.622] |-INFO nju.pt.client.SettingView => layout()
+[09:36:41.626] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:36:41.646] |-INFO nju.pt.client.AboutView => init()
+[09:36:41.655] |-INFO nju.pt.client.PopupView => build()
+[09:36:41.655] |-INFO nju.pt.client.PopupView => init()
+[09:36:41.656] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:36:53.112] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[09:36:53.115] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[09:36:53.237] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[09:36:53.364] |-INFO nju.pt.client.StartView => build()
+[09:36:53.364] |-INFO nju.pt.client.StartView => init()
+[09:36:53.390] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[09:36:53.390] |-INFO nju.pt.client.StartView => layout()
+[09:36:53.390] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[09:36:53.391] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[09:36:53.752] |-INFO nju.pt.client.SettingView => build(config:Config)
+[09:36:53.752] |-INFO nju.pt.client.SettingView => init(config: Config)
+[09:36:53.774] |-INFO nju.pt.client.SettingView => layout()
+[09:36:53.777] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:36:53.791] |-INFO nju.pt.client.AboutView => init()
+[09:36:53.802] |-INFO nju.pt.client.PopupView => build()
+[09:36:53.802] |-INFO nju.pt.client.PopupView => init()
+[09:36:53.803] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:38:49.085] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[09:38:49.088] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[09:38:49.211] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[09:38:49.336] |-INFO nju.pt.client.StartView => build()
+[09:38:49.336] |-INFO nju.pt.client.StartView => init()
+[09:38:49.364] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[09:38:49.364] |-INFO nju.pt.client.StartView => layout()
+[09:38:49.364] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[09:38:49.364] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[09:38:49.711] |-INFO nju.pt.client.SettingView => build(config:Config)
+[09:38:49.711] |-INFO nju.pt.client.SettingView => init(config: Config)
+[09:38:49.730] |-INFO nju.pt.client.SettingView => layout()
+[09:38:49.732] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:38:49.746] |-INFO nju.pt.client.AboutView => init()
+[09:38:49.755] |-INFO nju.pt.client.PopupView => build()
+[09:38:49.755] |-INFO nju.pt.client.PopupView => init()
+[09:38:49.756] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[09:38:50.681] |-INFO nju.pt.client.AppUI => 打开关于界面 javafx.stage.Stage@31995029
+[10:31:37.893] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[10:31:37.896] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[10:31:38.114] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[10:31:38.223] |-INFO nju.pt.client.StartView => build()
+[10:31:38.223] |-INFO nju.pt.client.StartView => init()
+[10:31:38.251] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[10:31:38.252] |-INFO nju.pt.client.StartView => layout()
+[10:31:38.252] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[10:31:38.252] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[10:31:38.642] |-INFO nju.pt.client.SettingView => build(config:Config)
+[10:31:38.643] |-INFO nju.pt.client.SettingView => init(config: Config)
+[10:31:38.663] |-INFO nju.pt.client.SettingView => layout()
+[10:31:38.667] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:31:38.681] |-INFO nju.pt.client.AboutView => init()
+[10:31:38.690] |-INFO nju.pt.client.PopupView => build()
+[10:31:38.690] |-INFO nju.pt.client.PopupView => init()
+[10:31:38.691] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:31:40.599] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@31995029
+[10:33:28.816] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[10:33:28.819] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[10:33:28.961] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[10:33:29.102] |-INFO nju.pt.client.StartView => build()
+[10:33:29.103] |-INFO nju.pt.client.StartView => init()
+[10:33:29.136] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[10:33:29.136] |-INFO nju.pt.client.StartView => layout()
+[10:33:29.136] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[10:33:29.136] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[10:33:29.507] |-INFO nju.pt.client.SettingView => build(config:Config)
+[10:33:29.507] |-INFO nju.pt.client.SettingView => init(config: Config)
+[10:33:29.529] |-INFO nju.pt.client.SettingView => layout()
+[10:33:29.531] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:33:29.547] |-INFO nju.pt.client.AboutView => init()
+[10:33:29.555] |-INFO nju.pt.client.PopupView => build()
+[10:33:29.555] |-INFO nju.pt.client.PopupView => init()
+[10:33:29.556] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:33:31.082] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[10:33:35.779] |-INFO nju.pt.client.AppUI => 保存配置文件
+[10:48:30.775] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[10:48:30.778] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[10:48:30.910] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[10:48:31.031] |-INFO nju.pt.client.StartView => build()
+[10:48:31.031] |-INFO nju.pt.client.StartView => init()
+[10:48:31.058] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[10:48:31.058] |-INFO nju.pt.client.StartView => layout()
+[10:48:31.058] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[10:48:31.058] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[10:48:31.410] |-INFO nju.pt.client.SettingView => build(config:Config)
+[10:48:31.411] |-INFO nju.pt.client.SettingView => init(config: Config)
+[10:48:31.436] |-INFO nju.pt.client.SettingView => layout()
+[10:48:31.439] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:48:31.457] |-INFO nju.pt.client.AboutView => init()
+[10:48:31.467] |-INFO nju.pt.client.PopupView => build()
+[10:48:31.468] |-INFO nju.pt.client.PopupView => init()
+[10:48:31.468] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:48:33.994] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[10:49:09.754] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[10:49:09.757] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[10:49:09.881] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[10:49:10.003] |-INFO nju.pt.client.StartView => build()
+[10:49:10.003] |-INFO nju.pt.client.StartView => init()
+[10:49:10.039] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[10:49:10.040] |-INFO nju.pt.client.StartView => layout()
+[10:49:10.040] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[10:49:10.040] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[10:49:10.389] |-INFO nju.pt.client.SettingView => build(config:Config)
+[10:49:10.390] |-INFO nju.pt.client.SettingView => init(config: Config)
+[10:49:10.415] |-INFO nju.pt.client.SettingView => layout()
+[10:49:10.419] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:49:10.435] |-INFO nju.pt.client.AboutView => init()
+[10:49:10.446] |-INFO nju.pt.client.PopupView => build()
+[10:49:10.446] |-INFO nju.pt.client.PopupView => init()
+[10:49:10.446] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:49:11.941] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[10:49:25.176] |-INFO nju.pt.client.AppUI => 保存配置文件
+[10:49:25.176] |-INFO nju.pt.client.AppUI => JsonHelper.toJson(config, R.SETTING_JSON_PATH)
+[10:49:25.191] |-INFO nju.pt.client.AppUI => newConfig = Config(ip=127.0.0.1, port=7890, roomID=1, round=1, judgeCount=5, roundType=正常模式, rule=CUPT, mode=OFFLINE)
+[10:49:25.191] |-INFO nju.pt.client.AppUI => R.SETTING_JSON_PATH = config/setting.json
+[10:49:25.191] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[10:49:25.191] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[10:49:25.213] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[10:49:25.213] |-INFO nju.pt.client.AppUI => 关闭设置界面
+[10:49:26.959] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[10:49:48.322] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[10:49:48.325] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[10:49:48.445] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[10:49:48.577] |-INFO nju.pt.client.StartView => build()
+[10:49:48.578] |-INFO nju.pt.client.StartView => init()
+[10:49:48.607] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[10:49:48.607] |-INFO nju.pt.client.StartView => layout()
+[10:49:48.608] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[10:49:48.608] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[10:49:48.990] |-INFO nju.pt.client.SettingView => build(config:Config)
+[10:49:48.991] |-INFO nju.pt.client.SettingView => init(config: Config)
+[10:49:49.011] |-INFO nju.pt.client.SettingView => layout()
+[10:49:49.014] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:49:49.029] |-INFO nju.pt.client.AboutView => init()
+[10:49:49.038] |-INFO nju.pt.client.PopupView => build()
+[10:49:49.038] |-INFO nju.pt.client.PopupView => init()
+[10:49:49.039] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:49:50.319] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@22b8f45e
+[10:53:59.147] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[10:53:59.150] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[10:53:59.273] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[10:53:59.394] |-INFO nju.pt.client.StartView => build()
+[10:53:59.395] |-INFO nju.pt.client.StartView => init()
+[10:53:59.422] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[10:53:59.422] |-INFO nju.pt.client.StartView => layout()
+[10:53:59.422] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[10:53:59.423] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[10:53:59.789] |-INFO nju.pt.client.SettingView => build(config:Config)
+[10:53:59.789] |-INFO nju.pt.client.SettingView => init(config: Config)
+[10:53:59.812] |-INFO nju.pt.client.SettingView => layout()
+[10:53:59.814] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:53:59.831] |-INFO nju.pt.client.AboutView => init()
+[10:53:59.843] |-INFO nju.pt.client.PopupView => build()
+[10:53:59.843] |-INFO nju.pt.client.PopupView => init()
+[10:53:59.844] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:54:01.276] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[10:55:22.583] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[10:55:22.587] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[10:55:22.708] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[10:55:22.833] |-INFO nju.pt.client.StartView => build()
+[10:55:22.833] |-INFO nju.pt.client.StartView => init()
+[10:55:22.863] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@6e6111cd
+[10:55:22.863] |-INFO nju.pt.client.StartView => layout()
+[10:55:22.864] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@6e6111cd
+[10:55:22.864] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[10:55:23.235] |-INFO nju.pt.client.SettingView => build(config:Config)
+[10:55:23.235] |-INFO nju.pt.client.SettingView => init(config: Config)
+[10:55:23.255] |-INFO nju.pt.client.SettingView => layout()
+[10:55:23.257] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:55:23.274] |-INFO nju.pt.client.AboutView => init()
+[10:55:23.287] |-INFO nju.pt.client.PopupView => build()
+[10:55:23.287] |-INFO nju.pt.client.PopupView => init()
+[10:55:23.288] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:55:24.871] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@f403391
+[10:59:39.243] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[10:59:39.246] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[10:59:39.389] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[10:59:39.514] |-INFO nju.pt.client.StartView => build()
+[10:59:39.515] |-INFO nju.pt.client.StartView => init()
+[10:59:39.549] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[10:59:39.549] |-INFO nju.pt.client.StartView => layout()
+[10:59:39.549] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[10:59:39.549] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[10:59:39.921] |-INFO nju.pt.client.SettingView => build(config:Config)
+[10:59:39.922] |-INFO nju.pt.client.SettingView => init(config: Config)
+[10:59:39.943] |-INFO nju.pt.client.SettingView => layout()
+[10:59:39.946] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:59:39.964] |-INFO nju.pt.client.AboutView => init()
+[10:59:39.975] |-INFO nju.pt.client.PopupView => build()
+[10:59:39.976] |-INFO nju.pt.client.PopupView => init()
+[10:59:39.976] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[10:59:41.257] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[11:00:14.972] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[11:00:14.975] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[11:00:15.094] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[11:00:15.229] |-INFO nju.pt.client.StartView => build()
+[11:00:15.229] |-INFO nju.pt.client.StartView => init()
+[11:00:15.258] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@6e6111cd
+[11:00:15.258] |-INFO nju.pt.client.StartView => layout()
+[11:00:15.258] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@6e6111cd
+[11:00:15.258] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[11:00:15.651] |-INFO nju.pt.client.SettingView => build(config:Config)
+[11:00:15.651] |-INFO nju.pt.client.SettingView => init(config: Config)
+[11:00:15.679] |-INFO nju.pt.client.SettingView => layout()
+[11:00:15.682] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[11:00:15.700] |-INFO nju.pt.client.AboutView => init()
+[11:00:15.709] |-INFO nju.pt.client.PopupView => build()
+[11:00:15.709] |-INFO nju.pt.client.PopupView => init()
+[11:00:15.710] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[11:00:16.981] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@f403391
+[11:01:35.467] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[11:01:35.470] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[11:01:35.597] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[11:01:35.731] |-INFO nju.pt.client.StartView => build()
+[11:01:35.732] |-INFO nju.pt.client.StartView => init()
+[11:01:35.763] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[11:01:35.763] |-INFO nju.pt.client.StartView => layout()
+[11:01:35.764] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[11:01:35.764] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[11:01:36.153] |-INFO nju.pt.client.SettingView => build(config:Config)
+[11:01:36.153] |-INFO nju.pt.client.SettingView => init(config: Config)
+[11:01:36.179] |-INFO nju.pt.client.SettingView => layout()
+[11:01:36.183] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[11:01:36.199] |-INFO nju.pt.client.AboutView => init()
+[11:01:36.214] |-INFO nju.pt.client.PopupView => build()
+[11:01:36.214] |-INFO nju.pt.client.PopupView => init()
+[11:01:36.214] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[11:01:37.362] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[11:03:17.970] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[11:03:17.973] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[11:03:18.099] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[11:03:18.264] |-INFO nju.pt.client.StartView => build()
+[11:03:18.265] |-INFO nju.pt.client.StartView => init()
+[11:03:18.313] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[11:03:18.313] |-INFO nju.pt.client.StartView => layout()
+[11:03:18.313] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[11:03:18.313] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[11:03:18.741] |-INFO nju.pt.client.SettingView => build(config:Config)
+[11:03:18.741] |-INFO nju.pt.client.SettingView => init(config: Config)
+[11:03:18.766] |-INFO nju.pt.client.SettingView => layout()
+[11:03:18.769] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[11:03:18.784] |-INFO nju.pt.client.AboutView => init()
+[11:03:18.795] |-INFO nju.pt.client.PopupView => build()
+[11:03:18.796] |-INFO nju.pt.client.PopupView => init()
+[11:03:18.796] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[11:03:21.651] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[11:03:42.514] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[11:03:42.517] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[11:03:42.650] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[11:03:42.767] |-INFO nju.pt.client.StartView => build()
+[11:03:42.767] |-INFO nju.pt.client.StartView => init()
+[11:03:42.792] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[11:03:42.793] |-INFO nju.pt.client.StartView => layout()
+[11:03:42.794] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[11:03:42.794] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[11:03:43.193] |-INFO nju.pt.client.SettingView => build(config:Config)
+[11:03:43.193] |-INFO nju.pt.client.SettingView => init(config: Config)
+[11:03:43.217] |-INFO nju.pt.client.SettingView => layout()
+[11:03:43.219] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[11:03:43.237] |-INFO nju.pt.client.AboutView => init()
+[11:03:43.248] |-INFO nju.pt.client.PopupView => build()
+[11:03:43.248] |-INFO nju.pt.client.PopupView => init()
+[11:03:43.248] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[11:03:45.799] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[11:04:00.190] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[11:04:00.193] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[11:04:00.321] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[11:04:00.453] |-INFO nju.pt.client.StartView => build()
+[11:04:00.454] |-INFO nju.pt.client.StartView => init()
+[11:04:00.490] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[11:04:00.490] |-INFO nju.pt.client.StartView => layout()
+[11:04:00.491] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[11:04:00.491] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[11:04:00.863] |-INFO nju.pt.client.SettingView => build(config:Config)
+[11:04:00.864] |-INFO nju.pt.client.SettingView => init(config: Config)
+[11:04:00.892] |-INFO nju.pt.client.SettingView => layout()
+[11:04:00.895] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[11:04:00.909] |-INFO nju.pt.client.AboutView => init()
+[11:04:00.919] |-INFO nju.pt.client.PopupView => build()
+[11:04:00.919] |-INFO nju.pt.client.PopupView => init()
+[11:04:00.919] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[11:04:03.157] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[11:04:26.725] |-INFO nju.pt.client.AppUI => 保存配置文件
+[11:04:26.726] |-INFO nju.pt.client.AppUI => JsonHelper.toJson(config, R.SETTING_JSON_PATH)
+[11:04:26.741] |-INFO nju.pt.client.AppUI => newConfig = Config(ip=127.0.0.1, port=7890, roomID=1, round=1, judgeCount=5, roundType=正常模式, rule=CUPT, mode=ONLINE)
+[11:04:26.742] |-INFO nju.pt.client.AppUI => R.SETTING_JSON_PATH = config/setting.json
+[11:04:26.742] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[11:04:26.742] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[11:04:26.766] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[11:04:26.766] |-INFO nju.pt.client.AppUI => 关闭设置界面
+[11:04:28.389] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6
+[11:04:34.137] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[11:04:34.140] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[11:04:34.266] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[11:04:34.418] |-INFO nju.pt.client.StartView => build()
+[11:04:34.419] |-INFO nju.pt.client.StartView => init()
+[11:04:34.447] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5b5d8143
+[11:04:34.447] |-INFO nju.pt.client.StartView => layout()
+[11:04:34.447] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5b5d8143
+[11:04:34.448] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[11:04:34.841] |-INFO nju.pt.client.SettingView => build(config:Config)
+[11:04:34.841] |-INFO nju.pt.client.SettingView => init(config: Config)
+[11:04:34.865] |-INFO nju.pt.client.SettingView => layout()
+[11:04:34.870] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[11:04:34.885] |-INFO nju.pt.client.AboutView => init()
+[11:04:34.895] |-INFO nju.pt.client.PopupView => build()
+[11:04:34.896] |-INFO nju.pt.client.PopupView => init()
+[11:04:34.896] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[11:04:37.134] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@7df8b0f6

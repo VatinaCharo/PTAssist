@@ -39,8 +39,8 @@ object StartView {
     private fun layout() = apply {
         logger.info("layout()")
         imageView.apply {
-            fitWidth = 0.15 * image.width
-            fitHeight = 0.15 * image.height
+            fitWidth = 0.9 * image.width
+            fitHeight = 0.9 * image.height
         }
         rootStackPane.apply {
             prefWidth = imageView.fitWidth
@@ -62,7 +62,7 @@ object MatchView {
     private val logger = LoggerFactory.getLogger(this::class.java)
     private val rootHBox = HBox().apply { id = "MatchView_rootHBox" }
     private val optionalQuestionsStackPane = StackPane().apply { id = "MatchView_optionalQuestionsStackPane" }
-    val optionalQuestionsVBox = VBox().apply { id = "MatchView_optionalQuestionsVBox" }
+    private val optionalQuestionsVBox = VBox().apply { id = "MatchView_optionalQuestionsVBox" }
     private val njuLogoImageView = ImageView(R.LOGO_PATH).apply { id = "MatchView_njuLogoImageView" }
     private val operationsVBox = VBox().apply { id = "MatchView_operationsVBox" }
     private val confirmHBox = HBox().apply { id = "MatchView_confirmHBox" }
@@ -71,7 +71,8 @@ object MatchView {
 
     //    val refuseBtn = Button("拒绝").apply { id = "MatchView_refuseBtn" }
     val informationVBox = VBox().apply { id = "MatchView_informationVBox" }
-    val lockBtn = Button("锁定").apply { id = "MatchView_lockBtn" }
+
+    //    val lockBtn = Button("锁定").apply { id = "MatchView_lockBtn" }
     val scoresVBox = VBox().apply { id = "MatchView_scoresVBox" }
     private val submitAndNextHBox = HBox().apply { id = "MatchView_submitAndNextHBox" }
     val submitBtn = Button("确认").apply { id = "MatchView_submitBtn" }
@@ -128,7 +129,6 @@ object MatchView {
      * 构建UI界面
      *
      * @param judgeCount 裁判数
-     * @param questionMap 当前可选题
      * @return
      */
     fun build(judgeCount: Int): HBox {
@@ -228,12 +228,12 @@ object SettingView {
     private val roundTF = TextField()
     private val judgeCountLabel = Label("裁判数:")
     private val judgeCountTF = TextField()
-    private val ruleTypeLabel = Label("规则:")
-    private val ruleTypeCB = ComboBox<RuleType>()
     private val roundTypeLabel = Label("本轮比赛类型:")
-    private val roundTypeCB = ComboBox<String>()
+    private val roundTypeCB = ComboBox<String>().apply { id = "SettingView_roundTypeCB" }
+    private val ruleTypeLabel = Label("规则:")
+    private val ruleTypeCB = ComboBox<RuleType>().apply { id = "SettingView_ruleTypeCB" }
     private val modeLabel = Label("工作模式:")
-    private val modeCB = ComboBox<WorkMode>()
+    private val modeCB = ComboBox<WorkMode>().apply { id = "SettingView_modeCB" }
     val saveBtn = Button("保存").apply { id = "SettingView_saveBtn" }
 
     private fun init(config: Config) {
@@ -329,6 +329,14 @@ object SettingView {
         return rootGridPane
     }
 
+    private fun getRoundType(value: String) = when (value) {
+        "正常模式" -> RoundType.NORMAL
+        "自选题模式" -> RoundType.SPECIAL
+        else -> {
+            TODO("Not yet implement")
+        }
+    }
+
     fun saveConfig() =
         Config(
             ipTF.text,
@@ -336,7 +344,7 @@ object SettingView {
             roomIDTF.text.toInt(),
             roundTF.text.toInt(),
             judgeCountTF.text.toInt(),
-            RoundType.valueOf(roundTypeCB.value),
+            getRoundType(roundTypeCB.value),
             ruleTypeCB.value,
             modeCB.value
         )
@@ -345,7 +353,7 @@ object SettingView {
 object AboutView {
     private val logger = LoggerFactory.getLogger(this::class.java)
     private val rootAnchorPane = AnchorPane()
-    private val nameLabel = Label("PTAssist").apply {
+    private val nameLabel = Label("PTAssist v${R.VERSION}").apply {
         font = Font.font(18.0)
     }
     private val noteLabel = Label("注意事项:").apply {
