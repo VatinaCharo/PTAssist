@@ -1,7 +1,6 @@
 package nju.pt
 
 import java.io.File
-import java.util.concurrent.ArrayBlockingQueue
 
 
 object R {
@@ -26,7 +25,7 @@ object R {
     const val JUDGE_SHEET_NAME = "裁判信息"
 
     const val DATA_JSON_PATH = "$SERVER_DATA_DIR_PATH/data.json"
-    val DATA_JSON_EXAMPLE_PATH: String = R::class.java.getResource("assets/data_example.json")!!.toExternalForm()
+    val DATA_JSON_EXAMPLE = R::class.java.getResource("assets/data_example.json")!!.readText()
 
     const val COUNTERPART_TABLE_JSON_PATH = "$SERVER_CACHE_DIR_PATH/counterpartTable.json"
     const val COUNTERPART_TABLE_EXCEL_PATH = "$SERVER_DATA_DIR_PATH/counterpartTable.xlsx"

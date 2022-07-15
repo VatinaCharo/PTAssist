@@ -406,11 +406,11 @@ class SettingView {
     private val roomCountTF = IntegerTextField()
     private val turnLabel = Label("Turns:")
     private val turnCountTF = IntegerTextField()
-    private val rWeightLabel = Label("Init nju.pt.net.R Weight:")
+    private val rWeightLabel = Label("Init R Weight:")
     private val rWeighTF = DoubleTextField()
-    private val oWeightLabel = Label("Init nju.pt.net.R Weight:")
+    private val oWeightLabel = Label("Init R Weight:")
     private val oWeighTF = DoubleTextField()
-    private val vWeightLabel = Label("Init nju.pt.net.R Weight:")
+    private val vWeightLabel = Label("Init R Weight:")
     private val vWeighTF = DoubleTextField()
     val saveBtn = Button("保存").apply { id = "SettingView_saveBtn" }
 
@@ -587,7 +587,7 @@ object AddOrDeleteView {
     val recordRoomIdTextField = IntegerTextField()
     val recordQIdTextField = IntegerTextField()
     val recordMasterIdTextField = IntegerTextField()
-    val recordRoleComboBox = ComboBox<String>().apply { items.addAll("nju.pt.net.R", "O", "V");selectionModel.select(0) }
+    val recordRoleComboBox = ComboBox<String>().apply { items.addAll("R", "O", "V","X");selectionModel.select(0) }
     val recordScoreTextField = DoubleTextField()
     val recordWeightTextField = DoubleTextField()
     val recordComboBox = ComboBox<String>().apply { id = "AddOrDeleteView_recordComboBox" }

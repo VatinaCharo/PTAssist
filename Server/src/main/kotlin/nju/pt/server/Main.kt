@@ -6,6 +6,8 @@ import javafx.scene.control.ButtonType
 import javafx.scene.image.Image
 import javafx.stage.FileChooser
 import javafx.stage.Stage
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import nju.pt.R
 import nju.pt.databaseassist.Data
 import nju.pt.databaseassist.JsonHelper
@@ -31,7 +33,7 @@ fun main() {
 class AppUI : Application() {
     private val logger = LoggerFactory.getLogger(AppUI::class.java)
 
-    private var data = JsonHelper.fromJson<Data>(R.DATA_JSON_EXAMPLE_PATH)
+    private var data = Json.decodeFromString<Data>(R.DATA_JSON_EXAMPLE)
     private val totalTeamNumber: Int by lazy { WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getTotalTeamNumber() }
     private val judgeMap: Map<String, List<String>> by lazy {
         WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadJudgeFromExcel()
