@@ -147,3 +147,9 @@
 [09:00:56.205] |-INFO nju.pt.server.AppUI => select the first in teamListView
 [09:01:05.260] |-INFO nju.pt.server.AppUI => selected:ListProperty [value: [北京大学]]
 [09:01:05.262] |-INFO nju.pt.server.AppUI => select the first in teamListView
+[20:50:08.924] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[20:50:08.928] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Server\data.json
+[20:50:08.956] |-ERROR JSON Reader => 未找到文件data.json: data.json (系统找不到指定的文件。)
+[20:51:07.262] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[20:51:07.267] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Server\data.json
+[20:51:07.385] |-INFO JSON Reader => JsonFileReadSuccessfully!
