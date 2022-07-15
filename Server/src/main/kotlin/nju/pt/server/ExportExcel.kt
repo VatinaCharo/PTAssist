@@ -40,7 +40,7 @@ class ExportExcel(private val data: Data, saveDirPath: String) {
         }
 
     //导出文件路径
-    private val savePath = when (saveDirPath.endsWith("/")) {
+    val savePath = when (saveDirPath.endsWith("/")) {
         true -> saveDirPath + "第${roundName}轮成绩.xlsx"
         else -> saveDirPath + "/第${roundName}轮成绩.xlsx"
     }
