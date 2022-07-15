@@ -30,4 +30,11 @@ class MatchTest {
         )
         println(json.encodeToString(EnumTestObj(TeamType.REPORTER, 5 to QuestionType.REPORTED, 5)))
     }
+
+    @Test
+    fun getScoresTest() {
+        val score = JSYPTRule.getScore(listOf(5, 5, 6, 5, 6))
+        println(score)
+        assert(score == 5.375)
+    }
 }

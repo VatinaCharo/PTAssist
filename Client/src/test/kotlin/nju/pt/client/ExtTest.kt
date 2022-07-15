@@ -9,6 +9,5 @@ class ExtTest {
         println(listOf(1, 2, 3, 4).rotate())
         println(listOf(1, 2, 3, 4).rotate().rotate())
         println(listOf(1).rotate())
-        println(listOf<Int>().rotate())
     }
 }

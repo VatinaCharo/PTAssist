@@ -1,10 +1,13 @@
 package nju.pt.server
 
 import nju.pt.R
+import nju.pt.databaseassist.Data
 import nju.pt.databaseassist.JsonHelper
 import nju.pt.databaseassist.RecordData
-import nju.pt.databaseassist.Data
-import nju.pt.kotlin.ext.*
+import nju.pt.kotlin.ext.getTotalTeamNumber
+import nju.pt.kotlin.ext.loadJudgeFromExcel
+import nju.pt.kotlin.ext.loadQuestionFromExcel
+import nju.pt.kotlin.ext.loadSchoolFromExcel
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
@@ -49,7 +52,7 @@ class ExcelTest {
 //            )
 
         }.apply {
-            JsonHelper.toJson<Data>(this,"data_test.json")
+            JsonHelper.toJson<Data>(this, "data_test.json")
         }
         println(data)
         ExportExcel(data, ".").exportTeamScore()

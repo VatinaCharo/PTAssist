@@ -6,9 +6,9 @@ import javafx.scene.control.Button
 import javafx.scene.image.Image
 import javafx.stage.Stage
 import nju.pt.R
+import nju.pt.databaseassist.Data
 import nju.pt.databaseassist.JsonHelper
 import nju.pt.databaseassist.RecordData
-import nju.pt.databaseassist.Data
 import org.junit.jupiter.api.Test
 
 class UITest {

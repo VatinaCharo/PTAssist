@@ -1,7 +1,6 @@
 package nju.pt.client
 
 import RuleInterface
-import javafx.application.HostServices
 import javafx.geometry.Pos
 import javafx.scene.control.*
 import javafx.scene.image.Image

@@ -6,7 +6,6 @@ import javafx.scene.control.TableCell
 import javafx.scene.control.TextField
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.HBox
-import javafx.util.StringConverter
 
 class IntTabCell<T> : TableCell<T, Number>() {
 
