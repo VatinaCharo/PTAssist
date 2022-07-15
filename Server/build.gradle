@@ -7,7 +7,7 @@ application {
     mainClassName("nju.pt.server.MainKt")
 }
 group = 'nju.pt'
-version = '1.1.0'
+version = '1.1.1'
 
 repositories {
     mavenCentral()
@@ -29,6 +29,7 @@ dependencies {
     implementation project(":DatabaseAssist")
     // 网络文件传输
     implementation project(":FileNetAssist")
+
 }
 
 test {
