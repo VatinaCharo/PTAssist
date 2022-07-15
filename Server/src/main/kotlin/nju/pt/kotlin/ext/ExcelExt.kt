@@ -109,6 +109,10 @@ fun Workbook.loadConfigFromExcel(): ConfigData {
         logger.error("裁判数必须是大于零的整数！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
         throw Exception("裁判数必须是大于零的整数！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     }
+    if (port <= 1024) {
+        logger.error("端口号必须是大于1024的整数！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        throw Exception("端口号必须是大于1024的整数！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+    }
 
     if (roomCount <= 0) {
         logger.error("房间数必须是大于零的整数！请检查${R.CONFIG_EXCEL_PATH}配置文件！")

@@ -537,13 +537,18 @@ class ExportView() {
                 reviewTableTurnsCheckBoxList.filter { it.isSelected }.map { it.text.first() }
             }")
             val dataCopy = data.copy()
+            logger.info("dataCopy:${dataCopy}")
 
             dataCopy.teamDataList.forEach { teamData ->
                 teamData.recordDataList = teamData.recordDataList.filter { recordData ->
                     reviewTableTurnsCheckBoxList.filter { it.isSelected }.map { "${it.text.first()}" }
                         .contains("${recordData.round}")
-                }.toMutableList()
+                }.toMutableList().also {
+                    logger.info("selected teamData:${it}")
+                }
             }
+
+            logger.info("datCopy teamList:${dataCopy}")
 
             ExportExcel(dataCopy, R.SERVER_DATA_DIR_PATH).apply {
                 if (reviewTableRadioBtn.isSelected) {
@@ -832,7 +837,14 @@ object GenerateRoomDataView {
             }
             logger.info("teamIdList:$thisRoomTeamIdList")
             val dataCopyTemp = dataCopy.copy()
-            dataCopyTemp.teamDataList = dataCopyTemp.teamDataList.filter { it.id in thisRoomTeamIdList }
+            dataCopyTemp.teamDataList = mutableListOf<TeamData>().apply {
+                for (teamId in thisRoomTeamIdList) {
+                    this.add(
+                        dataCopy.teamDataList.first{it.id == teamId}
+                    )
+                }
+            }
+
             logger.info("teamDataList:${dataCopyTemp.teamDataList}")
             Path("${R.SERVER_SEND_FILE_DIR_PATH}/Round${selectedTurn}").apply {
                 if (this.notExists()){
