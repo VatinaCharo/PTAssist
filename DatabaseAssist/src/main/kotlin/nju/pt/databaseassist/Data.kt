@@ -77,11 +77,12 @@ data class Data(
                 it.recordDataList.forEach { recordData ->
                     //若不是拒题
                     if (recordData.role != "X") {
+
                         //获取这条记录中的队员名称和性别
                         try {
-                            val (playerName, playerGender) = it.playerDataList.filter { playerData ->
+                            val (playerName, playerGender) = it.playerDataList.first { playerData ->
                                 playerData.id == recordData.masterID
-                            }[0].let { playerData ->
+                            }.let { playerData ->
                                 listOf(playerData.name, playerData.gender)
                             }
 
