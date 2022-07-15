@@ -112,6 +112,7 @@ class AppUI : Application() {
             startBtn.setOnAction {
                 // 载入数据JSON文件 和Cache
                 if (dataFile.exists()) {
+                    data = JsonHelper.fromJson(dataFile.absolutePath)
                     primaryStage.apply {
                         scene = Scene(MatchView.build(config.judgeCount)).apply {
                             stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
@@ -440,7 +441,6 @@ class AppUI : Application() {
     }
 
     private fun matchUILoad(rule: RuleInterface) {
-        data = JsonHelper.fromJson(dataFile.absolutePath)
         logger.info("getCache(data)")
         cache = getCache(data)
         logger.info("cache = $cache")
