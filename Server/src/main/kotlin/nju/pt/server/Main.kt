@@ -43,12 +43,12 @@ class AppUI : Application() {
     }
     private lateinit var fileNetServer: FileNetServer
 
-    private fun getExportSettingStage(data: Data) = MyStage(ExportView().build(data.copy())).apply {
-        minWidth = 150.0
-        minHeight = 300.0
-        isResizable = false
-        title = "导出内容设置"
-    }
+//    private fun getExportSettingStage(data: Data) = MyStage(ExportView().build(data.copy())).apply {
+//        minWidth = 150.0
+//        minHeight = 300.0
+//        isResizable = false
+//        title = "导出内容设置"
+//    }
 
     private fun getSelectedTeamData(selectedTeamName: String? = MainView.teamListView.selectionModel.selectedItem) =
         data.teamDataList.first {
@@ -127,7 +127,12 @@ class AppUI : Application() {
                     }.show()
                     throw Exception(e.message)
                 }
-                generateTableDialog.show()
+                ConfirmDialog().apply {
+                    title = "生成对阵表(无裁判)"
+                    headerText = "对阵表生成完成！"
+                    contentText = "对阵表缓存文件保存至${R.COUNTERPART_TABLE_JSON_PATH}\n对阵表生成至${R.COUNTERPART_TABLE_EXCEL_PATH}"
+
+                }.show()
 
             }
             //生成有裁判的对阵表按钮
@@ -156,6 +161,7 @@ class AppUI : Application() {
                 ConfirmDialog().apply {
                     headerText = "对阵表生成完成！"
                     title = "生成对阵表(有裁判)"
+                    contentText = "对阵表生成至${R.COUNTERPART_TABLE_EXCEL_PATH}"
                 }.show()
             }
 
@@ -237,7 +243,7 @@ class AppUI : Application() {
                     }
 
                     exportBtn.setOnAction {
-                        getExportSettingStage(data).show()
+                        ExportView().getExportSettingStage(data.copy()).show()
                     }
 
                     saveBtn.setOnAction {
@@ -303,20 +309,19 @@ class AppUI : Application() {
                                     it.delete()
 
                                 }
+
+                            ConfirmDialog().apply {
+                                title = "加载数据"
+                                headerText = "加载数据成功！"
+                            }.show()
+
                         } catch (e: java.lang.NullPointerException) {
                             logger.error("未选择文件！")
                             logger.error(e.message)
-                            ConfirmAlert().apply {
-                                title = "加载数据"
-                                headerText = "加载数据失败！"
-                                contentText = "Error:未找到文件，${e.message}"
-                            }.show()
+
                         }
 
-                        ConfirmDialog().apply {
-                            title = "加载数据"
-                            headerText = "加载数据成功！"
-                        }.show()
+
                     }
 
                 }

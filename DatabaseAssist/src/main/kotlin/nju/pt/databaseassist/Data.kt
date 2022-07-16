@@ -1,5 +1,7 @@
 package nju.pt.databaseassist
 
+import java.io.File
+
 
 @kotlinx.serialization.Serializable
 data class PlayerData(
@@ -38,17 +40,21 @@ data class Data(
     var teamDataList: List<TeamData>,
     val questionMap: Map<Int, String>,
     val schoolMap: Map<Int, String>
-){
-    fun copy():Data{
-        JsonHelper.toJson(this,"./tmp.json")
-        return JsonHelper.fromJson<Data>("./tmp.json")
+) {
+    fun copy(): Data {
+        JsonHelper.toJson(this, "./tmp.json")
+        JsonHelper.fromJson<Data>("./tmp.json").let {
+            File("./tmp.json").delete()
+            return it
+        }
     }
-    fun getTeamScore() = teamDataList.map {
+
+    fun getTeamScore() = teamDataList.map { it ->
         // 学校名，队伍名，总成绩
         Triple(
             schoolMap[it.schoolID],
             it.name,
-            it.recordDataList.fold(0.0) { total, recordData ->
+            it.recordDataList.filter { it.role != "X" }.fold(0.0) { total, recordData ->
                 total + recordData.score * recordData.weight
             }
         )
@@ -135,28 +141,28 @@ data class Data(
         )
     }
 
-    fun getMaxPlayerId() = teamDataList.map { it.playerDataList.map{it.id}}.flatten().maxOf { it }
+    fun getMaxPlayerId() = teamDataList.map { it.playerDataList.map { it.id } }.flatten().maxOf { it }
 
-    fun mergeData(newData:Data):Data{
+    fun mergeData(newData: Data): Data {
         //队伍record的合并
-        val oldTeamIdList = this.teamDataList.map { it.id}.distinct()
-        val newTeamIdList = newData.teamDataList.map { it.id}.distinct()
+        val oldTeamIdList = this.teamDataList.map { it.id }.distinct()
+        val newTeamIdList = newData.teamDataList.map { it.id }.distinct()
         val totalTeamIdList = (oldTeamIdList + newTeamIdList).distinct()
 
         val totalTeamDataList = mutableListOf<TeamData>()
-        totalTeamIdList.forEach {teamId->
-            if (teamId in oldTeamIdList){
-                val teamData = this.teamDataList.first{it.id == teamId}
-                if (teamId in newTeamIdList){
-                    teamData.recordDataList += newData.teamDataList.first{it.id == teamId}.recordDataList
+        totalTeamIdList.forEach { teamId ->
+            if (teamId in oldTeamIdList) {
+                val teamData = this.teamDataList.first { it.id == teamId }
+                if (teamId in newTeamIdList) {
+                    teamData.recordDataList += newData.teamDataList.first { it.id == teamId }.recordDataList
                     teamData.recordDataList = teamData.recordDataList.distinct().toMutableList()
                 }
                 totalTeamDataList.add(teamData)
-            }else{
-                totalTeamDataList.add(newData.teamDataList.first{it.id == teamId})
+            } else {
+                totalTeamDataList.add(newData.teamDataList.first { it.id == teamId })
             }
         }
-        return  Data(totalTeamDataList,this.questionMap,this.schoolMap)
+        return Data(totalTeamDataList, this.questionMap, this.schoolMap)
     }
 }
 
