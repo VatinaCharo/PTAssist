@@ -100,11 +100,6 @@ object StartView {
     val settingBtn = Button("设置").apply { id = "StartView_settingBtn" }
     val aboutBtn = Button("关于软件").apply { id = "StartView_aboutBtn" }
 
-    val generateTableDialog = ConfirmDialog().apply {
-        title = "生成对阵表(无裁判)"
-        headerText = "对阵表生成完成！"
-
-    }
 
     val startAlert = Alert(Alert.AlertType.ERROR).apply {
         title = "进入比赛"
