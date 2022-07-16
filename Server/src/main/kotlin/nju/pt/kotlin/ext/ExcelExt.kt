@@ -174,22 +174,44 @@ fun Workbook.loadSchoolFromExcel() = mutableMapOf<Int, String>().apply {
     logger.info("===================== loadSchoolFromExcel =====================")
 
     try {
-        val schoolSheet: Sheet
+        val juedgeSheet: Sheet
+        val teamSheet: Sheet
         try {
-            schoolSheet = this@loadSchoolFromExcel.getSheet(R.JUDGE_SHEET_NAME)
+            juedgeSheet = this@loadSchoolFromExcel.getSheet(R.JUDGE_SHEET_NAME)
         } catch (e: NullPointerException) {
-            logger.error("未找到sheet：" + e.message)
-            throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+            logger.error("未找到sheet${R.JUDGE_SHEET_NAME}}：" + e.message)
+            throw Exception("未找到sheet${R.JUDGE_SHEET_NAME}，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        }
+        try {
+            teamSheet = this@loadSchoolFromExcel.getSheet(R.TEAM_SHEET_NAME)
+        } catch (e: NullPointerException) {
+            logger.error("未找到sheet${R.JUDGE_SHEET_NAME}}：" + e.message)
+            throw Exception("未找到sheet${R.JUDGE_SHEET_NAME}，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
         }
 
 
         // 读取sheet内容
         var schoolIndex = 1
-        schoolSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
+        logger.info("load school from judgeSheet")
+        juedgeSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
             //跳过第一行标题行
             if (rowIndex != 0) {
                 val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
                 if (cellValues.size > 1) {
+                    logger.info("cellValues = $cellValues")
+                    this += (schoolIndex to cellValues[0])
+                    logger.info("School Map = $this")
+                    schoolIndex += 1
+                }
+            }
+        }
+        logger.info("load school from teamSheet")
+        teamSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
+            //跳过第一行标题行
+            if (rowIndex != 0) {
+                val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
+
+                if (cellValues.size > 1 && !this.values.contains(cellValues[0])) {
                     logger.info("cellValues = $cellValues")
                     this += (schoolIndex to cellValues[0])
                     logger.info("School Map = $this")
@@ -232,14 +254,10 @@ fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
                     }
 
                     logger.info("cellValues = $cellValues")
-                    if (cellValues[1].trim() != "无") {
-                        this += (cellValues[0] to cellValues.subList(1, cellValues.size))
-                        logger.info("School Map = $this")
-                    } else {
-                        this += (cellValues[0] to listOf<String>())
-                        logger.info("${cellValues[0]}无裁判出席")
 
-                    }
+                    this += (cellValues[0] to cellValues.subList(1, cellValues.size)).also { logger.info("School Map = $it") }
+
+
 
                 }
             }
