@@ -1,7 +1,7 @@
 {
-    "ip": "127.0.0.1",
-    "port": 7890,
-    "roomID": 1,
+    "ip": "114.212.135.238",
+    "port": 2022,
+    "roomID": 4,
     "round": 1,
     "judgeCount": 7,
     "roundType": "NORMAL",
