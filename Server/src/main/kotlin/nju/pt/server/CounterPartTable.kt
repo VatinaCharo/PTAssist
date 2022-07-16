@@ -250,7 +250,7 @@ class CounterPartTable(
 
 
     }
-    
+
 
     private fun tableWriteIntoExcel(
         playerTableListWithShuffle: MutableList<OneRoundTable>,
