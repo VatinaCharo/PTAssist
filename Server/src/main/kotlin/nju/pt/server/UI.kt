@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView
 import javafx.scene.input.MouseButton
 import javafx.scene.layout.*
 import javafx.scene.paint.Paint
+import javafx.stage.Modality
 import javafx.stage.Stage
 import nju.pt.R
 import nju.pt.databaseassist.*
@@ -38,7 +39,14 @@ class MyStage() : Stage() {
 
     init {
         icons.add(Image(R.LOGO_PATH))
+
     }
+
+    fun centerAndFocus() = this.apply{
+        this.centerOnScreen()
+        this.requestFocus()
+    }
+
 }
 
 class IntegerTextField() : TextField() {
@@ -455,6 +463,8 @@ class SettingView {
     fun getSettingViewStage(config: ConfigData) = MyStage(build(config)).apply {
         title = "服务端设置"
         isResizable = false
+        initModality(Modality.APPLICATION_MODAL)
+
     }
 
     private fun checkModifyConfig(): Boolean {
@@ -570,7 +580,7 @@ class ExportView() {
         }
     }
 
-    fun build(data: Data): VBox {
+    private fun build(data: Data): VBox {
         logger.info("build()")
         data.teamDataList.map { it.recordDataList.map { it.round } }.flatten().distinct().sorted().forEach { round ->
             reviewTableTurnsCheckBoxList.add(CheckBox("${round}轮").apply { isSelected = true })
@@ -581,6 +591,15 @@ class ExportView() {
         logger.info("build() return => $rootVbox")
         return rootVbox
     }
+
+    fun getExportSettingStage(data: Data) = MyStage(ExportView().build(data.copy())).apply {
+        minWidth = 150.0
+        minHeight = 300.0
+        isResizable = false
+        title = "导出内容设置"
+        initModality(Modality.APPLICATION_MODAL)
+    }
+
 
 }
 
@@ -706,6 +725,7 @@ object AddOrDeleteView {
         })
         width = 240.0
         isResizable = false
+        initModality(Modality.APPLICATION_MODAL)
 
     }
 
@@ -728,6 +748,7 @@ object AddOrDeleteView {
             id = "AddOrDeleteView_Layout"
         })
         isResizable = false
+        initModality(Modality.APPLICATION_MODAL)
 
     }
 
@@ -747,6 +768,8 @@ object AddOrDeleteView {
         })
         width = 509.0
         isResizable = false
+        initModality(Modality.APPLICATION_MODAL)
+
     }
 
     fun getDeleteRecordStage(teamData: TeamData, schoolMap: Map<Int, String>) = deleteRecordStage.apply {
@@ -769,6 +792,8 @@ object AddOrDeleteView {
             id = "AddOrDeleteView_Layout"
         })
         isResizable = false
+        initModality(Modality.APPLICATION_MODAL)
+
 
 
     }
@@ -803,6 +828,7 @@ object GenerateRoomDataView {
     fun getGenerateRoomDataStage(turns: Int) = MyStage(build(turns)).apply {
         title = "生成分会场数据"
         isResizable = false
+        initModality(Modality.APPLICATION_MODAL)
     }
 
     fun generateRoomData(data: Data) {
