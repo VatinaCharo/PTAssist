@@ -6,6 +6,7 @@ import nju.pt.kotlin.ext.*
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.slf4j.LoggerFactory
+import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -14,6 +15,34 @@ import kotlin.io.path.Path
 import kotlin.io.path.notExists
 import kotlin.math.exp
 
+private fun selectOne(countList: List<Int>): Int {
+    //输入权重列表，返回抽签得到的值的索引
+
+    val probabilityList = MutableList<Double>(countList.size) { index ->
+        //先用e指数作用
+        exp(-countList[index].toDouble())
+    }.apply {
+        val sum = this.sum()
+        //后归一化
+        this.forEachIndexed { index, _ ->
+            this[index] /= sum
+        }
+    }
+
+    //0-1的随机数
+    val random = Random(System.nanoTime()).nextDouble()
+
+    //轮盘算法，抽签
+    var sum: Double = 0.0
+    probabilityList.forEachIndexed { index, p ->
+        if (sum >= random) {
+            return index
+        } else {
+            sum += p
+        }
+    }
+    return probabilityList.size - 1
+}
 
 //对阵表生成
 @kotlinx.serialization.Serializable
@@ -35,6 +64,9 @@ class CounterPartTable(
 
     fun generateTableWithoutJudge(): MutableList<OneRoundTable> //turns为需要产生对阵表的轮数
     {
+        //记录对阵表中正方的次数
+        val RCountMap = mutableMapOf<Int, Int>()
+
         val turns: Int = Config.turns as Int
         logger.info("===================== generateTableWithoutJudge =====================")
         logger.info("roomCount:${roomCount}")
@@ -44,13 +76,17 @@ class CounterPartTable(
         val oneRoundTable = OneRoundTable(roomCount, totalTeamNumber).apply { initialize() }
 
         teamTableListWithoutShuffle.add(oneRoundTable.copy().also {
+            for (r in it.RList) {
+                RCountMap[r] = RCountMap.getOrDefault(r, 0) + 1
+            }
+
             logger.info("Round 1 table WITHOUT shuffle:")
             logger.info("R: ${it.RList}")
             logger.info("O: ${it.OList}")
             logger.info("V: ${it.VList}")
             logger.info("OB: ${it.OBList}")
         })
-        teamTableList.add(oneRoundTable.shuffle().also {
+        teamTableList.add(oneRoundTable.shuffle(RCountMap).also {
             logger.info("Round 1 table WITH shuffle:")
             logger.info("R: ${it.RList}")
             logger.info("O: ${it.OList}")
@@ -69,7 +105,10 @@ class CounterPartTable(
                 logger.info("V: ${it.VList}")
                 logger.info("OB: ${it.OBList}")
             })
-            teamTableList.add(oneRoundTable.shuffle().also {
+            teamTableList.add(oneRoundTable.shuffle(RCountMap, turn).also {
+                for (r in it.RList) {
+                    RCountMap[r] = RCountMap.getOrDefault(r, 0) + 1
+                }
                 logger.info("Round ${turn + 1} table WITH shuffle:")
                 logger.info("R: ${it.RList}")
                 logger.info("O: ${it.OList}")
@@ -211,35 +250,7 @@ class CounterPartTable(
 
 
     }
-
-    private fun selectOne(countList: List<Int>): Int {
-        //输入权重列表，返回抽签得到的值的索引
-
-        val probabilityList = MutableList<Double>(countList.size) { index ->
-            //先用e指数作用
-            exp(-countList[index].toDouble())
-        }.apply {
-            val sum = this.sum()
-            //后归一化
-            this.forEachIndexed { index, _ ->
-                this[index] /= sum
-            }
-        }
-
-        //0-1的随机数
-        val random = Random(System.nanoTime()).nextDouble()
-
-        //轮盘算法，抽签
-        var sum: Double = 0.0
-        probabilityList.forEachIndexed { index, p ->
-            if (sum >= random) {
-                return index
-            } else {
-                sum += p
-            }
-        }
-        return probabilityList.size - 1
-    }
+    
 
     private fun tableWriteIntoExcel(
         playerTableListWithShuffle: MutableList<OneRoundTable>,
@@ -523,46 +534,96 @@ data class OneRoundTable(
 
     fun roomOffset(): OneRoundTable {
         //反方右移1格，评方右移2格，观摩方右移3格，改变原对象
-
-        //燕哥别移出去！
-        fun offset(list: MutableList<Int>, offset: Int) = MutableList(list.size) { index ->
-            list[(index - offset).mod(list.size)]
-        }
-
         return this.apply {
-            OList = offset(OList, 1)
-            VList = offset(VList, 2)
-            OBList = offset(OBList, 3)
+            OList = OList.offset(1)
+            VList = VList.offset(2)
+            OBList = OBList.offset(3)
         }
     }
 
-
-    fun shuffle(): OneRoundTable {
-        //返回打乱会场的单次对阵表对象，且不改变原对象
-
-        //按照indexList排序
-        fun sortByIndexList(list: MutableList<Int>, indexList: List<Int>) = MutableList(list.size) { index ->
-            list[indexList[index]]
+    private fun reSelectRPlayer(teamList: MutableList<Int>, RCountMap: MutableMap<Int, Int>): MutableList<Int> {
+        if (RCountMap.getOrDefault(teamList[0], 0) > 1) {
+            selectOne(teamList.map { RCountMap.getOrDefault(it, 0) }).let {
+                val tmp = teamList[it]
+                teamList[it] = teamList[0]
+                teamList[0] = tmp
+            }
         }
+        return teamList
+    }
+
+    // TODO: 2022/7/16 角色之间的轮转
+    private fun rollOffsetAndShuffle(RCountMap: MutableMap<Int, Int>, offset: Int): OneRoundTable {
+        //将正方按offset移动，其他角色随机排序，若发现正方正了两次及以上，则按概率重新选择一个正方。更改原对象
+
+        for (roomId in 0 until roomCount) {
+            //没有OB
+            if (this.OBList[roomId] == -1) {
+                val modOffset = offset.mod(3)
+                (0 until 3).shuffled().toMutableList().apply {
+                    if (this[modOffset] != 0) {
+                        this[this.indexOf(0)] = this[modOffset]
+                        this[modOffset] = 0
+                    }
+                }.let { indexList ->
+                    reSelectRPlayer(
+                        mutableListOf<Int>(RList[roomId], OList[roomId], VList[roomId]).sortByIndexList(
+                            indexList
+                        ), RCountMap
+                    ).let {
+                        RList[roomId] = it[0]
+                        OList[roomId] = it[1]
+                        VList[roomId] = it[2]
+                    }
+
+                }
+
+            } else {
+                val modOffset = offset.mod(4)
+                (0 until 4).shuffled().toMutableList().apply {
+                    if (this[modOffset] != 0) {
+                        this[this.indexOf(0)] = this[modOffset]
+                        this[modOffset] = 0
+                    }
+                }.let { indexList ->
+                    mutableListOf<Int>(RList[roomId], OList[roomId], VList[roomId], OBList[roomId]).sortByIndexList(
+                        indexList
+                    ).let {
+                        RList[roomId] = it[0]
+                        OList[roomId] = it[1]
+                        VList[roomId] = it[2]
+                        OBList[roomId] = it[3]
+                    }
+                }
+
+
+            }
+        }
+        return this
+    }
+
+
+    fun shuffle(RCountMap: MutableMap<Int, Int>, offset: Int = 0): OneRoundTable {
+        //返回打乱会场的单次对阵表对象，且不改变原对象
 
         //创建用于打乱顺序的索引列表
         val indexList = (0 until roomCount).toList().shuffled()
 
         return this.copy().apply {
             //按照同一索引列表将所有角色顺序打乱
-            this.RList = sortByIndexList(RList, indexList)
-            this.OList = sortByIndexList(OList, indexList)
-            this.VList = sortByIndexList(VList, indexList)
-            this.OBList = sortByIndexList(OBList, indexList)
+            this.RList = RList.sortByIndexList(indexList)
+            this.OList = OList.sortByIndexList(indexList)
+            this.VList = VList.sortByIndexList(indexList)
+            this.OBList = OBList.sortByIndexList(indexList)
+            rollOffsetAndShuffle(RCountMap, offset)
         }
     }
 
     fun copy(): OneRoundTable {
-        return OneRoundTable(this.roomCount, this.totalTeamNumber).apply {
-            RList = this@OneRoundTable.RList
-            OList = this@OneRoundTable.OList
-            VList = this@OneRoundTable.VList
-            OBList = this@OneRoundTable.OBList
+        JsonHelper.toJson(this, "./tmp.json")
+        JsonHelper.fromJson<OneRoundTable>("./tmp.json").let {
+            File("./tmp.json").delete()
+            return it
         }
     }
 }
