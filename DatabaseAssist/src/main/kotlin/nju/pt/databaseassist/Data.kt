@@ -5,9 +5,7 @@ import java.io.File
 
 @kotlinx.serialization.Serializable
 data class PlayerData(
-    var id: Int,
-    var name: String,
-    var gender: String
+    var id: Int, var name: String, var gender: String
 )
 
 /**
@@ -37,9 +35,7 @@ data class TeamData(
 
 @kotlinx.serialization.Serializable
 data class Data(
-    var teamDataList: List<TeamData>,
-    val questionMap: Map<Int, String>,
-    val schoolMap: Map<Int, String>
+    var teamDataList: List<TeamData>, val questionMap: Map<Int, String>, val schoolMap: Map<Int, String>
 ) {
     fun copy(): Data {
         JsonHelper.toJson(this, "./tmp.json")
@@ -51,38 +47,31 @@ data class Data(
 
     fun getTeamScore() = teamDataList.map { it ->
         // 学校名，队伍名，总成绩
-        Triple(
-            schoolMap[it.schoolID],
+        Triple(schoolMap[it.schoolID],
             it.name,
-            it.recordDataList.filter { it.role != "X" }.fold(0.0) { total, recordData ->
-                total + recordData.score * recordData.weight
-            }
-        )
+            it.recordDataList.filter { it.role == "R" || it.role == "O" || it.role == "V" }
+                .fold(0.0) { total, recordData ->
+                    total + recordData.score * recordData.weight
+                })
     }.sortedByDescending { it.third }
 
 
     fun getReviewTable() = teamDataList.map {
         // 学校名，队伍名，[(赛题id to 队员们),()]
-        Triple(
-            schoolMap[it.schoolID],
-            it.name,
-            mutableMapOf<Int, String>().apply {
-                it.recordDataList.forEach { recordData ->
-                    this[recordData.questionID] = this.getOrDefault(recordData.questionID, "") + recordData.role
-                }
+        Triple(schoolMap[it.schoolID], it.name, mutableMapOf<Int, String>().apply {
+            it.recordDataList.forEach { recordData ->
+                this[recordData.questionID] = this.getOrDefault(recordData.questionID, "") + recordData.role
             }
-        )
+        })
     }
 
     fun getPlayerScore() = teamDataList.map { it ->
         // 学校名，队伍名，[(姓名 to [性别，正方得分总览，反方得分总览，评方得分总览,正方平均分,反方平均分,评方平均分])]
         Triple(
-            schoolMap[it.schoolID],
-            it.name,
-            mutableMapOf<String, MutableList<Any>>().apply {
+            schoolMap[it.schoolID], it.name, mutableMapOf<String, MutableList<Any>>().apply {
                 it.recordDataList.forEach { recordData ->
-                    //若不是拒题
-                    if (recordData.role != "X") {
+
+                    if (recordData.role == "R" || recordData.role == "O" || recordData.role == "V") {
 
                         //获取这条记录中的队员名称和性别
                         try {
@@ -95,9 +84,7 @@ data class Data(
                             //增加这条记录
                             this[playerName] = this.getOrDefault(
                                 playerName, mutableListOf<Any>(
-                                    playerGender,
-                                    "", "", "",
-                                    0.0, 0.0, 0.0
+                                    playerGender, "", "", "", 0.0, 0.0, 0.0
                                 )
                             ).apply {
                                 when (recordData.role) {
@@ -143,7 +130,7 @@ data class Data(
 
     fun getMaxPlayerId() = teamDataList.map { it.playerDataList.map { it.id } }.flatten().maxOf { it }
 
-    fun mergeData(newData: Data): Data {
+    fun mergeData(newData: Data, inplace: Boolean = false): Data {
         //队伍record的合并
         val oldTeamIdList = this.teamDataList.map { it.id }.distinct()
         val newTeamIdList = newData.teamDataList.map { it.id }.distinct()
@@ -162,7 +149,14 @@ data class Data(
                 totalTeamDataList.add(newData.teamDataList.first { it.id == teamId })
             }
         }
-        return Data(totalTeamDataList, this.questionMap, this.schoolMap)
+        return if (inplace) {
+            this.apply {
+                teamDataList = totalTeamDataList
+            }
+        } else {
+            Data(totalTeamDataList, this.questionMap, this.schoolMap)
+        }
+
     }
 }
 

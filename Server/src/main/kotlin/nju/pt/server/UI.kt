@@ -25,76 +25,6 @@ import kotlin.io.path.Path
 import kotlin.io.path.createDirectories
 import kotlin.io.path.notExists
 
-@DefaultProperty("root")
-class MyScene(root: Parent) : Scene(root) {
-    init {
-        stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-    }
-}
-
-class MyStage() : Stage() {
-    constructor(root: Parent) : this() {
-        scene = MyScene(root)
-    }
-
-    init {
-        icons.add(Image(R.LOGO_PATH))
-
-    }
-
-    fun centerAndFocus() = this.apply{
-        this.centerOnScreen()
-        this.requestFocus()
-    }
-
-}
-
-class IntegerTextField() : TextField() {
-    constructor(text: String) : this() {
-        this.text = text
-    }
-
-    init {
-        textProperty().addListener { _, oldValue, newValue ->
-            text = if (newValue.matches(Regex("^\\d*\$"))) newValue else oldValue
-        }
-        id = "IntegerTextField"
-    }
-}
-
-class DoubleTextField() : TextField() {
-    constructor(text: String) : this() {
-        this.text = text
-    }
-
-    init {
-        textProperty().addListener { _, oldValue, newValue ->
-            text =
-                if (newValue.matches(Regex("\\d*\\.\\d*")) || newValue.matches(Regex("^\\d*"))) newValue else oldValue
-        }
-        id = "DoubleTextField"
-    }
-}
-
-class ConfirmDialog() : Dialog<ButtonType>() {
-    init {
-        dialogPane.apply {
-            buttonTypes.add(ButtonType.OK)
-            lookupButton(ButtonType.OK)
-            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
-        }
-    }
-}
-
-class ConfirmAlert() : Alert(AlertType.ERROR) {
-    init {
-        dialogPane.apply {
-            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
-        }
-    }
-}
-
-//----------------------------------------------------------------------------------------------------------------------
 
 object StartView {
     private val logger = LoggerFactory.getLogger(this::class.java)
@@ -159,7 +89,7 @@ object StartView {
 
 object MainView {
     private val logger = LoggerFactory.getLogger(this::class.java)
-    private val rootHBox = HBox().apply { id = "MainView_rootHBox" }
+    val rootHBox = HBox().apply { id = "MainView_rootHBox" }
     private val informationVBox = VBox().apply { id = "MainView_informationVBox" }
     private val operationHBox1 = HBox().apply { id = "MainView_operationHBox1" }
     private val operationHBox2 = HBox().apply { id = "MainView_operationHBox2" }
@@ -176,11 +106,11 @@ object MainView {
     val exportBtn = Button("导出").apply { id = "MainView_exportBtn" }
     val schoolListView = ListView<String>().apply { id = "MainView_schoolListView" }
     val teamListView = ListView<String>().apply { id = "MainView_teamListView" }
-    private val playerTableView = TableView<PlayerData>().apply { id = "MainView_playerTableView" }
+    val playerTableView = TableView<PlayerData>().apply { id = "MainView_playerTableView" }
     private val playerIDTC = TableColumn<PlayerData, Number>("ID")
     private val playerNameTC = TableColumn<PlayerData, String>("姓名")
     private val playerGenderTC = TableColumn<PlayerData, String>("性别")
-    private val recordTableView = TableView<RecordData>().apply { id = "MainView_recordTableView" }
+    val recordTableView = TableView<RecordData>().apply { id = "MainView_recordTableView" }
     private val roomIDTC = TableColumn<RecordData, Number>("房间号")
     private val roundTC = TableColumn<RecordData, Number>("轮次")
     private val phaseTC = TableColumn<RecordData, Number>("阶段")
@@ -333,15 +263,7 @@ object MainView {
     private fun action() {
         logger.info("action()")
         modifyBtn.setOnAction {
-            playerTableView.isEditable = playerTableView.isEditable.not()
-            recordTableView.isEditable = recordTableView.isEditable.not()
-            rootHBox.background = Background(
-                BackgroundFill(
-                    if (playerTableView.isEditable) Paint.valueOf("#FF8953E0") else Paint.valueOf("#C7DAFF"),
-                    CornerRadii.EMPTY,
-                    Insets.EMPTY
-                )
-            )
+            MainViewActions.modifyBtnAction()
         }
 
         schoolListView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, EventHandler {
@@ -400,28 +322,29 @@ object MainView {
 
 }
 
-class SettingView {
+object SettingView {
     private val logger = LoggerFactory.getLogger(this::class.java)
     private val rootGridPane = GridPane().apply { id = "SettingView_rootGridPane" }
     private val portLabel = Label("Port:")
-    private val portTF = IntegerTextField().apply { id = "SettingView_portTF" }
+    val portTF = IntegerTextField().apply { id = "SettingView_portTF" }
     private val judgeCountLabel = Label("JudgeCount:")
-    private val judgeCountTF = IntegerTextField()
+    val judgeCountTF = IntegerTextField()
     private val roomCountLabel = Label("RoomCount:")
-    private val roomCountTF = IntegerTextField()
+    val roomCountTF = IntegerTextField()
     private val turnLabel = Label("Turns:")
-    private val turnCountTF = IntegerTextField()
+    val turnCountTF = IntegerTextField()
     private val rWeightLabel = Label("Init R Weight:")
-    private val rWeighTF = DoubleTextField()
+    val rWeighTF = DoubleTextField()
     private val oWeightLabel = Label("Init R Weight:")
-    private val oWeighTF = DoubleTextField()
+    val oWeighTF = DoubleTextField()
     private val vWeightLabel = Label("Init R Weight:")
-    private val vWeighTF = DoubleTextField()
+    val vWeighTF = DoubleTextField()
     val saveBtn = Button("保存").apply { id = "SettingView_saveBtn" }
 
     private fun init(config: ConfigData) {
         logger.info("init(config: Config)")
         rootGridPane.apply {
+            children.clear()
             addRow(0, portLabel, portTF, judgeCountLabel, judgeCountTF)
             addRow(1, roomCountLabel, roomCountTF, turnLabel, turnCountTF)
             addRow(2, rWeightLabel, rWeighTF, oWeightLabel, oWeighTF)
@@ -441,7 +364,7 @@ class SettingView {
 
     private fun action() {
         saveBtn.setOnAction {
-            saveConfig()
+            SettingViewActions.saveConfigBtnAction()
         }
     }
 
@@ -451,13 +374,12 @@ class SettingView {
         judgeCountTF.alignment = Pos.CENTER_RIGHT
     }
 
-    private fun build(config: ConfigData): GridPane {
+    private fun build(config: ConfigData): VBox {
         logger.info("build(config:Config)")
         init(config)
         layout()
         action()
-        logger.info("build() return => $rootGridPane")
-        return rootGridPane
+        return VBox().apply { children.add(rootGridPane) }
     }
 
     fun getSettingViewStage(config: ConfigData) = MyStage(build(config)).apply {
@@ -467,44 +389,11 @@ class SettingView {
 
     }
 
-    private fun checkModifyConfig(): Boolean {
-        logger.info("Check Config")
-        if (portTF.text.isNotEmpty() && judgeCountTF.text.isNotEmpty() && roomCountTF.text.isNotEmpty() && turnCountTF.text.isNotEmpty() && rWeighTF.text.isNotEmpty() && oWeighTF.text.isNotEmpty() && vWeighTF.text.isNotEmpty()) {
-            logger.info("No Error")
-            ConfirmDialog().apply {
-                title = "配置服务端"
-                contentText = "服务端配置成功!"
-            }.show()
-            return true
-        }
-        ConfirmAlert().apply {
-            title = "配置服务端"
-            headerText = "服务端配置失败!"
-            contentText = "Error: 服务端配置信息不得有空"
-        }.show()
-        logger.info("Error: 服务端配置信息不得有空")
-        return false
-    }
 
-    private fun saveConfig() {
-        if (checkModifyConfig()) {
-            ConfigData(
-                portTF.text.toInt(),
-                judgeCountTF.text.toInt(),
-                roomCountTF.text.toInt(),
-                turnCountTF.text.toInt(),
-                rWeighTF.text.toDouble(),
-                oWeighTF.text.toDouble(),
-                vWeighTF.text.toDouble()
-            ).let {
-                Config.writeIntoConfig(it)
-            }
-        }
 
-    }
 }
 
-class ExportView() {
+object ExportView {
     private val logger = LoggerFactory.getLogger(this::class.java)
     val rootVbox = VBox(15.0).apply { id = "ExportView_rootVbox" }
     val radioBtnHbox = VBox(30.0)
@@ -517,12 +406,15 @@ class ExportView() {
     val reviewTableTurnsCheckBoxList = mutableListOf<CheckBox>()
 
     private fun layout() {
+
         checkBoxFlowPane.apply {
+            children.clear()
             children.addAll(reviewTableTurnsCheckBoxList)
             checkBoxFlowPane.prefWidthProperty().bind(radioBtnHbox.widthProperty())
         }
 
         radioBtnHbox.apply {
+            children.clear()
             children.add(checkBoxFlowPane)
             children.add(reviewTableRadioBtn)
             children.add(teamScoreRadioBtn)
@@ -530,69 +422,33 @@ class ExportView() {
         }
 
         rootVbox.apply {
+            children.clear()
             children.addAll(radioBtnHbox, exportBtn)
             alignment = Pos.CENTER_RIGHT
+
         }
     }
 
     private fun action(data: Data) {
         exportBtn.setOnAction {
-            logger.info("Exporting...")
-            logger.info("Selected rounds: ${
-                reviewTableTurnsCheckBoxList.filter { it.isSelected }.map { it.text.first() }
-            }")
-            val dataCopy = data.copy()
-            logger.info("dataCopy:${dataCopy}")
-
-            dataCopy.teamDataList.forEach { teamData ->
-                teamData.recordDataList = teamData.recordDataList.filter { recordData ->
-                    reviewTableTurnsCheckBoxList.filter { it.isSelected }.map { "${it.text.first()}" }
-                        .contains("${recordData.round}")
-                }.toMutableList().also {
-                    logger.info("selected teamData:${it}")
-                }
-            }
-
-            logger.info("datCopy teamList:${dataCopy}")
-
-            ExportExcel(dataCopy, R.SERVER_DATA_DIR_PATH).apply {
-                if (reviewTableRadioBtn.isSelected) {
-                    this.exportReviewTable()
-                }
-                if (teamScoreRadioBtn.isSelected) {
-                    this.exportTeamScore()
-                }
-                if (playerScoreRadioBtn.isSelected) {
-                    this.exportPlayerScore()
-                }
-
-                this.savePath.let {
-                    ConfirmDialog().apply {
-                        title = "导出数据"
-                        headerText= "导出数据成功！"
-                        contentText = "数据成功导出至${it}"
-                    }.show()
-                }
-
-            }
-
-
+            ExportViewActions.exportBtnAction(data)
         }
     }
 
     private fun build(data: Data): VBox {
         logger.info("build()")
+        logger.info("data:${data}")
+        reviewTableTurnsCheckBoxList.clear()
         data.teamDataList.map { it.recordDataList.map { it.round } }.flatten().distinct().sorted().forEach { round ->
             reviewTableTurnsCheckBoxList.add(CheckBox("${round}轮").apply { isSelected = true })
         }
         layout()
         action(data)
 
-        logger.info("build() return => $rootVbox")
-        return rootVbox
+        return  VBox().apply { children.add(rootVbox) }
     }
 
-    fun getExportSettingStage(data: Data) = MyStage(ExportView().build(data.copy())).apply {
+    fun getExportSettingStage(data: Data) = MyStage(ExportView.build(data)).apply {
         minWidth = 150.0
         minHeight = 300.0
         isResizable = false
@@ -619,7 +475,7 @@ object AddOrDeleteView {
     val recordRoomIdTextField = IntegerTextField()
     val recordQIdTextField = IntegerTextField()
     val recordMasterIdTextField = IntegerTextField()
-    val recordRoleComboBox = ComboBox<String>().apply { items.addAll("R", "O", "V","X");selectionModel.select(0) }
+    val recordRoleComboBox = ComboBox<String>().apply { items.addAll("R", "O", "V", "X");selectionModel.select(0) }
     val recordScoreTextField = DoubleTextField()
     val recordWeightTextField = DoubleTextField()
     val recordComboBox = ComboBox<String>().apply { id = "AddOrDeleteView_recordComboBox" }
@@ -671,44 +527,15 @@ object AddOrDeleteView {
 
     }
 
-    val addPlayerStage = MyStage().apply { title = "增加选手" }
-    val deletePlayerStage = MyStage().apply { title = "删除选手" }
-    val addRecordStage = MyStage().apply { title = "增加记录" }
-    val deleteRecordStage = MyStage().apply { title = "删除记录" }
+    val addPlayerStage = MyStage().apply { title = "增加选手" ;initModality(Modality.APPLICATION_MODAL)}
+    val deletePlayerStage = MyStage().apply { title = "删除选手";initModality(Modality.APPLICATION_MODAL) }
+    val addRecordStage = MyStage().apply { title = "增加记录";initModality(Modality.APPLICATION_MODAL) }
+    val deleteRecordStage = MyStage().apply { title = "删除记录";initModality(Modality.APPLICATION_MODAL) }
 
 
-    fun checkAddPlayer(): Boolean {
-        logger.info("Checking Add Player")
-        if (playerNameTextField.text.isEmpty()) {
-            logger.error("Error:选手姓名不得为空")
-            ConfirmAlert().apply {
-                title = "增加选手"
-                headerText = "增加选手失败!"
-                contentText = "Error:选手姓名不得为空!"
-            }.show()
-            return false
-        } else {
-            logger.info("No Error")
-            return true
-        }
 
-    }
 
-    fun checkAddRecord(): Boolean {
-        logger.info("Checking Add Record")
-        if (recordRoundTextField.text.isNotEmpty() && recordPhaseTextField.text.isNotEmpty() && recordRoomIdTextField.text.isNotEmpty() && recordMasterIdTextField.text.isNotEmpty() && recordQIdTextField.text.isNotEmpty() && recordScoreTextField.text.isNotEmpty() && recordWeightTextField.text.isNotEmpty()) {
-            return true
-        } else {
-            ConfirmAlert().apply {
-                title = "增加记录"
-                headerText = "增加记录失败!"
-                contentText = "Error:增加记录框内不得空!"
-            }.show()
-            logger.error("Error:增加记录框内不得空!")
-            return false
-        }
 
-    }
 
 
     fun getAddPlayerStage(teamData: TeamData, schoolMap: Map<Int, String>) = addPlayerStage.apply {
@@ -725,7 +552,7 @@ object AddOrDeleteView {
         })
         width = 240.0
         isResizable = false
-        initModality(Modality.APPLICATION_MODAL)
+
 
     }
 
@@ -748,7 +575,6 @@ object AddOrDeleteView {
             id = "AddOrDeleteView_Layout"
         })
         isResizable = false
-        initModality(Modality.APPLICATION_MODAL)
 
     }
 
@@ -768,7 +594,6 @@ object AddOrDeleteView {
         })
         width = 509.0
         isResizable = false
-        initModality(Modality.APPLICATION_MODAL)
 
     }
 
@@ -792,8 +617,6 @@ object AddOrDeleteView {
             id = "AddOrDeleteView_Layout"
         })
         isResizable = false
-        initModality(Modality.APPLICATION_MODAL)
-
 
 
     }
@@ -831,67 +654,6 @@ object GenerateRoomDataView {
         initModality(Modality.APPLICATION_MODAL)
     }
 
-    fun generateRoomData(data: Data) {
-        logger.info("Generate room data")
-        val selectedTurn = turnSelectComboBox.selectionModel.selectedIndex + 1
-        logger.info("selected turn:${selectedTurn}")
-        val dataCopy = data.copy()
-        dataCopy.teamDataList.forEach { teamData ->
-            if (teamData.recordDataList.isNotEmpty()){
-                teamData.recordDataList = teamData.recordDataList.filter {
-                    it.round < selectedTurn
-                }.toMutableList()
-            }
-
-        }
-        logger.info("teamDataList:${data.teamDataList}")
-
-        Path(R.SERVER_SEND_FILE_DIR_PATH).apply {
-            if (this.notExists()) {
-                this.createDirectories()
-                logger.info("Directory created")
-            }
-        }
-        val counterPartTable = JsonHelper.fromJson<CounterPartTable>(R.COUNTERPART_TABLE_JSON_PATH)
-
-        for (roomId in 1..Config.roomCount) {
-            logger.info("Room $roomId:")
-
-            val thisRoomTeamIdList = mutableListOf<Int>().apply {
-                counterPartTable.teamTableList[selectedTurn - 1].let {
-                    this.add(it.RList[roomId - 1])
-                    this.add(it.OList[roomId - 1])
-                    this.add(it.VList[roomId - 1])
-                    if (it.OBList[roomId - 1] != -1) {
-                        this.add(it.OBList[roomId - 1])
-                    }
-                }
-            }
-            logger.info("teamIdList:$thisRoomTeamIdList")
-            val dataCopyTemp = dataCopy.copy()
-            dataCopyTemp.teamDataList = mutableListOf<TeamData>().apply {
-                for (teamId in thisRoomTeamIdList) {
-                    this.add(
-                        dataCopy.teamDataList.first{it.id == teamId}
-                    )
-                }
-            }
-
-            logger.info("teamDataList:${dataCopyTemp.teamDataList}")
-            Path("${R.SERVER_SEND_FILE_DIR_PATH}/Round${selectedTurn}").apply {
-                if (this.notExists()){
-                    this.createDirectories()
-                }
-            }
-            JsonHelper.toJson(dataCopyTemp, "${R.SERVER_SEND_FILE_DIR_PATH}/Round${selectedTurn}/Room${roomId}.json")
-
-        }
-        ConfirmDialog().apply {
-            title = "生成分会场数据"
-            headerText = "生成分会场数据成功！"
-            contentText = "第${selectedTurn}轮数据成功保存至${R.SERVER_SEND_FILE_DIR_PATH}/Round${selectedTurn}"
-        }.show()
-    }
 }
 
 
