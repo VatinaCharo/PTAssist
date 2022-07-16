@@ -7,17 +7,17 @@ import org.slf4j.LoggerFactory
 
 object JSYPTRule : RuleInterface {
     private val logger = LoggerFactory.getLogger(this::class.java)
-    private const val questionCount = 5
     private val banRuleListConfig = listOf(
         TeamType.REPORTER to QuestionType.REFUSED,
-        TeamType.OPPONENT to QuestionType.OPPOSED,
+        TeamType.REPORTER to QuestionType.REPORTED,
+        TeamType.OPPONENT to QuestionType.OPPOSED
     )
     private const val playerMasterTimesIn1RoundConfig = 2
     private const val playerMasterTimesIn1MatchConfig = 5
     private const val playerRepTimesIn1MatchConfig = 3
 
     private fun getQuestionType(value: String) = when (value) {
-        "nju.pt.net.R" -> QuestionType.REPORTED
+        "R" -> QuestionType.REPORTED
         "O" -> QuestionType.OPPOSED
         "X" -> QuestionType.REFUSED
         else -> QuestionType.OPTIONAL
@@ -50,27 +50,36 @@ object JSYPTRule : RuleInterface {
         usedQuestionIDList: List<Int>,
         questionIDLibList: List<Int>
     ): List<Int> {
-        if (questionIDLibList.size > questionCount) {
-            var optionalQuestionIDList = questionIDLibList.minus(usedQuestionIDList.toSet())
+        if (questionIDLibList.size > 0) {
+            val tempQuestionIDLibList = questionIDLibList.minus(usedQuestionIDList.toSet())
+            logger.info("当前比赛可用题库为$tempQuestionIDLibList")
             val repQRecordSet =
                 repTeamRecordDataList.map {
                     it.questionID to (TeamType.REPORTER to getQuestionType(it.role))
                 }.toSet()
+            logger.info("repQRecordSet = $repQRecordSet")
             val oppQRecordSet =
                 oppTeamRecordDataList
                     .map {
                         it.questionID to (TeamType.OPPONENT to getQuestionType(it.role))
                     }.toSet()
+            logger.info("oppQRecordSet = $oppQRecordSet")
             var banRuleList = banRuleListConfig
+            var optionalQuestionIDList: List<Int>
             // 如果获取到的可选题目数量小于指定的题目数量限制（这里是5）,则从后往前依次解锁题目限制规则，直到最终题目数量大于5
             do {
+                logger.info("getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)")
+                logger.info("tempQuestionIDLibList = $tempQuestionIDLibList")
+                logger.info("repQRecordSet = $repQRecordSet")
+                logger.info("oppQRecordSet = $oppQRecordSet")
+                logger.info("banRuleList = $banRuleList")
                 optionalQuestionIDList =
-                    getOptionalQuestionIDList(optionalQuestionIDList, repQRecordSet, oppQRecordSet, banRuleList)
+                    getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
                 banRuleList = banRuleList.dropLast(1)
-            } while (optionalQuestionIDList.size < questionCount)
+            } while (optionalQuestionIDList.isEmpty())
             return optionalQuestionIDList
         } else {
-            logger.warn("赛题小于${questionCount}道，无法进行赛题的禁用与解放")
+            logger.warn("不存在赛题，无法进行赛题的禁用与解放")
             return questionIDLibList
         }
     }
@@ -90,9 +99,13 @@ object JSYPTRule : RuleInterface {
         oppQRecordList: Set<Pair<Int, Pair<TeamType, QuestionType>>>,
         banRuleList: List<Pair<TeamType, QuestionType>>
     ): List<Int> {
-        val repBanQuestionIDList = repQRecordList.filter { it.second in banRuleList }.map { it.first }
+        val repBanRuleList = banRuleList.filter { it.first == TeamType.REPORTER }
+        logger.info("正方banRuleList = $repBanRuleList")
+        val repBanQuestionIDList = repQRecordList.filter { it.second in repBanRuleList }.map { it.first }
         logger.info("repBanQuestionIDList = $repBanQuestionIDList")
-        val oppBanQuestionIDList = oppQRecordList.filter { it.second in banRuleList }.map { it.first }
+        val oppBanRuleList = banRuleList.filter { it.first == TeamType.OPPONENT }
+        logger.info("反方banRuleList = $oppBanRuleList")
+        val oppBanQuestionIDList = oppQRecordList.filter { it.second in oppBanRuleList }.map { it.first }
         logger.info("oppBanQuestionIDList = $oppBanQuestionIDList")
         return questionIDList.minus(repBanQuestionIDList.toSet()).minus(oppBanQuestionIDList.toSet())
     }
