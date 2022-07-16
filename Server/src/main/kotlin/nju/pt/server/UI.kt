@@ -188,7 +188,7 @@ object MainView {
     private val weightTC = TableColumn<RecordData, Number>("系数")
 
     val generateRoomDataBtn = Button("生成分会场数据")
-    val addDataFromJsonBtn = Button("增加数据")
+    val addDataFromJsonBtn = Button("加载数据")
 
 
     var selectedSchoolItems = SimpleListProperty(schoolListView.selectionModel.selectedItems)
@@ -560,7 +560,18 @@ class ExportView() {
                 if (playerScoreRadioBtn.isSelected) {
                     this.exportPlayerScore()
                 }
+
+                this.savePath.let {
+                    ConfirmDialog().apply {
+                        title = "导出数据"
+                        headerText= "导出数据成功！"
+                        contentText = "数据成功导出至${it}"
+                    }.show()
+                }
+
             }
+
+
         }
     }
 
@@ -854,7 +865,11 @@ object GenerateRoomDataView {
             JsonHelper.toJson(dataCopyTemp, "${R.SERVER_SEND_FILE_DIR_PATH}/Round${selectedTurn}/Room${roomId}.json")
 
         }
-
+        ConfirmDialog().apply {
+            title = "生成分会场数据"
+            headerText = "生成分会场数据成功！"
+            contentText = "第${selectedTurn}轮数据成功保存至${R.SERVER_SEND_FILE_DIR_PATH}/Round${selectedTurn}"
+        }.show()
     }
 }
 

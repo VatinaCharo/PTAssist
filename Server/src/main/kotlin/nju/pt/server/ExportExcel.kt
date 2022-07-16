@@ -40,7 +40,7 @@ class ExportExcel(private val data: Data, saveDirPath: String) {
         }
 
     //导出文件路径
-    private val savePath = when (saveDirPath.endsWith("/")) {
+    val savePath = when (saveDirPath.endsWith("/")) {
         true -> saveDirPath + "第${roundName}轮成绩.xlsx"
         else -> saveDirPath + "/第${roundName}轮成绩.xlsx"
     }
@@ -267,11 +267,11 @@ class ExportExcel(private val data: Data, saveDirPath: String) {
                             createCell(1).setCellValue(triple.second)
                             createCell(2).setCellValue(name)
                             createCell(3).setCellValue(dataList[0] as String)
-                            for (i in 1..3) {
+                            for (i in 0..2) {
                                 //得分情况
-                                createCell(i + 3).setCellValue(dataList[i] as String)
+                                createCell(2*i + 4).setCellValue(dataList[i +1] as String)
                                 //平均分
-                                createCell(i + 4).setCellValue((dataList[i + 3] as Double))
+                                createCell(2*i + 5).setCellValue((dataList[i + 4] as Double))
                             }
 
                         }

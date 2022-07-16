@@ -243,6 +243,11 @@ class AppUI : Application() {
                     saveBtn.setOnAction {
                         logger.info("Save Data")
                         JsonHelper.toJson(data, R.DATA_JSON_PATH)
+                        ConfirmDialog().apply {
+                            title = "保存"
+                            headerText = "保存成功！"
+                            contentText = "数据成功保存至${R.DATA_JSON_PATH}"
+                        }.show()
                     }
 
                     //增删Menu
@@ -299,8 +304,19 @@ class AppUI : Application() {
 
                                 }
                         } catch (e: java.lang.NullPointerException) {
-                            println(e.message)
+                            logger.error("未选择文件！")
+                            logger.error(e.message)
+                            ConfirmAlert().apply {
+                                title = "加载数据"
+                                headerText = "加载数据失败！"
+                                contentText = "Error:未找到文件，${e.message}"
+                            }.show()
                         }
+
+                        ConfirmDialog().apply {
+                            title = "加载数据"
+                            headerText = "加载数据成功！"
+                        }.show()
                     }
 
                 }
