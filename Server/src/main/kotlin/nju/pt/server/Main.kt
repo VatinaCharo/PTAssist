@@ -127,7 +127,12 @@ class AppUI : Application() {
                     }.show()
                     throw Exception(e.message)
                 }
-                generateTableDialog.show()
+                ConfirmDialog().apply {
+                    title = "生成对阵表(无裁判)"
+                    headerText = "对阵表生成完成！"
+                    contentText = "对阵表缓存文件保存至${R.COUNTERPART_TABLE_JSON_PATH}\n对阵表生成至${R.COUNTERPART_TABLE_EXCEL_PATH}"
+
+                }.show()
 
             }
             //生成有裁判的对阵表按钮
@@ -156,6 +161,7 @@ class AppUI : Application() {
                 ConfirmDialog().apply {
                     headerText = "对阵表生成完成！"
                     title = "生成对阵表(有裁判)"
+                    contentText = "对阵表生成至${R.COUNTERPART_TABLE_EXCEL_PATH}"
                 }.show()
             }
 

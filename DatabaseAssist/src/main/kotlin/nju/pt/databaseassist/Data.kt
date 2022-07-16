@@ -1,5 +1,7 @@
 package nju.pt.databaseassist
 
+import java.io.File
+
 
 @kotlinx.serialization.Serializable
 data class PlayerData(
@@ -41,7 +43,10 @@ data class Data(
 ){
     fun copy():Data{
         JsonHelper.toJson(this,"./tmp.json")
-        return JsonHelper.fromJson<Data>("./tmp.json")
+        JsonHelper.fromJson<Data>("./tmp.json").let {
+            File("./tmp.json").delete()
+            return it
+        }
     }
     fun getTeamScore() = teamDataList.map {
         // 学校名，队伍名，总成绩
