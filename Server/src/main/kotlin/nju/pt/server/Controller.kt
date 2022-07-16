@@ -53,7 +53,7 @@ class DoubleTabCell<T> : TableCell<T, Number>() {
             alignment = Pos.CENTER
             children.add(TextField("$item").apply {
                 textProperty().addListener { _, oldValue, newValue ->
-                    text = if (newValue.matches(Regex("^\\d*\\.?\\d*$")) ) newValue else oldValue
+                    text = if (newValue.matches(Regex("^\\d*\\.?\\d*$"))) newValue else oldValue
                 }
                 setOnKeyPressed {
                     if (it.code == KeyCode.ENTER && text.isNotEmpty()) {
