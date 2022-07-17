@@ -4,7 +4,7 @@ import java.io.File
 
 
 object R {
-    const val VERSION = "1.2.1"
+    const val VERSION = "1.2.2"
 
     val DEFAULT_CSS_PATH = R::class.java.getResource("assets/Element.css")?.toExternalForm()
     val SPECIAL_CSS_PATH = R::class.java.getResource("assets/Special.css")?.toExternalForm()
