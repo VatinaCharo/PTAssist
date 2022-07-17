@@ -7,7 +7,7 @@ application {
     mainClassName("nju.pt.server.MainKt")
 }
 group = 'nju.pt'
-version = '1.2.2'
+version = '1.2.3'
 
 repositories {
     mavenCentral()
