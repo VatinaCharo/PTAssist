@@ -114,7 +114,7 @@ data class Data(
 
                 //再对得到的列表进行一定处理
                 this.forEach { (_, dataList) ->
-                    for (i in 1..2) {
+                    for (i in 1..3) {
                         if (dataList[i] != "") {
                             //求平均值
                             dataList[i + 3] = (dataList[i + 3] as Double) / (dataList[i] as String).count { it == ',' }
