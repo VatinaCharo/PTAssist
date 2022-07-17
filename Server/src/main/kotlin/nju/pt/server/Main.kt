@@ -66,6 +66,9 @@ class AppUI : Application() {
         }
 
         logger.info("checking configuration file...")
+
+
+
         // 配置文件json找不到
         if (Path(R.CONFIG_JSON_PATH).notExists()) {
             Path(R.CONFIG_EXCEL_PATH).apply {
@@ -87,6 +90,27 @@ class AppUI : Application() {
                 }
             }
         }
+
+        logger.info("checking data file...")
+        if (Path(R.DATA_JSON_PATH).notExists()){
+            Path(R.CONFIG_EXCEL_PATH).apply {
+                //配置文件excel找不到
+                if (this.notExists()) {
+                    if (this.parent.notExists()) {
+                        //Data文件夹都没有
+                        this.parent.createDirectory()
+                    }
+                    XSSFWorkbook().initializeExcel()
+                    logger.error("已新建配置文件，请先在${R.SERVER_DATA_DIR_PATH}中配置服务端配置文件再进入程序！")
+                    throw Exception("已新建配置文件，请在${R.SERVER_DATA_DIR_PATH}中配置服务端配置文件再进入程序！")
+                } else {
+                    WorkbookFactory.create(R.CONFIG_EXCEL_FILE).apply {
+                        checkConfigExcel()
+                    }
+                }
+            }
+        }
+
 
         fileNetServer = FileNetServer(Config.port, FileRouter())
         // 启动文件接收线程
