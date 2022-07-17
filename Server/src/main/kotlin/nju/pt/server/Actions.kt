@@ -167,8 +167,8 @@ object MainViewActions {
         AddOrDeleteView.getDeletePlayerStage(selectedTeamData, schoolMap).show()
     }
 
-    fun addRecordMenuItemAction(selectedTeamData: TeamData, schoolMap: Map<Int, String>) {
-        AddOrDeleteView.getAddRecordStage(selectedTeamData, schoolMap).show()
+    fun addRecordMenuItemAction(selectedTeamData: TeamData, schoolMap: Map<Int, String>,questionList:List<Int>) {
+        AddOrDeleteView.getAddRecordStage(selectedTeamData, schoolMap,questionList).show()
     }
 
     fun deleteRecordMenuItemAction(selectedTeamData: TeamData, schoolMap: Map<Int, String>) {
@@ -285,7 +285,7 @@ object AddOrDeleteViewActions {
 
     private fun checkAddRecord(): Boolean {
         logger.info("Checking Add Record")
-        return if (AddOrDeleteView.recordRoundTextField.text.isNotEmpty() && AddOrDeleteView.recordPhaseTextField.text.isNotEmpty() && AddOrDeleteView.recordRoomIdTextField.text.isNotEmpty() && AddOrDeleteView.recordMasterIdTextField.text.isNotEmpty() && AddOrDeleteView.recordQIdTextField.text.isNotEmpty() && AddOrDeleteView.recordScoreTextField.text.isNotEmpty() && AddOrDeleteView.recordWeightTextField.text.isNotEmpty()) {
+        return if (  AddOrDeleteView.recordRoomIdTextField.text.isNotEmpty()   && AddOrDeleteView.recordScoreTextField.text.isNotEmpty() && AddOrDeleteView.recordWeightTextField.text.isNotEmpty()) {
             true
         } else {
             ErrorAlert().apply {
@@ -299,7 +299,6 @@ object AddOrDeleteViewActions {
 
     }
 
-    // TODO: 2022/7/17 写选手时改成combobox
     fun addRecordConfirmBtnAction(data: Data, selectedTeamData: TeamData) {
         if (checkAddRecord()) {
             data.teamDataList.filter {
@@ -308,11 +307,11 @@ object AddOrDeleteViewActions {
                 )
             }[0].recordDataList.add(
                 RecordData(
-                    AddOrDeleteView.recordRoundTextField.text.toInt(),
-                    AddOrDeleteView.recordPhaseTextField.text.toInt(),
+                    AddOrDeleteView.recordRoundComboBox.selectionModel.selectedItem,
+                    AddOrDeleteView.recordPhaseComboBox.selectionModel.selectedItem,
                     AddOrDeleteView.recordRoomIdTextField.text.toInt(),
-                    AddOrDeleteView.recordQIdTextField.text.toInt(),
-                    AddOrDeleteView.recordMasterIdTextField.text.toInt(),
+                    AddOrDeleteView.recordQIdComboBox.selectionModel.selectedItem,
+                    AddOrDeleteView.recordMasterIdComboBox.selectionModel.selectedItem,
                     AddOrDeleteView.recordRoleComboBox.selectionModel.selectedItem,
                     AddOrDeleteView.recordScoreTextField.text.toDouble(),
                     AddOrDeleteView.recordWeightTextField.text.toDouble()
@@ -320,7 +319,7 @@ object AddOrDeleteViewActions {
             )
             InfoAlert().apply {
                 title = "增加记录"
-                contentText = "增加记录成功!"
+                headerText = "增加记录成功!"
                 setOnCloseRequest { AddOrDeleteView.addRecordStage.close() }
             }.show()
             MainView.refreshData(selectedTeamData)

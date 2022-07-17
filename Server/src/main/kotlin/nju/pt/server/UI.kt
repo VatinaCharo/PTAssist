@@ -470,11 +470,11 @@ object AddOrDeleteView {
         items.addAll("女", "男");selectionModel.select(0);id = "AddOrDeleteView_playerGenderChoiceBox"
     }
     val playerDeleteComboBox = ComboBox<String>().apply { id = "AddOrDeleteView_playerDeleteComboBox" }
-    val recordRoundTextField = IntegerTextField()
-    val recordPhaseTextField = IntegerTextField()
+    val recordRoundComboBox = ComboBox<Int>().apply { items.addAll(0..Config.turns);selectionModel.selectFirst() }
+    val recordPhaseComboBox = ComboBox<Int>().apply { items.addAll(1..4);selectionModel.selectFirst() }
     val recordRoomIdTextField = IntegerTextField()
-    val recordQIdTextField = IntegerTextField()
-    val recordMasterIdTextField = IntegerTextField()
+    val recordQIdComboBox = ComboBox<Int>()
+    val recordMasterIdComboBox = ComboBox<Int>()
     val recordRoleComboBox = ComboBox<String>().apply { items.addAll("R", "O", "V", "X");selectionModel.select(0) }
     val recordScoreTextField = DoubleTextField()
     val recordWeightTextField = DoubleTextField()
@@ -494,19 +494,19 @@ object AddOrDeleteView {
         id = "AddOrDeleteView_recordInfoFlowPane"
         children.addAll(HBox(5.0).apply {
             children.addAll(
-                Label("轮次:"), recordRoundTextField
+                Label("轮次:"), recordRoundComboBox
             )
-        }, HBox(5.0).apply { children.addAll(Label("阶段"), recordPhaseTextField) }, HBox(5.0).apply {
+        }, HBox(5.0).apply { children.addAll(Label("阶段"), recordPhaseComboBox) }, HBox(5.0).apply {
             children.addAll(
                 Label("会场Id"), recordRoomIdTextField
             )
         }, HBox(5.0).apply {
             children.addAll(
-                Label("题目Id"), recordQIdTextField,
+                Label("题目Id"), recordQIdComboBox,
             )
         }, HBox(5.0).apply {
             children.addAll(
-                Label("主控队员Id"), recordMasterIdTextField,
+                Label("主控队员Id"), recordMasterIdComboBox,
             )
         }, HBox(5.0).apply {
             children.addAll(
@@ -578,12 +578,27 @@ object AddOrDeleteView {
 
     }
 
-    fun getAddRecordStage(teamData: TeamData, schoolMap: Map<Int, String>) = addRecordStage.apply {
+    fun getAddRecordStage(teamData: TeamData, schoolMap: Map<Int, String>,questionList:List<Int>) = addRecordStage.apply {
         logger.info("add record")
         schoolNameLabel.text = "${teamData.schoolID}-${schoolMap[teamData.schoolID]}"
         teamNameLabel.text = teamData.name
         logger.info("schoolName:${schoolNameLabel.text}")
         logger.info("teamName:${teamNameLabel.text}")
+
+
+        recordQIdComboBox.items.apply {
+            clear()
+            addAll(questionList)
+        }
+        recordQIdComboBox.selectionModel.selectFirst()
+
+        recordMasterIdComboBox.items.apply {
+            clear()
+            addAll(
+                teamData.playerDataList.map { it.id }
+            )
+        }
+        recordMasterIdComboBox.selectionModel.selectFirst()
 
         scene = MyScene(VBox(10.0).apply {
             children.addAll(

@@ -232,7 +232,7 @@ class AppUI : Application() {
                 MainViewActions.deletePlayerMenuItemAction(getSelectedTeamData(), schoolMap)
             }
             addRecordMenuItem.setOnAction {
-                MainViewActions.addRecordMenuItemAction(getSelectedTeamData(), schoolMap)
+                MainViewActions.addRecordMenuItemAction(getSelectedTeamData(), schoolMap,data.questionMap.keys.toList())
             }
             deleteRecordMenuItem.setOnAction {
                 MainViewActions.deleteRecordMenuItemAction(getSelectedTeamData(), schoolMap)
