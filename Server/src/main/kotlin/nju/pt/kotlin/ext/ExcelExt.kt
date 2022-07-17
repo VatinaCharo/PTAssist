@@ -2,11 +2,9 @@ package nju.pt.kotlin.ext
 
 
 import nju.pt.R
-import nju.pt.databaseassist.Data
-import nju.pt.databaseassist.JsonHelper
-import nju.pt.databaseassist.PlayerData
-import nju.pt.databaseassist.TeamData
+import nju.pt.databaseassist.*
 import nju.pt.server.ConfigData
+import org.apache.poi.hssf.util.HSSFColor
 import org.apache.poi.ss.usermodel.*
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
@@ -255,16 +253,18 @@ fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
 
                     logger.info("cellValues = $cellValues")
 
-                    this += (cellValues[0] to cellValues.subList(1, cellValues.size)).also { logger.info("School Map = $it") }
-
+                    this += (cellValues[0] to cellValues.subList(
+                        1,
+                        cellValues.size
+                    )).also { logger.info("School Map = $it") }
 
 
                 }
             }
         }
     } catch (e: NullPointerException) {
-        logger.error("未找到sheet：" + e.message)
-        throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        logger.error("裁判信息不完整：" + e.message)
+        throw Exception("裁判信息不完整，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: Exception) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
@@ -280,7 +280,14 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
     val logger = LoggerFactory.getLogger("Team Data Loader")
 
     try {
-        val teamSheet = this@loadTeamFromExcel.getSheet(R.TEAM_SHEET_NAME)
+        val teamSheet:Sheet
+        try {
+            teamSheet = this@loadTeamFromExcel.getSheet(R.TEAM_SHEET_NAME)
+        }catch (e: NullPointerException) {
+            logger.error("未找到sheet：" + e.message)
+            throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        }
+
         val reversedSchoolMap = this@loadTeamFromExcel.loadSchoolFromExcel().entries.associate { (k, v) -> v to k }
         logger.info("===================== loadTeamFromExcel =====================")
 
@@ -336,8 +343,8 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
         }
 
     } catch (e: NullPointerException) {
-        logger.error("未找到sheet：" + e.message)
-        throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        logger.error("队伍信息不完整：" + e.message)
+        throw Exception("队伍信息不完整，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: NumberFormatException) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
@@ -375,13 +382,67 @@ fun Workbook.getTotalTeamNumber(): Int {
     }
 }
 
+// TODO: 2022/7/17 导入题库，初始化json
+fun Workbook.loadQuestionBankFromExcel() = mutableListOf<Triple<String, String, List<Int>>>().apply {
+    // [学校名，队伍名，题库列表]
+    val logger = LoggerFactory.getLogger("QuestionBankLoader")
+
+    try {
+        val qBankSheet: Sheet
+        try {
+            qBankSheet = this@loadQuestionBankFromExcel.getSheet(R.QUESTIONBANK_SHEET_NAME)
+        } catch (e: NullPointerException) {
+            logger.error("未找到sheet${R.QUESTIONBANK_SHEET_NAME}：" + e.message)
+            throw Exception("未找到sheet${R.QUESTIONBANK_SHEET_NAME}，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        }
+
+
+        logger.info("===================== loadQuestionBankFromExcel =====================")
+        // 读取sheet内容
+        qBankSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
+            //跳过第一行标题行
+            if (rowIndex != 0) {
+                val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
+                if (cellValues.size > 1) {
+                    logger.info("cellValues = $cellValues")
+
+                    this += Triple(
+                        cellValues[0], cellValues[1],
+                        cellValues[2].replace('，',',') .split(',').map { it.toInt() }
+                    )
+                }
+            }
+        }
+
+    } catch (e: NullPointerException) {
+        logger.error("题库信息不完整：" + e.message)
+        throw Exception("题库信息不完整，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+    }
+}
+
 
 fun Workbook.initializeJson() {
+    val teamDataList = this.loadTeamFromExcel()
+    val schoolMap  = this.loadSchoolFromExcel()
+    val questionBankList = this.loadQuestionBankFromExcel()
+
+    //增加拒题题库
+    if (questionBankList.isNotEmpty()){
+        teamDataList.forEach {teamData->
+            questionBankList.first{it.second == teamData.name &&it.first == schoolMap[teamData.schoolID]   }.let {
+                teamData.recordDataList = MutableList(it.third.size){index->
+                    RecordData(0,0,0,it.third[index],0,"B",0.0,0.0)
+                }
+            }
+
+        }
+    }
+
     JsonHelper.toJson(
         Data(
-            teamDataList = this.loadTeamFromExcel(),
+            teamDataList = teamDataList,
             questionMap = this.loadQuestionFromExcel(),
-            schoolMap = this.loadSchoolFromExcel()
+            schoolMap = schoolMap
         ),
         savePath = R.DATA_JSON_PATH
     )
@@ -539,6 +600,30 @@ fun Workbook.initializeExcel() {
                 }
                 createCell(3).apply {
                     setCellValue("裁判3")
+                }
+            }
+        }
+
+        createSheet("队伍题库").apply {
+            createRow(0).apply {
+                createCell(0).apply {
+                    setCellValue("学校名");cellStyle = titleStyle
+                }
+                createCell(1).apply {
+                    setCellValue("队伍名");cellStyle = titleStyle
+                }
+                createCell(2).apply {
+                    setCellValue("题库");cellStyle = titleStyle
+                }
+                createCell(3).apply {
+                    setCellValue("注：此表单为队伍的题库表单，用于不采用拒题而选择直接给出题库的比赛规则。若不需要此功能则不需要填写任何内容，也不要删除此表单。题库输入规则为题号用逗号隔开，例如：1,2,10 此处逗号半角圆角都可以")
+                    cellStyle = this@initializeExcel.createCellStyle().apply {
+                        setFont(
+                            this@initializeExcel.createFont().apply {
+                                color = HSSFColor.HSSFColorPredefined.RED.index
+                            }
+                        )
+                    }
                 }
             }
         }

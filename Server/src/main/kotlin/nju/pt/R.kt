@@ -23,6 +23,7 @@ object R {
     const val QUESTIONS_SHEET_NAME = "赛题信息"
     const val TEAM_SHEET_NAME = "队伍信息"
     const val JUDGE_SHEET_NAME = "裁判信息"
+    const val QUESTIONBANK_SHEET_NAME = "队伍题库"
 
     const val DATA_JSON_PATH = "$SERVER_DATA_DIR_PATH/data.json"
     val DATA_JSON_EXAMPLE = R::class.java.getResource("assets/data_example.json")!!.readText()
