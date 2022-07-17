@@ -11,10 +11,7 @@ import nju.pt.databaseassist.*
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.FileNotFoundException
-import kotlin.io.path.Path
-import kotlin.io.path.createDirectories
-import kotlin.io.path.exists
-import kotlin.io.path.notExists
+import kotlin.io.path.*
 
 object StartViewActions {
     private val logger = LoggerFactory.getLogger("StartViewActions Logger")
@@ -193,11 +190,16 @@ object MainViewActions {
             }.run {
                 showOpenMultipleDialog(MyStage())
             }.forEach {
-
-                it.copyTo(File("${R.SERVER_BACKUP_FILE_DIR_PATH}/${it.name}"), true)
+                if (Path(it.parent).absolutePathString()  != (Path(R.SERVER_BACKUP_FILE_DIR_PATH)).absolutePathString()){
+                    it.copyTo(File("${R.SERVER_BACKUP_FILE_DIR_PATH}/${it.name}"), true)
+                }
                 data.mergeData(JsonHelper.fromJson<Data>(it.path), inplace = true)
                 MainView.refreshData(data.teamDataList[0])
-                it.delete()
+
+                if (Path(it.parent).absolutePathString() == (Path(R.SERVER_ACCEPT_FILE_TEMP_DIR_PATH)).absolutePathString()){
+                    it.delete()
+                }
+
 
             }
 
