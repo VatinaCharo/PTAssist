@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
 object JSYPTRule : RuleInterface {
     private val logger = LoggerFactory.getLogger(this::class.java)
     private val banRuleListConfig = listOf(
-        TeamType.REPORTER to QuestionType.REFUSED,
+        TeamType.REPORTER to QuestionType.BAN,
         TeamType.REPORTER to QuestionType.REPORTED,
         TeamType.OPPONENT to QuestionType.OPPOSED
     )
@@ -50,7 +50,7 @@ object JSYPTRule : RuleInterface {
         usedQuestionIDList: List<Int>,
         questionIDLibList: List<Int>
     ): List<Int> {
-        if (questionIDLibList.size > 0) {
+        if (questionIDLibList.isNotEmpty()) {
             val tempQuestionIDLibList = questionIDLibList.minus(usedQuestionIDList.toSet())
             logger.info("当前比赛可用题库为$tempQuestionIDLibList")
             val repQRecordSet =
@@ -66,7 +66,8 @@ object JSYPTRule : RuleInterface {
             logger.info("oppQRecordSet = $oppQRecordSet")
             var banRuleList = banRuleListConfig
             var optionalQuestionIDList: List<Int>
-            // 如果获取到的可选题目数量小于指定的题目数量限制（这里是5）,则从后往前依次解锁题目限制规则，直到最终题目数量大于5
+            var loopCount = 0
+            // 如果获取到的可选题目数量小于指定的题目数量限制（这里是0）,则从后往前依次解锁题目限制规则，直到最终题目数量大于0
             do {
                 logger.info("getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)")
                 logger.info("tempQuestionIDLibList = $tempQuestionIDLibList")
@@ -76,7 +77,11 @@ object JSYPTRule : RuleInterface {
                 optionalQuestionIDList =
                     getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
                 banRuleList = banRuleList.dropLast(1)
-            } while (optionalQuestionIDList.isEmpty())
+                loopCount++
+            } while (optionalQuestionIDList.isEmpty() && loopCount < banRuleListConfig.size)
+            if (loopCount >= banRuleListConfig.size) {
+                throw Exception("禁题全部解锁，但题目数量依旧不满足预设条件")
+            }
             return optionalQuestionIDList
         } else {
             logger.warn("不存在赛题，无法进行赛题的禁用与解放")
@@ -135,7 +140,8 @@ object JSYPTRule : RuleInterface {
             playerMasterTimesIn1Round < playerMasterTimesIn1RoundConfig
         }
         .filter { playerData ->
-            val playerMasterTimesIn1Match = teamRecordDataList.filter { it.masterID == playerData.id }.size
+            val playerMasterTimesIn1Match = teamRecordDataList.filter { it.role in listOf("R", "O", "V") }
+                .filter { it.masterID == playerData.id }.size
             logger.info("playerMasterTimesIn1Match = $playerMasterTimesIn1Match")
             playerMasterTimesIn1Match < playerMasterTimesIn1MatchConfig
         }
