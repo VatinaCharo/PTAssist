@@ -126,7 +126,11 @@ object CUPTRule : RuleInterface {
             playerMasterTimesIn1Round < playerMasterTimesIn1RoundConfig
         }
         .filter { playerData ->
-            val playerMasterTimesIn1Match = teamRecordDataList.filter { it.masterID == playerData.id }.size
+            val playerMasterTimesIn1Match =
+                teamRecordDataList
+                    .filter { it.role in listOf("R", "O", "V") }
+                    .filter { it.masterID == playerData.id }
+                    .size
             logger.info("playerMasterTimesIn1Match = $playerMasterTimesIn1Match")
             playerMasterTimesIn1Match < playerMasterTimesIn1MatchConfig
         }

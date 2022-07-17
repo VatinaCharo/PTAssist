@@ -1,3 +1,3 @@
 package nju.pt.kotlin.ext
 
-fun <T> List<T>.rotate() = mutableListOf(this.last()).apply { addAll(this@rotate.dropLast(1)) }
+fun <T> List<T>.rotate() = this.drop(1).toMutableList().apply { add(this@rotate.first()) }.toList()

@@ -62,7 +62,7 @@ class DoubleTabCell<T> : TableCell<T, Number>() {
             alignment = Pos.CENTER
             children.add(TextField("$item").apply {
                 textProperty().addListener { _, oldValue, newValue ->
-                    text = if (newValue.matches(Regex("^\\d*\\.?\\d*$")) ) newValue else oldValue
+                    text = if (newValue.matches(Regex("^\\d*\\.?\\d*$"))) newValue else oldValue
                 }
                 focusedProperty().addListener { _, _, newValue ->
                     if (!newValue && text.isNotEmpty()){
