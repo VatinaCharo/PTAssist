@@ -280,10 +280,10 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
     val logger = LoggerFactory.getLogger("Team Data Loader")
 
     try {
-        val teamSheet:Sheet
+        val teamSheet: Sheet
         try {
             teamSheet = this@loadTeamFromExcel.getSheet(R.TEAM_SHEET_NAME)
-        }catch (e: NullPointerException) {
+        } catch (e: NullPointerException) {
             logger.error("未找到sheet：" + e.message)
             throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
         }
@@ -408,7 +408,7 @@ fun Workbook.loadQuestionBankFromExcel() = mutableListOf<Triple<String, String, 
 
                     this += Triple(
                         cellValues[0], cellValues[1],
-                        cellValues[2].replace('，',',') .split(',').map { it.toInt() }
+                        cellValues[2].replace('，', ',').split(',').map { it.toInt() }
                     )
                 }
             }
@@ -422,26 +422,39 @@ fun Workbook.loadQuestionBankFromExcel() = mutableListOf<Triple<String, String, 
 
 
 fun Workbook.initializeJson() {
+    val logger = LoggerFactory.getLogger("JsonInitialize Logger")
+
     val teamDataList = this.loadTeamFromExcel()
-    val schoolMap  = this.loadSchoolFromExcel()
+    val schoolMap = this.loadSchoolFromExcel()
+    val questionMap = this.loadQuestionFromExcel()
     val questionBankList = this.loadQuestionBankFromExcel()
 
     //增加拒题题库
-    if (questionBankList.isNotEmpty()){
-        teamDataList.forEach {teamData->
-            questionBankList.first{it.second == teamData.name &&it.first == schoolMap[teamData.schoolID]   }.let {
-                teamData.recordDataList = MutableList(it.third.size){index->
-                    RecordData(0,0,0,it.third[index],0,"B",0.0,0.0)
+    if (questionBankList.isNotEmpty()) {
+        logger.info("QuestionBank NOT empty")
+        teamDataList.forEach { teamData ->
+            questionBankList.first { it.second == teamData.name && it.first == schoolMap[teamData.schoolID] }
+                .let { triple ->
+                    logger.info("${triple.first}学校${triple.second}队伍题库为：${triple.third}")
+
+                    val bannedQuestionList =
+                        questionMap.keys.toMutableList().apply { this.removeIf { triple.third.contains(it) } }
+                    logger.info("Ban题为：${bannedQuestionList}")
+
+                    teamData.recordDataList = MutableList(bannedQuestionList.size) { index ->
+                        RecordData(0, 0, 0, bannedQuestionList[index], 0, "B", 0.0, 0.0)
+                    }
                 }
-            }
 
         }
+    } else {
+        logger.info("QuestionBank empty")
     }
 
     JsonHelper.toJson(
         Data(
             teamDataList = teamDataList,
-            questionMap = this.loadQuestionFromExcel(),
+            questionMap = questionMap,
             schoolMap = schoolMap
         ),
         savePath = R.DATA_JSON_PATH
