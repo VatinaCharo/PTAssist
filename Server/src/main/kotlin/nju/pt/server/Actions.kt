@@ -13,29 +13,46 @@ import java.io.File
 import java.io.FileNotFoundException
 import kotlin.io.path.Path
 import kotlin.io.path.createDirectories
+import kotlin.io.path.exists
 import kotlin.io.path.notExists
 
 object StartViewActions {
     private val logger = LoggerFactory.getLogger("StartViewActions Logger")
 
-    fun generateTableBtnAction(totalTeamNumber: Int, judgeMap: Map<String, List<String>>, schoolMap: Map<Int, String>) {
+    private fun generateTable(totalTeamNumber: Int, judgeMap: Map<String, List<String>>, schoolMap: Map<Int, String>) {
         try {
             CounterPartTable(totalTeamNumber, judgeMap, schoolMap).generateTableWithoutJudge()
         } catch (e: Exception) {
             logger.error(e.message)
-            ConfirmAlert().apply {
+            ErrorAlert().apply {
                 title = "生成对阵表(无裁判)"
                 headerText = "生成对阵表错误!"
                 contentText = "Error:${e.message}"
             }.show()
             throw Exception(e.message)
         }
-        ConfirmDialog().apply {
+        InfoAlert().apply {
             title = "生成对阵表(无裁判)"
             headerText = "对阵表生成完成！"
             contentText = "对阵表缓存文件保存至${R.COUNTERPART_TABLE_JSON_PATH}\n对阵表生成至${R.COUNTERPART_TABLE_EXCEL_PATH}"
 
         }.show()
+    }
+
+    fun generateTableBtnAction(totalTeamNumber: Int, judgeMap: Map<String, List<String>>, schoolMap: Map<Int, String>) {
+        if (Path(R.COUNTERPART_TABLE_JSON_PATH).exists()) {
+            ConfirmAlert().apply {
+                title = "生成对阵表(无裁判)"
+                headerText = "已有对阵表，是否生成并覆盖？"
+                yesBtn.setOnAction {
+                    generateTable(totalTeamNumber, judgeMap, schoolMap)
+                    this.close()
+                }
+            }.show()
+
+        } else {
+            generateTable(totalTeamNumber, judgeMap, schoolMap)
+        }
     }
 
     fun generateTableWithJudgeBtnAction(
@@ -45,7 +62,7 @@ object StartViewActions {
             CounterPartTable(totalTeamNumber, judgeMap, schoolMap).generateTableWithJudge()
         } catch (e: FileNotFoundException) {
             logger.error("未找到${R.COUNTERPART_TABLE_JSON_PATH}文件，请先生成无裁判对阵表")
-            ConfirmAlert().apply {
+            ErrorAlert().apply {
                 title = "生成对阵表(有裁判)"
                 headerText = "生成对阵表(有裁判)错误！"
                 contentText = "Error:未找到${R.COUNTERPART_TABLE_JSON_PATH}文件，请先生成无裁判对阵表！"
@@ -54,7 +71,7 @@ object StartViewActions {
             throw Exception("未找到${R.COUNTERPART_TABLE_JSON_PATH}文件，请先生成无裁判对阵表！")
         } catch (e: Exception) {
             logger.error(e.message)
-            ConfirmAlert().apply {
+            ErrorAlert().apply {
                 title = "生成对阵表(有裁判)"
                 headerText = "生成对阵表(有裁判)错误！"
                 contentText = "Error:${e.message}"
@@ -62,7 +79,7 @@ object StartViewActions {
             throw Exception(e.message)
 
         }
-        ConfirmDialog().apply {
+        InfoAlert().apply {
             headerText = "对阵表生成完成！"
             title = "生成对阵表(有裁判)"
             contentText = "对阵表生成至${R.COUNTERPART_TABLE_EXCEL_PATH}"
@@ -83,13 +100,14 @@ object SettingViewActions {
         logger.info("Check Config")
         if (SettingView.portTF.text.isNotEmpty() && SettingView.judgeCountTF.text.isNotEmpty() && SettingView.roomCountTF.text.isNotEmpty() && SettingView.turnCountTF.text.isNotEmpty() && SettingView.rWeighTF.text.isNotEmpty() && SettingView.oWeighTF.text.isNotEmpty() && SettingView.vWeighTF.text.isNotEmpty()) {
             logger.info("No Error")
-            ConfirmDialog().apply {
+            InfoAlert().apply {
                 title = "配置服务端"
+                headerText = "服务端配置成功!"
                 contentText = "服务端配置成功!"
             }.show()
             return true
         }
-        ConfirmAlert().apply {
+        ErrorAlert().apply {
             title = "配置服务端"
             headerText = "服务端配置失败!"
             contentText = "Error: 服务端配置信息不得有空"
@@ -134,7 +152,7 @@ object MainViewActions {
     fun saveBtnAction(data: Data) {
         logger.info("Save Data")
         JsonHelper.toJson(data, R.DATA_JSON_PATH)
-        ConfirmDialog().apply {
+        InfoAlert().apply {
             title = "保存"
             headerText = "保存成功！"
             contentText = "数据成功保存至${R.DATA_JSON_PATH}"
@@ -167,23 +185,23 @@ object MainViewActions {
     fun addDataFromJsonBtnAction(data: Data) {
         try {
             FileChooser().apply {
-                    initialDirectory = File(".")
-                    extensionFilters.addAll(
-                        FileChooser.ExtensionFilter("Json File", "*.json"),
-                        FileChooser.ExtensionFilter("All File", "*.*")
-                    )
-                }.run {
-                    showOpenMultipleDialog(MyStage())
-                }.forEach {
+                initialDirectory = File(".")
+                extensionFilters.addAll(
+                    FileChooser.ExtensionFilter("Json File", "*.json"),
+                    FileChooser.ExtensionFilter("All File", "*.*")
+                )
+            }.run {
+                showOpenMultipleDialog(MyStage())
+            }.forEach {
 
-                    it.copyTo(File("${R.SERVER_BACKUP_FILE_DIR_PATH}/${it.name}"), true)
-                    data.mergeData(JsonHelper.fromJson<Data>(it.path), inplace = true)
-                    MainView.refreshData(data.teamDataList[0])
-                    it.delete()
+                it.copyTo(File("${R.SERVER_BACKUP_FILE_DIR_PATH}/${it.name}"), true)
+                data.mergeData(JsonHelper.fromJson<Data>(it.path), inplace = true)
+                MainView.refreshData(data.teamDataList[0])
+                it.delete()
 
-                }
+            }
 
-            ConfirmDialog().apply {
+            InfoAlert().apply {
                 title = "加载数据"
                 headerText = "加载数据成功！"
             }.show()
@@ -204,7 +222,7 @@ object AddOrDeleteViewActions {
         logger.info("Checking Add Player")
         return if (AddOrDeleteView.playerNameTextField.text.isEmpty()) {
             logger.error("Error:选手姓名不得为空")
-            ConfirmAlert().apply {
+            ErrorAlert().apply {
                 title = "增加选手"
                 headerText = "增加选手失败!"
                 contentText = "Error:选手姓名不得为空!"
@@ -238,8 +256,9 @@ object AddOrDeleteViewActions {
             logger.info("Gender: ${AddOrDeleteView.playerGenderComboBox.selectionModel.selectedItem}")
             logger.info("Player added successfully!")
 
-            ConfirmDialog().apply {
+            InfoAlert().apply {
                 title = "增加选手"
+                headerText = "增加选手成功"
                 contentText = "增加选手${AddOrDeleteView.playerNameTextField.text}成功!"
                 setOnCloseRequest { AddOrDeleteView.addPlayerStage.close() }
             }.show()
@@ -255,8 +274,9 @@ object AddOrDeleteViewActions {
         }[0].playerDataList.removeIf {
             "${it.id}" == AddOrDeleteView.playerDeleteComboBox.selectionModel.selectedItem.substringBefore("-")
         }
-        ConfirmDialog().apply {
+        InfoAlert().apply {
             title = "删除选手"
+            headerText = "删除选手成功"
             contentText = "删除选手${AddOrDeleteView.playerDeleteComboBox.selectionModel.selectedItem}成功!"
             setOnCloseRequest { AddOrDeleteView.deletePlayerStage.close() }
         }.show()
@@ -268,7 +288,7 @@ object AddOrDeleteViewActions {
         return if (AddOrDeleteView.recordRoundTextField.text.isNotEmpty() && AddOrDeleteView.recordPhaseTextField.text.isNotEmpty() && AddOrDeleteView.recordRoomIdTextField.text.isNotEmpty() && AddOrDeleteView.recordMasterIdTextField.text.isNotEmpty() && AddOrDeleteView.recordQIdTextField.text.isNotEmpty() && AddOrDeleteView.recordScoreTextField.text.isNotEmpty() && AddOrDeleteView.recordWeightTextField.text.isNotEmpty()) {
             true
         } else {
-            ConfirmAlert().apply {
+            ErrorAlert().apply {
                 title = "增加记录"
                 headerText = "增加记录失败!"
                 contentText = "Error:增加记录框内不得空!"
@@ -279,6 +299,7 @@ object AddOrDeleteViewActions {
 
     }
 
+    // TODO: 2022/7/17 写选手时改成combobox
     fun addRecordConfirmBtnAction(data: Data, selectedTeamData: TeamData) {
         if (checkAddRecord()) {
             data.teamDataList.filter {
@@ -297,7 +318,7 @@ object AddOrDeleteViewActions {
                     AddOrDeleteView.recordWeightTextField.text.toDouble()
                 )
             )
-            ConfirmDialog().apply {
+            InfoAlert().apply {
                 title = "增加记录"
                 contentText = "增加记录成功!"
                 setOnCloseRequest { AddOrDeleteView.addRecordStage.close() }
@@ -312,7 +333,7 @@ object AddOrDeleteViewActions {
                 "-"
             )
         }[0].recordDataList.removeAt(AddOrDeleteView.recordComboBox.selectionModel.selectedIndex)
-        ConfirmDialog().apply {
+        InfoAlert().apply {
             title = "删除记录"
             contentText = "删除记录成功!"
             setOnCloseRequest { AddOrDeleteView.deleteRecordStage.close() }
@@ -355,7 +376,7 @@ object ExportViewActions {
             }
 
             this.savePath.let {
-                ConfirmDialog().apply {
+                InfoAlert().apply {
                     title = "导出数据"
                     headerText = "导出数据成功！"
                     contentText = "数据成功导出至${it}"
@@ -424,7 +445,7 @@ object GenerateRoomDataViewActions {
             JsonHelper.toJson(dataCopyTemp, "${R.SERVER_SEND_FILE_DIR_PATH}/Round${selectedTurn}/Room${roomId}.json")
 
         }
-        ConfirmDialog().apply {
+        InfoAlert().apply {
             title = "生成分会场数据"
             headerText = "生成分会场数据成功！"
             contentText = "第${selectedTurn}轮数据成功保存至${R.SERVER_SEND_FILE_DIR_PATH}/Round${selectedTurn}"
