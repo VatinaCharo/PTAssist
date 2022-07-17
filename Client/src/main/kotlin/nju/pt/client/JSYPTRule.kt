@@ -66,7 +66,6 @@ object JSYPTRule : RuleInterface {
             logger.info("oppQRecordSet = $oppQRecordSet")
             var banRuleList = banRuleListConfig
             var optionalQuestionIDList: List<Int>
-            var loopCount = 0
             // 如果获取到的可选题目数量小于指定的题目数量限制（这里是0）,则从后往前依次解锁题目限制规则，直到最终题目数量大于0
             do {
                 logger.info("getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)")
@@ -77,11 +76,7 @@ object JSYPTRule : RuleInterface {
                 optionalQuestionIDList =
                     getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
                 banRuleList = banRuleList.dropLast(1)
-                loopCount++
-            } while (optionalQuestionIDList.isEmpty() && loopCount < banRuleListConfig.size)
-            if (loopCount >= banRuleListConfig.size) {
-                throw Exception("禁题全部解锁，但题目数量依旧不满足预设条件")
-            }
+            } while (optionalQuestionIDList.isEmpty())
             return optionalQuestionIDList
         } else {
             logger.warn("不存在赛题，无法进行赛题的禁用与解放")
@@ -140,8 +135,11 @@ object JSYPTRule : RuleInterface {
             playerMasterTimesIn1Round < playerMasterTimesIn1RoundConfig
         }
         .filter { playerData ->
-            val playerMasterTimesIn1Match = teamRecordDataList.filter { it.role in listOf("R", "O", "V") }
-                .filter { it.masterID == playerData.id }.size
+            val playerMasterTimesIn1Match =
+                teamRecordDataList
+                    .filter { it.role in listOf("R", "O", "V") }
+                    .filter { it.masterID == playerData.id }
+                    .size
             logger.info("playerMasterTimesIn1Match = $playerMasterTimesIn1Match")
             playerMasterTimesIn1Match < playerMasterTimesIn1MatchConfig
         }
