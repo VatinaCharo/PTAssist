@@ -148,20 +148,41 @@ class DoubleTextField() : TextField() {
     }
 }
 
-class ConfirmDialog() : Dialog<ButtonType>() {
+class InfoAlert() : Alert(AlertType.INFORMATION) {
     init {
         dialogPane.apply {
+            buttonTypes.clear()
             buttonTypes.add(ButtonType.OK)
             lookupButton(ButtonType.OK)
             (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
+            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
         }
     }
 }
 
-class ConfirmAlert() : Alert(AlertType.ERROR) {
+class ErrorAlert() : Alert(AlertType.ERROR) {
     init {
         dialogPane.apply {
             (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
+            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
         }
+    }
+}
+
+class ConfirmAlert():Alert(AlertType.CONFIRMATION){
+    var yesBtn:Button
+    var noBtn:Button
+    init {
+        dialogPane.apply {
+            buttonTypes.clear()
+            buttonTypes.addAll(ButtonType.YES,ButtonType.NO)
+            yesBtn = lookupButton(ButtonType.YES) as Button
+            noBtn =  lookupButton(ButtonType.NO) as Button
+
+            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+
+            (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
+        }
+
     }
 }

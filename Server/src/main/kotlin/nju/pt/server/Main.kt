@@ -164,7 +164,7 @@ class AppUI : Application() {
                         minHeight = 800.0
 
                         setOnCloseRequest { _ ->
-                            Alert(Alert.AlertType.CONFIRMATION).apply {
+                            ConfirmAlert().apply {
                                 dialogPane.apply {
                                     (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
                                 }
