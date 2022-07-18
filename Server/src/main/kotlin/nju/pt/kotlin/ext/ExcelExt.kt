@@ -15,13 +15,22 @@ fun Workbook.checkConfigExcel() {
     //由于队伍信息中可能抽签号还没有决定，不检查
     val logger = LoggerFactory.getLogger("Config Check Loader")
     logger.info("Checking config:")
-    this.loadConfigFromExcel()
+    val roomCount = this.loadConfigFromExcel().roomCount
 
     logger.info("Checking questions:")
     this.loadQuestionFromExcel()
 
     logger.info("Checking schools & judges:")
     this.loadJudgeFromExcel()
+
+    logger.info("Checking team number:")
+    this.getTotalTeamNumber().let {
+        if (it < 3 * roomCount) {
+            logger.error("总队伍数${it}小于会场容纳的最少队伍数${roomCount*3}")
+            throw Exception("总队伍数${it}小于会场容纳的最少队伍数${roomCount*3}")
+        }
+    }
+
 
 }
 

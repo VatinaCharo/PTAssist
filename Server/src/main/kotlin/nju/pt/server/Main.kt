@@ -26,7 +26,6 @@ class AppUI : Application() {
     private val logger = LoggerFactory.getLogger(AppUI::class.java)
 
     private var data:Data = if (Path(R.DATA_JSON_PATH).exists()) JsonHelper.fromJson<Data>(R.DATA_JSON_PATH) else Json.decodeFromString(R.DATA_JSON_EXAMPLE)
-    private val totalTeamNumber: Int by lazy { WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getTotalTeamNumber() }
     private val judgeMap: Map<String, List<String>> by lazy {
         WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadJudgeFromExcel()
     }
@@ -66,9 +65,6 @@ class AppUI : Application() {
         }
 
         logger.info("checking configuration file...")
-
-
-
         // 配置文件json找不到
         if (Path(R.CONFIG_JSON_PATH).notExists()) {
             Path(R.CONFIG_EXCEL_PATH).apply {
@@ -130,11 +126,11 @@ class AppUI : Application() {
         StartView.apply {
             //生成对阵表按钮
             generateTableBtn.setOnAction {
-                StartViewActions.generateTableBtnAction(totalTeamNumber, judgeMap, schoolMap)
+                StartViewActions.generateTableBtnAction(judgeMap, schoolMap)
             }
             //生成有裁判的对阵表按钮
             generateTableWithJudgeBtn.setOnAction {
-                StartViewActions.generateTableWithJudgeBtnAction(totalTeamNumber, judgeMap, schoolMap)
+                StartViewActions.generateTableWithJudgeBtnAction( judgeMap, schoolMap)
             }
 
             //设置界面
