@@ -1,9 +1,11 @@
 # PTAssist
+<p align="center">  
 <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/VatinaCharo/PTAssist?style=plastic">
 <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/VatinaCharo/PTAssist">
 <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/VatinaCharo/PTAssist">
 <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/VatinaCharo/PTAssist/total">
 <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/VatinaCharo/PTAssist?style=social">
+</p>
 
 PTAssist，意为PT比赛小帮手，致力于减轻比赛管理负担和规范化比赛流程。
 
