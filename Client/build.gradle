@@ -6,8 +6,25 @@ plugins {
 application {
     mainClassName("nju.pt.client.MainKt")
 }
+// 启动脚本中添加pause指令
+tasks.startScripts {
+    doLast {
+        def windowsScriptFile = getWindowsScript()
+        windowsScriptFile.text = windowsScriptFile.text.replace("\n:end", "pause\n\n:end")
+//        print(windowsScriptFile.text)
+    }
+}
+// 打包时加入README.md
+distributions {
+    main {
+        contents {
+            from parent.file('README.md')
+        }
+    }
+}
+
 group = 'nju.pt'
-version = '1.2.0'
+version = '1.2.1'
 
 repositories {
     mavenCentral()
