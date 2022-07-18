@@ -653,3 +653,144 @@
 [15:58:15.720] |-INFO JSON Saver => ===================== SavingJsonFile =====================
 [15:58:15.721] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\Client\data\data.json
 [15:58:15.725] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[22:47:05.126] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[22:47:05.132] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[22:47:05.367] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[22:47:05.845] |-INFO nju.pt.client.StartView => build()
+[22:47:05.848] |-INFO nju.pt.client.StartView => init()
+[22:47:06.241] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@7c93e058
+[22:47:06.268] |-INFO nju.pt.client.StartView => layout()
+[22:47:06.268] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@7c93e058
+[22:47:06.272] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[22:47:07.296] |-INFO nju.pt.client.SettingView => build(config:Config)
+[22:47:07.296] |-INFO nju.pt.client.SettingView => init(config: Config)
+[22:47:07.326] |-INFO nju.pt.client.SettingView => layout()
+[22:47:07.331] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[22:47:07.353] |-INFO nju.pt.client.AboutView => init()
+[22:47:07.364] |-INFO nju.pt.client.PopupView => build()
+[22:47:07.364] |-INFO nju.pt.client.PopupView => init()
+[22:47:07.365] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[22:47:21.593] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@60a1d1a3
+[22:48:13.759] |-INFO nju.pt.client.AppUI => 保存配置文件
+[22:48:13.760] |-INFO nju.pt.client.AppUI => JsonHelper.toJson(config, R.SETTING_JSON_PATH)
+[22:48:13.769] |-INFO nju.pt.client.AppUI => newConfig = Config(ip=114.212.135.238, port=2022, roomID=4, round=1, judgeCount=7, roundType=正常模式, rule=JSYPT, mode=ONLINE)
+[22:48:13.769] |-INFO nju.pt.client.AppUI => R.SETTING_JSON_PATH = config/setting.json
+[22:48:13.769] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[22:48:13.770] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[22:48:13.794] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[22:48:13.794] |-INFO nju.pt.client.AppUI => 关闭设置界面
+[22:48:15.110] |-INFO nju.pt.client.AppUI => 开始下载数据文件
+[14:40:54.577] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[14:40:54.583] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\test\data.json
+[14:40:54.615] |-ERROR JSON Reader => 未找到文件test/data.json: test\data.json (系统找不到指定的路径。)
+[14:41:16.157] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[14:41:16.162] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[14:41:16.286] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[14:44:22.834] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[14:44:22.840] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[14:44:22.961] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[14:44:22.970] |-INFO nju.pt.client.JSYPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[14:44:22.972] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(1, (REPORTER, X)), (2, (REPORTER, X)), (4, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, O)), (15, (REPORTER, P)), (8, (REPORTER, P))]
+[14:44:22.972] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (7, (OPPONENT, X)), (8, (OPPONENT, X)), (9, (OPPONENT, X)), (10, (OPPONENT, X)), (16, (OPPONENT, X)), (15, (OPPONENT, P)), (12, (OPPONENT, O)), (17, (OPPONENT, P))]
+[14:44:22.972] |-INFO nju.pt.client.JSYPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[14:44:22.973] |-INFO nju.pt.client.JSYPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[14:44:22.973] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(1, (REPORTER, X)), (2, (REPORTER, X)), (4, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, O)), (15, (REPORTER, P)), (8, (REPORTER, P))]
+[14:44:22.978] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (7, (OPPONENT, X)), (8, (OPPONENT, X)), (9, (OPPONENT, X)), (10, (OPPONENT, X)), (16, (OPPONENT, X)), (15, (OPPONENT, P)), (12, (OPPONENT, O)), (17, (OPPONENT, P))]
+[14:44:22.978] |-INFO nju.pt.client.JSYPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[14:44:22.979] |-INFO nju.pt.client.JSYPTRule => 正方banRuleList = [(REPORTER, X), (REPORTER, R)]
+[14:44:22.982] |-INFO nju.pt.client.JSYPTRule => repBanQuestionIDList = [1, 2, 4, 7, 9, 11, 12, 13, 14]
+[14:44:22.982] |-INFO nju.pt.client.JSYPTRule => 反方banRuleList = [(OPPONENT, O)]
+[14:44:22.983] |-INFO nju.pt.client.JSYPTRule => oppBanQuestionIDList = [12]
+[14:46:56.418] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[14:46:56.423] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[14:46:56.542] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[14:46:56.562] |-INFO nju.pt.client.JSYPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[14:46:56.564] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(1, (REPORTER, X)), (2, (REPORTER, X)), (4, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, O)), (15, (REPORTER, P)), (8, (REPORTER, P))]
+[14:46:56.564] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (7, (OPPONENT, X)), (8, (OPPONENT, X)), (9, (OPPONENT, X)), (10, (OPPONENT, X)), (16, (OPPONENT, X)), (15, (OPPONENT, P)), (12, (OPPONENT, O)), (17, (OPPONENT, P))]
+[14:46:56.564] |-INFO nju.pt.client.JSYPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[14:46:56.565] |-INFO nju.pt.client.JSYPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[14:46:56.566] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(1, (REPORTER, X)), (2, (REPORTER, X)), (4, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, O)), (15, (REPORTER, P)), (8, (REPORTER, P))]
+[14:46:56.566] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (7, (OPPONENT, X)), (8, (OPPONENT, X)), (9, (OPPONENT, X)), (10, (OPPONENT, X)), (16, (OPPONENT, X)), (15, (OPPONENT, P)), (12, (OPPONENT, O)), (17, (OPPONENT, P))]
+[14:46:56.566] |-INFO nju.pt.client.JSYPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[14:46:56.566] |-INFO nju.pt.client.JSYPTRule => 正方banRuleList = [(REPORTER, X), (REPORTER, R)]
+[14:46:56.567] |-INFO nju.pt.client.JSYPTRule => repBanQuestionIDList = [1, 2, 4, 7, 9, 11, 12, 13, 14]
+[14:46:56.568] |-INFO nju.pt.client.JSYPTRule => 反方banRuleList = [(OPPONENT, O)]
+[14:46:56.568] |-INFO nju.pt.client.JSYPTRule => oppBanQuestionIDList = [12]
+[14:50:09.691] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[14:50:09.696] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[14:50:09.814] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[14:50:09.822] |-INFO nju.pt.client.JSYPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[14:50:09.823] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(1, (REPORTER, X)), (2, (REPORTER, X)), (4, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, O)), (15, (REPORTER, P)), (8, (REPORTER, P))]
+[14:50:09.824] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (7, (OPPONENT, X)), (8, (OPPONENT, X)), (9, (OPPONENT, X)), (10, (OPPONENT, X)), (16, (OPPONENT, X)), (15, (OPPONENT, P)), (12, (OPPONENT, O)), (17, (OPPONENT, P))]
+[14:50:09.824] |-INFO nju.pt.client.JSYPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[14:50:09.824] |-INFO nju.pt.client.JSYPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[14:50:09.824] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(1, (REPORTER, X)), (2, (REPORTER, X)), (4, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, O)), (15, (REPORTER, P)), (8, (REPORTER, P))]
+[14:50:09.825] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (7, (OPPONENT, X)), (8, (OPPONENT, X)), (9, (OPPONENT, X)), (10, (OPPONENT, X)), (16, (OPPONENT, X)), (15, (OPPONENT, P)), (12, (OPPONENT, O)), (17, (OPPONENT, P))]
+[14:50:09.825] |-INFO nju.pt.client.JSYPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[14:50:09.826] |-INFO nju.pt.client.JSYPTRule => 正方banRuleList = [(REPORTER, X), (REPORTER, R)]
+[14:50:09.827] |-INFO nju.pt.client.JSYPTRule => repBanQuestionIDList = [1, 2, 4, 7, 9, 11, 12, 13, 14]
+[14:50:09.827] |-INFO nju.pt.client.JSYPTRule => 反方banRuleList = [(OPPONENT, O)]
+[14:50:09.827] |-INFO nju.pt.client.JSYPTRule => oppBanQuestionIDList = [12]
+[14:55:45.043] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[14:55:45.048] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[14:55:45.167] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[14:55:45.175] |-INFO nju.pt.client.JSYPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[14:55:45.176] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(1, (REPORTER, X)), (2, (REPORTER, X)), (4, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, O)), (15, (REPORTER, R)), (8, (REPORTER, P))]
+[14:55:45.176] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (7, (OPPONENT, X)), (8, (OPPONENT, X)), (9, (OPPONENT, X)), (10, (OPPONENT, X)), (16, (OPPONENT, X)), (15, (OPPONENT, P)), (12, (OPPONENT, O)), (17, (OPPONENT, R))]
+[14:55:45.177] |-INFO nju.pt.client.JSYPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[14:55:45.177] |-INFO nju.pt.client.JSYPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[14:55:45.177] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(1, (REPORTER, X)), (2, (REPORTER, X)), (4, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, O)), (15, (REPORTER, R)), (8, (REPORTER, P))]
+[14:55:45.178] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (7, (OPPONENT, X)), (8, (OPPONENT, X)), (9, (OPPONENT, X)), (10, (OPPONENT, X)), (16, (OPPONENT, X)), (15, (OPPONENT, P)), (12, (OPPONENT, O)), (17, (OPPONENT, R))]
+[14:55:45.178] |-INFO nju.pt.client.JSYPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[14:55:45.178] |-INFO nju.pt.client.JSYPTRule => 正方banRuleList = [(REPORTER, X), (REPORTER, R)]
+[14:55:45.179] |-INFO nju.pt.client.JSYPTRule => repBanQuestionIDList = [1, 2, 4, 7, 9, 11, 12, 13, 14, 15]
+[14:55:45.179] |-INFO nju.pt.client.JSYPTRule => 反方banRuleList = [(OPPONENT, O)]
+[14:55:45.179] |-INFO nju.pt.client.JSYPTRule => oppBanQuestionIDList = [12]
+[14:58:30.900] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[14:58:30.905] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[14:58:31.021] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[14:58:31.030] |-INFO nju.pt.client.JSYPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[14:58:31.031] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, X)), (3, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, O)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[14:58:31.032] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[14:58:31.032] |-INFO nju.pt.client.JSYPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[14:58:31.032] |-INFO nju.pt.client.JSYPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[14:58:31.032] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, X)), (3, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, O)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[14:58:31.033] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[14:58:31.033] |-INFO nju.pt.client.JSYPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[14:58:31.034] |-INFO nju.pt.client.JSYPTRule => 正方banRuleList = [(REPORTER, X), (REPORTER, R)]
+[14:58:31.035] |-INFO nju.pt.client.JSYPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 1, 3, 7, 9, 11, 14, 6]
+[14:58:31.035] |-INFO nju.pt.client.JSYPTRule => 反方banRuleList = [(OPPONENT, O)]
+[14:58:31.035] |-INFO nju.pt.client.JSYPTRule => oppBanQuestionIDList = [15]
+[15:00:47.852] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:00:47.870] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:00:47.987] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:00:47.995] |-INFO nju.pt.client.JSYPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:00:47.996] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, X)), (3, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, X)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:00:47.997] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:00:47.997] |-INFO nju.pt.client.JSYPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[15:00:47.997] |-INFO nju.pt.client.JSYPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:00:47.997] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, X)), (3, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, X)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:00:47.998] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:00:47.998] |-INFO nju.pt.client.JSYPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[15:00:47.998] |-INFO nju.pt.client.JSYPTRule => 正方banRuleList = [(REPORTER, X), (REPORTER, R)]
+[15:00:47.999] |-INFO nju.pt.client.JSYPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 1, 3, 7, 9, 11, 14, 16, 6]
+[15:00:47.999] |-INFO nju.pt.client.JSYPTRule => 反方banRuleList = [(OPPONENT, O)]
+[15:00:47.999] |-INFO nju.pt.client.JSYPTRule => oppBanQuestionIDList = [15]
+[15:00:48.002] |-INFO nju.pt.client.JSYPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[15:00:48.003] |-INFO nju.pt.client.JSYPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:00:48.003] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, X)), (3, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, X)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:00:48.004] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:00:48.007] |-INFO nju.pt.client.JSYPTRule => banRuleList = [(REPORTER, X), (REPORTER, R)]
+[15:00:48.008] |-INFO nju.pt.client.JSYPTRule => 正方banRuleList = [(REPORTER, X), (REPORTER, R)]
+[15:00:48.009] |-INFO nju.pt.client.JSYPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 1, 3, 7, 9, 11, 14, 16, 6]
+[15:00:48.009] |-INFO nju.pt.client.JSYPTRule => 反方banRuleList = []
+[15:00:48.011] |-INFO nju.pt.client.JSYPTRule => oppBanQuestionIDList = []
+[15:00:48.011] |-INFO nju.pt.client.JSYPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[15:00:48.012] |-INFO nju.pt.client.JSYPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:00:48.013] |-INFO nju.pt.client.JSYPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, X)), (3, (REPORTER, X)), (7, (REPORTER, X)), (9, (REPORTER, X)), (11, (REPORTER, X)), (14, (REPORTER, X)), (16, (REPORTER, X)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:00:48.014] |-INFO nju.pt.client.JSYPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:00:48.015] |-INFO nju.pt.client.JSYPTRule => banRuleList = [(REPORTER, X)]
+[15:00:48.015] |-INFO nju.pt.client.JSYPTRule => 正方banRuleList = [(REPORTER, X)]
+[15:00:48.016] |-INFO nju.pt.client.JSYPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 1, 3, 7, 9, 11, 14, 16]
+[15:00:48.016] |-INFO nju.pt.client.JSYPTRule => 反方banRuleList = []
+[15:00:48.017] |-INFO nju.pt.client.JSYPTRule => oppBanQuestionIDList = []

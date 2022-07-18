@@ -76,10 +76,6 @@ class CounterPartTable(
         val oneRoundTable = OneRoundTable(roomCount, totalTeamNumber).apply { initialize() }
 
         teamTableListWithoutShuffle.add(oneRoundTable.copy().also {
-            for (r in it.RList) {
-                RCountMap[r] = RCountMap.getOrDefault(r, 0) + 1
-            }
-
             logger.info("Round 1 table WITHOUT shuffle:")
             logger.info("R: ${it.RList}")
             logger.info("O: ${it.OList}")
@@ -87,6 +83,10 @@ class CounterPartTable(
             logger.info("OB: ${it.OBList}")
         })
         teamTableList.add(oneRoundTable.shuffle(RCountMap).also {
+            for (r in it.RList) {
+                RCountMap[r] = RCountMap.getOrDefault(r, 0) + 1
+            }
+
             logger.info("Round 1 table WITH shuffle:")
             logger.info("R: ${it.RList}")
             logger.info("O: ${it.OList}")
@@ -105,7 +105,7 @@ class CounterPartTable(
                 logger.info("V: ${it.VList}")
                 logger.info("OB: ${it.OBList}")
             })
-            teamTableList.add(oneRoundTable.shuffle(RCountMap, turn).also {
+            teamTableList.add(oneRoundTable.shuffle(RCountMap).also {
                 for (r in it.RList) {
                     RCountMap[r] = RCountMap.getOrDefault(r, 0) + 1
                 }
@@ -542,7 +542,7 @@ data class OneRoundTable(
     }
 
     private fun reSelectRPlayer(teamList: MutableList<Int>, RCountMap: MutableMap<Int, Int>): MutableList<Int> {
-        if (RCountMap.getOrDefault(teamList[0], 0) > 1) {
+        if (RCountMap.getOrDefault(teamList[0], 0) > 0) {
             selectOne(teamList.map { RCountMap.getOrDefault(it, 0) }).let {
                 val tmp = teamList[it]
                 teamList[it] = teamList[0]
@@ -553,57 +553,33 @@ data class OneRoundTable(
     }
 
     // TODO: 2022/7/16 角色之间的轮转
-    private fun rollOffsetAndShuffle(RCountMap: MutableMap<Int, Int>, offset: Int): OneRoundTable {
-        //将正方按offset移动，其他角色随机排序，若发现正方正了两次及以上，则按概率重新选择一个正方。更改原对象
-
+    private fun rollReArange(RCountMap: MutableMap<Int, Int>): OneRoundTable {
+        //按照出场次序排序
         for (roomId in 0 until roomCount) {
-            //没有OB
-            if (this.OBList[roomId] == -1) {
-                val modOffset = offset.mod(3)
-                (0 until 3).shuffled().toMutableList().apply {
-                    if (this[modOffset] != 0) {
-                        this[this.indexOf(0)] = this[modOffset]
-                        this[modOffset] = 0
-                    }
-                }.let { indexList ->
-                    reSelectRPlayer(
-                        mutableListOf<Int>(RList[roomId], OList[roomId], VList[roomId]).sortByIndexList(
-                            indexList
-                        ), RCountMap
-                    ).let {
-                        RList[roomId] = it[0]
-                        OList[roomId] = it[1]
-                        VList[roomId] = it[2]
-                    }
-
+            if (OBList[roomId] == -1) {
+                listOf<Int>(RList[roomId], OList[roomId], VList[roomId]).sortedBy {
+                    RCountMap.getOrDefault(it, 0)
+                }.let {
+                    RList[roomId] = it[0]
+                    OList[roomId] = it[1]
+                    VList[roomId] = it[2]
                 }
-
             } else {
-                val modOffset = offset.mod(4)
-                (0 until 4).shuffled().toMutableList().apply {
-                    if (this[modOffset] != 0) {
-                        this[this.indexOf(0)] = this[modOffset]
-                        this[modOffset] = 0
-                    }
-                }.let { indexList ->
-                    mutableListOf<Int>(RList[roomId], OList[roomId], VList[roomId], OBList[roomId]).sortByIndexList(
-                        indexList
-                    ).let {
-                        RList[roomId] = it[0]
-                        OList[roomId] = it[1]
-                        VList[roomId] = it[2]
-                        OBList[roomId] = it[3]
-                    }
+                listOf<Int>(RList[roomId], OList[roomId], VList[roomId],OBList[roomId]).sortedBy {
+                    RCountMap.getOrDefault(it, 0)
+                }.let {
+                    RList[roomId] = it[0]
+                    OList[roomId] = it[1]
+                    VList[roomId] = it[2]
+                    OBList[roomId] = it[3]
                 }
-
-
             }
         }
         return this
     }
 
 
-    fun shuffle(RCountMap: MutableMap<Int, Int>, offset: Int = 0): OneRoundTable {
+    fun shuffle(RCountMap: MutableMap<Int, Int>): OneRoundTable {
         //返回打乱会场的单次对阵表对象，且不改变原对象
 
         //创建用于打乱顺序的索引列表
@@ -615,7 +591,7 @@ data class OneRoundTable(
             this.OList = OList.sortByIndexList(indexList)
             this.VList = VList.sortByIndexList(indexList)
             this.OBList = OBList.sortByIndexList(indexList)
-            rollOffsetAndShuffle(RCountMap, offset)
+            rollReArange(RCountMap)
         }
     }
 

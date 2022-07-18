@@ -1,0 +1,711 @@
+{
+  "teamDataList": [
+    {
+      "id": 8,
+      "name": "铭章黑洞视界队",
+      "schoolID": 14,
+      "playerDataList": [
+        {
+          "id": 34,
+          "name": "苟思童",
+          "gender": "男"
+        },
+        {
+          "id": 35,
+          "name": "石杨灏天",
+          "gender": "男"
+        },
+        {
+          "id": 36,
+          "name": "杨刘世骁",
+          "gender": "男"
+        },
+        {
+          "id": 37,
+          "name": "郑家辉",
+          "gender": "男"
+        },
+        {
+          "id": 38,
+          "name": "高紫萱",
+          "gender": "女"
+        }
+      ],
+      "recordDataList": [
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 2,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 4,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 5,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 8,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 10,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 12,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 13,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 15,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 17,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 1,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 3,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 7,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 9,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 11,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 14,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 1,
+          "phase": 1,
+          "roomID": 2,
+          "questionID": 16,
+          "masterID": 34,
+          "role": "X",
+          "score": 7.0,
+          "weight": 2.0
+        },
+        {
+          "round": 1,
+          "phase": 2,
+          "roomID": 2,
+          "questionID": 6,
+          "masterID": 37,
+          "role": "R",
+          "score": 7.0,
+          "weight": 3.0
+        },
+        {
+          "round": 1,
+          "phase": 3,
+          "roomID": 2,
+          "questionID": 17,
+          "masterID": 38,
+          "role": "V",
+          "score": 7.4,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "旺途 WON TWO",
+      "schoolID": 11,
+      "playerDataList": [
+        {
+          "id": 15,
+          "name": "王一安",
+          "gender": "男"
+        },
+        {
+          "id": 16,
+          "name": "张韩讯",
+          "gender": "女"
+        },
+        {
+          "id": 17,
+          "name": "陈博文",
+          "gender": "男"
+        },
+        {
+          "id": 18,
+          "name": "孙丰祺",
+          "gender": "男"
+        }
+      ],
+      "recordDataList": [
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 1,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 2,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 4,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 5,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 6,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 9,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 11,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 12,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 13,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 1,
+          "phase": 1,
+          "roomID": 3,
+          "questionID": 16,
+          "masterID": 18,
+          "role": "V",
+          "score": 7.2,
+          "weight": 1.0
+        },
+        {
+          "round": 1,
+          "phase": 2,
+          "roomID": 3,
+          "questionID": 15,
+          "masterID": 15,
+          "role": "O",
+          "score": 7.2,
+          "weight": 2.0
+        },
+        {
+          "round": 1,
+          "phase": 3,
+          "roomID": 3,
+          "questionID": 8,
+          "masterID": 16,
+          "role": "R",
+          "score": 8.2,
+          "weight": 3.0
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "敏而好学队",
+      "schoolID": 10,
+      "playerDataList": [
+        {
+          "id": 6,
+          "name": "孙畅",
+          "gender": "男"
+        },
+        {
+          "id": 7,
+          "name": "毛文昕",
+          "gender": "女"
+        },
+        {
+          "id": 8,
+          "name": "龚怡文",
+          "gender": "女"
+        },
+        {
+          "id": 9,
+          "name": "房墨凌",
+          "gender": "男"
+        },
+        {
+          "id": 10,
+          "name": "李昕泽",
+          "gender": "男"
+        }
+      ],
+      "recordDataList": [
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 1,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 3,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 4,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 5,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 9,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 11,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 12,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 13,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 14,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 1,
+          "phase": 2,
+          "roomID": 4,
+          "questionID": 12,
+          "masterID": 10,
+          "role": "V",
+          "score": 9.2,
+          "weight": 1.0
+        },
+        {
+          "round": 1,
+          "phase": 3,
+          "roomID": 4,
+          "questionID": 17,
+          "masterID": 7,
+          "role": "O",
+          "score": 8.8,
+          "weight": 2.0
+        },
+        {
+          "round": 1,
+          "phase": 4,
+          "roomID": 4,
+          "questionID": 8,
+          "masterID": 9,
+          "role": "R",
+          "score": 8.6,
+          "weight": 3.0
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "自然哲学队",
+      "schoolID": 9,
+      "playerDataList": [
+        {
+          "id": 29,
+          "name": "刘培锐",
+          "gender": "男"
+        },
+        {
+          "id": 30,
+          "name": "袁浩文",
+          "gender": "男"
+        },
+        {
+          "id": 31,
+          "name": "罗欣",
+          "gender": "女"
+        },
+        {
+          "id": 32,
+          "name": "李祖奇",
+          "gender": "男"
+        },
+        {
+          "id": 33,
+          "name": "曾旭苒",
+          "gender": "男"
+        }
+      ],
+      "recordDataList": [
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 1,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 2,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 3,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 5,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 9,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 11,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 12,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 14,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 0,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 17,
+          "masterID": 1,
+          "role": "X",
+          "score": 1.0,
+          "weight": 1.0
+        },
+        {
+          "round": 1,
+          "phase": 1,
+          "roomID": 1,
+          "questionID": 4,
+          "masterID": 30,
+          "role": "R",
+          "score": 7.4,
+          "weight": 3.0
+        },
+        {
+          "round": 1,
+          "phase": 3,
+          "roomID": 1,
+          "questionID": 8,
+          "masterID": 32,
+          "role": "V",
+          "score": 7.8,
+          "weight": 1.0
+        },
+        {
+          "round": 1,
+          "phase": 4,
+          "roomID": 1,
+          "questionID": 7,
+          "masterID": 29,
+          "role": "O",
+          "score": 8.0,
+          "weight": 2.0
+        }
+      ]
+    }
+  ],
+  "questionMap": {
+    "1": "Invent Yourself 自己发明",
+    "2": "Rayleigh Disk 瑞利盘",
+    "3": "Ring on the Rod 棒上环",
+    "4": "Unsinkable Disk 永不沉没的圆盘",
+    "5": "Bimetallic Oscillator 双金属振荡器",
+    "6": "Tennis Ball Tower 网球塔",
+    "7": "Three-Sided Dice 圆柱形骰子",
+    "8": "Equipotential Lines 等势线",
+    "9": "Water Spiral 水螺旋",
+    "10": "Droplet Explosion  液滴爆炸",
+    "11": "Balls on an Elastic Band 橡皮筋上的球",
+    "12": "Strange Motion 奇怪的运动",
+    "13": "Candle Powered Turbine 蜡烛动力涡旋机",
+    "14": "Ball on Membrane 膜上球",
+    "15": "Boycott Effect 抵制作用",
+    "16": "Saving Honey 拯救蜂蜜",
+    "17": "Invisibility 隐形"
+  },
+  "schoolMap": {
+    "1": "东南大学",
+    "2": "江苏师范大学",
+    "3": "南京航空航天大学",
+    "4": "南京农业大学",
+    "5": "南京师范大学",
+    "6": "苏州大学",
+    "7": "南京大学",
+    "8": "江苏省前黄高级中学",
+    "9": "四川省温江中学",
+    "10": "南京外国语学校",
+    "11": "南京市第十三中学",
+    "12": "南京市第五高级中学",
+    "13": "南京师范大学附属中学",
+    "14": "四川省成都市新都一中",
+    "15": "南京市金陵中学"
+  }
+}

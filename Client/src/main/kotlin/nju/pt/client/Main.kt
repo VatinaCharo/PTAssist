@@ -42,6 +42,9 @@ class AppUI : Application() {
     private val roundPlayerRecordList = mutableListOf<PlayerData>()
     private var state = MatchState.QUESTION
 
+    private lateinit var startScene: Scene
+    private lateinit var matchScene: Scene
+
     override fun init() {
         super.init()
         if (!configFile.exists()) {
@@ -64,10 +67,11 @@ class AppUI : Application() {
             RuleType.JSYPT -> JSYPTRule
         }
         // 构建启动页Stage
+        startScene = Scene(StartView.build()).apply {
+            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+        }
         primaryStage.apply {
-            scene = Scene(StartView.build()).apply {
-                stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-            }
+            scene = startScene
             icons.add(Image(R.LOGO_PATH))
             title = "PTAssist"
         }.show()
@@ -113,10 +117,11 @@ class AppUI : Application() {
                 // 载入数据JSON文件 和Cache
                 if (dataFile.exists()) {
                     data = JsonHelper.fromJson(dataFile.absolutePath)
+                    matchScene = Scene(MatchView.build(config.judgeCount)).apply {
+                        stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+                    }
                     primaryStage.apply {
-                        scene = Scene(MatchView.build(config.judgeCount)).apply {
-                            stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-                        }
+                        scene = matchScene
                         title = "PTAssist-Match"
                     }
                     matchUILoad(rule)
@@ -367,13 +372,9 @@ class AppUI : Application() {
                     }
                     MatchState.NEXT -> {
                         if (cache.phase > cache.endPhase) {
-                            primaryStage.apply {
-                                scene = Scene(StartView.build()).apply {
-                                    stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
-                                }
-                                icons.add(Image(R.LOGO_PATH))
-                                title = "PTAssist"
-                            }
+                            // 切换到启动页
+                            logger.info("切换到启动界面 scene = $startScene")
+                            primaryStage.scene = startScene
                             when (config.mode) {
                                 WorkMode.ONLINE -> {
                                     PopupView.info("上传数据")
@@ -396,11 +397,6 @@ class AppUI : Application() {
                                     logger.info("离线模式，无法上传数据，需要手动提交数据文件")
                                     PopupView.info("离线模式，无法上传数据，请手动提交数据文件")
                                     popupStage.show()
-                                }
-                            }
-                            primaryStage.apply {
-                                scene = Scene(StartView.build()).apply {
-                                    stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
                                 }
                             }
                         } else {

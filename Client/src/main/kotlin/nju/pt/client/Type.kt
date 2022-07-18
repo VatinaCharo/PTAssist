@@ -11,7 +11,8 @@ enum class QuestionType {
     OPTIONAL,
     REPORTED,
     OPPOSED,
-    REFUSED;
+    REFUSED,
+    BAN;
 
     override fun toString(): String {
         return when (this) {
@@ -19,6 +20,7 @@ enum class QuestionType {
             REPORTED -> "R"
             OPPOSED -> "O"
             REFUSED -> "X"
+            BAN -> "B"
         }
     }
 }

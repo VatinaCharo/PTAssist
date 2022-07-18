@@ -2,11 +2,9 @@ package nju.pt.kotlin.ext
 
 
 import nju.pt.R
-import nju.pt.databaseassist.Data
-import nju.pt.databaseassist.JsonHelper
-import nju.pt.databaseassist.PlayerData
-import nju.pt.databaseassist.TeamData
+import nju.pt.databaseassist.*
 import nju.pt.server.ConfigData
+import org.apache.poi.hssf.util.HSSFColor
 import org.apache.poi.ss.usermodel.*
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
@@ -17,13 +15,22 @@ fun Workbook.checkConfigExcel() {
     //由于队伍信息中可能抽签号还没有决定，不检查
     val logger = LoggerFactory.getLogger("Config Check Loader")
     logger.info("Checking config:")
-    this.loadConfigFromExcel()
+    val roomCount = this.loadConfigFromExcel().roomCount
 
     logger.info("Checking questions:")
     this.loadQuestionFromExcel()
 
     logger.info("Checking schools & judges:")
     this.loadJudgeFromExcel()
+
+    logger.info("Checking team number:")
+    this.getTotalTeamNumber().let {
+        if (it < 3 * roomCount) {
+            logger.error("总队伍数${it}小于会场容纳的最少队伍数${roomCount*3}")
+            throw Exception("总队伍数${it}小于会场容纳的最少队伍数${roomCount*3}")
+        }
+    }
+
 
 }
 
@@ -160,7 +167,7 @@ fun Workbook.loadQuestionFromExcel() = mutableMapOf<Int, String>().apply {
         }
     } catch (e: NullPointerException) {
         logger.error("配置信息不得有空：" + e.message)
-        throw Exception("配置信息不得有空，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        throw NullPointerException("配置信息不得有空，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: Exception) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
@@ -174,18 +181,26 @@ fun Workbook.loadSchoolFromExcel() = mutableMapOf<Int, String>().apply {
     logger.info("===================== loadSchoolFromExcel =====================")
 
     try {
-        val schoolSheet: Sheet
+        val juedgeSheet: Sheet
+        val teamSheet: Sheet
         try {
-            schoolSheet = this@loadSchoolFromExcel.getSheet(R.JUDGE_SHEET_NAME)
+            juedgeSheet = this@loadSchoolFromExcel.getSheet(R.JUDGE_SHEET_NAME)
         } catch (e: NullPointerException) {
-            logger.error("未找到sheet：" + e.message)
-            throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+            logger.error("未找到sheet${R.JUDGE_SHEET_NAME}}：" + e.message)
+            throw Exception("未找到sheet${R.JUDGE_SHEET_NAME}，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        }
+        try {
+            teamSheet = this@loadSchoolFromExcel.getSheet(R.TEAM_SHEET_NAME)
+        } catch (e: NullPointerException) {
+            logger.error("未找到sheet${R.JUDGE_SHEET_NAME}}：" + e.message)
+            throw Exception("未找到sheet${R.JUDGE_SHEET_NAME}，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
         }
 
 
         // 读取sheet内容
         var schoolIndex = 1
-        schoolSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
+        logger.info("load school from judgeSheet")
+        juedgeSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
             //跳过第一行标题行
             if (rowIndex != 0) {
                 val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
@@ -197,9 +212,23 @@ fun Workbook.loadSchoolFromExcel() = mutableMapOf<Int, String>().apply {
                 }
             }
         }
+        logger.info("load school from teamSheet")
+        teamSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
+            //跳过第一行标题行
+            if (rowIndex != 0) {
+                val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
+
+                if (cellValues.size > 1 && !this.values.contains(cellValues[0])) {
+                    logger.info("cellValues = $cellValues")
+                    this += (schoolIndex to cellValues[0])
+                    logger.info("School Map = $this")
+                    schoolIndex += 1
+                }
+            }
+        }
     } catch (e: NullPointerException) {
         logger.error("未找到sheet：" + e.message)
-        throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        throw NullPointerException("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: Exception) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
@@ -232,21 +261,18 @@ fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
                     }
 
                     logger.info("cellValues = $cellValues")
-                    if (cellValues[1].trim() != "无") {
-                        this += (cellValues[0] to cellValues.subList(1, cellValues.size))
-                        logger.info("School Map = $this")
-                    } else {
-                        this += (cellValues[0] to listOf<String>())
-                        logger.info("${cellValues[0]}无裁判出席")
 
-                    }
+                    this += (cellValues[0] to cellValues.subList(
+                        1, cellValues.size
+                    )).also { logger.info("School Map = $it") }
+
 
                 }
             }
         }
     } catch (e: NullPointerException) {
-        logger.error("未找到sheet：" + e.message)
-        throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        logger.error("裁判信息不完整：" + e.message)
+        throw NullPointerException("裁判信息不完整，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: Exception) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
@@ -262,7 +288,14 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
     val logger = LoggerFactory.getLogger("Team Data Loader")
 
     try {
-        val teamSheet = this@loadTeamFromExcel.getSheet(R.TEAM_SHEET_NAME)
+        val teamSheet: Sheet
+        try {
+            teamSheet = this@loadTeamFromExcel.getSheet(R.TEAM_SHEET_NAME)
+        } catch (e: NullPointerException) {
+            logger.error("未找到sheet：" + e.message)
+            throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        }
+
         val reversedSchoolMap = this@loadTeamFromExcel.loadSchoolFromExcel().entries.associate { (k, v) -> v to k }
         logger.info("===================== loadTeamFromExcel =====================")
 
@@ -297,9 +330,7 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
                                 this.add(
                                     PlayerData(
                                         // 队员id的命名规则为 学校id*1000 + 队伍抽签号 *10 + 队内序号
-                                        id = playerId,
-                                        name = subCellValues[index],
-                                        gender = subCellValues[index + 1]
+                                        id = playerId, name = subCellValues[index], gender = subCellValues[index + 1]
                                     )
                                 )
                                 playerId += 1
@@ -318,12 +349,12 @@ fun Workbook.loadTeamFromExcel() = mutableListOf<TeamData>().apply {
         }
 
     } catch (e: NullPointerException) {
-        logger.error("未找到sheet：" + e.message)
-        throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        logger.error("队伍信息不完整：" + e.message)
+        throw NullPointerException("队伍信息不完整，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: NumberFormatException) {
         logger.error(e.message)
         logger.error(e.stackTraceToString())
-        throw Exception("抽签号必须是整数！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        throw NumberFormatException("抽签号必须是整数！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     }
 //    catch (e: Exception) {
 //        logger.error(e.message)
@@ -349,23 +380,104 @@ fun Workbook.getTotalTeamNumber(): Int {
 
     } catch (e: FileNotFoundException) {
         logger.error("未找到文件，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
-        throw Exception("未找到文件，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        throw FileNotFoundException("未找到文件，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
     } catch (e: NullPointerException) {
         logger.error("未找到sheet，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
-        throw Exception("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        throw NullPointerException("未找到sheet，请检查sheet名称，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
 
+    }
+}
+
+fun Workbook.loadQuestionBankFromExcel(): MutableList<Triple<String, String, List<Int>>> {
+    mutableListOf<Triple<String, String, List<Int>>>().apply {
+        // [学校名，队伍名，题库列表]
+        val logger = LoggerFactory.getLogger("QuestionBankLoader")
+
+        try {
+            val qBankSheet: Sheet
+            try {
+                qBankSheet = this@loadQuestionBankFromExcel.getSheet(R.QUESTIONBANK_SHEET_NAME)
+            } catch (e: NullPointerException) {
+                logger.info("未找到sheet${R.QUESTIONBANK_SHEET_NAME}，默认不启用题库")
+                return mutableListOf()
+            }
+
+
+            logger.info("===================== loadQuestionBankFromExcel =====================")
+            // 读取sheet内容
+            qBankSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
+                //跳过第一行标题行
+                if (rowIndex != 0) {
+                    val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
+                    if (cellValues.size > 1) {
+                        logger.info("cellValues = $cellValues")
+
+                        this += Triple(cellValues[0],
+                            cellValues[1],
+                            cellValues[2].replace('，', ',').trim(',').split(',').map { it.toInt() })
+                    }
+                }
+            }
+
+        } catch (e: NullPointerException) {
+            logger.error("题库信息不完整：" + e.message)
+            throw NullPointerException("题库信息不完整，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        } catch (e: NumberFormatException) {
+            logger.error("题库填写格式有误！题目之间请用逗号隔开！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+            throw NumberFormatException("题库填写格式有误！题目之间请用逗号隔开！请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+        }
+    }.let {
+        return it
     }
 }
 
 
 fun Workbook.initializeJson() {
+    val logger = LoggerFactory.getLogger("JsonInitialize Logger")
+
+    val teamDataList = this.loadTeamFromExcel()
+    val schoolMap = this.loadSchoolFromExcel()
+    val questionMap = this.loadQuestionFromExcel()
+    val questionBankList = this.loadQuestionBankFromExcel()
+
+    //增加拒题题库
+    if (questionBankList.isNotEmpty()) {
+
+        logger.info("QuestionBank NOT empty")
+        teamDataList.forEach { teamData ->
+            try {
+                questionBankList.first { it.second == teamData.name && it.first == schoolMap[teamData.schoolID] }
+                    .let { triple ->
+                        logger.info("${triple.first}学校${triple.second}队伍题库为：${triple.third}")
+                        triple.third.forEach {
+                            if (!questionMap.keys.contains(it)) {
+                                logger.error("${triple.first}学校${triple.second}队伍题库中题目${it}不在所给赛题中，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+                                throw Exception("${triple.first}学校${triple.second}队伍题库中题目${it}不在所给赛题中，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+                            }
+                        }
+                        val bannedQuestionList =
+                            questionMap.keys.toMutableList().apply { this.removeIf { triple.third.contains(it) } }
+                        logger.info("Ban题为：${bannedQuestionList}")
+
+                        teamData.recordDataList = MutableList(bannedQuestionList.size) { index ->
+                            RecordData(0, 0, 0, bannedQuestionList[index], 0, "B", 0.0, 0.0)
+                        }
+                    }
+            } catch (e: NoSuchElementException) {
+                logger.error("${teamData.name}队伍没有题库信息，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+                throw NoSuchElementException("${teamData.name}队伍没有题库信息，请检查${R.CONFIG_EXCEL_PATH}配置文件！")
+            }
+        }
+
+
+    } else {
+        logger.info("QuestionBank empty")
+    }
+
     JsonHelper.toJson(
         Data(
-            teamDataList = this.loadTeamFromExcel(),
-            questionMap = this.loadQuestionFromExcel(),
-            schoolMap = this.loadSchoolFromExcel()
-        ),
-        savePath = R.DATA_JSON_PATH
+            teamDataList = teamDataList, questionMap = questionMap, schoolMap = schoolMap
+        ), savePath = R.DATA_JSON_PATH
     )
 }
 
@@ -521,6 +633,28 @@ fun Workbook.initializeExcel() {
                 }
                 createCell(3).apply {
                     setCellValue("裁判3")
+                }
+            }
+        }
+
+        createSheet("队伍题库").apply {
+            createRow(0).apply {
+                createCell(0).apply {
+                    setCellValue("学校名");cellStyle = titleStyle
+                }
+                createCell(1).apply {
+                    setCellValue("队伍名");cellStyle = titleStyle
+                }
+                createCell(2).apply {
+                    setCellValue("题库");cellStyle = titleStyle
+                }
+                createCell(3).apply {
+                    setCellValue("注：此表单为队伍的题库表单，用于不采用拒题而选择直接给出题库的比赛规则。若不需要此功能则不需要填写任何内容，也不要删除此表单。题库输入规则为题号用逗号隔开，例如：1,2,10 此处逗号半角圆角都可以")
+                    cellStyle = this@initializeExcel.createCellStyle().apply {
+                        setFont(this@initializeExcel.createFont().apply {
+                            color = HSSFColor.HSSFColorPredefined.RED.index
+                        })
+                    }
                 }
             }
         }

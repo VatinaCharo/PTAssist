@@ -3,7 +3,9 @@ package nju.pt.server
 import javafx.application.Application
 import javafx.scene.Scene
 import javafx.scene.control.Button
+import javafx.scene.control.Dialog
 import javafx.scene.image.Image
+import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import nju.pt.R
 import nju.pt.databaseassist.Data
@@ -48,6 +50,33 @@ class UITest {
                     title = "Match"
                     minWidth = 800.0
                     minHeight = 600.0
+                }.show()
+            }
+        }
+        Application.launch(TestApp::class.java)
+    }
+
+    @Test
+    fun DialogTest(){
+        class TestApp : Application() {
+
+            val dialog =  ErrorAlert().apply {
+                title = "test"
+                headerText = "test"
+                contentText = "content"
+            }
+            val Btn = Button("start").apply {
+                setOnAction {
+                    dialog.show()
+                }
+            }
+            override fun start(primaryStage: Stage) {
+                primaryStage.apply {
+                    scene = MyScene(
+                        VBox().apply {
+                            children.add(Btn)
+                        }
+                    )
                 }.show()
             }
         }
