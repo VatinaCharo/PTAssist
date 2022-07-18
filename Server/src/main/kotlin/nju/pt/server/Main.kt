@@ -66,9 +66,6 @@ class AppUI : Application() {
         }
 
         logger.info("checking configuration file...")
-
-
-
         // 配置文件json找不到
         if (Path(R.CONFIG_JSON_PATH).notExists()) {
             Path(R.CONFIG_EXCEL_PATH).apply {
