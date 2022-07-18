@@ -816,3 +816,41 @@
 [16:41:13.159] |-INFO nju.pt.client.PopupView => init()
 [16:41:13.160] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
 [16:41:16.471] |-INFO nju.pt.client.AppUI => 打开关于界面 javafx.stage.Stage@35a11706
+[17:43:31.686] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[17:43:31.697] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[17:43:31.848] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[17:43:31.958] |-INFO nju.pt.client.StartView => build()
+[17:43:31.959] |-INFO nju.pt.client.StartView => init()
+[17:43:31.984] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@5a8720a7
+[17:43:31.984] |-INFO nju.pt.client.StartView => layout()
+[17:43:31.984] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@5a8720a7
+[17:43:31.984] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[17:43:32.333] |-INFO nju.pt.client.SettingView => build(config:Config)
+[17:43:32.333] |-INFO nju.pt.client.SettingView => init(config: Config)
+[17:43:32.353] |-INFO nju.pt.client.SettingView => layout()
+[17:43:32.356] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[17:43:32.369] |-INFO nju.pt.client.AboutView => init()
+[17:43:32.377] |-INFO nju.pt.client.PopupView => build()
+[17:43:32.377] |-INFO nju.pt.client.PopupView => init()
+[17:43:32.378] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[17:46:40.733] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@eec25a6
+[17:54:56.303] |-INFO nju.pt.client.AppUI => 
+[17:54:56.304] |-INFO nju.pt.client.AppUI => get data Json
+[17:54:56.304] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[17:54:56.304] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\data\data.json
+[17:54:56.322] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[17:54:56.333] |-INFO nju.pt.client.AppUI => data = Data(teamDataList=[TeamData(id=3, name=旺旺 WON ONE, schoolID=11, playerDataList=[PlayerData(id=11, name=吴世凡, gender=男), PlayerData(id=12, name=黄润涵, gender=男), PlayerData(id=13, name=卢奕轩, gender=男), PlayerData(id=14, name=黄子宸, gender=男)], recordDataList=[]), TeamData(id=7, name=自然哲学队, schoolID=9, playerDataList=[PlayerData(id=29, name=刘培锐, gender=男), PlayerData(id=30, name=袁浩文, gender=男), PlayerData(id=31, name=罗欣, gender=男), PlayerData(id=32, name=李祖奇, gender=男), PlayerData(id=33, name=曾旭苒, gender=男)], recordDataList=[]), TeamData(id=11, name=MISSION队, schoolID=9, playerDataList=[PlayerData(id=49, name=耿祥瑞, gender=男), PlayerData(id=50, name=樊昌硕, gender=男), PlayerData(id=51, name=王冬挺, gender=男), PlayerData(id=52, name=吴程远, gender=男), PlayerData(id=53, name=黄思禹, gender=男)], recordDataList=[])], questionMap={1=Invent Yourself 自己发明, 2=Rayleigh Disk 瑞利盘, 3=Ring on the Rod 棒上环, 4=Unsinkable Disk 永不沉没的圆盘, 5=Bimetallic Oscillator 双金属振荡器, 6=Tennis Ball Tower 网球塔, 7=Three-Sided Dice 圆柱形骰子, 8=Equipotential Lines 等势线, 9=Water Spiral 水螺旋, 10=Droplet Explosion  液滴爆炸, 11=Balls on an Elastic Band 橡皮筋上的球, 12=Strange Motion 奇怪的运动, 13=Candle Powered Turbine 蜡烛动力涡旋机, 14=Ball on Membrane 膜上球, 15=Boycott Effect 抵制作用, 16=Saving Honey 拯救蜂蜜, 17=Invisibility 隐形}, schoolMap={1=东南大学, 2=江苏师范大学, 3=南京航空航天大学, 4=南京农业大学, 5=南京师范大学, 6=苏州大学, 7=南京大学, 8=江苏省前黄高级中学, 9=四川省温江中学, 10=南京外国语学校, 11=南京市第十三中学, 12=南京市第五高级中学, 13=南京师范大学附属中学, 14=四川省成都市新都一中, 15=南京市金陵中学})
+[17:54:56.334] |-INFO nju.pt.client.AppUI => getCache(data)
+[17:54:56.336] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[17:54:56.336] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\data\cache.json
+[17:54:56.337] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[17:54:56.341] |-INFO nju.pt.client.AppUI => cache = Cache(phase=2, endPhase=4, teamIDMatchList=[5, 1, 2, 3])
+[17:54:56.341] |-INFO nju.pt.client.MatchView => build()
+[17:54:56.341] |-INFO nju.pt.client.MatchView => init <<< judgeCount = 5
+[17:54:56.341] |-INFO nju.pt.client.MatchView => init(judgeCount: Int)
+[17:54:56.355] |-INFO nju.pt.client.MatchView => layout()
+[17:54:56.355] |-INFO nju.pt.client.MatchView => setting njuLogoImageView layout
+[17:54:56.356] |-INFO nju.pt.client.MatchView => fitSize = (312.2, 391.29999999999995)
+[17:54:56.356] |-INFO nju.pt.client.MatchView => setting njuTextLogoImageView layout
+[17:54:56.356] |-INFO nju.pt.client.MatchView => fitSize = (343.8, 147.15)
+[17:54:56.357] |-INFO nju.pt.client.MatchView => build() return => HBox[id=MatchView_rootHBox]
