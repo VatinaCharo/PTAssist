@@ -1,4 +1,4 @@
-# PTAssist
+# PTAssist-Client
 
 <p align="center">  
 <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/VatinaCharo/PTAssist?style=plastic">
@@ -12,6 +12,8 @@ PTAssist，意为PT比赛小帮手，致力于减轻比赛管理负担和规范�
 
 ## 目录
 
+- [特性](#特性)
+- [安装](#安装)
 - [使用](#使用)
     1. [设置比赛参数](#设置比赛参数)
     2. [下载比赛数据](#下载比赛数据)
@@ -19,9 +21,43 @@ PTAssist，意为PT比赛小帮手，致力于减轻比赛管理负担和规范�
 - [反馈](#反馈)
 - [License](#license)
 
+## 特性
+
+1. 分客户端和服务端两部分，直接通过网络交互数据，
+   避免了传统的U盘拷数据的繁琐工作和可能的错误风险
+2. 比赛核心进程业务同比赛规则业务分离，能很好的适应各种比赛的规则变化
+3. 支持导出比赛进程回顾，减轻比赛运维压力
+
+## 安装
+
+### 运行环境
+
+前往[Java Download | Java 8, Java 11, Java 13 - Linux, Windows & macOS (azul.com)](https://www.azul.com/downloads/?package=jdk)
+下载带javafx支持的Java JRE运行环境。
+
+点击左侧的**Zulu**项目下的**Download Now**，跳转至下载界面
+
+<div align=center><img src="assets/image-20220718170934516.png" width="800" /></div>
+
+<div align=center><img src="assets/image-20220718171219705.png" width="800" /></div>
+
+在红框所示的筛选器中选择**Java Version**为**Java 17 (LTS)** ，**Operating System**为**Windows**（这里以Windows为例），**Architecture**为**x86
+64-bit**（这里以x86 64-bit的主流架构为例），**Java Package**为**JRE FX**
+
+<div align=center><img src="assets/image-20220718171406052.png" width="800" /></div>
+
+
+点击下载**.msi**类型的安装包进行安装
+
+### 软件本体
+
+下载`Client-x.y.z.zip`(服务端)或`Client-x.y.z.zip`(客户端)压缩包，解压后双击`bin`目录下的脚本文件即可运行。
+
+
+
 ## 使用
 
-解压缩`Client-x.y.z.zip`，运行**bin**目录下的`Client.bat`即可启动软件
+解压缩`Client-x.y.z.zip`，运行`bin`目录下的`Client.bat`即可启动软件
 
 <div align=center><img src="assets/client_launch.png" width="800" /></div>
 
