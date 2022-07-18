@@ -23,6 +23,7 @@ PTAssist，意为PT比赛小帮手，致力于减轻比赛管理负担和规范�
     - [4.生成对阵表](#4.-进入比赛)
     - [5.服务端设置](#5.-服务端设置)
     - [6.手动修改服务端配置文件](#6.-手动修改服务端配置文件)
+- [反馈](#反馈)
 - [License](#license)
 
 ## 特性
@@ -41,14 +42,16 @@ PTAssist，意为PT比赛小帮手，致力于减轻比赛管理负担和规范�
 
 点击左侧的**Zulu**项目下的**Download Now**，跳转至下载界面
 
-![image-20220718170934516](assets/image-20220718170934516.png)
+<div align=center><img src="assets/image-20220718170934516.png" width="800" /></div>
 
-![image-20220718171219705](assets/image-20220718171219705.png)
+<div align=center><img src="assets/image-20220718171219705.png" width="800" /></div>
+
 
 在红框所示的筛选器中选择**Java Version**为**Java 17 (LTS)** ，**Operating System**为**Windows**（这里以Windows为例），**Architecture**为**x86
 64-bit**（这里以x86 64-bit的主流架构为例），**Java Package**为**JRE FX**
 
-![image-20220718171406052](assets/image-20220718171406052.png)
+<div align=center><img src="assets/image-20220718171406052.png" width="800" /></div>
+
 
 点击下载**.msi**类型的安装包进行安装
 
@@ -354,6 +357,20 @@ PTAssist，意为PT比赛小帮手，致力于减轻比赛管理负担和规范�
   ]
 }
 ```
+
+## 反馈
+
+- 请在志愿者群或者技术支援群中反馈出现的问题，所作的操作，并附上截图（反馈参考模板如下）
+
+```text
+问题：（填写出现的问题的描述）
+操作：（填写出现问题前所作的操作）
+时间：（填写出现问题时的时间）
+
+（随后附上截图，推荐附上能较好描述问题的软件截图和控制台信息截图）
+```
+
+- 如有必要，请附上对应的日志文件（文件在bin目录的log目录下）
 
 ## LICENSE
 
