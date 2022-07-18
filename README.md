@@ -1,6 +1,27 @@
 # PTAssist
+<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/VatinaCharo/PTAssist?style=plastic">
+<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/VatinaCharo/PTAssist">
+<img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/VatinaCharo/PTAssist">
+<img alt="GitHub all releases" src="https://img.shields.io/github/downloads/VatinaCharo/PTAssist/total">
+<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/VatinaCharo/PTAssist?style=social">
 
 PTAssist，意为PT比赛小帮手，致力于减轻比赛管理负担和规范化比赛流程。
+
+## 目录
+- [特性](#特性)
+- [安装](#安装)
+- [使用](#使用)
+   - [服务端](#服务端)
+     - [1.配置服务端](#1.-配置服务端)
+     - [2.打开软件](#2.-打开软件)
+     - [3.生成对阵表](#3.-生成对阵表)
+     - [4.生成对阵表](#4.-进入比赛)
+     - [5.服务端设置](#5.-服务端设置)
+     - [6.手动修改服务端配置文件](#6.-手动修改服务端配置文件)
+   - [客户端](#客户端)
+- [License](#license)
+
+
 
 ## 特性
 
@@ -8,6 +29,8 @@ PTAssist，意为PT比赛小帮手，致力于减轻比赛管理负担和规范�
    避免了传统的U盘拷数据的繁琐工作和可能的错误风险
 2. 比赛核心进程业务同比赛规则业务分离，能很好的适应各种比赛的规则变化
 3. 支持导出比赛进程回顾，减轻比赛运维压力
+
+
 
 ## 安装
 1.安装环境，打开[下载网页](https://www.azul.com/products/prime/cck-downloads/)，

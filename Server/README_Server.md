@@ -1,8 +1,26 @@
 # PTAssist-Server
+<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/VatinaCharo/PTAssist?style=plastic">
+<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/VatinaCharo/PTAssist">
+<img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/VatinaCharo/PTAssist">
+<img alt="GitHub all releases" src="https://img.shields.io/github/downloads/VatinaCharo/PTAssist/total">
+<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/VatinaCharo/PTAssist?style=social">
 
 PTAssist，意为PT比赛小帮手，致力于减轻比赛管理负担和规范化比赛流程。
 服务端是比赛承办方所使用的软件，其功能主要为**赛前比赛对阵表的生成**，**赛时比赛信息的收集与分发**，和**赛后比赛结果的导出**。
 下面，我们将按照比赛流程顺序依次介绍服务端软件的使用。
+
+## 目录
+
+- [特性](#特性)
+- [安装](#安装)
+- [使用](#使用)
+  - [1.配置服务端](#1.-配置服务端)
+  - [2.打开软件](#2.-打开软件)
+  - [3.生成对阵表](#3.-生成对阵表)
+  - [4.生成对阵表](#4.-进入比赛)
+  - [5.服务端设置](#5.-服务端设置)
+  - [6.手动修改服务端配置文件](#6.-手动修改服务端配置文件)
+- [License](#license)
 
 ## 特性
 
