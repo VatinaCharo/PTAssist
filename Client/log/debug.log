@@ -794,3 +794,25 @@
 [15:00:48.016] |-INFO nju.pt.client.JSYPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 1, 3, 7, 9, 11, 14, 16]
 [15:00:48.016] |-INFO nju.pt.client.JSYPTRule => 反方banRuleList = []
 [15:00:48.017] |-INFO nju.pt.client.JSYPTRule => oppBanQuestionIDList = []
+[16:41:12.459] |-INFO nju.pt.client.AppUI => 未找到配置文件 C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json，创建默认配置文件
+[16:41:12.478] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[16:41:12.490] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[16:41:12.605] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[16:41:12.605] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[16:41:12.605] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\config\setting.json
+[16:41:12.618] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[16:41:12.750] |-INFO nju.pt.client.StartView => build()
+[16:41:12.750] |-INFO nju.pt.client.StartView => init()
+[16:41:12.776] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@25a22547
+[16:41:12.776] |-INFO nju.pt.client.StartView => layout()
+[16:41:12.776] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@25a22547
+[16:41:12.776] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[16:41:13.113] |-INFO nju.pt.client.SettingView => build(config:Config)
+[16:41:13.113] |-INFO nju.pt.client.SettingView => init(config: Config)
+[16:41:13.133] |-INFO nju.pt.client.SettingView => layout()
+[16:41:13.136] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[16:41:13.151] |-INFO nju.pt.client.AboutView => init()
+[16:41:13.159] |-INFO nju.pt.client.PopupView => build()
+[16:41:13.159] |-INFO nju.pt.client.PopupView => init()
+[16:41:13.160] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[16:41:16.471] |-INFO nju.pt.client.AppUI => 打开关于界面 javafx.stage.Stage@35a11706

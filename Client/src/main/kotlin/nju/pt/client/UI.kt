@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory
 object StartView {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    val rootStackPane = StackPane().apply { id = "StartView_rootStackPane" }
-    val imageView = ImageView().apply { id = "StartView_imageView" }
-    val menuVBox = VBox().apply { id = "StartView_menuVBox" }
+    private val rootStackPane = StackPane().apply { id = "StartView_rootStackPane" }
+    private val imageView = ImageView().apply { id = "StartView_imageView" }
+    private val menuVBox = VBox().apply { id = "StartView_menuVBox" }
 
     val startBtn = Button("开始比赛").apply { id = "StartView_startBtn" }
     val downloadBtn = Button("下载数据").apply { id = "StartView_downloadBtn" }
@@ -62,14 +62,15 @@ object MatchView {
     private val logger = LoggerFactory.getLogger(this::class.java)
     private val rootHBox = HBox().apply { id = "MatchView_rootHBox" }
     private val optionalQuestionsStackPane = StackPane().apply { id = "MatchView_optionalQuestionsStackPane" }
-    private val optionalQuestionsVBox = VBox().apply { id = "MatchView_optionalQuestionsVBox" }
+    val optionalQuestionsVBox = VBox().apply { id = "MatchView_optionalQuestionsVBox" }
     private val njuLogoImageView = ImageView(R.LOGO_PATH).apply { id = "MatchView_njuLogoImageView" }
     private val operationsVBox = VBox().apply { id = "MatchView_operationsVBox" }
-    private val confirmHBox = HBox().apply { id = "MatchView_confirmHBox" }
+    val confirmHBox = HBox().apply { id = "MatchView_confirmHBox" }
     val questionViewLabel = Label("Here is selected question").apply { id = "MatchView_questionViewLabel" }
     val confirmBtn = Button("确认").apply { id = "MatchView_confirmBtn" }
 
-    //    val refuseBtn = Button("拒绝").apply { id = "MatchView_refuseBtn" }
+    //    根据规则库，后续手动添加此按钮
+    val refuseBtn = Button("拒绝").apply { id = "MatchView_refuseBtn" }
     val informationVBox = VBox().apply { id = "MatchView_informationVBox" }
 
     //    val lockBtn = Button("锁定").apply { id = "MatchView_lockBtn" }
@@ -86,7 +87,6 @@ object MatchView {
         rootHBox.children.addAll(optionalQuestionsStackPane, operationsVBox)
         optionalQuestionsStackPane.children.addAll(njuLogoImageView, optionalQuestionsVBox)
         operationsVBox.children.addAll(confirmHBox, informationVBox, scoresVBox)
-//        confirmHBox.children.addAll(questionViewLabel, confirmBtn, refuseBtn)
         confirmHBox.children.addAll(questionViewLabel, confirmBtn)
         informationVBox.children.addAll(
             TeamBar(TeamType.REPORTER),
@@ -167,12 +167,23 @@ object MatchView {
         })
     }
 
+    /**
+     * Load optional questions
+     *
+     * @param repTeamRecordDataList 正方比赛记录
+     * @param oppTeamRecordDataList 反方比赛记录
+     * @param usedQuestionIDList 当前轮比赛已使用的赛题号
+     * @param questionLibMap 当前轮比赛的赛题库
+     * @param rule 当前比赛所使用的规则库
+     * @param roundType 当前比赛轮次的类型
+     */
     fun loadOptionalQuestions(
         repTeamRecordDataList: List<RecordData>,
         oppTeamRecordDataList: List<RecordData>,
         usedQuestionIDList: List<Int>,
         questionLibMap: Map<Int, String>,
-        rule: RuleInterface
+        rule: RuleInterface,
+        roundType: RoundType
     ) {
         logger.info("getOptionalQuestionIDList(repTeamRecordDataList, oppTeamRecordDataList, usedQuestionIDList, questionIDLibList)")
         logger.info("repTeamRecordDataList = $repTeamRecordDataList")
@@ -185,7 +196,8 @@ object MatchView {
                 repTeamRecordDataList,
                 oppTeamRecordDataList,
                 usedQuestionIDList,
-                questionLibMap.keys.toList()
+                questionLibMap.keys.toList(),
+                roundType
             )
         logger.info("questionIDList = $questionIDList")
         // 加载可选题到UI中
@@ -194,13 +206,13 @@ object MatchView {
 
     fun loadValidPlayer(
         type: TeamType,
-        roundPlayerRecordList: List<PlayerData>,
+        roundPlayerRecordList: List<Int>,
         teamRecordDataList: List<RecordData>,
         playerDataList: List<PlayerData>,
         rule: RuleInterface
     ) {
-        informationVBox.children.forEach {
-            val teamBar = it as TeamBar
+        informationVBox.children.forEach { node ->
+            val teamBar = node as TeamBar
             if (teamBar.type == type) {
                 logger.info("rule.getValidPlayerIDList(roundPlayerRecordList, teamRecordDataList, playerDataList)")
                 logger.info("roundPlayerRecordList = $roundPlayerRecordList")

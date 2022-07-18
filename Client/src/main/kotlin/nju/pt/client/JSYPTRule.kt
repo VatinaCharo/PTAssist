@@ -12,6 +12,7 @@ object JSYPTRule : RuleInterface {
         TeamType.REPORTER to QuestionType.REPORTED,
         TeamType.OPPONENT to QuestionType.OPPOSED
     )
+    private val specialBanRuleListConfig = listOf(TeamType.REPORTER to QuestionType.REPORTED)
     private const val playerMasterTimesIn1RoundConfig = 2
     private const val playerMasterTimesIn1MatchConfig = 5
     private const val playerRepTimesIn1MatchConfig = 3
@@ -48,7 +49,8 @@ object JSYPTRule : RuleInterface {
         repTeamRecordDataList: List<RecordData>,
         oppTeamRecordDataList: List<RecordData>,
         usedQuestionIDList: List<Int>,
-        questionIDLibList: List<Int>
+        questionIDLibList: List<Int>,
+        roundType: RoundType
     ): List<Int> {
         if (questionIDLibList.isNotEmpty()) {
             val tempQuestionIDLibList = questionIDLibList.minus(usedQuestionIDList.toSet())
@@ -65,19 +67,38 @@ object JSYPTRule : RuleInterface {
                     }.toSet()
             logger.info("oppQRecordSet = $oppQRecordSet")
             var banRuleList = banRuleListConfig
-            var optionalQuestionIDList: List<Int>
-            // 如果获取到的可选题目数量小于指定的题目数量限制（这里是0）,则从后往前依次解锁题目限制规则，直到最终题目数量大于0
-            do {
-                logger.info("getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)")
-                logger.info("tempQuestionIDLibList = $tempQuestionIDLibList")
-                logger.info("repQRecordSet = $repQRecordSet")
-                logger.info("oppQRecordSet = $oppQRecordSet")
-                logger.info("banRuleList = $banRuleList")
-                optionalQuestionIDList =
-                    getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
-                banRuleList = banRuleList.dropLast(1)
-            } while (optionalQuestionIDList.isEmpty())
-            return optionalQuestionIDList
+            when (roundType) {
+                // 自选题轮次
+                RoundType.SPECIAL -> {
+                    logger.info("自选题轮次")
+                    logger.info("getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)")
+                    logger.info("tempQuestionIDLibList = $tempQuestionIDLibList")
+                    logger.info("repQRecordSet = $repQRecordSet")
+                    logger.info("oppQRecordSet = $oppQRecordSet")
+                    logger.info("specialBanRuleListConfig = $specialBanRuleListConfig")
+                    return getOptionalQuestionIDList(
+                        tempQuestionIDLibList,
+                        repQRecordSet,
+                        oppQRecordSet,
+                        specialBanRuleListConfig
+                    )
+                }
+                RoundType.NORMAL -> {
+                    var optionalQuestionIDList: List<Int>
+                    // 如果获取到的可选题目数量小于指定的题目数量限制（这里是0）,则从后往前依次解锁题目限制规则，直到最终题目数量大于0
+                    do {
+                        logger.info("getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)")
+                        logger.info("tempQuestionIDLibList = $tempQuestionIDLibList")
+                        logger.info("repQRecordSet = $repQRecordSet")
+                        logger.info("oppQRecordSet = $oppQRecordSet")
+                        logger.info("banRuleList = $banRuleList")
+                        optionalQuestionIDList =
+                            getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+                        banRuleList = banRuleList.dropLast(1)
+                    } while (optionalQuestionIDList.isEmpty())
+                    return optionalQuestionIDList
+                }
+            }
         } else {
             logger.warn("不存在赛题，无法进行赛题的禁用与解放")
             return questionIDLibList
@@ -125,16 +146,18 @@ object JSYPTRule : RuleInterface {
      * @return 当前可主控队员 包含了此队伍的当前可上场主控的全部队员
      */
     override fun getValidPlayerIDList(
-        roundPlayerRecordList: List<PlayerData>,
+        roundPlayerRecordList: List<Int>,
         teamRecordDataList: List<RecordData>,
         playerDataList: List<PlayerData>
-    ) = playerDataList
+    ): List<Int> = playerDataList
         .filter { playerData ->
-            val playerMasterTimesIn1Round = roundPlayerRecordList.filter { it.id == playerData.id }.size
+            // 筛选未超过本轮主控次数限制的队员
+            val playerMasterTimesIn1Round = roundPlayerRecordList.filter { it == playerData.id }.size
             logger.info("playerMasterTimesIn1Round = $playerMasterTimesIn1Round")
             playerMasterTimesIn1Round < playerMasterTimesIn1RoundConfig
         }
         .filter { playerData ->
+            // 筛选未超过比赛总主控次数限制的队员
             val playerMasterTimesIn1Match =
                 teamRecordDataList
                     .filter { it.role in listOf("R", "O", "V") }
@@ -144,8 +167,9 @@ object JSYPTRule : RuleInterface {
             playerMasterTimesIn1Match < playerMasterTimesIn1MatchConfig
         }
         .filter { playerData ->
+            // 筛选未超过比赛总的正方主控次数限制的队员
             val playerRepTimesIn1Match =
-                teamRecordDataList.filter { it.masterID == playerData.id && it.role == "nju.pt.net.R" }.size
+                teamRecordDataList.filter { it.masterID == playerData.id && it.role == "R" }.size
             logger.info("playerRepTimesIn1Match = $playerRepTimesIn1Match")
             playerRepTimesIn1Match < playerRepTimesIn1MatchConfig
         }
@@ -181,27 +205,11 @@ object JSYPTRule : RuleInterface {
         }
     }
 
-    /**
-     * Get rep score weight
-     *
-     * @param refusedQuestionIDList 拒绝的题号列表
-     * @return 正方计分权重
-     */
-    override fun getRepScoreWeight(refusedQuestionIDList: List<Int>) = 3.0 - refusedQuestionIDList.size * 0.2
+    override fun getRepScoreWeight(teamRecordDataList: List<RecordData>, isRefuse: Boolean): Double = 3.0
 
-    /**
-     * Get opp score weight
-     *
-     * @param refusedQuestionIDList 拒绝的题号列表
-     * @return 反方计分权重
-     */
-    override fun getOppScoreWeight(refusedQuestionIDList: List<Int>) = 2.0
 
-    /**
-     * Get rev score weight
-     *
-     * @param refusedQuestionIDList 拒绝的题号列表
-     * @return 评方计分权重
-     */
-    override fun getRevScoreWeight(refusedQuestionIDList: List<Int>) = 1.0
+    override fun getOppScoreWeight(): Double = 2.0
+
+
+    override fun getRevScoreWeight(): Double = 1.0
 }

@@ -1,3 +1,4 @@
+import nju.pt.client.RoundType
 import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.RecordData
 
@@ -9,13 +10,15 @@ interface RuleInterface {
      * @param oppTeamRecordDataList 反方队伍比赛记录
      * @param usedQuestionIDList 当前比赛轮次中已用的赛题
      * @param questionIDLibList 赛题库
+     * @param roundType 本轮比赛类型 普通轮还是自选题轮
      * @return 赛题编号列表 包含了当前对局中的全部可选题
      */
     fun getOptionalQuestionIDList(
         repTeamRecordDataList: List<RecordData>,
         oppTeamRecordDataList: List<RecordData>,
         usedQuestionIDList: List<Int>,
-        questionIDLibList: List<Int>
+        questionIDLibList: List<Int>,
+        roundType: RoundType
     ): List<Int>
 
     /**
@@ -27,7 +30,7 @@ interface RuleInterface {
      * @return 当前可主控队员 包含了此队伍的当前可上场主控的全部队员
      */
     fun getValidPlayerIDList(
-        roundPlayerRecordList: List<PlayerData>,
+        roundPlayerRecordList: List<Int>,
         teamRecordDataList: List<RecordData>,
         playerDataList: List<PlayerData>
     ): List<Int>
@@ -43,10 +46,11 @@ interface RuleInterface {
     /**
      * Get rep score weight
      *
-     * @param refusedQuestionIDList 拒绝的题号列表
+     * @param teamRecordDataList 队伍比赛记录
+     * @param isRefuse 是否拒题
      * @return 正方计分权重
      */
-    fun getRepScoreWeight(refusedQuestionIDList: List<Int>): Double
+    fun getRepScoreWeight(teamRecordDataList: List<RecordData>, isRefuse: Boolean): Double
 
     /**
      * Get opp score weight
@@ -54,7 +58,7 @@ interface RuleInterface {
      * @param refusedQuestionIDList 拒绝的题号列表
      * @return 反方计分权重
      */
-    fun getOppScoreWeight(refusedQuestionIDList: List<Int>): Double
+    fun getOppScoreWeight(): Double
 
     /**
      * Get rev score weight
@@ -62,5 +66,5 @@ interface RuleInterface {
      * @param refusedQuestionIDList 拒绝的题号列表
      * @return 评方计分权重
      */
-    fun getRevScoreWeight(refusedQuestionIDList: List<Int>): Double
+    fun getRevScoreWeight(): Double
 }

@@ -5,14 +5,15 @@ import javafx.application.Application
 import javafx.application.Platform
 import javafx.scene.Node
 import javafx.scene.Scene
+import javafx.scene.control.RadioButton
 import javafx.scene.image.Image
 import javafx.stage.Modality
 import javafx.stage.Stage
 import nju.pt.R
 import nju.pt.databaseassist.Data
 import nju.pt.databaseassist.JsonHelper
-import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.RecordData
+import nju.pt.kotlin.ext.mkdirIfEmpty
 import nju.pt.kotlin.ext.rotate
 import nju.pt.net.FileNetClient
 import nju.pt.net.Packet
@@ -31,32 +32,19 @@ enum class MatchState {
 
 class AppUI : Application() {
     private val logger = LoggerFactory.getLogger(this::class.java)
-    private val configFile = File(R.SETTING_JSON_PATH)
-    private val dataFile = File(R.DATA_JSON_PATH)
-    private val cacheFile = File(R.CACHE_JSON_PATH)
+    private val configFile = File(R.SETTING_JSON_PATH).mkdirIfEmpty()
+    private val dataFile = File(R.DATA_JSON_PATH).mkdirIfEmpty()
+    private val cacheFile = File(R.CACHE_JSON_PATH).mkdirIfEmpty()
     private lateinit var data: Data
     private lateinit var cache: Cache
     private lateinit var config: Config
     private val usedQuestionIDList = mutableListOf<Int>()
     private val refusedQuestionIDList = mutableListOf<Int>()
-    private val roundPlayerRecordList = mutableListOf<PlayerData>()
+    private val roundPlayerRecordList = mutableListOf<Int>()
     private var state = MatchState.QUESTION
 
     private lateinit var startScene: Scene
     private lateinit var matchScene: Scene
-
-    override fun init() {
-        super.init()
-        if (!configFile.exists()) {
-            configFile.parentFile.mkdirs()
-        }
-        if (!dataFile.exists()) {
-            dataFile.parentFile.mkdirs()
-        }
-        if (!cacheFile.exists()) {
-            cacheFile.parentFile.mkdirs()
-        }
-    }
 
     override fun start(primaryStage: Stage) {
         // 获取配置文件
@@ -116,9 +104,19 @@ class AppUI : Application() {
             startBtn.setOnAction {
                 // 载入数据JSON文件 和Cache
                 if (dataFile.exists()) {
+                    logger.info("")
+                    logger.info("get data Json")
                     data = JsonHelper.fromJson(dataFile.absolutePath)
+                    logger.info("data = $data")
+                    logger.info("getCache(data)")
+                    cache = getCache(data)
+                    logger.info("cache = $cache")
                     matchScene = Scene(MatchView.build(config.judgeCount)).apply {
                         stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+                    }
+                    // 对于需要拒题功能的比赛，展示出拒题按钮
+                    if (config.rule == RuleType.CUPT && config.roundType == RoundType.NORMAL) {
+                        MatchView.confirmHBox.children.add(MatchView.refuseBtn)
                     }
                     primaryStage.apply {
                         scene = matchScene
@@ -180,35 +178,34 @@ class AppUI : Application() {
         }
         MatchView.apply {
             // 拒题
-//            本次比赛无需拒题，先略去
-//            refuseBtn.setOnAction {
-//                when (config.roundType) {
-//                    RoundType.NORMAL -> {
-//                        when(state){
-//                            MatchState.QUESTION -> {
-//                                val refuseQuestionID = group.userData as Int
-//                                refuseQuestionIDList.add(refuseQuestionID)
-//                                optionalQuestionsVBox.children.removeIf { ((it as RadioButton).userData as Int) == refuseQuestionID }
-//                                logger.info("拒绝选题 $refuseQuestionID ${questionViewLabel.text}")
-//                                logger.info("refuseQuestionIDList = $refuseQuestionIDList")
-//                                PopupView.info("拒绝选题${questionViewLabel.text}")
-//                                popupStage.show()
-//                                questionViewLabel.text = ""
-//                            }
-//                            MatchState.MATCH -> {
-//                                logger.info("选题已锁定，无法拒题")
-//                                PopupView.info("选题已锁定，无法拒题")
-//                                popupStage.show()
-//                            }
-//                        }
-//                    }
-//                    RoundType.SPECIAL -> {
-//                        logger.info("自选题环节，无法拒题")
-//                        PopupView.info("自选题环节，无法拒题")
-//                        popupStage.show()
-//                    }
-//                }
-//            }
+            refuseBtn.setOnAction {
+                when (config.roundType) {
+                    RoundType.NORMAL -> {
+                        when (state) {
+                            MatchState.QUESTION -> {
+                                val refuseQuestionID = group.userData as Int
+                                refusedQuestionIDList.add(refuseQuestionID)
+                                optionalQuestionsVBox.children.removeIf { ((it as RadioButton).userData as Int) == refuseQuestionID }
+                                logger.info("拒绝选题 $refuseQuestionID ${questionViewLabel.text}")
+                                logger.info("refuseQuestionIDList = $refusedQuestionIDList")
+                                PopupView.info("拒绝选题${questionViewLabel.text}")
+                                popupStage.show()
+                                questionViewLabel.text = ""
+                            }
+                            else -> {
+                                logger.info("选题已锁定，无法拒题")
+                                PopupView.info("选题已锁定，无法拒题")
+                                popupStage.show()
+                            }
+                        }
+                    }
+                    RoundType.SPECIAL -> {
+                        logger.info("自选题环节，无法拒题")
+                        PopupView.info("自选题环节，无法拒题")
+                        popupStage.show()
+                    }
+                }
+            }
             // 选题锁定
             confirmBtn.setOnAction {
                 if (group.userData as Int != -1) {
@@ -277,7 +274,6 @@ class AppUI : Application() {
                             }
                             logger.info("锁定分数面板")
                             // 存储比赛数据
-                            // TODO: 2022/7/15 拒题部分
                             val repTeamData = data.teamDataList.first { it.id == cache.getRepTeamID() }
                             val repPlayerID =
                                 repTeamData.playerDataList.first { it.name == (informationVBox.children[0] as TeamBar).getPlayerValue() }.id
@@ -292,7 +288,23 @@ class AppUI : Application() {
                             val revPlayerID =
                                 revTeamData.playerDataList.first { it.name == (informationVBox.children[2] as TeamBar).getPlayerValue() }.id
                             val revScores = (scoresVBox.children[2] as ScoreBar).getScores()
+                            // 增加队员主控记录
+                            roundPlayerRecordList.addAll(listOf(repPlayerID, oppPlayerID, revPlayerID))
                             // 更新RecordData
+                            refusedQuestionIDList.forEach {
+                                repTeamData.recordDataList.add(
+                                    RecordData(
+                                        config.round,
+                                        cache.phase,
+                                        config.roomID,
+                                        it,
+                                        0,
+                                        "X",
+                                        0.0,
+                                        rule.getRepScoreWeight(repTeamData.recordDataList, true)
+                                    )
+                                )
+                            }
                             repTeamData.recordDataList.add(
                                 RecordData(
                                     config.round,
@@ -302,7 +314,7 @@ class AppUI : Application() {
                                     repPlayerID,
                                     "R",
                                     rule.getScore(repScores),
-                                    rule.getRepScoreWeight(refusedQuestionIDList)
+                                    rule.getRepScoreWeight(repTeamData.recordDataList, false)
                                 )
                             )
                             oppTeamData.recordDataList.add(
@@ -314,7 +326,7 @@ class AppUI : Application() {
                                     oppPlayerID,
                                     "O",
                                     rule.getScore(oppScores),
-                                    rule.getOppScoreWeight(refusedQuestionIDList)
+                                    rule.getOppScoreWeight()
                                 )
                             )
                             revTeamData.recordDataList.add(
@@ -326,7 +338,7 @@ class AppUI : Application() {
                                     revPlayerID,
                                     "V",
                                     rule.getScore(revScores),
-                                    rule.getRevScoreWeight(refusedQuestionIDList)
+                                    rule.getRevScoreWeight()
                                 )
                             )
                             // 更新缓存并保存
@@ -441,9 +453,6 @@ class AppUI : Application() {
     }
 
     private fun matchUILoad(rule: RuleInterface) {
-        logger.info("getCache(data)")
-        cache = getCache(data)
-        logger.info("cache = $cache")
         val repTeamRecordDataList = data.teamDataList.first { it.id == cache.getRepTeamID() }.recordDataList
         val repPlayerDataList = data.teamDataList.first { it.id == cache.getRepTeamID() }.playerDataList
         val oppTeamRecordDataList = data.teamDataList.first { it.id == cache.getOppTeamID() }.recordDataList
@@ -469,7 +478,8 @@ class AppUI : Application() {
             oppTeamRecordDataList,
             usedQuestionIDList,
             data.questionMap,
-            rule
+            rule,
+            config.roundType
         )
         // 加载正方队员
         MatchView.loadValidPlayer(
