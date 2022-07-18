@@ -18,13 +18,18 @@ tasks.startScripts {
 distributions {
     main {
         contents {
-            from parent.file('README.md')
+            from file('README_Client.md')
+            file("assets").listFiles().each {
+                from(it) {
+                    into "assets"
+                }
+            }
         }
     }
 }
 
 group = 'nju.pt'
-version = '1.2.1'
+version = '1.3.0'
 
 repositories {
     mavenCentral()

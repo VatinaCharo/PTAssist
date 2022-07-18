@@ -14,12 +14,14 @@ object CUPTRule : RuleInterface {
         TeamType.OPPONENT to QuestionType.OPPOSED,
         TeamType.OPPONENT to QuestionType.REPORTED
     )
+    private val specialBanRuleListConfig = listOf(TeamType.REPORTER to QuestionType.REPORTED)
     private const val playerMasterTimesIn1RoundConfig = 2
     private const val playerMasterTimesIn1MatchConfig = 5
     private const val playerRepTimesIn1MatchConfig = 3
+    private const val maxRefuseQuestionCount = 5
 
     private fun getQuestionType(value: String) = when (value) {
-        "nju.pt.net.R" -> QuestionType.REPORTED
+        "R" -> QuestionType.REPORTED
         "O" -> QuestionType.OPPOSED
         "X" -> QuestionType.REFUSED
         else -> QuestionType.OPTIONAL
@@ -46,33 +48,64 @@ object CUPTRule : RuleInterface {
      * @param oppTeamRecordDataList 反方队伍比赛记录
      * @param usedQuestionIDList 当前比赛轮次中已用的赛题
      * @param questionIDLibList 赛题库
+     * @param roundType 本轮比赛类型 普通轮次或自选题轮次
      * @return 赛题编号列表 包含了当前对局中的全部可选题
      */
     override fun getOptionalQuestionIDList(
         repTeamRecordDataList: List<RecordData>,
         oppTeamRecordDataList: List<RecordData>,
         usedQuestionIDList: List<Int>,
-        questionIDLibList: List<Int>
+        questionIDLibList: List<Int>,
+        roundType: RoundType
     ): List<Int> {
         if (questionIDLibList.size > questionCount) {
-            var optionalQuestionIDList = questionIDLibList.minus(usedQuestionIDList.toSet())
+            val tempQuestionIDLibList = questionIDLibList.minus(usedQuestionIDList.toSet())
+            logger.info("当前比赛可用题库为$tempQuestionIDLibList")
             val repQRecordSet =
                 repTeamRecordDataList.map {
                     it.questionID to (TeamType.REPORTER to getQuestionType(it.role))
                 }.toSet()
+            logger.info("repQRecordSet = $repQRecordSet")
             val oppQRecordSet =
                 oppTeamRecordDataList
                     .map {
                         it.questionID to (TeamType.OPPONENT to getQuestionType(it.role))
                     }.toSet()
+            logger.info("oppQRecordSet = $oppQRecordSet")
             var banRuleList = banRuleListConfig
-            // 如果获取到的可选题目数量小于指定的题目数量限制（这里是5）,则从后往前依次解锁题目限制规则，直到最终题目数量大于5
-            do {
-                optionalQuestionIDList =
-                    getOptionalQuestionIDList(optionalQuestionIDList, repQRecordSet, oppQRecordSet, banRuleList)
-                banRuleList = banRuleList.dropLast(1)
-            } while (optionalQuestionIDList.size < questionCount)
-            return optionalQuestionIDList
+            when (roundType) {
+                RoundType.SPECIAL -> {
+                    // 自选题轮次，除了正过的题，都可以上
+                    logger.info("自选题轮次")
+                    logger.info("getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)")
+                    logger.info("tempQuestionIDLibList = $tempQuestionIDLibList")
+                    logger.info("repQRecordSet = $repQRecordSet")
+                    logger.info("oppQRecordSet = $oppQRecordSet")
+                    logger.info("specialBanRuleListConfig = $specialBanRuleListConfig")
+                    return getOptionalQuestionIDList(
+                        tempQuestionIDLibList,
+                        repQRecordSet,
+                        oppQRecordSet,
+                        specialBanRuleListConfig
+                    )
+                }
+                RoundType.NORMAL -> {
+                    var optionalQuestionIDList: List<Int>
+                    // 如果获取到的可选题目数量小于指定的题目数量限制（这里是5）,则从后往前依次解锁题目限制规则，直到最终题目数量大于5
+                    do {
+                        logger.info("自选题轮次")
+                        logger.info("getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)")
+                        logger.info("tempQuestionIDLibList = $tempQuestionIDLibList")
+                        logger.info("repQRecordSet = $repQRecordSet")
+                        logger.info("oppQRecordSet = $oppQRecordSet")
+                        logger.info("banRuleList = $banRuleList")
+                        optionalQuestionIDList =
+                            getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+                        banRuleList = banRuleList.dropLast(1)
+                    } while (optionalQuestionIDList.size < questionCount)
+                    return optionalQuestionIDList
+                }
+            }
         } else {
             logger.warn("赛题小于${questionCount}道，无法进行赛题的禁用与解放")
             return questionIDLibList
@@ -116,16 +149,18 @@ object CUPTRule : RuleInterface {
      * @return 当前可主控队员 包含了此队伍的当前可上场主控的全部队员
      */
     override fun getValidPlayerIDList(
-        roundPlayerRecordList: List<PlayerData>,
+        roundPlayerRecordList: List<Int>,
         teamRecordDataList: List<RecordData>,
         playerDataList: List<PlayerData>
-    ) = playerDataList
+    ): List<Int> = playerDataList
         .filter { playerData ->
-            val playerMasterTimesIn1Round = roundPlayerRecordList.filter { it.id == playerData.id }.size
+            // 筛选未超过本轮主控次数限制的队员
+            val playerMasterTimesIn1Round = roundPlayerRecordList.filter { it == playerData.id }.size
             logger.info("playerMasterTimesIn1Round = $playerMasterTimesIn1Round")
             playerMasterTimesIn1Round < playerMasterTimesIn1RoundConfig
         }
         .filter { playerData ->
+            // 筛选未超过比赛总主控次数限制的队员
             val playerMasterTimesIn1Match =
                 teamRecordDataList
                     .filter { it.role in listOf("R", "O", "V") }
@@ -135,8 +170,9 @@ object CUPTRule : RuleInterface {
             playerMasterTimesIn1Match < playerMasterTimesIn1MatchConfig
         }
         .filter { playerData ->
+            // 筛选未超过比赛总的正方主控次数限制的队员
             val playerRepTimesIn1Match =
-                teamRecordDataList.filter { it.masterID == playerData.id && it.role == "nju.pt.net.R" }.size
+                teamRecordDataList.filter { it.masterID == playerData.id && it.role == "R" }.size
             logger.info("playerRepTimesIn1Match = $playerRepTimesIn1Match")
             playerRepTimesIn1Match < playerRepTimesIn1MatchConfig
         }
@@ -175,24 +211,19 @@ object CUPTRule : RuleInterface {
     /**
      * Get rep score weight
      *
-     * @param refusedQuestionIDList 拒绝的题号列表
+     * CUPT规则 最多拒绝5题，每多拒一题，扣0.2正方系数
+     *
+     * @param teamRecordDataList 队伍比赛记录
+     * @param isRefuse 是否拒题
      * @return 正方计分权重
      */
-    override fun getRepScoreWeight(refusedQuestionIDList: List<Int>) = 3.0 - refusedQuestionIDList.size * 0.2
+    override fun getRepScoreWeight(teamRecordDataList: List<RecordData>, isRefuse: Boolean): Double {
+        val oldRepScoreWeight = teamRecordDataList.filter { it.role in listOf("R", "X") }.map { it.weight }.minOf { it }
+        val refusedQuestionCount = teamRecordDataList.filter { it.role == "X" }.size
+        return if (isRefuse && refusedQuestionCount >= maxRefuseQuestionCount) oldRepScoreWeight - 0.2 else oldRepScoreWeight
+    }
 
-    /**
-     * Get opp score weight
-     *
-     * @param refusedQuestionIDList 拒绝的题号列表
-     * @return 反方计分权重
-     */
-    override fun getOppScoreWeight(refusedQuestionIDList: List<Int>) = 2.0
+    override fun getOppScoreWeight(): Double = 2.0
 
-    /**
-     * Get rev score weight
-     *
-     * @param refusedQuestionIDList 拒绝的题号列表
-     * @return 评方计分权重
-     */
-    override fun getRevScoreWeight(refusedQuestionIDList: List<Int>) = 1.0
+    override fun getRevScoreWeight(): Double = 1.0
 }

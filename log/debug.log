@@ -1,0 +1,30 @@
+[16:37:29.014] |-INFO nju.pt.client.AppUI => 未找到配置文件 C:\Users\VC\IdeaProjects\PTAssist\config\setting.json，创建默认配置文件
+[16:37:29.024] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[16:37:29.036] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\config\setting.json
+[16:37:29.213] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[16:37:29.214] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[16:37:29.214] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\config\setting.json
+[16:37:29.227] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[16:37:29.414] |-INFO nju.pt.client.StartView => build()
+[16:37:29.415] |-INFO nju.pt.client.StartView => init()
+[16:37:29.540] |-INFO nju.pt.client.StartView => init() return => nju.pt.client.StartView@16b8843b
+[16:37:29.540] |-INFO nju.pt.client.StartView => layout()
+[16:37:29.541] |-INFO nju.pt.client.StartView => layout() return => nju.pt.client.StartView@16b8843b
+[16:37:29.541] |-INFO nju.pt.client.StartView => build() return => StackPane[id=StartView_rootStackPane]
+[16:37:30.372] |-INFO nju.pt.client.SettingView => build(config:Config)
+[16:37:30.373] |-INFO nju.pt.client.SettingView => init(config: Config)
+[16:37:30.404] |-INFO nju.pt.client.SettingView => layout()
+[16:37:30.408] |-INFO nju.pt.client.SettingView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[16:37:30.438] |-INFO nju.pt.client.AboutView => init()
+[16:37:30.457] |-INFO nju.pt.client.PopupView => build()
+[16:37:30.459] |-INFO nju.pt.client.PopupView => init()
+[16:37:30.459] |-INFO nju.pt.client.PopupView => build() return => Grid hgap=0.0, vgap=0.0, alignment=TOP_LEFT
+[16:37:58.748] |-INFO nju.pt.client.AppUI => 打开设置界面 javafx.stage.Stage@566802c4
+[16:38:05.149] |-INFO nju.pt.client.AppUI => 保存配置文件
+[16:38:05.150] |-INFO nju.pt.client.AppUI => JsonHelper.toJson(config, R.SETTING_JSON_PATH)
+[16:38:05.158] |-INFO nju.pt.client.AppUI => newConfig = Config(ip=127.0.0.1, port=7890, roomID=0, round=1, judgeCount=5, roundType=正常模式, rule=CUPT, mode=ONLINE)
+[16:38:05.158] |-INFO nju.pt.client.AppUI => R.SETTING_JSON_PATH = config/setting.json
+[16:38:05.158] |-INFO JSON Saver => ===================== SavingJsonFile =====================
+[16:38:05.158] |-INFO JSON Saver => save json file to: C:\Users\VC\IdeaProjects\PTAssist\config\setting.json
+[16:38:05.160] |-INFO JSON Saver => JsonFileSavedSuccessfully!
+[16:38:05.160] |-INFO nju.pt.client.AppUI => 关闭设置界面
