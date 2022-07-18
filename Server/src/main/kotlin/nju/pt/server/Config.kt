@@ -16,7 +16,7 @@ object Config {
 
     private val logger = LoggerFactory.getLogger(Config::class.java)
 
-    val configData by lazy {
+    var configData =
         if (Path(R.CONFIG_JSON_PATH).notExists()) {
             WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadConfigFromExcel().also {
                 JsonHelper.toJson(it, R.CONFIG_JSON_PATH)
@@ -25,38 +25,63 @@ object Config {
         } else {
             JsonHelper.fromJson<ConfigData>(R.CONFIG_JSON_PATH)
         }
-    }
 
-    val port by lazy { configData.port }
-    val judgeCount by lazy { configData.judgeCount }
-    val roomCount by lazy { configData.roomCount }
-    val turns by lazy { configData.turns }
+
+    var port: Int
+    var judgeCount: Int
+    var roomCount: Int
+    var turns: Int
 
     // TODO: 2022/7/13 默认的系数在哪用上?
-    val rWeight by lazy { configData.rWeight }
-    val orWeight by lazy { configData.oWeight }
-    val vWeight by lazy { configData.vWeight }
+    var rWeight: Double
+    var oWeight: Double
+    var vWeight: Double
 
-    fun writeIntoConfig(configData: ConfigData) {
+    init {
+        port = configData.port
+        judgeCount = configData.judgeCount
+        roomCount = configData.roomCount
+        turns = configData.turns
+        rWeight = configData.rWeight
+        oWeight = configData.oWeight
+        vWeight = configData.vWeight
+    }
+
+
+    fun writeIntoConfig(newConfigData: ConfigData) {
         logger.info("Save Config")
-        logger.info("port: ${configData.port}")
-        logger.info("judgeCount: ${configData.judgeCount}")
-        logger.info("turns: ${configData.turns}")
-        logger.info("rWeight: ${configData.rWeight}")
-        logger.info("oWeight: ${configData.oWeight}")
-        logger.info("vWeight: ${configData.vWeight}")
+        logger.info("port: ${newConfigData.port}")
+        logger.info("judgeCount: ${newConfigData.judgeCount}")
+        logger.info("turns: ${newConfigData.turns}")
+        logger.info("rWeight: ${newConfigData.rWeight}")
+        logger.info("oWeight: ${newConfigData.oWeight}")
+        logger.info("vWeight: ${newConfigData.vWeight}")
 
-        this.configData.apply {
-            port = configData.port
-            judgeCount = configData.judgeCount
-            roomCount = configData.roomCount
-            turns = configData.turns
-            rWeight = configData.rWeight
-            oWeight = configData.oWeight
-            vWeight = configData.vWeight
-        }
+
         JsonHelper.toJson(configData, R.CONFIG_JSON_PATH)
+        refreshData(newConfigData)
         logger.info("Saved successfully!")
+    }
+
+    fun refreshData(
+        newConfigData: ConfigData = if (Path(R.CONFIG_JSON_PATH).notExists()) {
+            WorkbookFactory.create(R.CONFIG_EXCEL_FILE).loadConfigFromExcel().also {
+                JsonHelper.toJson(it, R.CONFIG_JSON_PATH)
+            }
+
+        } else {
+            JsonHelper.fromJson<ConfigData>(R.CONFIG_JSON_PATH)
+        }
+
+    ) {
+        this.configData = newConfigData
+        port = configData.port
+        judgeCount = configData.judgeCount
+        roomCount = configData.roomCount
+        turns = configData.turns
+        rWeight = configData.rWeight
+        oWeight = configData.oWeight
+        vWeight = configData.vWeight
     }
 
 

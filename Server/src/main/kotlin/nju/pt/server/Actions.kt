@@ -97,6 +97,7 @@ object SettingViewActions {
         logger.info("Check Config")
         if (SettingView.portTF.text.isNotEmpty() && SettingView.judgeCountTF.text.isNotEmpty() && SettingView.roomCountTF.text.isNotEmpty() && SettingView.turnCountTF.text.isNotEmpty() && SettingView.rWeighTF.text.isNotEmpty() && SettingView.oWeighTF.text.isNotEmpty() && SettingView.vWeighTF.text.isNotEmpty()) {
             logger.info("No Error")
+            Config.refreshData()
             InfoAlert().apply {
                 title = "配置服务端"
                 headerText = "服务端配置成功!"
