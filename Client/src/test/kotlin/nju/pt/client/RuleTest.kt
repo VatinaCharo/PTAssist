@@ -17,7 +17,8 @@ class RuleTest {
                 repRecordList,
                 oppRecordList,
                 listOf(),
-                data.questionMap.keys.toList()
+                data.questionMap.keys.toList(),
+                RoundType.NORMAL
             )
         println(qIDList)
     }

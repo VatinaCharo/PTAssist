@@ -418,7 +418,7 @@ class CounterPartTable(
                             logger.info("Room ${room + 1}:")
                             //队伍情况
                             createCell(1).setCellValue("${oneRoundTable.RList[room]}")
-                            logger.info("nju.pt.net.R:${oneRoundTable.RList[room]}")
+                            logger.info("R:${oneRoundTable.RList[room]}")
                             createCell(2).setCellValue("${oneRoundTable.OList[room]}")
                             logger.info("O:${oneRoundTable.OList[room]}")
                             createCell(3).setCellValue("${oneRoundTable.VList[room]}")
@@ -565,7 +565,7 @@ data class OneRoundTable(
                     VList[roomId] = it[2]
                 }
             } else {
-                listOf<Int>(RList[roomId], OList[roomId], VList[roomId],OBList[roomId]).sortedBy {
+                listOf<Int>(RList[roomId], OList[roomId], VList[roomId], OBList[roomId]).sortedBy {
                     RCountMap.getOrDefault(it, 0)
                 }.let {
                     RList[roomId] = it[0]
