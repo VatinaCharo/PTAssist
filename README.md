@@ -45,14 +45,14 @@ PTAssist，意为PT比赛小帮手，致力于减轻比赛管理负担和规范�
 
 点击左侧的**Zulu**项目下的**Download Now**，跳转至下载界面
 
-![image-20220718170934516](assets/image-20220718170934516.png)
+<div align=center><img src="assets/image-20220718170934516.png" width="800" /></div>
 
-![image-20220718171219705](assets/image-20220718171219705.png)
+<div align=center><img src="assets/image-20220718171219705.png" width="800" /></div>
 
 在红框所示的筛选器中选择**Java Version**为**Java 17 (LTS)** ，**Operating System**为**Windows**（这里以Windows为例），**Architecture**为**x86
 64-bit**（这里以x86 64-bit的主流架构为例），**Java Package**为**JRE FX**
 
-![image-20220718171406052](assets/image-20220718171406052.png)
+<div align=center><img src="assets/image-20220718171406052.png" width="800" /></div>
 
 点击下载**.msi**类型的安装包进行安装
 
