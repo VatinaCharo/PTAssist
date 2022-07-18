@@ -8,6 +8,8 @@ import javafx.scene.paint.Paint
 import javafx.stage.FileChooser
 import nju.pt.R
 import nju.pt.databaseassist.*
+import nju.pt.kotlin.ext.getTotalTeamNumber
+import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.FileNotFoundException
@@ -36,27 +38,28 @@ object StartViewActions {
         }.show()
     }
 
-    fun generateTableBtnAction(totalTeamNumber: Int, judgeMap: Map<String, List<String>>, schoolMap: Map<Int, String>) {
+    fun generateTableBtnAction( judgeMap: Map<String, List<String>>, schoolMap: Map<Int, String>) {
+
         if (Path(R.COUNTERPART_TABLE_JSON_PATH).exists()) {
             ConfirmAlert().apply {
                 title = "生成对阵表(无裁判)"
                 headerText = "已有对阵表，是否生成并覆盖？"
                 yesBtn.setOnAction {
-                    generateTable(totalTeamNumber, judgeMap, schoolMap)
+                    generateTable( WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getTotalTeamNumber(), judgeMap, schoolMap)
                     this.close()
                 }
             }.show()
 
         } else {
-            generateTable(totalTeamNumber, judgeMap, schoolMap)
+            generateTable( WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getTotalTeamNumber(), judgeMap, schoolMap)
         }
     }
 
     fun generateTableWithJudgeBtnAction(
-        totalTeamNumber: Int, judgeMap: Map<String, List<String>>, schoolMap: Map<Int, String>
+         judgeMap: Map<String, List<String>>, schoolMap: Map<Int, String>
     ) {
         try {
-            CounterPartTable(totalTeamNumber, judgeMap, schoolMap).generateTableWithJudge()
+            CounterPartTable( WorkbookFactory.create(R.CONFIG_EXCEL_FILE).getTotalTeamNumber(), judgeMap, schoolMap).generateTableWithJudge()
         } catch (e: FileNotFoundException) {
             logger.error("未找到${R.COUNTERPART_TABLE_JSON_PATH}文件，请先生成无裁判对阵表")
             ErrorAlert().apply {
