@@ -69,7 +69,7 @@ PTAssist，意为PT比赛小帮手，致力于减轻比赛管理负担和规范�
 
 #### 1. 配置服务端
 
-在`Server/ServerData`文件夹中找到`server_config.xlsx`并打开。此excel表格是用于配置服务端的文件，其中共有**五个**子表，
+首先在`bin`目录下运行脚本文件(windows端为`.bat`文件)，此时会初始化软件运行所需的基本环境。接着在`Server/ServerData`文件夹中找到`server_config.xlsx`并打开。此excel表格是用于配置服务端的文件，其中共有**五个**子表，
 分别为 **“软件配置”**，**“赛题信息”**，**“队伍信息”**，**“裁判信息”**和**“队伍题库”**。接下来我们将依次介绍它们。
 
 <div align=center><img src="assets/server_config.png" width="800" /></div>
