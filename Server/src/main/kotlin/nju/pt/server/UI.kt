@@ -335,9 +335,9 @@ object SettingView {
     val turnCountTF = IntegerTextField()
     private val rWeightLabel = Label("Init R Weight:")
     val rWeighTF = DoubleTextField()
-    private val oWeightLabel = Label("Init R Weight:")
+    private val oWeightLabel = Label("Init O Weight:")
     val oWeighTF = DoubleTextField()
-    private val vWeightLabel = Label("Init R Weight:")
+    private val vWeightLabel = Label("Init V Weight:")
     val vWeighTF = DoubleTextField()
     val saveBtn = Button("保存").apply { id = "SettingView_saveBtn" }
 
