@@ -54,7 +54,7 @@ PTAssist，意为PT比赛小帮手，致力于减轻比赛管理负担和规范�
 
 <div align=center><img src="assets/image-20220718171406052.png" width="800" /></div>
 
-点击下载**.msi**类型的安装包进行安装
+点击下载`.msi`类型的安装包进行安装
 
 ### 软件本体
 
