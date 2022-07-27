@@ -37,7 +37,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 2,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -47,7 +47,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 4,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -57,7 +57,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 5,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -67,7 +67,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 8,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -77,7 +77,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 10,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -87,7 +87,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 12,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -97,7 +97,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 13,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -107,7 +107,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 15,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -117,7 +117,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 17,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -127,70 +127,20 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 1,
-          "masterID": 1,
-          "role": "X",
-          "score": 1.0,
-          "weight": 1.0
+          "masterID": 36,
+          "role": "O",
+          "score": 7.5,
+          "weight": 2.0
         },
         {
           "round": 0,
           "phase": 1,
           "roomID": 1,
           "questionID": 3,
-          "masterID": 1,
-          "role": "X",
-          "score": 1.0,
-          "weight": 1.0
-        },
-        {
-          "round": 0,
-          "phase": 1,
-          "roomID": 1,
-          "questionID": 7,
-          "masterID": 1,
-          "role": "X",
-          "score": 1.0,
-          "weight": 1.0
-        },
-        {
-          "round": 0,
-          "phase": 1,
-          "roomID": 1,
-          "questionID": 9,
-          "masterID": 1,
-          "role": "X",
-          "score": 1.0,
-          "weight": 1.0
-        },
-        {
-          "round": 0,
-          "phase": 1,
-          "roomID": 1,
-          "questionID": 11,
-          "masterID": 1,
-          "role": "X",
-          "score": 1.0,
-          "weight": 1.0
-        },
-        {
-          "round": 0,
-          "phase": 1,
-          "roomID": 1,
-          "questionID": 14,
-          "masterID": 1,
-          "role": "X",
-          "score": 1.0,
-          "weight": 1.0
-        },
-        {
-          "round": 1,
-          "phase": 1,
-          "roomID": 2,
-          "questionID": 16,
           "masterID": 34,
-          "role": "X",
-          "score": 7.0,
-          "weight": 2.0
+          "role": "V",
+          "score": 1.0,
+          "weight": 1.0
         },
         {
           "round": 1,
@@ -246,7 +196,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 1,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -256,7 +206,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 2,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -266,7 +216,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 4,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -276,7 +226,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 5,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -286,7 +236,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 6,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -296,7 +246,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 9,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -306,7 +256,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 11,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -316,7 +266,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 12,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -326,7 +276,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 13,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -360,6 +310,26 @@
           "role": "R",
           "score": 8.2,
           "weight": 3.0
+        },
+        {
+          "round": 2,
+          "phase": 3,
+          "roomID": 3,
+          "questionID": 7,
+          "masterID": 16,
+          "role": "R",
+          "score": 8.5,
+          "weight": 3.0
+        },
+        {
+          "round": 2,
+          "phase": 4,
+          "roomID": 3,
+          "questionID": 14,
+          "masterID": 15,
+          "role": "O",
+          "score": 7.5,
+          "weight": 2.0
         }
       ]
     },
@@ -400,7 +370,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 1,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -410,7 +380,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 3,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -420,7 +390,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 4,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -430,7 +400,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 5,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -440,7 +410,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 9,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -450,7 +420,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 11,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -460,7 +430,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 12,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -470,7 +440,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 13,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -480,7 +450,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 14,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -554,7 +524,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 1,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -564,7 +534,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 2,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -574,7 +544,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 3,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -584,7 +554,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 5,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -594,7 +564,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 9,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -604,7 +574,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 11,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -614,7 +584,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 12,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -624,7 +594,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 14,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0
@@ -634,7 +604,7 @@
           "phase": 1,
           "roomID": 1,
           "questionID": 17,
-          "masterID": 1,
+          "masterID": 0,
           "role": "X",
           "score": 1.0,
           "weight": 1.0

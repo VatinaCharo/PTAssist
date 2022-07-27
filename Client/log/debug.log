@@ -854,3 +854,714 @@
 [17:54:56.356] |-INFO nju.pt.client.MatchView => setting njuTextLogoImageView layout
 [17:54:56.356] |-INFO nju.pt.client.MatchView => fitSize = (343.8, 147.15)
 [17:54:56.357] |-INFO nju.pt.client.MatchView => build() return => HBox[id=MatchView_rootHBox]
+[15:19:13.058] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:19:13.063] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:19:13.182] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:25:53.018] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:25:53.023] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:25:53.142] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:34:16.316] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:34:16.321] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:34:16.433] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:34:16.443] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:34:16.455] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:34:16.455] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:34:16.457] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[15:34:16.457] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[15:34:16.457] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:34:16.457] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:34:16.458] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:34:16.458] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[15:34:16.458] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[15:34:16.458] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8]
+[15:42:36.585] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:42:36.590] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:42:36.699] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:42:36.720] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[15:42:36.720] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[15:42:36.720] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[15:42:36.720] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[15:42:36.720] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[15:42:36.721] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 1
+[15:42:36.721] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 0
+[15:42:36.721] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 1
+[15:42:36.722] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 1
+[15:42:36.722] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 1
+[15:42:36.724] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[15:42:36.725] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[15:42:36.725] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[15:42:36.725] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 1
+[15:42:36.726] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[15:42:36.737] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:42:36.737] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:42:36.742] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:42:36.750] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:42:36.757] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:42:36.758] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:42:36.765] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[15:42:36.765] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[15:42:36.765] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:42:36.766] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:42:36.766] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:42:36.766] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[15:42:36.767] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[15:42:36.768] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8]
+[15:42:58.344] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:42:58.348] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:42:58.463] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:42:58.484] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[15:42:58.485] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[15:42:58.485] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[15:42:58.486] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[15:42:58.486] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Round = 0
+[15:42:58.486] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 1
+[15:42:58.486] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 0
+[15:42:58.486] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 1
+[15:42:58.486] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 1
+[15:42:58.486] |-INFO nju.pt.client.CUPTRule => playerMasterTimesIn1Match = 1
+[15:42:58.487] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[15:42:58.487] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[15:42:58.487] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[15:42:58.487] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 1
+[15:42:58.487] |-INFO nju.pt.client.CUPTRule => playerRepTimesIn1Match = 0
+[15:42:58.500] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:42:58.500] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:42:58.504] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:42:58.515] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:42:58.516] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:42:58.516] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:42:58.517] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[15:42:58.518] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[15:42:58.518] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:42:58.518] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:42:58.518] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:42:58.519] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[15:42:58.519] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[15:42:58.519] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8]
+[15:45:36.836] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:45:36.841] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:45:36.953] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:45:36.977] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 0
+[15:45:36.977] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[15:45:36.977] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[15:45:36.978] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[15:45:36.978] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 0
+[15:45:36.979] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Match = 1
+[15:45:36.979] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[15:45:36.980] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[15:45:36.980] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[15:45:36.980] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Match = 1
+[15:45:36.981] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerRepTimesIn1Match = 0
+[15:45:36.981] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[15:45:36.982] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[15:45:36.983] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[15:45:36.984] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerRepTimesIn1Match = 0
+[15:45:36.999] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:45:36.999] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:45:37.004] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:45:37.014] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:45:37.016] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:45:37.016] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:45:37.017] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[15:45:37.017] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[15:45:37.017] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:45:37.018] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:45:37.018] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:45:37.019] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[15:45:37.019] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[15:45:37.020] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8]
+[15:51:39.999] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:51:40.005] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:51:40.136] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:51:40.164] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 0
+[15:51:40.165] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[15:51:40.165] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[15:51:40.165] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[15:51:40.165] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 0
+[15:51:40.167] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Match = 1
+[15:51:40.168] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[15:51:40.168] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[15:51:40.168] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[15:51:40.169] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Match = 1
+[15:51:40.169] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerRepTimesIn1Match = 0
+[15:51:40.170] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[15:51:40.170] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[15:51:40.180] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[15:51:40.182] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerRepTimesIn1Match = 0
+[15:51:40.184] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 1
+[15:51:40.187] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[15:51:40.188] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[15:51:40.188] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[15:51:40.189] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 1
+[15:51:40.191] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Match = 1
+[15:51:40.193] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[15:51:40.194] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[15:51:40.195] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[15:51:40.198] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Match = 1
+[15:51:40.199] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerRepTimesIn1Match = 0
+[15:51:40.201] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[15:51:40.201] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[15:51:40.202] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[15:51:40.204] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerRepTimesIn1Match = 0
+[15:51:40.217] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:51:40.217] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:51:40.222] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:51:40.229] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:51:40.230] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:51:40.230] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:51:40.231] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[15:51:40.231] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[15:51:40.233] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:51:40.244] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:51:40.245] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:51:40.254] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[15:51:40.255] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[15:51:40.256] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8]
+[15:52:05.137] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:52:05.143] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:52:05.266] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:52:05.291] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 0
+[15:52:05.291] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[15:52:05.292] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[15:52:05.292] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[15:52:05.293] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 0
+[15:52:05.293] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Match = 1
+[15:52:05.294] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[15:52:05.294] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[15:52:05.294] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[15:52:05.295] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Match = 1
+[15:52:05.295] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerRepTimesIn1Match = 0
+[15:52:05.295] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[15:52:05.296] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[15:52:05.296] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[15:52:05.296] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerRepTimesIn1Match = 0
+[15:52:05.297] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 1
+[15:52:05.297] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[15:52:05.298] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[15:52:05.298] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[15:52:05.298] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 1
+[15:52:05.298] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Match = 1
+[15:52:05.298] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[15:52:05.298] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[15:52:05.299] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[15:52:05.299] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Match = 1
+[15:52:05.299] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerRepTimesIn1Match = 0
+[15:52:05.299] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[15:52:05.299] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[15:52:05.299] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[15:52:05.300] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerRepTimesIn1Match = 0
+[15:52:05.324] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:52:05.324] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:52:05.330] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:52:05.354] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:52:05.355] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:52:05.355] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:52:05.356] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[15:52:05.356] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[15:52:05.356] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:52:05.357] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:52:05.415] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:52:05.416] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[15:52:05.419] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[15:52:05.421] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8]
+[15:52:48.522] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:52:48.528] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:52:48.641] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:52:48.667] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 0
+[15:52:48.667] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[15:52:48.667] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[15:52:48.667] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[15:52:48.668] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 0
+[15:52:48.668] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Match = 1
+[15:52:48.668] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[15:52:48.668] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[15:52:48.669] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[15:52:48.669] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Match = 1
+[15:52:48.670] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerRepTimesIn1Match = 0
+[15:52:48.671] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[15:52:48.671] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[15:52:48.672] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[15:52:48.673] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerRepTimesIn1Match = 0
+[15:52:48.678] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 2
+[15:52:48.679] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[15:52:48.679] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[15:52:48.679] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[15:52:48.680] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 2
+[15:52:48.681] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[15:52:48.681] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[15:52:48.683] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[15:52:48.684] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[15:52:48.684] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[15:52:48.684] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[15:52:48.693] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:52:48.693] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:52:48.697] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:52:48.704] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:52:48.705] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:52:48.705] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:52:48.706] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[15:52:48.706] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[15:52:48.706] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:52:48.707] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:52:48.707] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R))]
+[15:52:48.707] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[15:52:48.707] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[15:52:48.707] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8]
+[15:57:20.703] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:57:20.707] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:57:20.824] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:57:20.850] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 0
+[15:57:20.850] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[15:57:20.851] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[15:57:20.851] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[15:57:20.851] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 0
+[15:57:20.852] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Match = 1
+[15:57:20.853] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[15:57:20.853] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[15:57:20.853] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[15:57:20.853] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Match = 1
+[15:57:20.854] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerRepTimesIn1Match = 0
+[15:57:20.855] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[15:57:20.855] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[15:57:20.855] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[15:57:20.856] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerRepTimesIn1Match = 0
+[15:57:20.857] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 2
+[15:57:20.858] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[15:57:20.858] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[15:57:20.859] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[15:57:20.860] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 2
+[15:57:20.861] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[15:57:20.861] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[15:57:20.864] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[15:57:20.865] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[15:57:20.865] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[15:57:20.866] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[15:57:20.875] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[15:57:20.875] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[15:57:20.881] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[15:57:20.889] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:57:20.890] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:57:20.890] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[15:57:20.891] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[15:57:20.891] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[15:57:20.892] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[15:57:20.892] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[15:57:20.892] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[15:57:20.892] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[15:57:20.893] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[15:57:20.893] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:01:41.844] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[16:01:41.849] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[16:01:41.962] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[16:01:41.987] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 0
+[16:01:41.988] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[16:01:41.988] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[16:01:41.988] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[16:01:41.988] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 0
+[16:01:41.989] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Match = 1
+[16:01:41.989] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[16:01:41.989] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[16:01:41.989] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[16:01:41.990] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Match = 1
+[16:01:41.990] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerRepTimesIn1Match = 0
+[16:01:41.990] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[16:01:41.992] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[16:01:41.996] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[16:01:41.997] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerRepTimesIn1Match = 0
+[16:01:41.999] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 2
+[16:01:42.000] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[16:01:42.000] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[16:01:42.001] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[16:01:42.001] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 2
+[16:01:42.002] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[16:01:42.003] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[16:01:42.004] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[16:01:42.005] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[16:01:42.005] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[16:01:42.006] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[16:01:42.015] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[16:01:42.015] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[16:01:42.023] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[16:01:42.039] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:01:42.041] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.041] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.043] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[16:01:42.043] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:01:42.044] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:01:42.045] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.046] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.046] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[16:01:42.047] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:01:42.047] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:01:42.051] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:01:42.052] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.053] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.054] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[16:01:42.055] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:01:42.056] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:01:42.057] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.057] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.058] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[16:01:42.059] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:01:42.060] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:01:42.060] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[16:01:42.061] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:01:42.062] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:01:42.063] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.064] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.064] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[16:01:42.065] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:01:42.065] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 14]
+[16:01:42.066] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:01:42.066] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.068] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.068] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[16:01:42.068] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:01:42.068] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:01:42.068] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.068] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.068] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[16:01:42.068] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:01:42.068] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:01:42.068] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[16:01:42.068] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:01:42.068] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:01:42.069] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.069] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.069] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[16:01:42.069] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:01:42.069] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 14]
+[16:01:42.070] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[16:01:42.070] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:01:42.070] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:01:42.070] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.070] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.071] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R)]
+[16:01:42.071] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:01:42.071] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = []
+[16:01:42.072] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:01:42.074] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.074] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.074] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[16:01:42.074] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:01:42.074] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:01:42.074] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.074] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.075] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[16:01:42.075] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:01:42.075] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:01:42.075] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[16:01:42.075] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:01:42.075] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:01:42.075] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.076] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.076] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[16:01:42.076] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:01:42.076] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 14]
+[16:01:42.076] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[16:01:42.077] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:01:42.077] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:01:42.077] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.077] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.077] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R)]
+[16:01:42.077] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:01:42.077] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = []
+[16:01:42.077] |-INFO nju.pt.client.CUPTRule => 自选题轮次
+[16:01:42.077] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:01:42.077] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:01:42.078] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:01:42.078] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:01:42.078] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X)]
+[16:01:42.078] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17]
+[16:01:42.078] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = []
+[16:03:08.642] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[16:03:08.646] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[16:03:08.769] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[16:03:08.809] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 0
+[16:03:08.813] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[16:03:08.814] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[16:03:08.815] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[16:03:08.817] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 0
+[16:03:08.819] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Match = 1
+[16:03:08.819] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[16:03:08.821] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[16:03:08.821] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[16:03:08.821] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Match = 1
+[16:03:08.822] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerRepTimesIn1Match = 0
+[16:03:08.823] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[16:03:08.823] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[16:03:08.823] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[16:03:08.824] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerRepTimesIn1Match = 0
+[16:03:08.826] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 2
+[16:03:08.827] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[16:03:08.830] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[16:03:08.831] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[16:03:08.831] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 2
+[16:03:08.832] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[16:03:08.832] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[16:03:08.835] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[16:03:08.836] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[16:03:08.837] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[16:03:08.838] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[16:03:08.856] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[16:03:08.856] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[16:03:08.862] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[16:03:08.878] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:03:08.879] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.881] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.883] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:03:08.883] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:03:08.884] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:03:08.887] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.887] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.887] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[16:03:08.892] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:03:08.893] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:03:08.900] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:03:08.901] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.901] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.901] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:03:08.901] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:03:08.902] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:03:08.902] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.902] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.902] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[16:03:08.903] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:03:08.903] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:03:08.903] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:03:08.904] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:03:08.904] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:03:08.904] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.905] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.906] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[16:03:08.906] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:03:08.906] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 14]
+[16:03:08.906] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:03:08.907] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.911] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.912] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:03:08.912] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:03:08.912] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:03:08.913] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.914] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.914] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[16:03:08.914] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:03:08.918] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:03:08.919] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:03:08.920] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:03:08.921] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:03:08.925] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.927] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.928] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[16:03:08.930] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:03:08.938] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 14]
+[16:03:08.939] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:03:08.941] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:03:08.942] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:03:08.943] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.944] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.945] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R)]
+[16:03:08.947] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:03:08.947] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = []
+[16:03:08.950] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:03:08.953] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.955] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.956] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:03:08.958] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:03:08.958] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:03:08.959] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.959] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.959] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[16:03:08.960] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:03:08.961] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:03:08.962] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:03:08.963] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:03:08.964] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:03:08.965] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.968] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.969] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[16:03:08.970] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:03:08.970] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 14]
+[16:03:08.970] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:03:08.970] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:03:08.970] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:03:08.970] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.971] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.982] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R)]
+[16:03:08.985] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:03:08.986] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = []
+[16:03:08.986] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:03:08.986] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:03:08.987] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:03:08.988] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:03:08.989] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:03:08.989] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X)]
+[16:03:08.989] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17]
+[16:03:08.990] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = []
+[16:05:20.780] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[16:05:20.785] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[16:05:20.892] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[16:05:20.915] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 0
+[16:05:20.916] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[16:05:20.916] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[16:05:20.916] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[16:05:20.916] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 0
+[16:05:20.917] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Match = 1
+[16:05:20.917] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[16:05:20.918] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[16:05:20.918] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[16:05:20.919] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Match = 1
+[16:05:20.920] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerRepTimesIn1Match = 0
+[16:05:20.920] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[16:05:20.920] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[16:05:20.921] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[16:05:20.922] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerRepTimesIn1Match = 0
+[16:05:20.923] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=34, name=苟思童, gender=男), playerMasterTimesIn1Round = 2
+[16:05:20.925] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Round = 0
+[16:05:20.925] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Round = 0
+[16:05:20.926] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Round = 0
+[16:05:20.926] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=38, name=高紫萱, gender=女), playerMasterTimesIn1Round = 2
+[16:05:20.927] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerMasterTimesIn1Match = 0
+[16:05:20.927] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerMasterTimesIn1Match = 1
+[16:05:20.928] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerMasterTimesIn1Match = 1
+[16:05:20.929] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=35, name=石杨灏天, gender=男), playerRepTimesIn1Match = 0
+[16:05:20.930] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=36, name=杨刘世骁, gender=男), playerRepTimesIn1Match = 0
+[16:05:20.931] |-INFO nju.pt.client.CUPTRule => playerData = PlayerData(id=37, name=郑家辉, gender=男), playerRepTimesIn1Match = 1
+[16:05:20.941] |-INFO JSON Reader => ===================== ReadingJsonFile =====================
+[16:05:20.941] |-INFO JSON Reader => read json form C:\Users\VC\IdeaProjects\PTAssist\Client\src\test\data.json
+[16:05:20.945] |-INFO JSON Reader => JsonFileReadSuccessfully!
+[16:05:20.955] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:05:20.956] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.956] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.957] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.958] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.958] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:05:20.958] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.958] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.958] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[16:05:20.959] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:05:20.959] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:05:20.963] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:05:20.963] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.963] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.963] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.963] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.964] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:05:20.964] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.964] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.964] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[16:05:20.965] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:05:20.965] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:05:20.965] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.965] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.965] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:05:20.965] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.965] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.966] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[16:05:20.966] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:05:20.967] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 14]
+[16:05:20.967] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:05:20.967] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.969] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.969] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.970] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.970] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:05:20.970] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.970] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.971] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[16:05:20.971] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:05:20.971] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:05:20.971] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.971] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.971] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:05:20.971] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.971] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.971] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[16:05:20.972] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:05:20.972] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 14]
+[16:05:20.973] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.973] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.973] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+[16:05:20.973] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.974] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.975] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R)]
+[16:05:20.975] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:05:20.975] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = []
+[16:05:20.976] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:05:20.976] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.976] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.976] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.976] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.976] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:05:20.976] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.977] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.977] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[16:05:20.977] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:05:20.977] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:05:20.978] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.978] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.978] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:05:20.978] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.978] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.979] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[16:05:20.979] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:05:20.979] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 14]
+[16:05:20.979] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.980] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.980] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:05:20.980] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.980] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.980] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R)]
+[16:05:20.980] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:05:20.980] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = []
+[16:05:20.980] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.980] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.980] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17]
+[16:05:20.980] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.981] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.981] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X)]
+[16:05:20.981] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17]
+[16:05:20.981] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = []
+[16:05:20.981] |-INFO nju.pt.client.CUPTRule => 当前比赛可用题库为[2, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17]
+[16:05:20.981] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.981] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.983] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.983] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17]
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O), (OPPONENT, R)]
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 8, 7, 14]
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17]
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R), (OPPONENT, O)]
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:05:20.984] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = [15, 14]
+[16:05:20.985] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.985] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.985] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17]
+[16:05:20.985] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.985] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.985] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X), (REPORTER, R)]
+[16:05:20.986] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17, 6]
+[16:05:20.986] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = []
+[16:05:20.986] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.986] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.986] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17]
+[16:05:20.986] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.986] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.986] |-INFO nju.pt.client.CUPTRule => banRuleList = [(REPORTER, X)]
+[16:05:20.987] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = [2, 4, 5, 8, 10, 12, 13, 15, 17]
+[16:05:20.987] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = []
+[16:05:20.987] |-INFO nju.pt.client.CUPTRule => 正常题轮次
+[16:05:20.987] |-INFO nju.pt.client.CUPTRule => getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)
+[16:05:20.987] |-INFO nju.pt.client.CUPTRule => tempQuestionIDLibList = [2, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17]
+[16:05:20.987] |-INFO nju.pt.client.CUPTRule => repQRecordSet = [(2, (REPORTER, X)), (4, (REPORTER, X)), (5, (REPORTER, X)), (8, (REPORTER, X)), (10, (REPORTER, X)), (12, (REPORTER, X)), (13, (REPORTER, X)), (15, (REPORTER, X)), (17, (REPORTER, X)), (1, (REPORTER, O)), (3, (REPORTER, P)), (6, (REPORTER, R)), (17, (REPORTER, P))]
+[16:05:20.987] |-INFO nju.pt.client.CUPTRule => oppQRecordSet = [(1, (OPPONENT, X)), (2, (OPPONENT, X)), (4, (OPPONENT, X)), (5, (OPPONENT, X)), (6, (OPPONENT, X)), (9, (OPPONENT, X)), (11, (OPPONENT, X)), (12, (OPPONENT, X)), (13, (OPPONENT, X)), (16, (OPPONENT, P)), (15, (OPPONENT, O)), (8, (OPPONENT, R)), (7, (OPPONENT, R)), (14, (OPPONENT, O))]
+[16:05:20.987] |-INFO nju.pt.client.CUPTRule => banRuleList = []
+[16:05:20.987] |-INFO nju.pt.client.CUPTRule => repBanQuestionIDList = []
+[16:05:20.987] |-INFO nju.pt.client.CUPTRule => oppBanQuestionIDList = []

@@ -89,11 +89,12 @@ object CUPTRule : RuleInterface {
                         specialBanRuleListConfig
                     )
                 }
+
                 RoundType.NORMAL -> {
                     var optionalQuestionIDList: List<Int>
                     // 如果获取到的可选题目数量小于指定的题目数量限制（这里是5）,则从后往前依次解锁题目限制规则，直到最终题目数量大于5
                     do {
-                        logger.info("自选题轮次")
+                        logger.info("正常题轮次")
                         logger.info("getOptionalQuestionIDList(tempQuestionIDLibList, repQRecordSet, oppQRecordSet, banRuleList)")
                         logger.info("tempQuestionIDLibList = $tempQuestionIDLibList")
                         logger.info("repQRecordSet = $repQRecordSet")
@@ -156,7 +157,7 @@ object CUPTRule : RuleInterface {
         .filter { playerData ->
             // 筛选未超过本轮主控次数限制的队员
             val playerMasterTimesIn1Round = roundPlayerRecordList.filter { it == playerData.id }.size
-            logger.info("playerMasterTimesIn1Round = $playerMasterTimesIn1Round")
+            logger.info("playerData = $playerData, playerMasterTimesIn1Round = $playerMasterTimesIn1Round")
             playerMasterTimesIn1Round < playerMasterTimesIn1RoundConfig
         }
         .filter { playerData ->
@@ -166,14 +167,14 @@ object CUPTRule : RuleInterface {
                     .filter { it.role in listOf("R", "O", "V") }
                     .filter { it.masterID == playerData.id }
                     .size
-            logger.info("playerMasterTimesIn1Match = $playerMasterTimesIn1Match")
+            logger.info("playerData = $playerData, playerMasterTimesIn1Match = $playerMasterTimesIn1Match")
             playerMasterTimesIn1Match < playerMasterTimesIn1MatchConfig
         }
         .filter { playerData ->
             // 筛选未超过比赛总的正方主控次数限制的队员
             val playerRepTimesIn1Match =
                 teamRecordDataList.filter { it.masterID == playerData.id && it.role == "R" }.size
-            logger.info("playerRepTimesIn1Match = $playerRepTimesIn1Match")
+            logger.info("playerData = $playerData, playerRepTimesIn1Match = $playerRepTimesIn1Match")
             playerRepTimesIn1Match < playerRepTimesIn1MatchConfig
         }
         .map { it.id }
@@ -195,12 +196,14 @@ object CUPTRule : RuleInterface {
                 val maxScore = sortedScoreList.last()
                 return (sortedScoreList.sum() - (minScore + maxScore) / 2.0) / (sortedScoreList.size - 1.0)
             }
+
             7 -> {
                 val sortedScoreList = scoreList.sorted()
                 val minScore = sortedScoreList.first()
                 val maxScore = sortedScoreList.last()
                 return (sortedScoreList.sum() - minScore - maxScore) / (sortedScoreList.size - 2.0)
             }
+
             else -> {
                 logger.warn("暂未提供其他裁判数下的统分规则，默认采用平均分机制")
                 return scoreList.average()
