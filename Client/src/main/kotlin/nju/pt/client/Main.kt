@@ -104,9 +104,10 @@ class AppUI : Application() {
             startBtn.setOnAction {
                 // 载入数据JSON文件 和Cache
                 if (dataFile.exists()) {
-                    logger.info("")
-                    logger.info("get data Json")
-                    data = JsonHelper.fromJson(dataFile.absolutePath)
+                    logger.info("载入数据JSON文件 和Cache")
+                    val path = dataFile.absolutePath
+                    logger.info("get data Json: $path")
+                    data = JsonHelper.fromJson(path)
                     logger.info("data = $data")
                     logger.info("getCache(data)")
                     cache = getCache(data)
@@ -116,12 +117,15 @@ class AppUI : Application() {
                     }
                     // 对于需要拒题功能的比赛，展示出拒题按钮
                     if (config.rule == RuleType.CUPT && config.roundType == RoundType.NORMAL) {
+                        logger.info("CUPT规则正常比赛轮次，启用拒题模块")
                         MatchView.confirmHBox.children.add(MatchView.refuseBtn)
                     }
                     primaryStage.apply {
                         scene = matchScene
                         title = "PTAssist-Match"
                     }
+                    // 加载数据到UI界面
+                    logger.info("加载数据到UI界面 matchUILoad(rule)")
                     matchUILoad(rule)
                 } else {
                     logger.warn("未找到比赛数据文件，无法开始比赛，请先尝试下载比赛数据文件")
@@ -135,14 +139,11 @@ class AppUI : Application() {
                         logger.info("开始下载数据文件")
                         // 下载数据
                         Thread {
-                            val packet =
-                                FileNetClient(config.ip, config.port).download(
-                                    Packet(
-                                        config.roomID,
-                                        config.round,
-                                        null
-                                    )
-                                )
+                            var packet = Packet(config.roomID, config.round, null)
+                            logger.info("构建下载数据的请求数据包 packet = $packet")
+                            logger.info("发送下载请求 ip = ${config.ip}, port = ${config.port}")
+                            packet = FileNetClient(config.ip, config.port).download(packet)
+                            logger.info("接收到响应数据包")
                             if (packet.data == null) {
                                 Platform.runLater {
                                     logger.info("服务器数据文件尚未准备完毕，无法获取数据文件")
@@ -152,7 +153,9 @@ class AppUI : Application() {
                             } else {
                                 Platform.runLater {
                                     logger.info("数据下载完毕")
+                                    logger.info("保存数据文件${packet.data}")
                                     JsonHelper.toJson(packet.data, R.DATA_JSON_PATH)
+                                    logger.info("清空缓存")
                                     File(R.CACHE_JSON_PATH).delete()
                                     PopupView.info("数据下载完毕")
                                     popupStage.show()
@@ -160,6 +163,7 @@ class AppUI : Application() {
                             }
                         }.start()
                     }
+
                     WorkMode.OFFLINE -> {
                         logger.info("当前处于离线模式，需要手动放入数据文件，并删除缓存文件")
                         PopupView.info("当前处于离线模式，请手动放入数据文件，并删除缓存文件")
@@ -184,6 +188,7 @@ class AppUI : Application() {
                         when (state) {
                             MatchState.QUESTION -> {
                                 val refuseQuestionID = group.userData as Int
+                                logger.info("拒题 refuseQuestionID = $refuseQuestionID")
                                 refusedQuestionIDList.add(refuseQuestionID)
                                 optionalQuestionsVBox.children.removeIf { ((it as RadioButton).userData as Int) == refuseQuestionID }
                                 logger.info("拒绝选题 $refuseQuestionID ${questionViewLabel.text}")
@@ -192,6 +197,7 @@ class AppUI : Application() {
                                 popupStage.show()
                                 questionViewLabel.text = ""
                             }
+
                             else -> {
                                 logger.info("选题已锁定，无法拒题")
                                 PopupView.info("选题已锁定，无法拒题")
@@ -199,6 +205,7 @@ class AppUI : Application() {
                             }
                         }
                     }
+
                     RoundType.SPECIAL -> {
                         logger.info("自选题环节，无法拒题")
                         PopupView.info("自选题环节，无法拒题")
@@ -222,6 +229,7 @@ class AppUI : Application() {
                             // 切换成比赛状态
                             state = MatchState.SUBMIT
                         }
+
                         else -> {
                             logger.info("选题已锁定，无法重复锁定 state = $state")
                             PopupView.info("选题已锁定，无法重复锁定")
@@ -245,6 +253,7 @@ class AppUI : Application() {
                             questionViewLabel.text = data.questionMap[questionID]
                             group.userData = questionID
                         }
+
                         else -> {
                             if (questionID != group.userData as Int) {
                                 group.toggles.first { it.userData as Int == group.userData }.isSelected = true
@@ -292,55 +301,55 @@ class AppUI : Application() {
                             roundPlayerRecordList.addAll(listOf(repPlayerID, oppPlayerID, revPlayerID))
                             // 更新RecordData
                             refusedQuestionIDList.forEach {
-                                repTeamData.recordDataList.add(
-                                    RecordData(
-                                        config.round,
-                                        cache.phase,
-                                        config.roomID,
-                                        it,
-                                        0,
-                                        "X",
-                                        0.0,
-                                        rule.getRepScoreWeight(repTeamData.recordDataList, true)
-                                    )
+                                val record = RecordData(
+                                    config.round,
+                                    cache.phase,
+                                    config.roomID,
+                                    it,
+                                    0,
+                                    "X",
+                                    0.0,
+                                    rule.getRepScoreWeight(repTeamData.recordDataList, true)
                                 )
+                                logger.info("添加拒题记录 record = $record")
+                                repTeamData.recordDataList.add(record)
                             }
-                            repTeamData.recordDataList.add(
-                                RecordData(
-                                    config.round,
-                                    cache.phase,
-                                    config.roomID,
-                                    group.userData as Int,
-                                    repPlayerID,
-                                    "R",
-                                    rule.getScore(repScores),
-                                    rule.getRepScoreWeight(repTeamData.recordDataList, false)
-                                )
+                            val repRecord = RecordData(
+                                config.round,
+                                cache.phase,
+                                config.roomID,
+                                group.userData as Int,
+                                repPlayerID,
+                                "R",
+                                rule.getScore(repScores),
+                                rule.getRepScoreWeight(repTeamData.recordDataList, false)
                             )
-                            oppTeamData.recordDataList.add(
-                                RecordData(
-                                    config.round,
-                                    cache.phase,
-                                    config.roomID,
-                                    group.userData as Int,
-                                    oppPlayerID,
-                                    "O",
-                                    rule.getScore(oppScores),
-                                    rule.getOppScoreWeight()
-                                )
+                            logger.info("添加正方记录 repRecord = $repRecord")
+                            repTeamData.recordDataList.add(repRecord)
+                            val oppRecord = RecordData(
+                                config.round,
+                                cache.phase,
+                                config.roomID,
+                                group.userData as Int,
+                                oppPlayerID,
+                                "O",
+                                rule.getScore(oppScores),
+                                rule.getOppScoreWeight()
                             )
-                            revTeamData.recordDataList.add(
-                                RecordData(
-                                    config.round,
-                                    cache.phase,
-                                    config.roomID,
-                                    group.userData as Int,
-                                    revPlayerID,
-                                    "V",
-                                    rule.getScore(revScores),
-                                    rule.getRevScoreWeight()
-                                )
+                            logger.info("添加反方记录 oppRecord = $oppRecord")
+                            oppTeamData.recordDataList.add(oppRecord)
+                            val revRecord = RecordData(
+                                config.round,
+                                cache.phase,
+                                config.roomID,
+                                group.userData as Int,
+                                revPlayerID,
+                                "V",
+                                rule.getScore(revScores),
+                                rule.getRevScoreWeight()
                             )
+                            logger.info("添加反方记录 revRecord = $revRecord")
+                            revTeamData.recordDataList.add(revRecord)
                             // 更新缓存并保存
                             logger.info("cache = $cache")
                             logger.info("更新缓存")
@@ -362,6 +371,7 @@ class AppUI : Application() {
                             popupStage.show()
                         }
                     }
+
                     else -> {
                         logger.info("选题信息未锁定，无法提交评分 state = $state")
                         PopupView.info("选题信息未锁定，无法提交评分")
@@ -377,11 +387,13 @@ class AppUI : Application() {
                         PopupView.info("选题信息未锁定，无法进行下一场")
                         popupStage.show()
                     }
+
                     MatchState.SUBMIT -> {
                         logger.info("比赛数据尚未提交，无法进行下一场 state = $state")
                         PopupView.info("比赛数据尚未提交，无法进行下一场")
                         popupStage.show()
                     }
+
                     MatchState.NEXT -> {
                         if (cache.phase > cache.endPhase) {
                             // 切换到启动页
@@ -405,6 +417,7 @@ class AppUI : Application() {
                                     popupStage.show()
                                     // 回到启动页
                                 }
+
                                 WorkMode.OFFLINE -> {
                                     logger.info("离线模式，无法上传数据，需要手动提交数据文件")
                                     PopupView.info("离线模式，无法上传数据，请手动提交数据文件")
@@ -422,6 +435,8 @@ class AppUI : Application() {
                                     it.reset()
                                 }
                             }
+                            // 重置拒题列表
+                            refusedQuestionIDList.clear()
                             logger.info("重置分数面板")
                             // 重置赛题展示Label
                             questionViewLabel.text = ""
