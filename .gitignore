@@ -5,4 +5,11 @@ build/
 .idea/
 out/
 ### Mac OS ###
-.DS_Store
+.DS_Store#
+### Debug ###
+Client/config
+Client/data
+Client/log
+Server/ServerCache
+Server/ServerData
+Server/log
