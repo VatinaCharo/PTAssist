@@ -221,9 +221,13 @@ object CUPTRule : RuleInterface {
      * @return 正方计分权重
      */
     override fun getRepScoreWeight(teamRecordDataList: List<RecordData>, isRefuse: Boolean): Double {
-        val oldRepScoreWeight = teamRecordDataList.filter { it.role in listOf("R", "X") }.map { it.weight }.minOf { it }
-        val refusedQuestionCount = teamRecordDataList.filter { it.role == "X" }.size
-        return if (isRefuse && refusedQuestionCount >= maxRefuseQuestionCount) oldRepScoreWeight - 0.2 else oldRepScoreWeight
+        return if (teamRecordDataList.isEmpty()){
+            3.0
+        }else{
+            val oldRepScoreWeight = teamRecordDataList.filter { it.role in listOf("R", "X") }.map { it.weight }.minOf { it }
+            val refusedQuestionCount = teamRecordDataList.filter { it.role == "X" }.size
+            if (isRefuse && refusedQuestionCount >= maxRefuseQuestionCount) oldRepScoreWeight - 0.2 else oldRepScoreWeight
+        }
     }
 
     override fun getOppScoreWeight(): Double = 2.0
