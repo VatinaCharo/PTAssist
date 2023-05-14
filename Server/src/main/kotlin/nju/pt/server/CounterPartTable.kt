@@ -54,7 +54,7 @@ class CounterPartTable(
     ) {
     val logger = LoggerFactory.getLogger("CounterPartTableLogger")
 
-    val roomCount: Int = Config.roomCount as Int//会场个数
+    val roomCount: Int = Config.roomCount //会场个数
 
     //记录总的对阵表
     var teamTableList = mutableListOf<OneRoundTable>()
@@ -67,7 +67,7 @@ class CounterPartTable(
         //记录对阵表中正方的次数
         val RCountMap = mutableMapOf<Int, Int>()
 
-        val turns: Int = Config.turns as Int
+        val turns: Int = Config.turns
         logger.info("===================== generateTableWithoutJudge =====================")
         logger.info("roomCount:${roomCount}")
         logger.info("totalTeamNumber:${totalTeamNumber}")
@@ -131,7 +131,7 @@ class CounterPartTable(
         teamTableList = JsonHelper.fromJson<CounterPartTable>(R.COUNTERPART_TABLE_JSON_PATH).teamTableList
 
         //每个会场裁判个数
-        val judgeCount = Config.judgeCount as Int
+        val judgeCount = Config.judgeCount
         // 裁判序号 to （裁判学校，裁判姓名）
         val judgeMap = mutableMapOf<Int, Pair<String, String>>().apply {
             var i = 0
