@@ -124,7 +124,7 @@ class CounterPartTable(
         return teamTableList
     }
 
-    fun generateTableWithJudge() {
+    fun generateTableWithJudge(): Int {
         logger.info("===================== generateTableWithJudge =====================")
 
         // TODO: 2022/7/9 没有json文件的异常已经被JsonHelper捕捉了，怎么提示先生成没有裁判的对阵表?
@@ -149,8 +149,10 @@ class CounterPartTable(
         }
 
 
-        //由于裁判是较为随机决定的，偶尔会出现由于分配不是很合理，选不出裁判的情况，故默认最大的尝试次数为1001次，若还是得不到结果就报错
+        //先随机1000次，看能不能不发生裁判与参赛队员同校
+        logger.info("===================== Trying: NO same school   =====================")
         for (attemptNumber in 0..1000) {
+            var isContinue = false
             logger.info("===================== Attempt ${attemptNumber + 1} =====================")
 
             //创建记录不同轮次不同会场的裁判列表 [[第一轮 1,2,3,4,... 会场的裁判],[第二轮 1,2,3,4...会场的裁判],...]
@@ -202,12 +204,8 @@ class CounterPartTable(
 
 
                     if (availableJudgeList.size < judgeCount) {
-                        if (attemptNumber == 1000) {
-                            throw Exception("学校(${playerSchoolNameList})没有足够多的裁判，请补充后再试！")
-                        } else {
-                            break@turnLoop
-                        }
-
+                        isContinue = true
+                        break@turnLoop
                     }
 
                     for (judgeNumber in 0 until judgeCount) {
@@ -238,17 +236,99 @@ class CounterPartTable(
 
             }
 
+            if (!isContinue) {
+                tableWithJudgeWriteIntoExcel(teamTableList,
+                    judgeTableAllTurns.map { it.map { it.mapNotNull { judgeMap[it] } } }
+                )
+                logger.info("CounterPartTable WITH judge generated successfully!")
+                return -1
+            }
+
+        }
+
+        run {
+            //若循环1000次都无法达成，那么就放开条件，可以同校裁
+            logger.info("===================== SAME school   =====================")
+            //创建记录不同轮次不同会场的裁判列表 [[第一轮 1,2,3,4,... 会场的裁判],[第二轮 1,2,3,4...会场的裁判],...]
+            val judgeTableAllTurns = mutableListOf<MutableList<MutableList<Int>>>()
+
+            //创建总轮次裁判序号 to 已上场次数的字典，用于均衡全部轮次各裁判的上场次数
+            val judgeUsedMap = judgeMap.keys.associateWith { 0 }.toMutableMap()
+
+            //遍历不同的轮次
+            turnLoop@ for (turn in 0 until teamTableList.size) {
+                logger.info("--------------------- Round ${turn + 1} ---------------------")
+
+                //读取本轮队伍对阵表
+                val teamTable = teamTableList[turn]
+
+                //创建用于存储本轮所用裁判序号
+                val judgeTable = mutableListOf<MutableList<Int>>()
+
+                //创建本轮次已上场裁判的序号，用于避免一个老师在一轮中在多个会场出现
+                val judgeUsedList = mutableListOf<Int>()
+
+                //遍历每一个会场的情况
+                for (room in 0 until roomCount) {
+                    logger.info("room ${room + 1}:")
+                    logger.info("R:${teamTable.RList[room]}-${teamIdMap[teamTable.RList[room]]}")
+                    logger.info("O:${teamTable.OList[room]}-${teamIdMap[teamTable.OList[room]]}")
+                    logger.info("V:${teamTable.VList[room]}-${teamIdMap[teamTable.VList[room]]}")
+                    logger.info("OB:${teamTable.OBList[room]}-${teamIdMap[teamTable.OBList[room]]}")
+
+                    //创建用于储存本会场所用裁判序号
+                    val judgeTableRoom = mutableListOf<Int>()
+
+                    //得到参赛队伍学校名称列表
+                    val playerSchoolNameList = mutableListOf<String>().apply {
+                        teamIdMap[teamTable.RList[room]]?.let { this.add(it) }
+                        teamIdMap[teamTable.OList[room]]?.let { this.add(it) }
+                        teamIdMap[teamTable.VList[room]]?.let { this.add(it) }
+                        if (teamTable.OBList[room] != -1) {
+                            teamIdMap[teamTable.OBList[room]]?.let { this.add(it) }
+                        }
+                    }.distinct()
+
+                    logger.info("Team School set: $playerSchoolNameList")
+
+                    //可用裁判的选择规则是 不与参赛队员学校相同，且未当过本轮裁判
+                    val availableJudgeList = judgeMap.toList().toMutableList()
+
+                    for (judgeNumber in 0 until judgeCount) {
+                        //若之前选过同学校的老师，则人为地将其下次被选中的概率降低
+                        val selectedIndex = selectOne(availableJudgeList.mapNotNull { it ->
+                            if (it.second.first !in judgeUsedList.map { judgeMap[it]!!.first }) judgeUsedMap[it.first] else judgeUsedMap[it.first]!! + 5
+                        })
+
+                        availableJudgeList[selectedIndex].first.let {
+                            //添加到该会场的裁判存储列表
+                            judgeTableRoom.add(it)
+                            //添加到本轮已出场的裁判列表
+                            judgeUsedList.add(it)
+                            //该裁判总出场次数+1
+                            judgeUsedMap[it] = judgeUsedMap[it]!! + 1
+
+                        }
+                        //在可用裁判列表中删除
+                        availableJudgeList.removeAt(selectedIndex)
+                    }
+                    judgeTable.add(judgeTableRoom)
+
+                    logger.info("Judges:${judgeTableRoom.associateWith { judgeMap[it] }}")
+
+                }
+                judgeTableAllTurns.add(judgeTable)
+
+
+            }
+
+
             tableWithJudgeWriteIntoExcel(teamTableList,
                 judgeTableAllTurns.map { it.map { it.mapNotNull { judgeMap[it] } } }
             )
             logger.info("CounterPartTable WITH judge generated successfully!")
-
-
-            break
-
+            return -1
         }
-
-
     }
 
 
@@ -515,7 +595,7 @@ data class OneRoundTable(
     val totalTeamNumber: Int //总队伍数
 ) {
 
-    private val fourPlayersNumber = totalTeamNumber.mod(roomCount) // 本次比赛中存在四个队伍的个数
+    private val fourPlayersNumber = totalTeamNumber - 3 * roomCount // 本次比赛中存在四个队伍的个数
 
     // 各个角色的编号列表，其索引号为会场号
     lateinit var RList: MutableList<Int>
