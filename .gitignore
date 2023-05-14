@@ -13,3 +13,4 @@ Client/log
 Server/ServerCache
 Server/ServerData
 Server/log
+Server/data.json
