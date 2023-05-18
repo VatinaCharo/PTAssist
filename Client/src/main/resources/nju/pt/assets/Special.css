@@ -67,6 +67,9 @@
     -fx-padding: 10px, 5px, 10px, 5px;
     -fx-spacing: 10px;
 }
+#MatchView_informationVBox .combo-box-popup .list-view {
+    -fx-pref-width: 100px;
+}
 
 #MatchView_lockBtn {
 

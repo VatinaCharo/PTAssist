@@ -408,7 +408,10 @@ object AboutView {
 object PopupView {
     private val logger = LoggerFactory.getLogger(this::class.java)
     private val rootGridPane = GridPane().apply { id = "PopupView_rootGridPane" }
-    private val infoLabel = Label().apply { id = "PopupView_infoLabel" }
+    private val infoLabel = Label().apply {
+        id = "PopupView_infoLabel"
+        prefWidth = 500.0
+    }
 
     private fun init() {
         logger.info("init()")

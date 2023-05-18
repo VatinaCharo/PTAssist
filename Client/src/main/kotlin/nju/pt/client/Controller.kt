@@ -14,7 +14,9 @@ class TeamBar(val type: TeamType) : HBox() {
         isEditable = false
         tooltip = Tooltip("Team Name")
     }
-    private val playerNameCB = ComboBox<String>()
+    private val playerNameCB = ComboBox<String>().apply {
+        prefWidth = 100.0
+    }
 
     init {
         spacing = 10.0

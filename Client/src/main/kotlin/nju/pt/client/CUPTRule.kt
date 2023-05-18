@@ -221,12 +221,21 @@ object CUPTRule : RuleInterface {
      * @return 正方计分权重
      */
     override fun getRepScoreWeight(teamRecordDataList: List<RecordData>, isRefuse: Boolean): Double {
-        return if (teamRecordDataList.isEmpty()){
+        logger.info("getRepScoreWeight(teamRecordDataList: List<RecordData>, isRefuse: Boolean)")
+        logger.info("teamRecordDataList = $teamRecordDataList")
+        logger.info("isRefuse = $isRefuse")
+        val oldRepScoreWeightList = teamRecordDataList.filter { it.role in listOf("R", "X") }.map { it.weight }
+//        空列表调用 minof() 函数会抛出 NoSuchElementException
+        return if (oldRepScoreWeightList.isEmpty()) {
+            logger.info("return 3.0")
             3.0
-        }else{
-            val oldRepScoreWeight = teamRecordDataList.filter { it.role in listOf("R", "X") }.map { it.weight }.minOf { it }
+        } else {
+            val oldRepScoreWeight = oldRepScoreWeightList.minOf { it }
             val refusedQuestionCount = teamRecordDataList.filter { it.role == "X" }.size
-            if (isRefuse && refusedQuestionCount >= maxRefuseQuestionCount) oldRepScoreWeight - 0.2 else oldRepScoreWeight
+            val weight =
+                if (isRefuse && refusedQuestionCount >= maxRefuseQuestionCount) oldRepScoreWeight - 0.2 else oldRepScoreWeight
+            logger.info("return $weight")
+            weight
         }
     }
 

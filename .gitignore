@@ -14,3 +14,6 @@ Server/ServerCache
 Server/ServerData
 Server/log
 Server/data.json
+data
+log
+config

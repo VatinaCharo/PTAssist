@@ -137,6 +137,8 @@ class AppUI : Application() {
                 when (config.mode) {
                     WorkMode.ONLINE -> {
                         logger.info("开始下载数据文件")
+                        PopupView.info("数据下载中，请等待...")
+                        popupStage.show()
                         // 下载数据
                         Thread {
                             var packet = Packet(config.roomID, config.round, null)
@@ -365,6 +367,7 @@ class AppUI : Application() {
                             logger.info("保存数据文件")
                             // 转换状态至NEXT
                             state = MatchState.NEXT
+                            logger.info("state = $state")
                         } else {
                             logger.info("存在未选择的主控队员，无法提交评分 state = $state")
                             PopupView.info("存在未选择的主控队员，无法提交评分")
@@ -424,6 +427,7 @@ class AppUI : Application() {
                                     popupStage.show()
                                 }
                             }
+                            logger.info("state = $state")
                         } else {
                             matchUILoad(rule)
                             // 重置主控队员面板
