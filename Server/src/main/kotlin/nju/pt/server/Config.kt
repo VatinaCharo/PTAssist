@@ -58,7 +58,7 @@ object Config {
         logger.info("vWeight: ${newConfigData.vWeight}")
 
 
-        JsonHelper.toJson(configData, R.CONFIG_JSON_PATH)
+        JsonHelper.toJson(newConfigData, R.CONFIG_JSON_PATH)
         refreshData(newConfigData)
         logger.info("Saved successfully!")
     }

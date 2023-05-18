@@ -156,6 +156,7 @@ class InfoAlert() : Alert(AlertType.INFORMATION) {
             lookupButton(ButtonType.OK)
             (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
             stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+            prefWidth = 500.0
         }
     }
 }
@@ -165,6 +166,7 @@ class ErrorAlert() : Alert(AlertType.ERROR) {
         dialogPane.apply {
             (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
             stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
+            prefWidth = 500.0
         }
     }
 }
@@ -182,6 +184,7 @@ class ConfirmAlert():Alert(AlertType.CONFIRMATION){
             stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)
 
             (scene.window as Stage).icons.add(Image(R.LOGO_PATH))
+            prefWidth = 500.0
         }
 
     }
