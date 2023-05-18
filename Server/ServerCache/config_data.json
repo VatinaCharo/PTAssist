@@ -1,9 +1,0 @@
-{
-    "port": 7080,
-    "judgeCount": 5,
-    "roomCount": 5,
-    "turns": 3,
-    "rWeight": 3.0,
-    "oWeight": 2.0,
-    "vWeight": 1.0
-}
