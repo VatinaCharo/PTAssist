@@ -50,7 +50,7 @@ class AppUI : Application() {
         // 获取配置文件
         config = getConfig()
         // 根据配置文件选择规则
-        val rule = when (config.rule) {
+        var rule = when (config.rule) {
             RuleType.CUPT -> CUPTRule
             RuleType.JSYPT -> JSYPTRule
         }
@@ -463,6 +463,12 @@ class AppUI : Application() {
                 JsonHelper.toJson(config, R.SETTING_JSON_PATH)
                 logger.info("关闭设置界面")
                 settingStage.close()
+//                更新规则库
+                rule = when (config.rule) {
+                    RuleType.CUPT -> CUPTRule
+                    RuleType.JSYPT -> JSYPTRule
+                }
+                logger.info("RULE: $rule")
             }
         }
         AboutView.nju.setOnAction {
