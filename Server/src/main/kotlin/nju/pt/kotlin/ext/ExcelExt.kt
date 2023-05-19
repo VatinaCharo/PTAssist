@@ -252,7 +252,10 @@ fun Workbook.loadJudgeFromExcel() = mutableMapOf<String, List<String>>().apply {
         judgeSheet.rowIterator().asSequence().forEachIndexed { rowIndex, row ->
             //跳过第一行标题行
             if (rowIndex != 0) {
-                val cellValues = row.cellIterator().asSequence().map { it.toString() }.toList()
+                val cellValues = row.cellIterator().asSequence().map { it.toString() }.toMutableList().let{
+                    it.removeAll(listOf("",null))
+                    it
+                }.toList()
                 if (cellValues.size > 1) {
                     //检测裁判学校是否在提供的学校列表内
                     if (!schoolMap.values.contains(cellValues[0])) {
