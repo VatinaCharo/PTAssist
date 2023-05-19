@@ -54,6 +54,7 @@ class AppUI : Application() {
             RuleType.CUPT -> CUPTRule
             RuleType.JSYPT -> JSYPTRule
         }
+        logger.info("RULE: $rule")
         // 构建启动页Stage
         startScene = Scene(StartView.build()).apply {
             stylesheets.addAll(R.DEFAULT_CSS_PATH, R.SPECIAL_CSS_PATH)

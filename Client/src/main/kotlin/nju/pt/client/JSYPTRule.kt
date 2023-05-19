@@ -21,6 +21,7 @@ object JSYPTRule : RuleInterface {
         "R" -> QuestionType.REPORTED
         "O" -> QuestionType.OPPOSED
         "X" -> QuestionType.REFUSED
+        "B" -> QuestionType.BAN
         else -> QuestionType.OPTIONAL
     }
 
