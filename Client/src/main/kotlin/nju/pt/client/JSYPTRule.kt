@@ -12,7 +12,7 @@ object JSYPTRule : RuleInterface {
         TeamType.REPORTER to QuestionType.REPORTED,
         TeamType.OPPONENT to QuestionType.OPPOSED
     )
-    private val specialBanRuleListConfig = listOf(TeamType.REPORTER to QuestionType.REPORTED)
+    private val specialBanRuleListConfig = listOf(TeamType.REPORTER to QuestionType.BAN, TeamType.REPORTER to QuestionType.REPORTED)
     private const val playerMasterTimesIn1RoundConfig = 2
     private const val playerMasterTimesIn1MatchConfig = 5
     private const val playerRepTimesIn1MatchConfig = 3
