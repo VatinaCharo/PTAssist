@@ -43,21 +43,17 @@ PTAssist，意为PT比赛小帮手，致力于减轻比赛管理负担和规范�
 
 ### 运行环境
 
-前往[Java Download | Java 8, Java 11, Java 13 - Linux, Windows & macOS (azul.com)](https://www.azul.com/downloads/?package=jdk)
+前往[Java Download | Java 8, Java 11, Java 13 - Linux, Windows & macOS (azul.com)](https://www.azul.com/downloads/?version=java-17-lts&os=windows&architecture=x86-64-bit&package=jre-fx#zulu)
 下载带javafx支持的Java JRE运行环境。
 
-点击左侧的**Zulu**项目下的**Download Now**，跳转至下载界面
+主界面默认的下载没有JavaFX支持，我们翻到主页面下面的详细版本下载界面
 
-<div align=center><img src="assets/image-20220718170934516.png" width="800" /></div>
-
-<div align=center><img src="assets/image-20220718171219705.png" width="800" /></div>
+<div align=center><img src="assets/zulu_jrefx_17.28.13.png" width="800" /></div>
 
 在红框所示的筛选器中选择**Java Version**为**Java 17 (LTS)** ，**Operating System**为**Windows**（这里以Windows为例），**Architecture**为**x86
 64-bit**（这里以x86 64-bit的主流架构为例），**Java Package**为**JRE FX**
 
-<div align=center><img src="assets/image-20220718171406052.png" width="800" /></div>
-
-点击下载`.msi`类型的安装包进行安装
+点击下载`.msi`类型的安装包进行安装(ZIP格式的安装包需要自行配置环境变量，这里不推荐使用)
 
 ### 软件本体
 
