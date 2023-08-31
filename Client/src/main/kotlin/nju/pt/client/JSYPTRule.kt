@@ -1,6 +1,5 @@
 package nju.pt.client
 
-import RuleInterface
 import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.RecordData
 import org.slf4j.LoggerFactory

@@ -1,6 +1,5 @@
 package nju.pt.client
 
-import RuleInterface
 import javafx.application.Application
 import javafx.application.Platform
 import javafx.scene.Node

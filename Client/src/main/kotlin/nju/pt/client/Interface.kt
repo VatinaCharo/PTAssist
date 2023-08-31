@@ -1,4 +1,5 @@
-import nju.pt.client.RoundType
+package nju.pt.client
+
 import nju.pt.databaseassist.PlayerData
 import nju.pt.databaseassist.RecordData
 
