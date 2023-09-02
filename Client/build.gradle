@@ -29,7 +29,7 @@ tasks.startScripts {
 distributions {
     main {
         contents {
-            from parent.file('README_Server.md')
+            from parent.file('README_Client.md')
             parent.file("assets").listFiles().each {
                 from(it) {
                     into "assets"
